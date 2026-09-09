@@ -1,1 +1,50 @@
-{"archivos": [], "hojas": 0}
+{
+ "generado": "2026-09-09",
+ "build": "2026-09-04",
+ "recorte": "",
+ "hojas": 49,
+ "archivos": [
+  {
+   "seccion": "index",
+   "nombre": "Portada",
+   "archivo": "informe/informe-cienciometrico-index.pdf",
+   "hojas": 6,
+   "kb": 345
+  },
+  {
+   "seccion": "produccion",
+   "nombre": "Producción",
+   "archivo": "informe/informe-cienciometrico-produccion.pdf",
+   "hojas": 8,
+   "kb": 541
+  },
+  {
+   "seccion": "impacto",
+   "nombre": "Impacto",
+   "archivo": "informe/informe-cienciometrico-impacto.pdf",
+   "hojas": 7,
+   "kb": 474
+  },
+  {
+   "seccion": "colaboracion",
+   "nombre": "Colaboración",
+   "archivo": "informe/informe-cienciometrico-colaboracion.pdf",
+   "hojas": 7,
+   "kb": 1221
+  },
+  {
+   "seccion": "tematica",
+   "nombre": "Áreas temáticas",
+   "archivo": "informe/informe-cienciometrico-tematica.pdf",
+   "hojas": 5,
+   "kb": 557
+  },
+  {
+   "seccion": "metodologia",
+   "nombre": "Metodología y limitaciones",
+   "archivo": "informe/informe-cienciometrico-metodologia.pdf",
+   "hojas": 16,
+   "kb": 297
+  }
+ ]
+}
