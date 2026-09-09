@@ -277,6 +277,57 @@ export const personaDelRecorte = (sel) =>
 export const publicacionesDe = (pubs, nombre) =>
   pubs.reduce((n, p) => n + ((p.autores_uft || []).includes(nombre) ? 1 : 0), 0);
 
+/** La unidad del recorte, cuando es UNA sola.
+
+    Alcanza a las escuelas sin nada añadido: no hay una dimensión `escuela`
+    aparte —el corte por escuela es P-07 visto un nivel más abajo, derivado de
+    la jerarquía—, así que facultades y escuelas son valores del mismo campo
+    `unidades`. La aritmética de la inestabilidad tampoco distingue entre
+    ellas, y tres de las escuelas están por debajo del umbral. */
+export const unidadDelRecorte = (sel) =>
+  (sel.unidad && sel.unidad.length === 1) ? sel.unidad[0] : null;
+
+/** Sobre cuántas publicaciones descansan los indicadores de impacto de esta
+    unidad, y cuánto vale una de ellas en el «top 10 %».
+
+    Las dos cifras son distintas y las dos hacen falta. La primera es el tamaño
+    del conjunto; la segunda es la base del indicador frágil, que no es la
+    misma: sólo las publicaciones con percentil de citación entran en él. Que
+    una publicación valga `100/n` puntos no se estima, se calcula.
+
+    Se mide sobre la unidad ENTERA en la ventana, sin el resto del recorte
+    aplicado, por la misma razón que en `publicacionesDe`: añadir un filtro de
+    año no convierte a una facultad en muestra reducida. */
+export const baseDeUnidad = (pubs, nombre) => {
+  const suyas = pubs.filter((p) => (p.unidades || []).includes(nombre));
+  const conDato = suyas.filter((p) => p.percentil_citacion !== null
+                                   && p.percentil_citacion !== undefined);
+  const enTop = conDato.filter((p) => p.percentil_citacion <= 10).length;
+  return { n: suyas.length, base: conDato.length, enTop };
+};
+
+/** Cuánto mueve UNA publicación el «top 10 %» de un conjunto de `base`
+    publicaciones con percentil, de las que `enTop` están en el decil.
+
+    Forma cerrada del jackknife, no una aproximación. Quitar una publicación
+    deja `base - 1`, y sólo hay dos resultados posibles: si la que sale estaba
+    en el top, el valor pasa a `100(enTop-1)/(base-1)`; si no, a
+    `100·enTop/(base-1)`. La diferencia entre ambos es `100/(base-1)`.
+
+    `100/base` parecía la cifra evidente y no lo era: con 17 publicaciones da
+    5,9 puntos y el jackknife medido sobre el corpus da 6,2. La diferencia nace
+    de que al quitar una cambia también el denominador. Se vio comparando la
+    banda contra la tabla de `docs/UMBRAL_POR_UNIDAD.md`.
+
+    Cuando NINGUNA está en el top, el jackknife da cero y ese cero engaña: no
+    es estabilidad, es que no hay nada que quitar. Ahí se devuelve `null` y la
+    banda dice otra cosa. */
+export const vaivenTop10 = ({ base, enTop }) => {
+  if (!base || base < 2) return null;
+  if (enTop === 0) return null;
+  return 100 / (base - 1);
+};
+
 export const hayRecorte = sel =>
   Boolean(sel.q) || DIMENSIONES.some(([c]) => sel[c] && sel[c].length);
 

@@ -166,6 +166,72 @@ export function advertenciaMuestraReducida(umbral) {
     umbral: 480 quedan por debajo, y excluirlas de su propio informe sería
     decidir sobre esas personas en silencio en vez de declararles la
     limitación. Es la decisión del usuario del 2026-09-07. */
+/** La banda de una unidad con pocas publicaciones.
+
+    POR QUÉ EXISTE
+        Un informe recortado a una facultad presenta su mediana de FWCI y su
+        «top 10 %» con la misma cara que el institucional, que descansa sobre
+        823 publicaciones. Con 17, una sola publicación vale 6,2 puntos de un
+        indicador cuyo valor de referencia es 10: la unidad puede pasar de
+        5,9 % a cero o a doce por un trabajo. Medido unidad por unidad en
+        `docs/UMBRAL_POR_UNIDAD.md`.
+
+    QUÉ DICE, Y POR QUÉ NO ES UNA ETIQUETA
+        La banda declara la SENSIBILIDAD medida, no un rótulo genérico: cuántas
+        publicaciones sostienen el indicador y cuánto lo mueve una. Ese número
+        es aritmética —`100/n`— y no depende del umbral, así que si mañana se
+        discute el 20 la cifra que el lector ve sigue siendo correcta. El
+        umbral sólo decide cuándo aparece la banda.
+
+    QUÉ NO DICE
+        No dice que el informe no sea interpretable. Una facultad con seis
+        publicaciones publicó seis, y su sección de producción es válida
+        entera; lo que la banda califica son los indicadores normalizados, que
+        son los que dependen del tamaño. Apagar de más también engaña (`D-…`,
+        la mediana por año en el informe personal).
+
+        Tampoco reutiliza la redacción de personas. «No son interpretables
+        individualmente» apela a DORA y al Manifiesto de Leiden, que hablan de
+        evaluar personas; una facultad no es una persona y copiar la frase
+        importaría un argumento que aquí no aplica.
+
+    SIN UMBRAL NO HAY BANDA, y es a propósito: el número vive en
+    `config/indicators.yml` y viaja en `meta.json`. Escribir aquí un valor por
+    omisión sería una segunda definición de la misma regla. */
+export function salvaguardasUnidad(pubs, sel, meta) {
+  const unidad = X.unidadDelRecorte(sel);
+  const umbral = meta && meta.n_minimo_interpretable_unidad;
+  if (!unidad || !umbral) return '';
+  const base = X.baseDeUnidad(pubs, unidad);
+  const { n } = base;
+  if (n >= umbral) return '';
+
+  /* El vaivén se calcula sobre la base del indicador frágil —las que tienen
+     percentil—, no sobre el total de la unidad: son bases distintas.
+
+     Cuando ninguna está en el top 10 %, el jackknife da cero y ese cero
+     engaña: no es estabilidad, es que no hay nada que quitar. Ahí la frase
+     cambia y dice lo que de verdad pasaría, que es lo contrario de tranquilizar. */
+  const pp = X.vaivenTop10(base);
+  const salto = base.base ? 100 / base.base : null;
+  return `<section class="salvaguardas" aria-label="Cómo leer este informe">
+    <p class="nota-destacada"><b>Muestra reducida.</b>
+      Los indicadores de impacto de <b>${c.escapar(unidad)}</b> se calculan sobre
+      ${c.nf.format(n)} ${n === 1 ? 'publicación' : 'publicaciones'} en la ventana.
+      ${pp !== null
+        ? `Una publicación más o menos mueve el «top 10 %» en
+           ${c.num(pp, 1)} puntos porcentuales.`
+        : (salto !== null
+          ? `Ninguna está en el «top 10 %», y eso no es estabilidad: una sola que
+             entrara llevaría la cifra a ${c.num(salto, 1)} %.`
+          : '')}
+      Compare con cautela entre unidades de tamaño muy distinto: la cobertura de
+      Scopus tampoco es igual en todas las disciplinas.</p>
+    <p class="nota">Esto califica los indicadores normalizados —FWCI, percentiles
+      de citación, cuartil de revista—, no el recuento de lo publicado.</p>
+  </section>`;
+}
+
 export function salvaguardasPersona(pubs, sel, meta, umbral) {
   const persona = X.personaDelRecorte(sel);
   if (!persona || !meta) return '';
@@ -354,7 +420,8 @@ export function explorador(pubs, sel, proc, jerarquia, meta, umbral, textos) {
     controles: controles(pubs, sel),
     // Las salvaguardas van pegadas a las cifras que califican, y por delante:
     // una advertencia debajo del número al que corrige llega tarde.
-    cifras: salvaguardasPersona(pubs, sel, meta, umbral) + cifras(X.resumen(sub), textos),
+    cifras: salvaguardasPersona(pubs, sel, meta, umbral)
+      + salvaguardasUnidad(pubs, sel, meta) + cifras(X.resumen(sub), textos),
     cortes: cortes(sub, proc, jerarquia, textos, sel),
   };
 }
@@ -807,7 +874,8 @@ export function seccion(pubs, sel, clave, proc, unidadPorPersona, jerarquia, met
   return {
     estado: estado(sub.length, pubs.length, sel, { enlaceLista: true }),
     controles: controles(pubs, sel) + indice(clave),
-    cifras: salvaguardasPersona(pubs, sel, meta, umbral) + cifras(X.resumen(sub), textos),
+    cifras: salvaguardasPersona(pubs, sel, meta, umbral)
+      + salvaguardasUnidad(pubs, sel, meta) + cifras(X.resumen(sub), textos),
     cortes: cortesSeccion(sub, clave, proc, unidadPorPersona, jerarquia, sel, textos),
   };
 }
