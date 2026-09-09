@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Publicaciones — Informe Bibliométrico</title>
+<meta name="description" content="Tabla completa de publicaciones con filtros por año, tipo, área, unidad y acceso abierto.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/app.css">
+<!-- Estructural, cero color propio (ver la cabecera del archivo): puede
+     cargarse en las once páginas sin que las que aún no usan Bento Grid
+     cambien de aspecto. -->
+<link rel="stylesheet" href="assets/css/modern-ui.css">
+<script>/* Corre antes de pintar, y las dos cosas que hace tienen que ocurrir antes.
+   1. El tema guardado: desde el módulo diferido, la página aparecería un
+      instante con el tema equivocado.
+   2. La clase `js`: marca que hay JavaScript. Las vistas conmutables se
+      contraen a una sola sólo bajo esa clase; sin JS se muestran las dos, que
+      es lo correcto —la tabla es la vía equivalente al gráfico, no un extra—. */
+(function(){var e=document.documentElement;e.className+=' js';
+try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(x){}})();</script>
+</head>
+<body data-pagina="publicaciones">
+<a class="salto-contenido" href="#contenido">Saltar al contenido</a>
+<header class="cabecera" id="cabecera" data-prerender="1">
+
+    <div class="contenedor">
+      <div class="marca-fila">
+        <a class="marca" href="index.html">
+          <span class="marca-sigla" aria-hidden="true">UFT</span>
+          <span class="marca-txt">
+            <strong>Universidad Finis Terrae</strong>
+            <span>Informe Bibliométrico Institucional</span>
+          </span>
+        </a>
+        <div class="tema" role="group" aria-label="Tema de color"><button type="button" data-tema="auto"
+      aria-pressed="true" title="Tema auto">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.5-6.5-.7.7M6.2 17.8l-.7.7m12.6 0-.7-.7M6.2 6.2l-.7-.7M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Auto</span></button><button type="button" data-tema="claro"
+      aria-pressed="false" title="Tema claro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v1m0 14v1m8-8h-1M5 12H4m13.7-5.7-.7.7M6.9 17.1l-.7.7m11.5 0-.7-.7M6.9 6.9l-.7-.7M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Claro</span></button><button type="button" data-tema="oscuro"
+      aria-pressed="false" title="Tema oscuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Oscuro</span></button></div>
+        <button type="button" class="nav-toggle" aria-expanded="false"
+          aria-controls="menu-nav" aria-label="Abrir menú de secciones">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"
+            fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+            <path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <span>Secciones</span>
+        </button>
+      </div>
+      <nav class="nav" id="menu-nav" aria-label="Secciones"><div class="nav-grupo">
+    <span class="nav-grupo-nombre">Informe</span>
+    <span class="nav-grupo-enlaces"><a href="index.html">Portada</a><a href="produccion.html">Producción</a><a href="impacto.html">Impacto</a><a href="colaboracion.html">Colaboración</a><a href="tematica.html">Áreas temáticas</a></span>
+  </div><div class="nav-grupo">
+    <span class="nav-grupo-nombre">Datos</span>
+    <span class="nav-grupo-enlaces"><a href="autores.html">Autores</a><a href="publicaciones.html" aria-current="page">Publicaciones</a><a href="fuentes-externas.html">Fuentes externas</a></span>
+  </div><div class="nav-grupo">
+    <span class="nav-grupo-nombre">Sobre este informe</span>
+    <span class="nav-grupo-enlaces"><a href="indicadores.html">Indicadores</a><a href="metodologia.html">Metodología</a></span>
+  </div></nav>
+    </div>
+</header>
+<div class="vigencia" id="vigencia" data-prerender="1">
+
+    <div class="contenedor">
+      <nav class="v-migas" aria-label="Ruta de posición">
+        <a href="index.html">Portada</a>
+        <span class="migas-sep" aria-hidden="true">·</span>
+        <span class="migas-actual" aria-current="page">Publicaciones</span>
+      </nav>
+      <span class="sep" aria-hidden="true"></span>
+      <details class="v-chip">
+        <summary>Fuente <b>Scopus · SciVal</b></summary>
+        <p>Bases de datos institucionales consultadas para el universo de publicaciones del informe.</p>
+      </details>
+      <span class="sep" aria-hidden="true"></span>
+      <details class="v-chip">
+        <summary>Ventana <b>2023–2025</b></summary>
+        <p>Fechas de publicación consideradas como universo del informe. Fuera de este periodo un trabajo no aparece.</p>
+      </details>
+      <span class="sep" aria-hidden="true"></span>
+      <details class="v-chip">
+        <summary>Citas al <b>2026-07-22</b></summary>
+        <p>Fecha en que se congelaron el recuento de citas y las métricas derivadas.</p>
+      </details>
+      <span class="recorte-vivo" id="recorte-vivo" hidden></span>
+      <p class="solo-papel credito-impreso">
+        Universidad Finis Terrae · Informe Bibliométrico Institucional.
+        Fuentes: Scopus · SciVal.
+        Ventana 2023–2025.
+        Citas actualizadas al 2026-07-22.
+      </p>
+      <p class="solo-papel recorte-impreso" id="recorte-impreso">Sin filtros: el informe completo, 823 publicaciones.</p>
+      <p class="solo-papel recorte-impreso" id="seleccion-impresa"></p>
+      <label class="v-anio" id="recorte-anio-env" hidden>
+        <span class="solo-lectores">Filtrar por año</span>
+        <select id="recorte-anio" aria-label="Filtrar por año de publicación"></select>
+      </label>
+      <button type="button" class="descargar" id="descargar-informe"
+        title="Abre el diálogo de impresión del navegador; elija «Guardar como PDF»">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
+          fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Descargar informe
+      </button>
+      <a class="vigencia-guia" href="metodologia.html">Cómo leer estos indicadores →</a>
+    </div>
+</div>
+<main id="contenido" class="contenedor">
+  <!-- Publicaciones usa EL MISMO motor de filtrado que la portada y las
+       secciones. Antes tenía el suyo propio: dos implementaciones del mismo
+       concepto, con claves distintas para la misma dimensión. Ahora un recorte
+       hecho en la portada llega aquí por la URL y sigue valiendo. -->
+  <header class="portada-cabecera">
+    <div class="portada-id">
+      <h1>Publicaciones</h1>
+      <p class="portada-sub">El listado completo, con el mismo recorte que el resto del sitio.</p>
+    </div>
+  </header>
+
+  <div id="estado-recorte"></div>
+
+  <div class="explorador">
+    <aside class="explorador-panel" aria-label="Filtros">
+      <h2 class="solo-lectores">Filtrar las publicaciones</h2>
+      <div id="controles"></div>
+    </aside>
+
+    <div class="explorador-resultado">
+      <div class="acciones-tabla">
+        <span id="estado-seleccion" class="nota" aria-live="polite"></span>
+        <button class="boton" id="exportar-seleccion" disabled>Exportar selección</button>
+        <button class="boton boton-primario" id="exportar">Exportar CSV (todo el recorte)</button>
+      </div>
+      <div class="tabla-envoltura"><table>
+    <thead><tr>
+      <th scope="col" class="col-marca"><label class="solo-lectores" for="marcar-todo">Seleccionar todas las publicaciones de esta página</label>
+        <input type="checkbox" id="marcar-todo"></th>
+      <th scope="col">Año</th><th scope="col">Título y autores UFT</th><th scope="col">Fuente</th>
+      <th scope="col">Tipo</th><th scope="col" class="num">Citas</th><th scope="col" class="num">FWCI</th></tr></thead>
+    <tbody id="tabla-cuerpo"></tbody></table></div>
+  
+      <div class="paginacion" id="paginacion"></div>
+    </div>
+  </div>
+</main>
+<footer class="pie" id="pie" data-prerender="1">
+
+    <div class="contenedor">
+      <p>Los indicadores describen la producción indexada en Scopus, con las métricas normalizadas de SciVal. La cobertura de la base no es uniforme entre disciplinas.
+      Ver <a href="metodologia.html">metodología y limitaciones</a>.</p>
+      <p>Universo: 823 publicaciones ·
+      816 con métricas ·
+      818 con autoría detallada.
+      Build 2026-09-04.</p>
+    </div>
+</footer>
+<script type="module" src="assets/js/paginas.js"></script>
+</body>
+</html>

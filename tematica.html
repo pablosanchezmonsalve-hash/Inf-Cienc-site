@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Informe Bibliométrico Institucional</title>
-<meta name="description" content="Producción, impacto, colaboración y áreas temáticas de la actividad científica institucional.">
+<title>Áreas temáticas — Informe Bibliométrico</title>
+<meta name="description" content="Distribución por grandes áreas, disciplinas ASJC y Objetivos de Desarrollo Sostenible.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/app.css">
 <!-- Estructural, cero color propio (ver la cabecera del archivo): puede
@@ -20,7 +20,7 @@
 (function(){var e=document.documentElement;e.className+=' js';
 try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(x){}})();</script>
 </head>
-<body data-pagina="portada">
+<body data-pagina="seccion">
 <a class="salto-contenido" href="#contenido">Saltar al contenido</a>
 <header class="cabecera" id="cabecera" data-prerender="1">
 
@@ -53,7 +53,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       <nav class="nav" id="menu-nav" aria-label="Secciones"><div class="nav-grupo">
     <span class="nav-grupo-nombre">Informe</span>
-    <span class="nav-grupo-enlaces"><a href="index.html" aria-current="page">Portada</a><a href="produccion.html">Producción</a><a href="impacto.html">Impacto</a><a href="colaboracion.html">Colaboración</a><a href="tematica.html">Áreas temáticas</a></span>
+    <span class="nav-grupo-enlaces"><a href="index.html">Portada</a><a href="produccion.html">Producción</a><a href="impacto.html">Impacto</a><a href="colaboracion.html">Colaboración</a><a href="tematica.html" aria-current="page">Áreas temáticas</a></span>
   </div><div class="nav-grupo">
     <span class="nav-grupo-nombre">Datos</span>
     <span class="nav-grupo-enlaces"><a href="autores.html">Autores</a><a href="publicaciones.html">Publicaciones</a><a href="fuentes-externas.html">Fuentes externas</a></span>
@@ -69,7 +69,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <nav class="v-migas" aria-label="Ruta de posición">
         <a href="index.html">Portada</a>
         <span class="migas-sep" aria-hidden="true">·</span>
-        <span class="migas-actual" aria-current="page">Portada</span>
+        <span class="migas-actual" aria-current="page">Áreas temáticas</span>
       </nav>
       <span class="sep" aria-hidden="true"></span>
       <details class="v-chip">
@@ -108,42 +108,22 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <a class="vigencia-guia" href="metodologia.html">Cómo leer estos indicadores →</a>
     </div>
 </div>
-<main id="contenido" class="contenedor">
-  <!-- LA PORTADA ES UN EXPLORADOR, no un informe que se lee de arriba abajo.
-       El lector elige el recorte y todas las cifras y gráficos se recalculan
-       sobre él, en el navegador, desde publications.json.
-
-       El pre-renderizado deja escrito el estado SIN FILTRAR, que es el informe
-       completo: sin JavaScript se ve exactamente eso, con sus cifras y sus
-       gráficos. La interacción se añade encima. Los `details` de los filtros
-       se abren y se leen sin guion, que es la razón de usarlos. -->
+<main id="contenido" class="contenedor" data-seccion="tematica">
+  <!-- Sección explorable: los mismos filtros que la portada, y los cortes
+       propios de este eje recalculados sobre el recorte. El pre-renderizado
+       deja escrito el estado sin filtrar, que es el informe completo. -->
   <header class="portada-cabecera">
     <div id="titular" data-prerender="1">
 <div class="portada-id">
-    <h1>Informe bibliométrico</h1>
-    <p class="portada-sub">Universidad Finis Terrae
-      · Scopus y SciVal · 2023–2025</p>
-    <p class="ventana-cierre">La ventana de este informe termina en
-      <b>2025</b>: lo publicado después
-      <b>no está aquí</b>. La fija la carga de datos, no la fecha en que usted lo lee.</p>
+    <h1>Áreas temáticas</h1>
+    <p class="portada-sub">En qué áreas y categorías temáticas se concentra la producción, según la clasificación que Scopus y SciVal aplican.</p>
   </div>
   <details class="metodo portada-metodo">
-    <summary>Qué mide este informe y qué no</summary>
-    <div class="metodo-cuerpo">
-      <p>Producción, impacto, colaboración y estructura temática de la actividad
-      científica indexada en <b>Scopus</b>, con las métricas normalizadas de
-      <b>SciVal</b>. No mide la actividad académica total: sólo lo que esas dos
-      fuentes recogen.</p>
-      <p>Cada cifra declara <b>sobre cuántas publicaciones se calcula</b>, y esa
-      base cambia según el indicador: no todas las publicaciones tienen
-      métricas. Por eso dos cifras de esta página pueden no cuadrar entre sí sin
-      que ninguna esté mal.</p>
-    </div>
+    <summary>Qué NO dice esta sección</summary>
+    <div class="metodo-cuerpo"><p>De qué trata cada artículo. La clasificación por área asigna la categoría de la revista, no el tema del trabajo: un artículo de historia de la medicina publicado en una revista clínica se clasifica como clínico. Las categorías tampoco son excluyentes —una revista puede estar en varias— y por eso no reparten el total. Y la prominencia de un tema describe la atención que el campo recibe en el mundo, no el desempeño de quien publica en él.</p></div>
   </details>
 </div>
   </header>
-
-  <div class="minifoco" id="minifoco" aria-label="Exploración rápida"></div>
 
   <div id="estado-recorte" data-prerender="1">
 <p class="recorte-estado" role="status">
@@ -271,7 +251,16 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
             aria-pressed="false">Nacional<span class="chip-n">398</span></button><button type="button" class="chip"
             data-dim="colaboracion" data-valor="Sin dato declarado"
             aria-pressed="false">Sin dato declarado<span class="chip-n">7</span></button></div>
-    </details></div>
+    </details></div><nav class="rail" aria-label="Indicadores de la sección">
+    <p class="rail-titulo">En esta sección</p>
+    <a href="#T-05">
+      <span class="rail-cod">T-05</span>
+      <span class="rail-nom">Áreas QS</span></a><a href="#T-01">
+      <span class="rail-cod">T-01</span>
+      <span class="rail-nom">Áreas temáticas ASJC</span></a><a href="#T-04">
+      <span class="rail-cod">T-04</span>
+      <span class="rail-nom">Objetivos de Desarrollo Sostenible</span></a>
+  </nav>
 </div>
     </aside>
 
@@ -315,62 +304,24 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     </article></div>
 </div>
 
-      <h2 class="titulo-seccion">Cómo se reparte</h2>
-      <div class="cortes" id="cortes" data-prerender="1">
-
-    <section class="corte" data-corte="anio">
-      <h3>Producción por año</h3>
-      <div class="grafico"><div class="grafico" style="max-width:518px"><svg class="chart" viewBox="0 0 518 260"
-    data-cifras="completas" role="list" aria-label="Producción por año — gráfico de barras por año, 3 años">
-    
-    <line class="red" x1="52" x2="502" y1="222" y2="222"/>
-    <text class="tick" x="44" y="225.5" text-anchor="end">0</text>
-    <line class="red" x1="52" x2="502" y1="124" y2="124"/>
-    <text class="tick" x="44" y="127.5" text-anchor="end">188</text>
-    <line class="red" x1="52" x2="502" y1="26" y2="26"/>
-    <text class="tick" x="44" y="29.5" text-anchor="end">376</text><g class="marca" data-k="2023" tabindex="0" role="listitem"
-        aria-label="2023: 228"
-        data-tip="2023" data-tip-v="228"
-        >
-      <rect class="barra" x="99" y="103.28154720790604" width="56" height="118.71845279209396" rx="4"/>
-      <text class="valor" x="127" y="96.28154720790604" text-anchor="middle">228</text>
-      <text x="127" y="240" text-anchor="middle">2023</text>
-    </g><g class="marca" data-k="2024" tabindex="-1" role="listitem"
-        aria-label="2024: 276"
-        data-tip="2024" data-tip-v="276"
-        >
-      <rect class="barra" x="249" y="78.28818872535996" width="56" height="143.71181127464004" rx="4"/>
-      <text class="valor" x="277" y="71.28818872535996" text-anchor="middle">276</text>
-      <text x="277" y="240" text-anchor="middle">2024</text>
-    </g><g class="marca" data-k="2025" tabindex="-1" role="listitem"
-        aria-label="2025: 319"
-        data-tip="2025" data-tip-v="319"
-        >
-      <rect class="barra" x="399" y="55.89830508474574" width="56" height="166.10169491525426" rx="4"/>
-      <text class="valor" x="427" y="48.89830508474574" text-anchor="middle">319</text>
-      <text x="427" y="240" text-anchor="middle">2025</text>
-    </g>
-    <line class="eje" x1="52" x2="502" y1="222" y2="222"/>
-  </svg></div></div>
-      
-      
-      <p class="lectura-grafico"><b>Qué muestra</b>
-      Cada barra cuenta las publicaciones cuyo año de publicación cae en ese año. Mide actividad indexada en la ventana, no producción total.</p>
-    <p class="lectura-cuidado"><b>Cuidado</b>
-      Serie de 3 años: no sostiene tendencia de largo plazo.</p>
-      <p class="sello">
-    <span><b>Fuente</b> Scopus</span>
-    <span><b>Corte</b> 2026-07-22</span>
-    <span><b>N</b> 823 publicaciones</span>
-    <span><b>Cobertura</b> 100,0 % · 823 con dato</span>
-    </p>
-    </section>
-    <section class="corte" data-corte="qs_area">
-      <h3>Áreas QS</h3>
-      <div class="grafico"><div class="grafico"><svg class="chart" id="g6" viewBox="0 0 680 140"
+      <h2 class="titulo-seccion">Áreas temáticas</h2>
+      <div class="cortes" id="cortes" data-indicadores="T-05,T-01,T-04" data-prerender="1">
+<section class="corte" id="T-05"
+      data-corte="qs_area" tabindex="-1">
+      <header class="corte-cab">
+        <h3>Áreas QS</h3>
+        <div class="vistas" role="group" aria-label="Forma de presentación">
+    <button type="button" data-vista="grafico" aria-pressed="true"
+      aria-controls="T-05-grafico">Gráfico</button>
+    <button type="button" data-vista="tabla" aria-pressed="false"
+      aria-controls="T-05-tabla">Tabla</button>
+  </div>
+      </header>
+      <div class="vista" id="T-05-grafico" data-vista="grafico" data-activa="true">
+        <div class="grafico"><div class="grafico"><svg class="chart" id="g13" viewBox="0 0 680 140"
     data-cifras="completas"
     role="list" aria-label="Áreas QS — gráfico de barras, 5 categorías"><defs>
-    <pattern id="g6-t" width="7" height="7" patternUnits="userSpaceOnUse"
+    <pattern id="g13-t" width="7" height="7" patternUnits="userSpaceOnUse"
              patternTransform="rotate(45)">
       <rect width="7" height="7" fill="none"/>
       <line x1="0" y1="0" x2="0" y2="7" stroke="var(--superficie)" stroke-width="2.4"/>
@@ -381,7 +332,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <text x="216" y="16.5" text-anchor="end">Life Sciences &amp; Medicine</text>
       <rect class="barra" fill="var(--serie-1)" x="226" y="6"
         width="398" height="14" rx="4"/><rect class="trama" x="226" y="6" width="398"
-           height="14" rx="4" fill="url(#g6-t)"/>
+           height="14" rx="4" fill="url(#g13-t)"/>
       <text class="valor" x="631" y="16.5">537</text>
     </g><g class="marca" data-k="Social Sciences &amp; Management" tabindex="-1" role="listitem"
         aria-label="Social Sciences &amp; Management: 192"
@@ -390,7 +341,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <text x="216" y="42.5" text-anchor="end">Social Sciences &amp; Management</text>
       <rect class="barra" fill="var(--serie-1)" x="226" y="32"
         width="142.30167597765364" height="14" rx="4"/><rect class="trama" x="226" y="32" width="142.30167597765364"
-           height="14" rx="4" fill="url(#g6-t)"/>
+           height="14" rx="4" fill="url(#g13-t)"/>
       <text class="valor" x="375.30167597765364" y="42.5">192</text>
     </g><g class="marca" data-k="Engineering &amp; Technology" tabindex="-1" role="listitem"
         aria-label="Engineering &amp; Technology: 102"
@@ -399,7 +350,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <text x="216" y="68.5" text-anchor="end">Engineering &amp; Technology</text>
       <rect class="barra" fill="var(--serie-1)" x="226" y="58"
         width="75.59776536312849" height="14" rx="4"/><rect class="trama" x="226" y="58" width="75.59776536312849"
-           height="14" rx="4" fill="url(#g6-t)"/>
+           height="14" rx="4" fill="url(#g13-t)"/>
       <text class="valor" x="308.5977653631285" y="68.5">102</text>
     </g><g class="marca" data-k="Arts &amp; Humanities" tabindex="-1" role="listitem"
         aria-label="Arts &amp; Humanities: 94"
@@ -408,7 +359,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <text x="216" y="94.5" text-anchor="end">Arts &amp; Humanities</text>
       <rect class="barra" fill="var(--serie-1)" x="226" y="84"
         width="69.6685288640596" height="14" rx="4"/><rect class="trama" x="226" y="84" width="69.6685288640596"
-           height="14" rx="4" fill="url(#g6-t)"/>
+           height="14" rx="4" fill="url(#g13-t)"/>
       <text class="valor" x="302.66852886405957" y="94.5">94</text>
     </g><g class="marca" data-k="Natural Sciences" tabindex="-1" role="listitem"
         aria-label="Natural Sciences: 71"
@@ -417,289 +368,517 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <text x="216" y="120.5" text-anchor="end">Natural Sciences</text>
       <rect class="barra" fill="var(--serie-1)" x="226" y="110"
         width="52.621973929236496" height="14" rx="4"/><rect class="trama" x="226" y="110" width="52.621973929236496"
-           height="14" rx="4" fill="url(#g6-t)"/>
+           height="14" rx="4" fill="url(#g13-t)"/>
       <text class="valor" x="285.6219739292365" y="120.5">71</text>
     </g></svg></div></div>
+      </div>
+      <div class="vista" id="T-05-tabla" data-vista="tabla" data-activa="false">
+        <div class="tabla-envoltura tabla-datos"><table>
+    <thead><tr><th scope="col">Categoría</th><th scope="col" class="num">n</th></tr></thead><tbody><tr><td>Life Sciences &amp; Medicine</td>
+      <td class="num">537</td>
+      </tr><tr><td>Social Sciences &amp; Management</td>
+      <td class="num">192</td>
+      </tr><tr><td>Engineering &amp; Technology</td>
+      <td class="num">102</td>
+      </tr><tr><td>Arts &amp; Humanities</td>
+      <td class="num">94</td>
+      </tr><tr><td>Natural Sciences</td>
+      <td class="num">71</td>
+      </tr></tbody></table></div>
+      </div>
       <p class="leyenda-trama">Barras rayadas: no son partes de un total y no suman.</p>
       
       <p class="lectura-grafico"><b>Qué muestra</b>
       Cada barra cuenta las publicaciones de un área QS, que son las cinco grandes agrupaciones de la clasificación. Una publicación puede estar en varias.</p>
     <p class="lectura-cuidado"><b>Cuidado</b>
       Multivaluado: los porcentajes no suman 100 %.</p>
+      
       <p class="sello">
     <span><b>Fuente</b> SciVal</span>
     <span><b>Corte</b> 2026-07-22</span>
     <span><b>N</b> 823 publicaciones</span>
     <span><b>Cobertura</b> 97,2 % · 800 con dato</span>
     </p>
-    </section>
-    <section class="corte" data-corte="unidad">
-      <h3>Unidades académicas</h3>
-      <div class="grafico"><div class="grafico"><svg class="chart" id="g7" viewBox="0 0 680 270"
+    </section><section class="corte" id="T-01"
+      data-corte="asjc" tabindex="-1">
+      <header class="corte-cab">
+        <h3>Áreas temáticas ASJC</h3>
+        <div class="vistas" role="group" aria-label="Forma de presentación">
+    <button type="button" data-vista="grafico" aria-pressed="true"
+      aria-controls="T-01-grafico">Gráfico</button>
+    <button type="button" data-vista="tabla" aria-pressed="false"
+      aria-controls="T-01-tabla">Tabla</button>
+  </div>
+      </header>
+      <div class="vista" id="T-01-grafico" data-vista="grafico" data-activa="true">
+        <div class="grafico"><div class="grafico"><svg class="chart" id="g14" viewBox="0 0 680 530"
     data-cifras="parciales"
-    role="list" aria-label="Unidades académicas — gráfico de barras, 10 categorías"><defs>
-    <pattern id="g7-t" width="7" height="7" patternUnits="userSpaceOnUse"
+    role="list" aria-label="Áreas temáticas ASJC — gráfico de barras, 20 categorías"><defs>
+    <pattern id="g14-t" width="7" height="7" patternUnits="userSpaceOnUse"
              patternTransform="rotate(45)">
       <rect width="7" height="7" fill="none"/>
       <line x1="0" y1="0" x2="0" y2="7" stroke="var(--superficie)" stroke-width="2.4"/>
-    </pattern></defs><g class="marca" data-k="Facultad de Medicina y Salud" tabindex="0" role="listitem"
-        aria-label="Facultad de Medicina y Salud: 414"
-        data-tip="Facultad de Medicina y Salud" data-tip-v="414"
+    </pattern></defs><g class="marca" data-k="General Medicine" tabindex="0" role="listitem"
+        aria-label="General Medicine: 87"
+        data-tip="General Medicine" data-tip-v="87"
         >
-      <text x="221" y="16.5" text-anchor="end">Facultad de Medicina y Salud</text>
+      <text x="221" y="16.5" text-anchor="end">General Medicine</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="6"
         width="393" height="14" rx="4"/><rect class="trama" x="231" y="6" width="393"
-           height="14" rx="4" fill="url(#g7-t)"/>
-      <text class="valor" x="631" y="16.5">414</text>
-    </g><g class="marca" data-k="No determinada" tabindex="-1" role="listitem"
-        aria-label="No determinada: 286"
-        data-tip="No determinada" data-tip-v="286"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="631" y="16.5">87</text>
+    </g><g class="marca" data-k="Education" tabindex="-1" role="listitem"
+        aria-label="Education: 59"
+        data-tip="Education" data-tip-v="59"
         >
-      <text x="221" y="42.5" text-anchor="end">No determinada</text>
-      <rect class="barra" fill="var(--sin-dato)" x="231" y="32"
-        width="271.4927536231884" height="14" rx="4"/><rect class="trama" x="231" y="32" width="271.4927536231884"
-           height="14" rx="4" fill="url(#g7-t)"/>
-      <text class="valor" x="509.4927536231884" y="42.5">286</text>
-    </g><g class="marca" data-k="Facultad de Educación y Ciencias Sociales" tabindex="-1" role="listitem"
-        aria-label="Facultad de Educación y Ciencias Sociales: 49"
-        data-tip="Facultad de Educación y Ciencias Sociales" data-tip-v="49"
+      <text x="221" y="42.5" text-anchor="end">Education</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="32"
+        width="266.51724137931035" height="14" rx="4"/><rect class="trama" x="231" y="32" width="266.51724137931035"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="504.51724137931035" y="42.5">59</text>
+    </g><g class="marca" data-k="Orthopedics and Sports Medicine" tabindex="-1" role="listitem"
+        aria-label="Orthopedics and Sports Medicine: 59"
+        data-tip="Orthopedics and Sports Medicine" data-tip-v="59"
         >
-      <text x="221" y="68.5" text-anchor="end">Facultad de Educación y Cie…</text>
+      <text x="221" y="68.5" text-anchor="end">Orthopedics and Sports Medi…</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="58"
-        width="46.51449275362319" height="14" rx="4"/><rect class="trama" x="231" y="58" width="46.51449275362319"
-           height="14" rx="4" fill="url(#g7-t)"/>
-      <text class="valor" x="284.5144927536232" y="68.5">49</text>
-    </g><g class="marca" data-k="Facultad de Ingeniería" tabindex="-1" role="listitem"
-        aria-label="Facultad de Ingeniería: 47"
-        data-tip="Facultad de Ingeniería" data-tip-v="47"
+        width="266.51724137931035" height="14" rx="4"/><rect class="trama" x="231" y="58" width="266.51724137931035"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="504.51724137931035" y="68.5">59</text>
+    </g><g class="marca" data-k="Food Science" tabindex="-1" role="listitem"
+        aria-label="Food Science: 57"
+        data-tip="Food Science" data-tip-v="57"
         >
-      <text x="221" y="94.5" text-anchor="end">Facultad de Ingeniería</text>
+      <text x="221" y="94.5" text-anchor="end">Food Science</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="84"
-        width="44.61594202898551" height="14" rx="4"/><rect class="trama" x="231" y="84" width="44.61594202898551"
-           height="14" rx="4" fill="url(#g7-t)"/>
-      <text class="valor" x="282.6159420289855" y="94.5">47</text>
-    </g><g class="marca" data-k="Facultad de Economía y Negocios" tabindex="-1" role="listitem"
-        aria-label="Facultad de Economía y Negocios: 17"
-        data-tip="Facultad de Economía y Negocios" data-tip-v="17"
+        width="257.48275862068965" height="14" rx="4"/><rect class="trama" x="231" y="84" width="257.48275862068965"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="495.48275862068965" y="94.5">57</text>
+    </g><g class="marca" data-k="Physical Therapy, Sports Therapy and Rehabilitation" tabindex="-1" role="listitem"
+        aria-label="Physical Therapy, Sports Therapy and Rehabilitation: 42"
+        data-tip="Physical Therapy, Sports Therapy and Rehabilitation" data-tip-v="42"
         >
-      <text x="221" y="120.5" text-anchor="end">Facultad de Economía y Nego…</text>
+      <text x="221" y="120.5" text-anchor="end">Physical Therapy, Sports Th…</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="110"
-        width="16.13768115942029" height="14" rx="4"/><rect class="trama" x="231" y="110" width="16.13768115942029"
-           height="14" rx="4" fill="url(#g7-t)"/>
-      <text class="valor" x="254.13768115942028" y="120.5">17</text>
-    </g><g class="marca" data-k="Sin dato declarado" tabindex="-1" role="listitem"
-        aria-label="Sin dato declarado: 9"
-        data-tip="Sin dato declarado" data-tip-v="9"
+        width="189.72413793103448" height="14" rx="4"/><rect class="trama" x="231" y="110" width="189.72413793103448"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="427.7241379310345" y="120.5">42</text>
+    </g><g class="marca" data-k="Nutrition and Dietetics" tabindex="-1" role="listitem"
+        aria-label="Nutrition and Dietetics: 40"
+        data-tip="Nutrition and Dietetics" data-tip-v="40"
         >
-      <text x="221" y="146.5" text-anchor="end">Sin dato declarado</text>
-      <rect class="barra" fill="var(--sin-dato)" x="231" y="136"
-        width="8.543478260869565" height="14" rx="4"/><rect class="trama" x="231" y="136" width="8.543478260869565"
-           height="14" rx="4" fill="url(#g7-t)"/>
-      <text class="valor" x="246.54347826086956" y="146.5">9</text>
-    </g><g class="marca" data-k="Facultad de Artes" tabindex="-1" role="listitem"
-        aria-label="Facultad de Artes: 6"
-        data-tip="Facultad de Artes" data-tip-v="6"
+      <text x="221" y="146.5" text-anchor="end">Nutrition and Dietetics</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="136"
+        width="180.68965517241378" height="14" rx="4"/><rect class="trama" x="231" y="136" width="180.68965517241378"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="418.6896551724138" y="146.5">40</text>
+    </g><g class="marca" data-k="Surgery" tabindex="-1" role="listitem"
+        aria-label="Surgery: 37"
+        data-tip="Surgery" data-tip-v="37"
         >
-      <text x="221" y="172.5" text-anchor="end">Facultad de Artes</text>
+      <text x="221" y="172.5" text-anchor="end">Surgery</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="162"
-        width="5.695652173913044" height="14" rx="4"/><rect class="trama" x="231" y="162" width="5.695652173913044"
-           height="14" rx="4" fill="url(#g7-t)"/>
-      <text class="valor" x="243.69565217391303" y="172.5">6</text>
-    </g><g class="marca" data-k="Facultad de Derecho" tabindex="-1" role="listitem"
-        aria-label="Facultad de Derecho: 5"
-        data-tip="Facultad de Derecho" data-tip-v="5"
+        width="167.13793103448276" height="14" rx="4"/><rect class="trama" x="231" y="162" width="167.13793103448276"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="405.1379310344828" y="172.5">37</text>
+    </g><g class="marca" data-k="Molecular Biology" tabindex="-1" role="listitem"
+        aria-label="Molecular Biology: 33"
+        data-tip="Molecular Biology" data-tip-v="33"
         >
-      <text x="221" y="198.5" text-anchor="end">Facultad de Derecho</text>
+      <text x="221" y="198.5" text-anchor="end">Molecular Biology</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="188"
-        width="4.746376811594203" height="14" rx="4"/><rect class="trama" x="231" y="188" width="4.746376811594203"
-           height="14" rx="4" fill="url(#g7-t)"/>
-      <text class="valor" x="242.7463768115942" y="198.5">5</text>
-    </g><g class="marca" data-k="Facultad de Humanidades y Comunicaciones" tabindex="-1" role="listitem"
-        aria-label="Facultad de Humanidades y Comunicaciones: 4"
-        data-tip="Facultad de Humanidades y Comunicaciones" data-tip-v="4"
+        width="149.06896551724137" height="14" rx="4"/><rect class="trama" x="231" y="188" width="149.06896551724137"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="387.0689655172414" y="198.5">33</text>
+    </g><g class="marca" data-k="Physiology" tabindex="-1" role="listitem"
+        aria-label="Physiology: 31"
+        data-tip="Physiology" data-tip-v="31"
         >
-      <text x="221" y="224.5" text-anchor="end">Facultad de Humanidades y C…</text>
+      <text x="221" y="224.5" text-anchor="end">Physiology</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="214"
-        width="3.7971014492753623" height="14" rx="4"/><rect class="trama" x="231" y="214" width="3.7971014492753623"
-           height="14" rx="4" fill="url(#g7-t)"/>
-      <text class="valor" x="241.79710144927537" y="224.5">4</text>
-    </g><g class="marca" data-k="Facultad de Arquitectura, Diseño y Estudios Creativos" tabindex="-1" role="listitem"
-        aria-label="Facultad de Arquitectura, Diseño y Estudios Creativos: 3"
-        data-tip="Facultad de Arquitectura, Diseño y Estudios Creativos" data-tip-v="3"
+        width="140.0344827586207" height="14" rx="4"/><rect class="trama" x="231" y="214" width="140.0344827586207"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="378.0344827586207" y="224.5">31</text>
+    </g><g class="marca" data-k="Biochemistry" tabindex="-1" role="listitem"
+        aria-label="Biochemistry: 29"
+        data-tip="Biochemistry" data-tip-v="29"
         >
-      <text x="221" y="250.5" text-anchor="end">Facultad de Arquitectura, D…</text>
+      <text x="221" y="250.5" text-anchor="end">Biochemistry</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="240"
-        width="2.847826086956522" height="14" rx="4"/><rect class="trama" x="231" y="240" width="2.847826086956522"
-           height="14" rx="4" fill="url(#g7-t)"/>
-      <text class="valor" x="240.84782608695653" y="250.5">3</text>
+        width="131" height="14" rx="4"/><rect class="trama" x="231" y="240" width="131"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="369" y="250.5">29</text>
+    </g><g class="marca" data-k="Clinical Biochemistry" tabindex="-1" role="listitem"
+        aria-label="Clinical Biochemistry: 26"
+        data-tip="Clinical Biochemistry" data-tip-v="26"
+        >
+      <text x="221" y="276.5" text-anchor="end">Clinical Biochemistry</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="266"
+        width="117.44827586206897" height="14" rx="4"/><rect class="trama" x="231" y="266" width="117.44827586206897"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="355.44827586206895" y="276.5">26</text>
+    </g><g class="marca" data-k="Computer Science Applications" tabindex="-1" role="listitem"
+        aria-label="Computer Science Applications: 25"
+        data-tip="Computer Science Applications" data-tip-v="25"
+        >
+      <text x="221" y="302.5" text-anchor="end">Computer Science Applicatio…</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="292"
+        width="112.93103448275862" height="14" rx="4"/><rect class="trama" x="231" y="292" width="112.93103448275862"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="350.9310344827586" y="302.5">25</text>
+    </g><g class="marca" data-k="History" tabindex="-1" role="listitem"
+        aria-label="History: 25"
+        data-tip="History" data-tip-v="25"
+        >
+      <text x="221" y="328.5" text-anchor="end">History</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="318"
+        width="112.93103448275862" height="14" rx="4"/><rect class="trama" x="231" y="318" width="112.93103448275862"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="350.9310344827586" y="328.5">25</text>
+    </g><g class="marca" data-k="Pediatrics, Perinatology and Child Health" tabindex="-1" role="listitem"
+        aria-label="Pediatrics, Perinatology and Child Health: 25"
+        data-tip="Pediatrics, Perinatology and Child Health" data-tip-v="25"
+        >
+      <text x="221" y="354.5" text-anchor="end">Pediatrics, Perinatology an…</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="344"
+        width="112.93103448275862" height="14" rx="4"/><rect class="trama" x="231" y="344" width="112.93103448275862"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="350.9310344827586" y="354.5">25</text>
+    </g><g class="marca" data-k="Cell Biology" tabindex="-1" role="listitem"
+        aria-label="Cell Biology: 24"
+        data-tip="Cell Biology" data-tip-v="24"
+        >
+      <text x="221" y="380.5" text-anchor="end">Cell Biology</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="370"
+        width="108.41379310344827" height="14" rx="4"/><rect class="trama" x="231" y="370" width="108.41379310344827"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="346.41379310344826" y="380.5">24</text>
+    </g><g class="marca" data-k="Critical Care and Intensive Care Medicine" tabindex="-1" role="listitem"
+        aria-label="Critical Care and Intensive Care Medicine: 24"
+        data-tip="Critical Care and Intensive Care Medicine" data-tip-v="24"
+        >
+      <text x="221" y="406.5" text-anchor="end">Critical Care and Intensive…</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="396"
+        width="108.41379310344827" height="14" rx="4"/><rect class="trama" x="231" y="396" width="108.41379310344827"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="346.41379310344826" y="406.5">24</text>
+    </g><g class="marca" data-k="General Social Sciences" tabindex="-1" role="listitem"
+        aria-label="General Social Sciences: 23"
+        data-tip="General Social Sciences" data-tip-v="23"
+        >
+      <text x="221" y="432.5" text-anchor="end">General Social Sciences</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="422"
+        width="103.89655172413794" height="14" rx="4"/><rect class="trama" x="231" y="422" width="103.89655172413794"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="341.8965517241379" y="432.5">23</text>
+    </g><g class="marca" data-k="Public Health, Environmental and Occupational Health" tabindex="-1" role="listitem"
+        aria-label="Public Health, Environmental and Occupational Health: 22"
+        data-tip="Public Health, Environmental and Occupational Health" data-tip-v="22"
+        >
+      <text x="221" y="458.5" text-anchor="end">Public Health, Environmenta…</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="448"
+        width="99.3793103448276" height="14" rx="4"/><rect class="trama" x="231" y="448" width="99.3793103448276"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="337.3793103448276" y="458.5">22</text>
+    </g><g class="marca" data-k="General Biochemistry,Genetics and Molecular Biology" tabindex="-1" role="listitem"
+        aria-label="General Biochemistry,Genetics and Molecular Biology: 19"
+        data-tip="General Biochemistry,Genetics and Molecular Biology" data-tip-v="19"
+        >
+      <text x="221" y="484.5" text-anchor="end">General Biochemistry,Geneti…</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="474"
+        width="85.82758620689656" height="14" rx="4"/><rect class="trama" x="231" y="474" width="85.82758620689656"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="323.82758620689657" y="484.5">19</text>
+    </g><g class="marca" data-k="General Engineering" tabindex="-1" role="listitem"
+        aria-label="General Engineering: 19"
+        data-tip="General Engineering" data-tip-v="19"
+        >
+      <text x="221" y="510.5" text-anchor="end">General Engineering</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="500"
+        width="85.82758620689656" height="14" rx="4"/><rect class="trama" x="231" y="500" width="85.82758620689656"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="323.82758620689657" y="510.5">19</text>
     </g></svg></div></div>
+      </div>
+      <div class="vista" id="T-01-tabla" data-vista="tabla" data-activa="false">
+        <div class="tabla-envoltura tabla-datos"><table>
+    <thead><tr><th scope="col">Categoría</th><th scope="col" class="num">n</th></tr></thead><tbody><tr><td>General Medicine</td>
+      <td class="num">87</td>
+      </tr><tr><td>Education</td>
+      <td class="num">59</td>
+      </tr><tr><td>Orthopedics and Sports Medicine</td>
+      <td class="num">59</td>
+      </tr><tr><td>Food Science</td>
+      <td class="num">57</td>
+      </tr><tr><td>Physical Therapy, Sports Therapy and Rehabilitation</td>
+      <td class="num">42</td>
+      </tr><tr><td>Nutrition and Dietetics</td>
+      <td class="num">40</td>
+      </tr><tr><td>Surgery</td>
+      <td class="num">37</td>
+      </tr><tr><td>Molecular Biology</td>
+      <td class="num">33</td>
+      </tr><tr><td>Physiology</td>
+      <td class="num">31</td>
+      </tr><tr><td>Biochemistry</td>
+      <td class="num">29</td>
+      </tr><tr><td>Clinical Biochemistry</td>
+      <td class="num">26</td>
+      </tr><tr><td>Computer Science Applications</td>
+      <td class="num">25</td>
+      </tr><tr><td>History</td>
+      <td class="num">25</td>
+      </tr><tr><td>Pediatrics, Perinatology and Child Health</td>
+      <td class="num">25</td>
+      </tr><tr><td>Cell Biology</td>
+      <td class="num">24</td>
+      </tr><tr><td>Critical Care and Intensive Care Medicine</td>
+      <td class="num">24</td>
+      </tr><tr><td>General Social Sciences</td>
+      <td class="num">23</td>
+      </tr><tr><td>Public Health, Environmental and Occupational Health</td>
+      <td class="num">22</td>
+      </tr><tr><td>General Biochemistry,Genetics and Molecular Biology</td>
+      <td class="num">19</td>
+      </tr><tr><td>General Engineering</td>
+      <td class="num">19</td>
+      </tr></tbody></table></div>
+      </div>
       <p class="leyenda-trama">Barras rayadas: no son partes de un total y no suman.</p>
-      <p class="nota">Cuenta publicaciones distintas por unidad: una publicación con dos autores UFT de la misma unidad cuenta una sola vez. El treemap &quot;Producción por facultad y escuela&quot;, en esta misma sección, cuenta pares autor×publicación —la misma publicación puede contar dos veces— y por eso sus totales no coinciden con estas barras. Ambos criterios están documentados; ninguno es un error.</p>
-      <p class="lectura-grafico"><b>Qué muestra</b>
-      Cada barra cuenta publicaciones distintas atribuidas a una facultad. Una publicación firmada desde dos facultades cuenta en las dos, así que las barras suman más que el total del recorte.</p>
-    
-      <p class="sello">
-    <span><b>Fuente</b> Scopus</span>
-    <span><b>Corte</b> 2026-07-22</span>
-    <span><b>N</b> 823 pares autor × publicación</span>
-    <span><b>Cobertura</b> 98,9 % · 814 con dato</span>
-    </p>
-    </section>
-    <section class="corte" data-corte="tipo">
-      <h3>Tipos documentales</h3>
-      <div class="grafico"><div class="grafico"><svg class="chart" id="g8" viewBox="0 0 680 270"
-    data-cifras="completas"
-    role="list" aria-label="Tipos documentales — gráfico de barras, 10 categorías"><g class="marca" data-k="Article" tabindex="0" role="listitem"
-        aria-label="Article: 595"
-        data-tip="Article" data-tip-v="595"
-        >
-      <text x="125" y="16.5" text-anchor="end">Article</text>
-      <rect class="barra" fill="var(--serie-1)" x="135" y="6"
-        width="489" height="14" rx="4"/>
-      <text class="valor" x="631" y="16.5">595</text>
-    </g><g class="marca" data-k="Review" tabindex="-1" role="listitem"
-        aria-label="Review: 133"
-        data-tip="Review" data-tip-v="133"
-        >
-      <text x="125" y="42.5" text-anchor="end">Review</text>
-      <rect class="barra" fill="var(--serie-1)" x="135" y="32"
-        width="109.30588235294118" height="14" rx="4"/>
-      <text class="valor" x="251.30588235294118" y="42.5">133</text>
-    </g><g class="marca" data-k="Book chapter" tabindex="-1" role="listitem"
-        aria-label="Book chapter: 24"
-        data-tip="Book chapter" data-tip-v="24"
-        >
-      <text x="125" y="68.5" text-anchor="end">Book chapter</text>
-      <rect class="barra" fill="var(--serie-1)" x="135" y="58"
-        width="19.72436974789916" height="14" rx="4"/>
-      <text class="valor" x="161.72436974789917" y="68.5">24</text>
-    </g><g class="marca" data-k="Letter" tabindex="-1" role="listitem"
-        aria-label="Letter: 24"
-        data-tip="Letter" data-tip-v="24"
-        >
-      <text x="125" y="94.5" text-anchor="end">Letter</text>
-      <rect class="barra" fill="var(--serie-1)" x="135" y="84"
-        width="19.72436974789916" height="14" rx="4"/>
-      <text class="valor" x="161.72436974789917" y="94.5">24</text>
-    </g><g class="marca" data-k="Conference paper" tabindex="-1" role="listitem"
-        aria-label="Conference paper: 18"
-        data-tip="Conference paper" data-tip-v="18"
-        >
-      <text x="125" y="120.5" text-anchor="end">Conference paper</text>
-      <rect class="barra" fill="var(--serie-1)" x="135" y="110"
-        width="14.79327731092437" height="14" rx="4"/>
-      <text class="valor" x="156.79327731092437" y="120.5">18</text>
-    </g><g class="marca" data-k="Editorial" tabindex="-1" role="listitem"
-        aria-label="Editorial: 8"
-        data-tip="Editorial" data-tip-v="8"
-        >
-      <text x="125" y="146.5" text-anchor="end">Editorial</text>
-      <rect class="barra" fill="var(--serie-1)" x="135" y="136"
-        width="6.574789915966387" height="14" rx="4"/>
-      <text class="valor" x="148.5747899159664" y="146.5">8</text>
-    </g><g class="marca" data-k="Erratum" tabindex="-1" role="listitem"
-        aria-label="Erratum: 7"
-        data-tip="Erratum" data-tip-v="7"
-        >
-      <text x="125" y="172.5" text-anchor="end">Erratum</text>
-      <rect class="barra" fill="var(--serie-1)" x="135" y="162"
-        width="5.752941176470588" height="14" rx="4"/>
-      <text class="valor" x="147.75294117647059" y="172.5">7</text>
-    </g><g class="marca" data-k="Note" tabindex="-1" role="listitem"
-        aria-label="Note: 7"
-        data-tip="Note" data-tip-v="7"
-        >
-      <text x="125" y="198.5" text-anchor="end">Note</text>
-      <rect class="barra" fill="var(--serie-1)" x="135" y="188"
-        width="5.752941176470588" height="14" rx="4"/>
-      <text class="valor" x="147.75294117647059" y="198.5">7</text>
-    </g><g class="marca" data-k="Short survey" tabindex="-1" role="listitem"
-        aria-label="Short survey: 4"
-        data-tip="Short survey" data-tip-v="4"
-        >
-      <text x="125" y="224.5" text-anchor="end">Short survey</text>
-      <rect class="barra" fill="var(--serie-1)" x="135" y="214"
-        width="3.2873949579831936" height="14" rx="4"/>
-      <text class="valor" x="145.2873949579832" y="224.5">4</text>
-    </g><g class="marca" data-k="Book" tabindex="-1" role="listitem"
-        aria-label="Book: 2"
-        data-tip="Book" data-tip-v="2"
-        >
-      <text x="125" y="250.5" text-anchor="end">Book</text>
-      <rect class="barra" fill="var(--serie-1)" x="135" y="240"
-        width="2" height="14" rx="4"/>
-      <text class="valor" x="144" y="250.5">2</text>
-    </g></svg></div></div>
-      
       
       <p class="lectura-grafico"><b>Qué muestra</b>
-      Cada barra cuenta las publicaciones de un tipo documental según lo clasifica la fuente: artículo, revisión, capítulo de libro, carta y demás.</p>
-    
+      Cada barra es una categoría temática de la revista en que se publicó y cuenta sus publicaciones. Se dibujan las veinte con más.</p>
+    <p class="lectura-cuidado"><b>Cuidado</b>
+      Clasifica la revista, no el artículo. 1.796 asignaciones para 816 publicaciones.</p>
+      
       <p class="sello">
     <span><b>Fuente</b> Scopus</span>
     <span><b>Corte</b> 2026-07-22</span>
     <span><b>N</b> 823 publicaciones</span>
-    <span><b>Cobertura</b> 100,0 % · 823 con dato</span>
+    <span><b>Cobertura</b> 99,1 % · 816 con dato</span>
     </p>
+    </section><section class="corte" id="T-04"
+      data-corte="ods" tabindex="-1">
+      <header class="corte-cab">
+        <h3>Objetivos de Desarrollo Sostenible</h3>
+        <div class="vistas" role="group" aria-label="Forma de presentación">
+    <button type="button" data-vista="grafico" aria-pressed="true"
+      aria-controls="T-04-grafico">Gráfico</button>
+    <button type="button" data-vista="tabla" aria-pressed="false"
+      aria-controls="T-04-tabla">Tabla</button>
+  </div>
+      </header>
+      <div class="vista" id="T-04-grafico" data-vista="grafico" data-activa="true">
+        <div class="grafico"><div class="grafico"><svg class="chart" id="g15" viewBox="0 0 680 426"
+    data-cifras="completas"
+    role="list" aria-label="Objetivos de Desarrollo Sostenible — gráfico de barras, 16 categorías"><defs>
+    <pattern id="g15-t" width="7" height="7" patternUnits="userSpaceOnUse"
+             patternTransform="rotate(45)">
+      <rect width="7" height="7" fill="none"/>
+      <line x1="0" y1="0" x2="0" y2="7" stroke="var(--superficie)" stroke-width="2.4"/>
+    </pattern></defs><g class="marca" data-k="SDG 3" tabindex="0" role="listitem"
+        aria-label="SDG 3: 194"
+        data-tip="SDG 3" data-tip-v="194"
+        >
+      <text x="86" y="16.5" text-anchor="end">SDG 3</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="6"
+        width="528" height="14" rx="4"/><rect class="trama" x="96" y="6" width="528"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="631" y="16.5">194</text>
+    </g><g class="marca" data-k="SDG 4" tabindex="-1" role="listitem"
+        aria-label="SDG 4: 43"
+        data-tip="SDG 4" data-tip-v="43"
+        >
+      <text x="86" y="42.5" text-anchor="end">SDG 4</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="32"
+        width="117.03092783505154" height="14" rx="4"/><rect class="trama" x="96" y="32" width="117.03092783505154"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="220.03092783505156" y="42.5">43</text>
+    </g><g class="marca" data-k="SDG 7" tabindex="-1" role="listitem"
+        aria-label="SDG 7: 24"
+        data-tip="SDG 7" data-tip-v="24"
+        >
+      <text x="86" y="68.5" text-anchor="end">SDG 7</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="58"
+        width="65.31958762886597" height="14" rx="4"/><rect class="trama" x="96" y="58" width="65.31958762886597"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="168.31958762886597" y="68.5">24</text>
+    </g><g class="marca" data-k="SDG 10" tabindex="-1" role="listitem"
+        aria-label="SDG 10: 23"
+        data-tip="SDG 10" data-tip-v="23"
+        >
+      <text x="86" y="94.5" text-anchor="end">SDG 10</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="84"
+        width="62.597938144329895" height="14" rx="4"/><rect class="trama" x="96" y="84" width="62.597938144329895"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="165.5979381443299" y="94.5">23</text>
+    </g><g class="marca" data-k="SDG 9" tabindex="-1" role="listitem"
+        aria-label="SDG 9: 21"
+        data-tip="SDG 9" data-tip-v="21"
+        >
+      <text x="86" y="120.5" text-anchor="end">SDG 9</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="110"
+        width="57.154639175257735" height="14" rx="4"/><rect class="trama" x="96" y="110" width="57.154639175257735"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="160.15463917525773" y="120.5">21</text>
+    </g><g class="marca" data-k="SDG 5" tabindex="-1" role="listitem"
+        aria-label="SDG 5: 18"
+        data-tip="SDG 5" data-tip-v="18"
+        >
+      <text x="86" y="146.5" text-anchor="end">SDG 5</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="136"
+        width="48.98969072164949" height="14" rx="4"/><rect class="trama" x="96" y="136" width="48.98969072164949"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="151.98969072164948" y="146.5">18</text>
+    </g><g class="marca" data-k="SDG 11" tabindex="-1" role="listitem"
+        aria-label="SDG 11: 15"
+        data-tip="SDG 11" data-tip-v="15"
+        >
+      <text x="86" y="172.5" text-anchor="end">SDG 11</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="162"
+        width="40.82474226804124" height="14" rx="4"/><rect class="trama" x="96" y="162" width="40.82474226804124"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="143.82474226804123" y="172.5">15</text>
+    </g><g class="marca" data-k="SDG 16" tabindex="-1" role="listitem"
+        aria-label="SDG 16: 15"
+        data-tip="SDG 16" data-tip-v="15"
+        >
+      <text x="86" y="198.5" text-anchor="end">SDG 16</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="188"
+        width="40.82474226804124" height="14" rx="4"/><rect class="trama" x="96" y="188" width="40.82474226804124"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="143.82474226804123" y="198.5">15</text>
+    </g><g class="marca" data-k="SDG 13" tabindex="-1" role="listitem"
+        aria-label="SDG 13: 11"
+        data-tip="SDG 13" data-tip-v="11"
+        >
+      <text x="86" y="224.5" text-anchor="end">SDG 13</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="214"
+        width="29.938144329896907" height="14" rx="4"/><rect class="trama" x="96" y="214" width="29.938144329896907"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="132.93814432989691" y="224.5">11</text>
+    </g><g class="marca" data-k="SDG 1" tabindex="-1" role="listitem"
+        aria-label="SDG 1: 6"
+        data-tip="SDG 1" data-tip-v="6"
+        >
+      <text x="86" y="250.5" text-anchor="end">SDG 1</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="240"
+        width="16.329896907216494" height="14" rx="4"/><rect class="trama" x="96" y="240" width="16.329896907216494"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="119.3298969072165" y="250.5">6</text>
+    </g><g class="marca" data-k="SDG 2" tabindex="-1" role="listitem"
+        aria-label="SDG 2: 5"
+        data-tip="SDG 2" data-tip-v="5"
+        >
+      <text x="86" y="276.5" text-anchor="end">SDG 2</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="266"
+        width="13.608247422680412" height="14" rx="4"/><rect class="trama" x="96" y="266" width="13.608247422680412"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="116.6082474226804" y="276.5">5</text>
+    </g><g class="marca" data-k="SDG 8" tabindex="-1" role="listitem"
+        aria-label="SDG 8: 5"
+        data-tip="SDG 8" data-tip-v="5"
+        >
+      <text x="86" y="302.5" text-anchor="end">SDG 8</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="292"
+        width="13.608247422680412" height="14" rx="4"/><rect class="trama" x="96" y="292" width="13.608247422680412"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="116.6082474226804" y="302.5">5</text>
+    </g><g class="marca" data-k="SDG 12" tabindex="-1" role="listitem"
+        aria-label="SDG 12: 4"
+        data-tip="SDG 12" data-tip-v="4"
+        >
+      <text x="86" y="328.5" text-anchor="end">SDG 12</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="318"
+        width="10.88659793814433" height="14" rx="4"/><rect class="trama" x="96" y="318" width="10.88659793814433"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="113.88659793814433" y="328.5">4</text>
+    </g><g class="marca" data-k="SDG 15" tabindex="-1" role="listitem"
+        aria-label="SDG 15: 3"
+        data-tip="SDG 15" data-tip-v="3"
+        >
+      <text x="86" y="354.5" text-anchor="end">SDG 15</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="344"
+        width="8.164948453608247" height="14" rx="4"/><rect class="trama" x="96" y="344" width="8.164948453608247"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="111.16494845360825" y="354.5">3</text>
+    </g><g class="marca" data-k="SDG 14" tabindex="-1" role="listitem"
+        aria-label="SDG 14: 2"
+        data-tip="SDG 14" data-tip-v="2"
+        >
+      <text x="86" y="380.5" text-anchor="end">SDG 14</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="370"
+        width="5.443298969072165" height="14" rx="4"/><rect class="trama" x="96" y="370" width="5.443298969072165"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="108.44329896907216" y="380.5">2</text>
+    </g><g class="marca" data-k="SDG 6" tabindex="-1" role="listitem"
+        aria-label="SDG 6: 2"
+        data-tip="SDG 6" data-tip-v="2"
+        >
+      <text x="86" y="406.5" text-anchor="end">SDG 6</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="396"
+        width="5.443298969072165" height="14" rx="4"/><rect class="trama" x="96" y="396" width="5.443298969072165"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="108.44329896907216" y="406.5">2</text>
+    </g></svg></div></div>
+      </div>
+      <div class="vista" id="T-04-tabla" data-vista="tabla" data-activa="false">
+        <div class="tabla-envoltura tabla-datos"><table>
+    <thead><tr><th scope="col">Categoría</th><th scope="col" class="num">n</th></tr></thead><tbody><tr><td>SDG 3</td>
+      <td class="num">194</td>
+      </tr><tr><td>SDG 4</td>
+      <td class="num">43</td>
+      </tr><tr><td>SDG 7</td>
+      <td class="num">24</td>
+      </tr><tr><td>SDG 10</td>
+      <td class="num">23</td>
+      </tr><tr><td>SDG 9</td>
+      <td class="num">21</td>
+      </tr><tr><td>SDG 5</td>
+      <td class="num">18</td>
+      </tr><tr><td>SDG 11</td>
+      <td class="num">15</td>
+      </tr><tr><td>SDG 16</td>
+      <td class="num">15</td>
+      </tr><tr><td>SDG 13</td>
+      <td class="num">11</td>
+      </tr><tr><td>SDG 1</td>
+      <td class="num">6</td>
+      </tr><tr><td>SDG 2</td>
+      <td class="num">5</td>
+      </tr><tr><td>SDG 8</td>
+      <td class="num">5</td>
+      </tr><tr><td>SDG 12</td>
+      <td class="num">4</td>
+      </tr><tr><td>SDG 15</td>
+      <td class="num">3</td>
+      </tr><tr><td>SDG 14</td>
+      <td class="num">2</td>
+      </tr><tr><td>SDG 6</td>
+      <td class="num">2</td>
+      </tr></tbody></table></div>
+      </div>
+      <p class="leyenda-trama">Barras rayadas: no son partes de un total y no suman.</p>
+      
+      <p class="lectura-grafico"><b>Qué muestra</b>
+      Cada barra cuenta las publicaciones que la fuente asocia a ese Objetivo de Desarrollo Sostenible. Es un recuento, no un reparto del total: la mayoría de las publicaciones no tiene ninguno asignado.</p>
+    <p class="lectura-cuidado"><b>Cuidado</b>
+      Cobertura 38 %. Se reporta como recuento, nunca como distribución porcentual del total.</p>
+      
+      <p class="sello sello-aviso">
+    <span><b>Fuente</b> SciVal</span>
+    <span><b>Corte</b> 2026-07-22</span>
+    <span><b>N</b> 823 publicaciones</span>
+    <span><b>Cobertura</b> 37,7 % · 310 con dato</span>
+    <span class="sello-alerta">cobertura baja</span></p>
     </section>
 </div>
 
-      <details class="metodo" id="lectura" data-prerender="1">
-<div class="modulo modulo-lectura">
-    <h2>Cómo leer estas cifras</h2>
-    <p>El FWCI compara las citas recibidas con las esperadas para
-    publicaciones del mismo campo, año y tipo: <strong>1,0 es el promedio
-    mundial</strong>. Aquí la media es 0,87 y la mediana
-    0,41. La diferencia entre ambas indica una
-    distribución asimétrica: unas pocas publicaciones muy citadas elevan el
-    promedio.</p>
-    <p class="nota">1,0 es el promedio mundial. Se calcula sobre el conjunto, no promediando valores individuales.</p>
-    <p class="nota">Cada indicador declara sobre cuántas publicaciones se
-    calcula. No todas las publicaciones tienen métricas: el denominador
-    cambia según el indicador.</p>
-  </div>
-</details>
-    </div>
-  </div>
+      <div id="diferidos" data-prerender="1">
 
-  <!-- El informe completo en PDF, cuando la corrida que construyó el sitio
-       también lo generó. Va vacío a propósito y NO lo rellena el
-       pre-renderizador: el informe se compone DESPUÉS del sitio, porque
-       necesita el sitio para componerse, así que a la hora de escribir esta
-       página todavía no se sabe si existe ni cuántas hojas tiene. Lo rellena
-       `paginas.js` leyendo `data/informe.json`, el manifiesto que deja el
-       generador; sin manifiesto no hay bloque, que es lo que impide ofrecer
-       un enlace a un archivo que no está o que es de otra carga de datos.
-
-       VA AL FINAL, Y NO ARRIBA. Empezó justo bajo el titular y ahí DUPLICÓ el
-       LCP de la portada: 3.156 ms contra 1.420 ms, con su propio párrafo como
-       elemento de mayor pintado. La causa es estructural y no se arregla
-       optimizando: el bloque no puede pre-renderizarse —su manifiesto no
-       existe cuando se escribe esta página— así que siempre pinta tarde, tras
-       el guion y dos peticiones. Arriba y grande, eso lo convierte en el
-       elemento que define el LCP. Abajo del pliegue no es candidato, y la
-       portada recupera su titular pre-renderizado.
-
-       No es una pérdida: quien viene a por el informe entero en PDF no es el
-       visitante de la primera pantalla. -->
-  <section class="informe-pdf" id="informe-pdf" hidden></section>
-
-  <div id="cierre" data-prerender="1">
-
-    <div class="banda-titulo">
-      <h2>Cada indicador declara su propio denominador.</h2>
-      <p>Las cifras de este informe no se miden todas sobre el mismo conjunto,
-      y por eso dos de ellas pueden diferir sin contradecirse. Cada gráfico
-      lleva pegada su fuente, su fecha de corte y sobre cuántos casos está
-      medido.</p>
-    </div>
-    <div class="banda-salidas">
-      <a href="produccion.html"><strong>Producción</strong><span>Ver la sección →</span></a>
-      <a href="impacto.html"><strong>Impacto</strong><span>Ver la sección →</span></a>
-      <a href="colaboracion.html"><strong>Colaboración</strong><span>Ver la sección →</span></a>
-      <a href="tematica.html"><strong>Áreas temáticas</strong><span>Ver la sección →</span></a>
-    </div>
 </div>
+    </div>
+  </div>
 </main>
 <footer class="pie" id="pie" data-prerender="1">
 

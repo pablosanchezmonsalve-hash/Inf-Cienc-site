@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo de indicadores — Informe Bibliométrico</title>
+<meta name="description" content="Los 40 indicadores evaluados: cuáles se publican, cuáles no y por qué.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/app.css">
+<!-- Estructural, cero color propio (ver la cabecera del archivo): puede
+     cargarse en las once páginas sin que las que aún no usan Bento Grid
+     cambien de aspecto. -->
+<link rel="stylesheet" href="assets/css/modern-ui.css">
+<script>/* Corre antes de pintar, y las dos cosas que hace tienen que ocurrir antes.
+   1. El tema guardado: desde el módulo diferido, la página aparecería un
+      instante con el tema equivocado.
+   2. La clase `js`: marca que hay JavaScript. Las vistas conmutables se
+      contraen a una sola sólo bajo esa clase; sin JS se muestran las dos, que
+      es lo correcto —la tabla es la vía equivalente al gráfico, no un extra—. */
+(function(){var e=document.documentElement;e.className+=' js';
+try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(x){}})();</script>
+</head>
+<body data-pagina="catalogo">
+<a class="salto-contenido" href="#contenido">Saltar al contenido</a>
+<header class="cabecera" id="cabecera" data-prerender="1">
+
+    <div class="contenedor">
+      <div class="marca-fila">
+        <a class="marca" href="index.html">
+          <span class="marca-sigla" aria-hidden="true">UFT</span>
+          <span class="marca-txt">
+            <strong>Universidad Finis Terrae</strong>
+            <span>Informe Bibliométrico Institucional</span>
+          </span>
+        </a>
+        <div class="tema" role="group" aria-label="Tema de color"><button type="button" data-tema="auto"
+      aria-pressed="true" title="Tema auto">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.5-6.5-.7.7M6.2 17.8l-.7.7m12.6 0-.7-.7M6.2 6.2l-.7-.7M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Auto</span></button><button type="button" data-tema="claro"
+      aria-pressed="false" title="Tema claro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v1m0 14v1m8-8h-1M5 12H4m13.7-5.7-.7.7M6.9 17.1l-.7.7m11.5 0-.7-.7M6.9 6.9l-.7-.7M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Claro</span></button><button type="button" data-tema="oscuro"
+      aria-pressed="false" title="Tema oscuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Oscuro</span></button></div>
+        <button type="button" class="nav-toggle" aria-expanded="false"
+          aria-controls="menu-nav" aria-label="Abrir menú de secciones">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"
+            fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+            <path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <span>Secciones</span>
+        </button>
+      </div>
+      <nav class="nav" id="menu-nav" aria-label="Secciones"><div class="nav-grupo">
+    <span class="nav-grupo-nombre">Informe</span>
+    <span class="nav-grupo-enlaces"><a href="index.html">Portada</a><a href="produccion.html">Producción</a><a href="impacto.html">Impacto</a><a href="colaboracion.html">Colaboración</a><a href="tematica.html">Áreas temáticas</a></span>
+  </div><div class="nav-grupo">
+    <span class="nav-grupo-nombre">Datos</span>
+    <span class="nav-grupo-enlaces"><a href="autores.html">Autores</a><a href="publicaciones.html">Publicaciones</a><a href="fuentes-externas.html">Fuentes externas</a></span>
+  </div><div class="nav-grupo">
+    <span class="nav-grupo-nombre">Sobre este informe</span>
+    <span class="nav-grupo-enlaces"><a href="indicadores.html" aria-current="page">Indicadores</a><a href="metodologia.html">Metodología</a></span>
+  </div></nav>
+    </div>
+</header>
+<div class="vigencia" id="vigencia" data-prerender="1">
+
+    <div class="contenedor">
+      <nav class="v-migas" aria-label="Ruta de posición">
+        <a href="index.html">Portada</a>
+        <span class="migas-sep" aria-hidden="true">·</span>
+        <span class="migas-actual" aria-current="page">Indicadores</span>
+      </nav>
+      <span class="sep" aria-hidden="true"></span>
+      <details class="v-chip">
+        <summary>Fuente <b>Scopus · SciVal</b></summary>
+        <p>Bases de datos institucionales consultadas para el universo de publicaciones del informe.</p>
+      </details>
+      <span class="sep" aria-hidden="true"></span>
+      <details class="v-chip">
+        <summary>Ventana <b>2023–2025</b></summary>
+        <p>Fechas de publicación consideradas como universo del informe. Fuera de este periodo un trabajo no aparece.</p>
+      </details>
+      <span class="sep" aria-hidden="true"></span>
+      <details class="v-chip">
+        <summary>Citas al <b>2026-07-22</b></summary>
+        <p>Fecha en que se congelaron el recuento de citas y las métricas derivadas.</p>
+      </details>
+      <span class="recorte-vivo" id="recorte-vivo" hidden></span>
+      <p class="solo-papel credito-impreso">
+        Universidad Finis Terrae · Informe Bibliométrico Institucional.
+        Fuentes: Scopus · SciVal.
+        Ventana 2023–2025.
+        Citas actualizadas al 2026-07-22.
+      </p>
+      <p class="solo-papel recorte-impreso" id="recorte-impreso">Sin filtros: el informe completo, 823 publicaciones.</p>
+      <p class="solo-papel recorte-impreso" id="seleccion-impresa"></p>
+      <label class="v-anio" id="recorte-anio-env" hidden>
+        <span class="solo-lectores">Filtrar por año</span>
+        <select id="recorte-anio" aria-label="Filtrar por año de publicación"></select>
+      </label>
+      <button type="button" class="descargar" id="descargar-informe"
+        title="Abre el diálogo de impresión del navegador; elija «Guardar como PDF»">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
+          fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Descargar informe
+      </button>
+      <a class="vigencia-guia" href="metodologia.html">Cómo leer estos indicadores →</a>
+    </div>
+</div>
+<main id="contenido" class="contenedor">
+  <p class="migas"><a href="index.html">Portada</a> › Catálogo de indicadores</p>
+  <header class="encabezado-seccion">
+    <h1>Catálogo de indicadores</h1>
+    <p class="intro">Este sitio publica 27 indicadores. Se evaluaron 40. Aquí
+  están los cuarenta, con su definición, su fuente, su denominador, la cobertura
+  medida sobre los datos y el estado de cada uno — incluido el motivo de los que
+  no se publican.</p>
+  </header>
+  <div id="catalogo" data-prerender="1">
+
+    <div class="kpis" data-n="4">
+      <div class="kpi">
+        <span class="valor">32</span>
+        <span class="etiqueta">Publicado</span>
+        <span class="secundario">Se calcula y se muestra en el sitio.</span>
+      </div>
+      <div class="kpi">
+        <span class="valor">4</span>
+        <span class="etiqueta">No calculable</span>
+        <span class="secundario">La fuente no entrega el dato. Aproximarlo sería inventar la métrica.</span>
+      </div>
+      <div class="kpi">
+        <span class="valor">1</span>
+        <span class="etiqueta">Fuera de alcance</span>
+        <span class="secundario">Excluido por decisión de alcance del proyecto, no por falta de datos.</span>
+      </div>
+      <div class="kpi">
+        <span class="valor">7</span>
+        <span class="etiqueta">Diferido a V2</span>
+        <span class="secundario">Calculable y verificado, pero no se publica en esta versión.</span>
+      </div></div>
+    
+    <div class="acciones-tabla acciones-graficos" id="acciones-graficos">
+      <span id="estado-graficos">Ningún gráfico seleccionado</span>
+      <a class="boton" id="ver-seleccion" href="index.html" hidden>Ver el informe con estos gráficos →</a>
+      <button type="button" class="boton" id="limpiar-graficos" hidden>Quitar la selección</button>
+    </div>
+    <p class="nota" id="orden-graficos" hidden></p>
+    <p class="nota">Las coberturas están <strong>medidas sobre los datos</strong>,
+    no estimadas: salen de <code>indicator_feasibility.csv</code>, que se
+    regenera en cada build. Un indicador diferido está verificado como
+    calculable; uno no calculable no lo está, y aproximarlo sería inventar la
+    métrica.</p>
+    <div class="disposicion">
+      <nav class="rail" aria-label="Categorías del catálogo">
+        <p class="rail-titulo">En esta página</p><ol><li><a href="#cat-descriptivo"><span class="rail-txt">Producción y descripción</span></a></li><li><a href="#cat-impacto"><span class="rail-txt">Impacto</span></a></li><li><a href="#cat-colaboracion"><span class="rail-txt">Colaboración</span></a></li><li><a href="#cat-tematico"><span class="rail-txt">Áreas temáticas</span></a></li><li><a href="#cat-declarado"><span class="rail-txt">Producción declarada (fuera de Scopus)</span></a></li></ol></nav>
+      <div>
+    <section class="modulo" id="cat-descriptivo" tabindex="-1">
+      <header><div class="modulo-id"><h2>Producción y descripción</h2>
+        <span class="codigo">14</span></div></header>
+      <div class="tabla-envoltura tabla-datos tabla-catalogo">
+        <table>
+          <thead><tr>
+            <th scope="col"><span class="solo-lectores">Seleccionar</span></th>
+            <th scope="col">Cód.</th><th scope="col">Indicador y definición</th>
+            <th scope="col">Fuente</th><th scope="col">Denominador</th>
+            <th scope="col">Cobertura medida</th><th scope="col">Estado</th>
+          </tr></thead>
+          <tbody>
+      <tr id="P-01">
+        <td class="col-marca"></td>
+        <td><span class="codigo">P-01</span></td>
+        <td>
+          <strong>Publicaciones totales</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>universo_total<br><span class="nota">823</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="P-02">
+        <td class="col-marca"><label class="solo-lectores" for="g-P-02">Incluir Producción anual en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-P-02" data-cod="P-02"></td>
+        <td><span class="codigo">P-02</span></td>
+        <td>
+          <strong>Producción anual</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>universo_total<br><span class="nota">823</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="P-03">
+        <td class="col-marca"><label class="solo-lectores" for="g-P-03">Incluir Distribución por tipo documental en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-P-03" data-cod="P-03"></td>
+        <td><span class="codigo">P-03</span></td>
+        <td>
+          <strong>Distribución por tipo documental</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>universo_total<br><span class="nota">823</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="P-04">
+        <td class="col-marca"></td>
+        <td><span class="codigo">P-04</span></td>
+        <td>
+          <strong>Fuentes distintas</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="P-05">
+        <td class="col-marca"><label class="solo-lectores" for="g-P-05">Incluir Ranking de fuentes por volumen en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-P-05" data-cod="P-05"></td>
+        <td><span class="codigo">P-05</span></td>
+        <td>
+          <strong>Ranking de fuentes por volumen</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="P-06">
+        <td class="col-marca"></td>
+        <td><span class="codigo">P-06</span></td>
+        <td>
+          <strong>Autores UFT distintos</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>con_autoria_detallada<br><span class="nota">818</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr id="P-07">
+        <td class="col-marca"><label class="solo-lectores" for="g-P-07">Incluir Producción por unidad académica en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-P-07" data-cod="P-07"></td>
+        <td><span class="codigo">P-07</span></td>
+        <td>
+          <strong>Producción por unidad académica</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>con_autoria_detallada<br><span class="nota">818</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad baja</span>
+        </td>
+      </tr>
+      <tr id="P-08">
+        <td class="col-marca"></td>
+        <td><span class="codigo">P-08</span></td>
+        <td>
+          <strong>Distribución por idioma</strong>
+          
+        </td>
+        <td>Scopus · SciVal</td>
+        <td>con_autoria_detallada<br><span class="nota">818</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="diferido">Diferido a V2</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="A-01">
+        <td class="col-marca"><label class="solo-lectores" for="g-A-01">Incluir Acceso abierto en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-A-01" data-cod="A-01"></td>
+        <td><span class="codigo">A-01</span></td>
+        <td>
+          <strong>Acceso abierto</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr id="AU-01">
+        <td class="col-marca"></td>
+        <td><span class="codigo">AU-01</span></td>
+        <td>
+          <strong>Publicaciones por autor</strong>
+          
+        </td>
+        <td>Scopus · SciVal</td>
+        <td>con_autoria_detallada<br><span class="nota">818</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr id="AU-06">
+        <td class="col-marca"></td>
+        <td><span class="codigo">AU-06</span></td>
+        <td>
+          <strong>Evolución temporal por autor</strong>
+          
+        </td>
+        <td>Scopus · SciVal</td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr id="AU-05">
+        <td class="col-marca"></td>
+        <td><span class="codigo">AU-05</span></td>
+        <td>
+          <strong>ORCID</strong>
+          
+        </td>
+        <td>Crossref · registro de ORCID</td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          
+          <br><strong>Qué falta:</strong> Confirmar candidatos por afiliación uno a uno (T-19); es la única vía que queda sin relajar el criterio de evidencia.
+        </td>
+      </tr>
+      <tr id="X-03">
+        <td class="col-marca"></td>
+        <td><span class="codigo">X-03</span></td>
+        <td>
+          <strong>Indicadores de financiamiento</strong>
+          
+        </td>
+        <td><span class="sin-dato-txt">No se calcula</span></td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="no_calculable">No calculable</span>
+          
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> Cobertura 37,4 %: insuficiente para reportar sin sesgo.
+          <br><strong>Qué falta:</strong> Fuente complementaria de financiamiento: src/enrich/crossref_financiamiento.py está implementado y probado (--test), pero api.crossref.org no es alcanzable desde este entorno (config/sources.yml -&gt; crossref_financiamiento_api, ejecutada: false). Falta correrlo con acceso de red real y medir la cobertura combinada.
+        </td>
+      </tr>
+      <tr id="X-04">
+        <td class="col-marca"></td>
+        <td><span class="codigo">X-04</span></td>
+        <td>
+          <strong>Tendencia de largo plazo</strong>
+          
+        </td>
+        <td><span class="sin-dato-txt">No se calcula</span></td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="no_calculable">No calculable</span>
+          
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> La ventana 2023-2025 no sostiene una tendencia.
+          <br><strong>Qué falta:</strong> Datos anteriores a 2023.
+        </td>
+      </tr></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="modulo" id="cat-impacto" tabindex="-1">
+      <header><div class="modulo-id"><h2>Impacto</h2>
+        <span class="codigo">14</span></div></header>
+      <div class="tabla-envoltura tabla-datos tabla-catalogo">
+        <table>
+          <thead><tr>
+            <th scope="col"><span class="solo-lectores">Seleccionar</span></th>
+            <th scope="col">Cód.</th><th scope="col">Indicador y definición</th>
+            <th scope="col">Fuente</th><th scope="col">Denominador</th>
+            <th scope="col">Cobertura medida</th><th scope="col">Estado</th>
+          </tr></thead>
+          <tbody>
+      <tr id="I-01">
+        <td class="col-marca"><label class="solo-lectores" for="g-I-01">Incluir Citas totales en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-I-01" data-cod="I-01"></td>
+        <td><span class="codigo">I-01</span></td>
+        <td>
+          <strong>Citas totales</strong>
+          
+        </td>
+        <td>SciVal</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="I-02">
+        <td class="col-marca"></td>
+        <td><span class="codigo">I-02</span></td>
+        <td>
+          <strong>Citas por publicación</strong>
+          
+        </td>
+        <td>SciVal</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="I-03">
+        <td class="col-marca"></td>
+        <td><span class="codigo">I-03</span></td>
+        <td>
+          <strong>FWCI institucional</strong>
+          
+        </td>
+        <td>SciVal</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr id="I-04">
+        <td class="col-marca"><label class="solo-lectores" for="g-I-04">Incluir FWCI por año en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-I-04" data-cod="I-04"></td>
+        <td><span class="codigo">I-04</span></td>
+        <td>
+          <strong>FWCI por año</strong>
+          
+        </td>
+        <td>SciVal</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad baja</span>
+        </td>
+      </tr>
+      <tr id="I-05">
+        <td class="col-marca"><label class="solo-lectores" for="g-I-05">Incluir Publicaciones en el top 10 % de citación en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-I-05" data-cod="I-05"></td>
+        <td><span class="codigo">I-05</span></td>
+        <td>
+          <strong>Publicaciones en el top 10 % de citación</strong>
+          
+        </td>
+        <td>SciVal</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="I-06">
+        <td class="col-marca"></td>
+        <td><span class="codigo">I-06</span></td>
+        <td>
+          <strong>Visualizaciones</strong>
+          
+        </td>
+        <td>Scopus · SciVal</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="diferido">Diferido a V2</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> Mide visibilidad, no impacto.
+          
+        </td>
+      </tr>
+      <tr id="R-01">
+        <td class="col-marca"><label class="solo-lectores" for="g-R-01">Incluir Publicaciones en revistas Q1 en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-R-01" data-cod="R-01"></td>
+        <td><span class="codigo">R-01</span></td>
+        <td>
+          <strong>Publicaciones en revistas Q1</strong>
+          
+        </td>
+        <td>SciVal</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr id="R-02">
+        <td class="col-marca"></td>
+        <td><span class="codigo">R-02</span></td>
+        <td>
+          <strong>Percentil CiteScore de la fuente</strong>
+          
+        </td>
+        <td>Scopus · SciVal</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="diferido">Diferido a V2</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr id="R-03">
+        <td class="col-marca"></td>
+        <td><span class="codigo">R-03</span></td>
+        <td>
+          <strong>SNIP de la fuente</strong>
+          
+        </td>
+        <td>Scopus · SciVal</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="diferido">Diferido a V2</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr id="AU-02">
+        <td class="col-marca"></td>
+        <td><span class="codigo">AU-02</span></td>
+        <td>
+          <strong>Citas por autor</strong>
+          
+        </td>
+        <td>Scopus · SciVal</td>
+        <td>con_autoria_detallada<br><span class="nota">818</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr id="AU-03">
+        <td class="col-marca"></td>
+        <td><span class="codigo">AU-03</span></td>
+        <td>
+          <strong>h-index en ventana 2023-2025</strong>
+          
+        </td>
+        <td>Scopus · SciVal</td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad baja</span>
+        </td>
+      </tr>
+      <tr id="AU-04">
+        <td class="col-marca"></td>
+        <td><span class="codigo">AU-04</span></td>
+        <td>
+          <strong>FWCI por autor</strong>
+          
+        </td>
+        <td><span class="sin-dato-txt">No se calcula</span></td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="no_calculable">No calculable</span>
+          
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> El FWCI de un autor no es el promedio de los FWCI de sus publicaciones, y SciVal no lo entrega a nivel autor en este export.
+          <br><strong>Qué falta:</strong> Export de SciVal a nivel autor, o los denominadores de campo.
+        </td>
+      </tr>
+      <tr id="X-01">
+        <td class="col-marca"></td>
+        <td><span class="codigo">X-01</span></td>
+        <td>
+          <strong>Autocitas</strong>
+          
+        </td>
+        <td><span class="sin-dato-txt">No se calcula</span></td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="no_calculable">No calculable</span>
+          
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> El export declara &#39;Self-citations: -&#39;.
+          <br><strong>Qué falta:</strong> Reexportar SciVal con autocitas activadas.
+        </td>
+      </tr>
+      <tr id="X-02">
+        <td class="col-marca"></td>
+        <td><span class="codigo">X-02</span></td>
+        <td>
+          <strong>Benchmarking interinstitucional</strong>
+          
+        </td>
+        <td><span class="sin-dato-txt">No se calcula</span></td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="fuera_de_alcance">Fuera de alcance</span>
+          
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> Excluido por PROJECT_SPEC.md &lt;out_of_scope_for_v1&gt;.
+          
+        </td>
+      </tr></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="modulo" id="cat-colaboracion" tabindex="-1">
+      <header><div class="modulo-id"><h2>Colaboración</h2>
+        <span class="codigo">7</span></div></header>
+      <div class="tabla-envoltura tabla-datos tabla-catalogo">
+        <table>
+          <thead><tr>
+            <th scope="col"><span class="solo-lectores">Seleccionar</span></th>
+            <th scope="col">Cód.</th><th scope="col">Indicador y definición</th>
+            <th scope="col">Fuente</th><th scope="col">Denominador</th>
+            <th scope="col">Cobertura medida</th><th scope="col">Estado</th>
+          </tr></thead>
+          <tbody>
+      <tr id="C-01">
+        <td class="col-marca"><label class="solo-lectores" for="g-C-01">Incluir Colaboración internacional en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-C-01" data-cod="C-01"></td>
+        <td><span class="codigo">C-01</span></td>
+        <td>
+          <strong>Colaboración internacional</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="C-02">
+        <td class="col-marca"></td>
+        <td><span class="codigo">C-02</span></td>
+        <td>
+          <strong>Publicaciones sin colaboración institucional</strong>
+          
+        </td>
+        <td>Scopus · SciVal</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="C-03">
+        <td class="col-marca"><label class="solo-lectores" for="g-C-03">Incluir Países colaboradores en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-C-03" data-cod="C-03"></td>
+        <td><span class="codigo">C-03</span></td>
+        <td>
+          <strong>Países colaboradores</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="C-04">
+        <td class="col-marca"><label class="solo-lectores" for="g-C-04">Incluir Instituciones colaboradoras en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-C-04" data-cod="C-04"></td>
+        <td><span class="codigo">C-04</span></td>
+        <td>
+          <strong>Instituciones colaboradoras</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="C-05">
+        <td class="col-marca"><label class="solo-lectores" for="g-C-05">Incluir Red de coautoría en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-C-05" data-cod="C-05"></td>
+        <td><span class="codigo">C-05</span></td>
+        <td>
+          <strong>Red de coautoría</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr id="C-06">
+        <td class="col-marca"><label class="solo-lectores" for="g-C-06">Incluir Autores por publicación en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-C-06" data-cod="C-06"></td>
+        <td><span class="codigo">C-06</span></td>
+        <td>
+          <strong>Autores por publicación</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad alta</span>
+        </td>
+      </tr>
+      <tr id="C-07">
+        <td class="col-marca"></td>
+        <td><span class="codigo">C-07</span></td>
+        <td>
+          <strong>Liderazgo autoral</strong>
+          
+        </td>
+        <td>Scopus · SciVal</td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="diferido">Diferido a V2</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> Diferido: depende de resolver los perfiles Scopus fragmentados (T-04).
+          
+        </td>
+      </tr></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="modulo" id="cat-tematico" tabindex="-1">
+      <header><div class="modulo-id"><h2>Áreas temáticas</h2>
+        <span class="codigo">5</span></div></header>
+      <div class="tabla-envoltura tabla-datos tabla-catalogo">
+        <table>
+          <thead><tr>
+            <th scope="col"><span class="solo-lectores">Seleccionar</span></th>
+            <th scope="col">Cód.</th><th scope="col">Indicador y definición</th>
+            <th scope="col">Fuente</th><th scope="col">Denominador</th>
+            <th scope="col">Cobertura medida</th><th scope="col">Estado</th>
+          </tr></thead>
+          <tbody>
+      <tr id="T-05">
+        <td class="col-marca"><label class="solo-lectores" for="g-T-05">Incluir Áreas QS en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-T-05" data-cod="T-05"></td>
+        <td><span class="codigo">T-05</span></td>
+        <td>
+          <strong>Áreas QS</strong>
+          
+        </td>
+        <td>SciVal</td>
+        <td>con_area_tematica<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr id="T-01">
+        <td class="col-marca"><label class="solo-lectores" for="g-T-01">Incluir Áreas temáticas ASJC en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-T-01" data-cod="T-01"></td>
+        <td><span class="codigo">T-01</span></td>
+        <td>
+          <strong>Áreas temáticas ASJC</strong>
+          
+        </td>
+        <td>Scopus</td>
+        <td>con_area_tematica<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr id="T-02">
+        <td class="col-marca"></td>
+        <td><span class="codigo">T-02</span></td>
+        <td>
+          <strong>Topics de SciVal</strong>
+          
+        </td>
+        <td>Scopus · SciVal</td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="diferido">Diferido a V2</span>
+          <br><span class="nota">confiabilidad media</span>
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> 632 topics para 794 publicaciones: demasiado disperso para vista principal.
+          
+        </td>
+      </tr>
+      <tr id="T-03">
+        <td class="col-marca"></td>
+        <td><span class="codigo">T-03</span></td>
+        <td>
+          <strong>Prominencia temática</strong>
+          
+        </td>
+        <td>Scopus · SciVal</td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="diferido">Diferido a V2</span>
+          <br><span class="nota">confiabilidad baja</span>
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> Mide la atención del campo, no el desempeño institucional.
+          
+        </td>
+      </tr>
+      <tr id="T-04">
+        <td class="col-marca"><label class="solo-lectores" for="g-T-04">Incluir Objetivos de Desarrollo Sostenible en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-T-04" data-cod="T-04"></td>
+        <td><span class="codigo">T-04</span></td>
+        <td>
+          <strong>Objetivos de Desarrollo Sostenible</strong>
+          
+        </td>
+        <td>SciVal</td>
+        <td>con_metricas<br><span class="nota">816</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad baja</span>
+        </td>
+      </tr></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="modulo" id="cat-declarado" tabindex="-1">
+      <header><div class="modulo-id"><h2>Producción declarada (fuera de Scopus)</h2>
+        <span class="codigo">4</span></div></header>
+      <div class="tabla-envoltura tabla-datos tabla-catalogo">
+        <table>
+          <thead><tr>
+            <th scope="col"><span class="solo-lectores">Seleccionar</span></th>
+            <th scope="col">Cód.</th><th scope="col">Indicador y definición</th>
+            <th scope="col">Fuente</th><th scope="col">Denominador</th>
+            <th scope="col">Cobertura medida</th><th scope="col">Estado</th>
+          </tr></thead>
+          <tbody>
+      <tr id="PD-01">
+        <td class="col-marca"></td>
+        <td><span class="codigo">PD-01</span></td>
+        <td>
+          <strong>Producción declarada por las Facultades, fuera de Scopus</strong>
+          
+        </td>
+        <td>Declarado por la Facultad (no Scopus)</td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad baja</span>
+        </td>
+      </tr>
+      <tr id="PD-02">
+        <td class="col-marca"></td>
+        <td><span class="codigo">PD-02</span></td>
+        <td>
+          <strong>Producción institucional confirmada por revisión de cobertura OpenAlex, fuera de Scopus</strong>
+          
+        </td>
+        <td>OpenAlex, confirmado por revisión humana (no Scopus)</td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad baja</span>
+        </td>
+      </tr>
+      <tr id="PD-03">
+        <td class="col-marca"></td>
+        <td><span class="codigo">PD-03</span></td>
+        <td>
+          <strong>Producción autoarchivada en el repositorio institucional, fuera de Scopus</strong>
+          
+        </td>
+        <td>Repositorio institucional, autoarchivo (no Scopus)</td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad baja</span>
+        </td>
+      </tr>
+      <tr id="PD-04">
+        <td class="col-marca"></td>
+        <td><span class="codigo">PD-04</span></td>
+        <td>
+          <strong>Producción en repositorios de datos y acceso abierto confirmada obra por obra, fuera de Scopus</strong>
+          
+        </td>
+        <td>DataCite · Europe PMC · Zenodo, confirmado por revisión humana (no Scopus)</td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota">confiabilidad baja</span>
+        </td>
+      </tr></tbody>
+        </table>
+      </div>
+    </section></div>
+    </div>
+</div>
+</main>
+<footer class="pie" id="pie" data-prerender="1">
+
+    <div class="contenedor">
+      <p>Los indicadores describen la producción indexada en Scopus, con las métricas normalizadas de SciVal. La cobertura de la base no es uniforme entre disciplinas.
+      Ver <a href="metodologia.html">metodología y limitaciones</a>.</p>
+      <p>Universo: 823 publicaciones ·
+      816 con métricas ·
+      818 con autoría detallada.
+      Build 2026-09-04.</p>
+    </div>
+</footer>
+<script type="module" src="assets/js/paginas.js"></script>
+</body>
+</html>

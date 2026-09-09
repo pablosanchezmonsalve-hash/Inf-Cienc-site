@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metodología — Informe Bibliométrico</title>
+<meta name="description" content="Glosario de métricas, criterios de cálculo y limitaciones declaradas.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/app.css">
+<!-- Estructural, cero color propio (ver la cabecera del archivo): puede
+     cargarse en las once páginas sin que las que aún no usan Bento Grid
+     cambien de aspecto. -->
+<link rel="stylesheet" href="assets/css/modern-ui.css">
+<script>/* Corre antes de pintar, y las dos cosas que hace tienen que ocurrir antes.
+   1. El tema guardado: desde el módulo diferido, la página aparecería un
+      instante con el tema equivocado.
+   2. La clase `js`: marca que hay JavaScript. Las vistas conmutables se
+      contraen a una sola sólo bajo esa clase; sin JS se muestran las dos, que
+      es lo correcto —la tabla es la vía equivalente al gráfico, no un extra—. */
+(function(){var e=document.documentElement;e.className+=' js';
+try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(x){}})();</script>
+</head>
+<body data-pagina="metodologia">
+<a class="salto-contenido" href="#contenido">Saltar al contenido</a>
+<header class="cabecera" id="cabecera" data-prerender="1">
+
+    <div class="contenedor">
+      <div class="marca-fila">
+        <a class="marca" href="index.html">
+          <span class="marca-sigla" aria-hidden="true">UFT</span>
+          <span class="marca-txt">
+            <strong>Universidad Finis Terrae</strong>
+            <span>Informe Bibliométrico Institucional</span>
+          </span>
+        </a>
+        <div class="tema" role="group" aria-label="Tema de color"><button type="button" data-tema="auto"
+      aria-pressed="true" title="Tema auto">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.5-6.5-.7.7M6.2 17.8l-.7.7m12.6 0-.7-.7M6.2 6.2l-.7-.7M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Auto</span></button><button type="button" data-tema="claro"
+      aria-pressed="false" title="Tema claro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v1m0 14v1m8-8h-1M5 12H4m13.7-5.7-.7.7M6.9 17.1l-.7.7m11.5 0-.7-.7M6.9 6.9l-.7-.7M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Claro</span></button><button type="button" data-tema="oscuro"
+      aria-pressed="false" title="Tema oscuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Oscuro</span></button></div>
+        <button type="button" class="nav-toggle" aria-expanded="false"
+          aria-controls="menu-nav" aria-label="Abrir menú de secciones">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"
+            fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+            <path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <span>Secciones</span>
+        </button>
+      </div>
+      <nav class="nav" id="menu-nav" aria-label="Secciones"><div class="nav-grupo">
+    <span class="nav-grupo-nombre">Informe</span>
+    <span class="nav-grupo-enlaces"><a href="index.html">Portada</a><a href="produccion.html">Producción</a><a href="impacto.html">Impacto</a><a href="colaboracion.html">Colaboración</a><a href="tematica.html">Áreas temáticas</a></span>
+  </div><div class="nav-grupo">
+    <span class="nav-grupo-nombre">Datos</span>
+    <span class="nav-grupo-enlaces"><a href="autores.html">Autores</a><a href="publicaciones.html">Publicaciones</a><a href="fuentes-externas.html">Fuentes externas</a></span>
+  </div><div class="nav-grupo">
+    <span class="nav-grupo-nombre">Sobre este informe</span>
+    <span class="nav-grupo-enlaces"><a href="indicadores.html">Indicadores</a><a href="metodologia.html" aria-current="page">Metodología</a></span>
+  </div></nav>
+    </div>
+</header>
+<div class="vigencia" id="vigencia" data-prerender="1">
+
+    <div class="contenedor">
+      <nav class="v-migas" aria-label="Ruta de posición">
+        <a href="index.html">Portada</a>
+        <span class="migas-sep" aria-hidden="true">·</span>
+        <span class="migas-actual" aria-current="page">Metodología</span>
+      </nav>
+      <span class="sep" aria-hidden="true"></span>
+      <details class="v-chip">
+        <summary>Fuente <b>Scopus · SciVal</b></summary>
+        <p>Bases de datos institucionales consultadas para el universo de publicaciones del informe.</p>
+      </details>
+      <span class="sep" aria-hidden="true"></span>
+      <details class="v-chip">
+        <summary>Ventana <b>2023–2025</b></summary>
+        <p>Fechas de publicación consideradas como universo del informe. Fuera de este periodo un trabajo no aparece.</p>
+      </details>
+      <span class="sep" aria-hidden="true"></span>
+      <details class="v-chip">
+        <summary>Citas al <b>2026-07-22</b></summary>
+        <p>Fecha en que se congelaron el recuento de citas y las métricas derivadas.</p>
+      </details>
+      <span class="recorte-vivo" id="recorte-vivo" hidden></span>
+      <p class="solo-papel credito-impreso">
+        Universidad Finis Terrae · Informe Bibliométrico Institucional.
+        Fuentes: Scopus · SciVal.
+        Ventana 2023–2025.
+        Citas actualizadas al 2026-07-22.
+      </p>
+      <p class="solo-papel recorte-impreso" id="recorte-impreso">Sin filtros: el informe completo, 823 publicaciones.</p>
+      <p class="solo-papel recorte-impreso" id="seleccion-impresa"></p>
+      <label class="v-anio" id="recorte-anio-env" hidden>
+        <span class="solo-lectores">Filtrar por año</span>
+        <select id="recorte-anio" aria-label="Filtrar por año de publicación"></select>
+      </label>
+      <button type="button" class="descargar" id="descargar-informe"
+        title="Abre el diálogo de impresión del navegador; elija «Guardar como PDF»">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
+          fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Descargar informe
+      </button>
+      <a class="vigencia-guia" href="metodologia.html">Cómo leer estos indicadores →</a>
+    </div>
+</div>
+<main id="contenido">
+  <!-- Metodología es prosa, no superficie de consulta: se compone en bandas
+       como la portada y las secciones. Las ADVERTENCIAS van sobre el suelo de
+       contraste, que es el mismo gesto que la banda de ausencia de cada
+       sección: lo que el informe no puede afirmar no se lee como un apartado
+       más de la lista. -->
+  <section class="banda banda-papel"><div class="contenedor">
+  <p class="migas"><a href="index.html">Portada</a> › Metodología</p>
+  <header class="encabezado-seccion">
+    <h1>Metodología y limitaciones</h1>
+    <p class="intro">Publicar indicadores sin sus límites es un error metodológico.
+  Esta página reúne las definiciones de las métricas no triviales y la
+  procedencia exacta de los datos.</p>
+  </header>
+  </div></section>
+
+  <section class="banda banda-papel-2"><div class="contenedor">
+  <h2 class="solo-lectores">De dónde vienen los datos</h2>
+  <section class="modulo">
+    <h3>Procedencia de los datos</h3>
+    <div id="procedencia" data-prerender="1">
+
+    <ul>
+      <li>Fuentes: Scopus, SciVal</li>
+      <li>Ventana temporal: 2023–2025</li>
+      <li>Citas actualizadas al: <strong>2026-07-22</strong></li>
+      <li>Export de origen: 2026-07-31</li>
+      <li>Publicaciones: 823 ·
+          con métricas: 816 ·
+          con autoría detallada: 818</li>
+      <li>Build: 2026-09-04</li>
+    </ul>
+</div>
+  </section>
+  <section class="modulo" id="validacion-datos">
+    <h3>Auditoría de datos</h3>
+    <p>Antes de construir cualquier indicador, el pipeline corre 30 reglas de
+    consistencia sobre el corpus — identificadores únicos, sumas que cuadran,
+    fechas de corte declaradas, ningún patrón de detección institucional
+    prohibido en uso. Si una regla bloqueante falla, el build se detiene: no
+    se publica un sitio sobre datos que no pasaron su propia auditoría.</p>
+    <div id="validacion" data-prerender="1">
+
+    <p class="val-resumen">
+      <strong>30</strong> reglas evaluadas ·
+      <strong>29</strong> pasan ·
+      <strong>1</strong> falla ·
+      <strong>0</strong> bloqueantes fallando.
+      Es la compuerta que el propio build no deja pasar si alguna regla bloqueante falla.
+    </p>
+    <details class="metodo">
+      <summary>Ver las 30 reglas, una por una</summary>
+      <div class="metodo-cuerpo">
+        <div class="tabla-envoltura"><table class="tabla-validacion">
+          <thead><tr><th scope="col">Regla</th><th scope="col">Severidad</th>
+            <th scope="col">Descripción</th><th scope="col">Resultado</th>
+            <th scope="col">Observado</th></tr></thead>
+          <tbody><tr class="">
+      <td class="mono">E-01</td>
+      <td>bloqueante</td>
+      <td>Todo registro tiene EID con formato válido</td>
+      <td>Pasa</td>
+      <td>818/818</td>
+    </tr><tr class="">
+      <td class="mono">E-02</td>
+      <td>bloqueante</td>
+      <td>EID único en cada fuente primaria</td>
+      <td>Pasa</td>
+      <td>scopus=0 scival=0</td>
+    </tr><tr class="">
+      <td class="mono">E-03</td>
+      <td>bloqueante</td>
+      <td>Cabecera de SciVal en la fila configurada</td>
+      <td>Pasa</td>
+      <td>primera columna=&#39;Title&#39;</td>
+    </tr><tr class="">
+      <td class="mono">E-04</td>
+      <td>bloqueante</td>
+      <td>Año dentro de la ventana declarada</td>
+      <td>Pasa</td>
+      <td>rango observado=2023-2025</td>
+    </tr><tr class="">
+      <td class="mono">E-05</td>
+      <td>bloqueante</td>
+      <td>Citas enteras y no negativas</td>
+      <td>Pasa</td>
+      <td>mínimo=0</td>
+    </tr><tr class="val-falla">
+      <td class="mono">E-06</td>
+      <td>alta</td>
+      <td>Sin columnas de cobertura nula en el universo activo</td>
+      <td><strong>FALLA</strong></td>
+      <td>vacías=[&#39;Molecular Sequence Numbers&#39;]</td>
+    </tr><tr class="">
+      <td class="mono">E-07</td>
+      <td>alta</td>
+      <td>Sin columnas residuales de join en fuentes activas</td>
+      <td>Pasa</td>
+      <td>detectadas en rdata (fuente de referencia, no activa): 6</td>
+    </tr><tr class="">
+      <td class="mono">E-08</td>
+      <td>media</td>
+      <td>n de registros leído coincide con el declarado</td>
+      <td>Pasa</td>
+      <td>declarado=816 leído=816</td>
+    </tr><tr class="">
+      <td class="mono">D-01</td>
+      <td>bloqueante</td>
+      <td>Sin EID repetido</td>
+      <td>Pasa</td>
+      <td>0</td>
+    </tr><tr class="">
+      <td class="mono">D-02</td>
+      <td>alta</td>
+      <td>Sin DOI repetido entre los no nulos</td>
+      <td>Pasa</td>
+      <td>0</td>
+    </tr><tr class="">
+      <td class="mono">D-03</td>
+      <td>alta</td>
+      <td>Sin filas íntegramente duplicadas</td>
+      <td>Pasa</td>
+      <td>0</td>
+    </tr><tr class="">
+      <td class="mono">P-01</td>
+      <td>alta</td>
+      <td>Duplicados probables por título marcados, no resueltos</td>
+      <td>Pasa</td>
+      <td>1 grupo(s) · 1 revisado(s) por una persona · 0 pendiente(s)</td>
+    </tr><tr class="">
+      <td class="mono">P-03</td>
+      <td>alta</td>
+      <td>Variantes de nombre encoladas sin colapso automático</td>
+      <td>Pasa</td>
+      <td>123 entradas</td>
+    </tr><tr class="">
+      <td class="mono">P-04</td>
+      <td>alta</td>
+      <td>Nombres con múltiples Scopus ID encolados</td>
+      <td>Pasa</td>
+      <td>20 entradas</td>
+    </tr><tr class="">
+      <td class="mono">E-09</td>
+      <td>alta</td>
+      <td>Firmas sin forma de persona encoladas, no eliminadas</td>
+      <td>Pasa</td>
+      <td>4 firma(s) · 4 publicación(es) quedarían sin autoría UFT nombrada si se descartaran</td>
+    </tr><tr class="">
+      <td class="mono">I-01</td>
+      <td>bloqueante</td>
+      <td>Toda publicación tiene al menos una detección institucional</td>
+      <td>Pasa</td>
+      <td>sin detección=0</td>
+    </tr><tr class="">
+      <td class="mono">I-04</td>
+      <td>alta</td>
+      <td>Métodos duro y blando reconciliados sin contradicción</td>
+      <td>Pasa</td>
+      <td>solo_duro=0 solo_blando=7</td>
+    </tr><tr class="">
+      <td class="mono">I-05</td>
+      <td>bloqueante</td>
+      <td>Ningún patrón prohibido en uso</td>
+      <td>Pasa</td>
+      <td>prohibidos declarados=[&#39;inis&#39;, &#39;finis&#39;]</td>
+    </tr><tr class="">
+      <td class="mono">I-06</td>
+      <td>media</td>
+      <td>Unidad académica no imputada cuando no es inferible</td>
+      <td>Pasa</td>
+      <td>cobertura=63.8 %, 437 pares etiquetados &#39;No determinada&#39;</td>
+    </tr><tr class="">
+      <td class="mono">I-08</td>
+      <td>alta</td>
+      <td>Identificador institucional en configuración, no en código</td>
+      <td>Pasa</td>
+      <td>scopus_affiliation_id=60105368</td>
+    </tr><tr class="">
+      <td class="mono">X-01</td>
+      <td>alta</td>
+      <td>Discrepancias entre fuentes listadas nominalmente</td>
+      <td>Pasa</td>
+      <td>solo_scopus=7 solo_scival=5</td>
+    </tr><tr class="">
+      <td class="mono">X-02</td>
+      <td>alta</td>
+      <td>Año coincide entre fuentes</td>
+      <td>Pasa</td>
+      <td>0</td>
+    </tr><tr class="">
+      <td class="mono">X-03</td>
+      <td>alta</td>
+      <td>DOI coincide entre fuentes</td>
+      <td>Pasa</td>
+      <td>0</td>
+    </tr><tr class="">
+      <td class="mono">X-04</td>
+      <td>media</td>
+      <td>Diferencia de citas entre fuentes dentro de tolerancia (1 %)</td>
+      <td>Pasa</td>
+      <td>scopus=3909 scival=3935 delta=+26 (+0.67 %)</td>
+    </tr><tr class="">
+      <td class="mono">X-05</td>
+      <td>bloqueante</td>
+      <td>Los .RData no alimentan indicadores publicables</td>
+      <td>Pasa</td>
+      <td>rol=referencia en las tres entradas</td>
+    </tr><tr class="">
+      <td class="mono">V-01</td>
+      <td>bloqueante</td>
+      <td>Suma por año igual al total del universo</td>
+      <td>Pasa</td>
+      <td>823/823</td>
+    </tr><tr class="">
+      <td class="mono">V-03</td>
+      <td>bloqueante</td>
+      <td>Suma de publicaciones por autor mayor al total (conteo completo)</td>
+      <td>Pasa</td>
+      <td>suma_por_autor=1205 universo=823</td>
+    </tr><tr class="">
+      <td class="mono">V-06</td>
+      <td>alta</td>
+      <td>Autores con n&lt;5 marcables como no interpretables</td>
+      <td>Pasa</td>
+      <td>538/589 autores con n&lt;5</td>
+    </tr><tr class="">
+      <td class="mono">V-07</td>
+      <td>bloqueante</td>
+      <td>Fecha de corte declarada para la fuente de métricas</td>
+      <td>Pasa</td>
+      <td>scival=2026-07-22 scopus=sin declarar (T-06)</td>
+    </tr><tr class="">
+      <td class="mono">V-10</td>
+      <td>alta</td>
+      <td>Campos bajo el umbral de cobertura (80 %) identificados</td>
+      <td>Pasa</td>
+      <td>ODS 37,9 % · Open Access 72,2 % · unidad académica 63.8 % (pares autor x publicación)</td>
+    </tr></tbody>
+        </table></div>
+      </div>
+    </details>
+</div>
+  </section>
+  <section class="modulo" id="fuentes">
+    <h3>De dónde se consulta cada dato</h3>
+    <p>No todas las fuentes entran igual. Dos se leen de archivos exportados a
+    mano y dos se consultan por interfaz de programación, y esa diferencia
+    decide qué se puede actualizar solo y qué no.</p>
+
+    <h3>Se leen de un export, no de una API</h3>
+    <ul>
+      <li><strong>Scopus.</strong> Export nativo en CSV. Aporta la autoría, la
+      afiliación por autor y el resumen. Es la fuente del universo de
+      publicaciones.</li>
+      <li><strong>SciVal.</strong> Export nativo en XLSX. Aporta las métricas
+      normalizadas —FWCI, percentiles, cuartiles—, la clasificación temática y
+      los indicadores de colaboración.</li>
+    </ul>
+    <p class="nota">Que sean exports y no consultas en vivo tiene una
+    consecuencia que conviene saber al leer cualquier cifra: <strong>los datos
+    son los del día en que se exportaron</strong>. No se actualizan solos. La
+    fecha de cada export está arriba, en la procedencia.</p>
+
+    <h3>Se consultan por API</h3>
+    <ul>
+      <li><strong>Crossref.</strong> Pública y gratuita. Se le pregunta, por
+      cada DOI, qué ORCID declaró el editor al depositar la publicación. Es de
+      donde salió la mayor parte de los identificadores que se publican.</li>
+      <li><strong>Registro público de ORCID.</strong> Se le hacen tres preguntas
+      distintas: si el titular de un identificador declara entre sus obras las
+      publicaciones que aquí se le atribuyen; quién declara un DOI concreto; y
+      quién declara esta institución en su registro. La primera <em>verifica</em>
+      una asignación, la segunda <em>encuentra</em> las que Crossref no vio, y
+      la tercera sólo produce <em>candidatos</em> para que una persona
+      decida.</li>
+    </ul>
+    <p class="nota"><strong>Ni Scopus ni SciVal entregan ORCID.</strong> Esa es
+    la razón de que estas dos consultas existan: sin identificador persistente
+    no hay forma de distinguir a dos personas que firman igual, ni de reunir a
+    una que firma de tres maneras.</p>
+
+    <h3>Qué sostiene cada identificador publicado</h3>
+    <p>Cada ficha de autor con ORCID declara con qué evidencia cuenta, y no
+    todas cuentan con la misma: que dos fuentes independientes coincidan, que lo
+    afirme el propio titular, o que una persona lo comprobara caso por caso son
+    tres cosas distintas y la ficha dice cuál es. Una asignación que nadie ha
+    podido contrastar se marca como tal en vez de presentarse como confirmada.</p>
+
+    <p class="nota">El detalle técnico de cada conector —qué consulta, con qué
+    límites y qué no resuelve— y las plataformas cuya integración se ha evaluado
+    están en <em>docs/FUENTES_Y_APIS.md</em>, en la
+    documentación del proyecto.</p>
+  </section>
+  </div></section>
+
+  <section class="banda banda-contraste"><div class="contenedor">
+  <div class="banda-titulo">
+    <p class="banda-gancho">Los límites de lo que aquí se publica</p>
+    <h2>Advertencias principales</h2>
+    <p>Publicar una cifra sin su límite la convierte en otra cosa. Estas van
+    sobre su propio suelo para que no se lean como un apartado más.</p>
+  </div>
+  <section class="modulo">
+    <ul>
+      <li>Los indicadores describen <strong>producción indexada en Scopus</strong>,
+      no productividad académica total. La cobertura de la base no es uniforme
+      entre disciplinas. Las métricas normalizadas —FWCI, percentiles de citación,
+      cuartiles de revista— proceden de <strong>SciVal</strong>: cada módulo
+      declara en su sello cuál de las dos fuentes lo sostiene.</li>
+      <li>La unidad académica se infiere de la afiliación declarada y está
+      disponible en el 63,8 % de los casos (pares autor × publicación). El
+      vocabulario de unidades fue validado institucionalmente por el
+      responsable del proyecto (T-02); la cobertura desigual de Scopus entre
+      disciplinas sigue distorsionando la comparación entre unidades.</li>
+      <li>Cada ficha de autor corresponde a <strong>una forma de firma</strong>,
+      no necesariamente a una persona distinta.</li>
+      <li id="li-orcid"><strong>ORCID no viene de Scopus ni de SciVal.</strong> Se recupera de
+      Crossref y del registro público de ORCID, y cada asignación se contrasta
+      contra el registro de su titular: hoy hay <span id="orcid-cobertura" data-prerender="1">
+268 de 530 formas de firma con ORCID
+</span>,
+      cada una etiquetada con la evidencia que la respalda. Ver
+      <em>Cobertura de ORCID</em> en la documentación del proyecto.</li>
+      <li>Las publicaciones más recientes tienen una ventana de citación corta:
+      sus indicadores de impacto son provisionales.</li>
+    </ul>
+  </section>
+  </div></section>
+
+  <section class="banda banda-papel"><div class="contenedor">
+  <section class="modulo" id="correcciones">
+    <h2>Si su ficha de autor tiene un error</h2>
+    <p>Esta plataforma no es la fuente de los datos: los toma de Scopus y SciVal
+    y los reconstruye en cada carga. De dónde venga el error decide por dónde se
+    corrige, y las dos vías son distintas.</p>
+
+    <h3>Lo que se corrige en la fuente</h3>
+    <p>El nombre con que firma, su afiliación declarada, el identificador de
+    autor y qué publicaciones le corresponden vienen de <strong>su perfil de
+    Scopus</strong>. Se corrigen allí, a través del procedimiento de Elsevier
+    para el perfil de autor. <strong>La plataforma lo reflejará en la siguiente
+    carga</strong>, sin que haya que pedir nada aquí: se reconstruye entera cada
+    vez, así que no conserva correcciones propias que la fuente contradiga.</p>
+
+    <h3>Lo que sólo se corrige aquí</h3>
+    <p>Hay errores que la fuente no tiene y esta plataforma sí, porque los
+    introduce al procesar:</p>
+    <ul>
+      <li><strong>Aparecer dos veces.</strong> Dos formas de firma de la misma
+      persona que aún no se han declarado equivalentes.</li>
+      <li><strong>Una ficha que no es una persona.</strong> Fragmentos de la
+      cadena de afiliación que la fuente coló en la lista de autores.</li>
+      <li><strong>Un ORCID mal atribuido</strong>, o atribuido con evidencia más
+      débil de la que la ficha declara.</li>
+      <li><strong>Una unidad académica equivocada</strong>, que se deduce de la
+      cadena de afiliación y no de un campo.</li>
+    </ul>
+    <p>Ninguno de estos se resuelve automáticamente. Todos entran en una
+    <strong>cola de revisión humana</strong>: una persona los examina caso por
+    caso y decide, porque afirmar que dos firmas son la misma persona —o que una
+    no lo es— es una afirmación sobre alguien real y no una operación de
+    software.</p>
+
+    <p class="nota-destacada"><b>Canal de contacto pendiente</b>La vía
+    institucional por la que enviar estas solicitudes no está definida todavía.
+    Es una decisión de la institución, no de la plataforma, y mientras no exista
+    se declara en vez de improvisarse. El procedimiento de arriba describe qué
+    ocurre con una solicitud, no cómo hacerla llegar.</p>
+
+    <h3>Lo que una solicitud no puede obtener</h3>
+    <p>Tres cosas no se cambian a petición, y no por rigidez: cambiarlas
+    publicaría afirmaciones que los datos no sostienen.</p>
+    <ul>
+      <li><strong>Que se afirme una identidad.</strong> Cada ficha corresponde a
+      una forma de firma, no a una persona verificada, y así se declara.</li>
+      <li><strong>Que se enlacen firmas entre sí sin revisión.</strong> Sugerir
+      que dos firmas son la misma persona sin comprobarlo publicaría una
+      afirmación no verificada.</li>
+      <li><strong>Que se altere una posición en un listado.</strong> El orden por
+      número de publicaciones es descriptivo y no mide desempeño: no hay una
+      posición que ganar ni que perder.</li>
+    </ul>
+  </section>
+
+  </div></section>
+
+  <section class="banda banda-papel-2"><div class="contenedor">
+    <h2>Glosario</h2>
+    <div id="glosario" data-prerender="1">
+
+    <section class="modulo" id="fwci-field-weighted-citation-impact">
+      <h2>FWCI — Field-Weighted Citation Impact</h2>
+      <p>Citas recibidas frente a las esperadas para publicaciones del mismo campo, año y tipo. 1,0 = promedio mundial.</p>
+      <p class="nota">Compara las citas observadas con las esperadas de un conjunto de referencia mundial equivalente. Un valor de 1,0 significa exactamente el promedio mundial; 0,5, la mitad. Se calcula sobre el conjunto completo, no promediando los FWCI individuales. Es inestable con pocas publicaciones o ventanas cortas: no debe usarse para comparar personas. En este informe: media 0,87, mediana 0,41 sobre 816 publicaciones. La diferencia entre ambas indica una distribución muy asimétrica — unas pocas publicaciones muy citadas elevan la media.</p>
+    </section>
+    <section class="modulo" id="percentil-de-citacion-top-10">
+      <h2>Percentil de citación / Top 10 %</h2>
+      <p>Posición de la publicación entre las más citadas de su campo. Menor es mejor: el top 10 % son las más citadas.</p>
+      <p class="nota">Cada publicación recibe un percentil según sus citas dentro de su campo y año. El «top 10 %» agrupa las que están en el decil más citado. En un conjunto sin sesgo, ~10 % de las publicaciones caen en el top 10 %. Aquí son 75 de 816 (9,2 %).</p>
+    </section>
+    <section class="modulo" id="sjr-citescore-snip-metricas-de-revista">
+      <h2>SJR, CiteScore, SNIP — métricas de revista</h2>
+      <p>Miden la revista donde se publicó, no el artículo. Una revista de alto percentil publica artículos de impacto muy variable.</p>
+      <p class="nota">- SJR pondera las citas según el prestigio de la fuente que cita. - CiteScore es el promedio de citas por documento de la revista. - SNIP normaliza por la propensión a citar del campo. Los tres describen la fuente. Atribuir la posición de la revista al mérito de un artículo concreto es el error que DORA identifica explícitamente.</p>
+    </section>
+    <section class="modulo" id="cuartil-q1">
+      <h2>Cuartil Q1</h2>
+      <p>La revista está entre el 25 % de mayor percentil de su categoría. Describe la revista, no el artículo.</p>
+      <p class="nota">Se calcula con el percentil SJR del año de publicación: Q1 = percentil ≤ 25. Cobertura 762 de 816 publicaciones; las restantes no tienen percentil SJR y se muestran como «sin dato», no como Q4.</p>
+    </section>
+    <section class="modulo" id="colaboracion-internacional">
+      <h2>Colaboración internacional</h2>
+      <p>Publicaciones con autores de más de un país. Aquí: 51,2 %.</p>
+      <p class="nota">Cuenta países distintos entre las afiliaciones. No mide la intensidad ni la calidad de la colaboración: una publicación con un coautor extranjero y otra con quince cuentan igual.</p>
+    </section>
+    <section class="modulo" id="componente-y-comunidad-red-de-coautoria">
+      <h2>Componente y comunidad (red de coautoría)</h2>
+      <p>En la red de coautoría, la componente es un hecho objetivo del grafo; la comunidad es una heurística de un algoritmo (Louvain), no un veredicto sobre qué grupos de investigación existen.</p>
+      <p class="nota">Dos personas están en la misma componente si existe un camino de coautorías entre ellas, sin importar cuántos pasos tenga. No tiene parámetros ni azar: o hay camino, o no lo hay. La comunidad la asigna el algoritmo Louvain, que agrupa nodos maximizando la densidad de vínculos dentro de cada grupo frente a fuera de él. Es reproducible en esta implementación —misma entrada, misma partición siempre—, pero sigue siendo una heurística: otro algoritmo, u otro orden de cálculo, podría trazar los grupos de otra forma. Dos triángulos de personas unidos por un solo vínculo débil son SIEMPRE una componente (hay camino de un extremo al otro), pero Louvain casi siempre los separa en dos comunidades, porque cada triángulo es mucho más denso por dentro que el puente que los conecta. Presentar una comunidad detectada como si fuera un grupo de investigación real convierte una hipótesis del algoritmo en un hecho.</p>
+    </section>
+    <section class="modulo" id="asjc-all-science-journal-classification">
+      <h2>ASJC — All Science Journal Classification</h2>
+      <p>Clasificación temática de la revista, no del artículo. Una publicación puede estar en varias áreas.</p>
+      <p class="nota">Elsevier clasifica cada fuente en una o más de 249 categorías. Como es multivaluada, **las asignaciones (1.796) superan a las publicaciones (816)** y los porcentajes no suman 100 %. Que un artículo esté en «General Medicine» significa que su revista está clasificada así, no que ese sea su tema exacto.</p>
+    </section>
+    <section class="modulo" id="topic-y-prominencia-tematica">
+      <h2>Topic y prominencia temática</h2>
+      <p>Clúster de artículos que se citan entre sí. La prominencia mide la atención del campo, no el desempeño de la institución.</p>
+      <p class="nota">Los Topics agrupan documentos por patrones de co-citación. Se asignan al documento, no a la revista, y por eso son más precisos que ASJC. La prominencia combina citas, visualizaciones y financiamiento recientes del *topic*. Un topic muy prominente indica un área con mucha actividad mundial; no dice nada sobre la calidad del trabajo institucional en ella.</p>
+    </section>
+    <section class="modulo" id="h-index-en-ventana-2023-2025">
+      <h2>h-index en ventana 2023–2025</h2>
+      <p>h publicaciones con al menos h citas, contando sólo 2023–2025. No es el h-index de carrera.</p>
+      <p class="nota">Restringido a la ventana del informe, es sistemáticamente mucho menor que el h-index de trayectoria completa. Con 3 años, **442 de las 530 entidades publicadas tienen h ≤ 1**: sobre el conjunto entero el indicador casi no discrimina. Se muestra sólo en fichas con 5 o más publicaciones, y siempre etiquetado «en ventana». Entre esas 50, la mediana es 3 y el máximo 9: donde se publica sí separa, y por eso se publica ahí y no en todas.</p>
+    </section>
+    <section class="modulo" id="acceso-abierto">
+      <h2>Acceso abierto</h2>
+      <p>Estado OA declarado por Scopus. La ausencia de valor no significa «no es OA».</p>
+      <p class="nota">Disponible en 590 de 816 publicaciones (72,3 %). Tipos: Gold, Green, Hybrid gold, Bronze; una publicación puede tener varios. Las 226 sin valor se muestran como «sin dato declarado», no como acceso cerrado.</p>
+    </section>
+    <section class="modulo" id="ods-objetivos-de-desarrollo-sostenible">
+      <h2>ODS — Objetivos de Desarrollo Sostenible</h2>
+      <p>Mapeo de la publicación a los ODS de Naciones Unidas. Sólo 38 % del corpus tiene ODS asignado.</p>
+      <p class="nota">Con cobertura del 38 %, se reporta como recuento de publicaciones con ODS asignado, nunca como distribución porcentual del total: eso implicaría que el 62 % restante no se relaciona con ningún ODS, lo cual no está establecido.</p>
+    </section>
+    <section class="modulo" id="conteo-completo">
+      <h2>Conteo completo</h2>
+      <p>Cada autor UFT recibe la publicación entera. Por eso la suma por autor supera el total institucional.</p>
+      <p class="nota">Una publicación con 3 autores UFT aporta 1 a cada uno. La suma de publicaciones por autor (1.205) excede el total de publicaciones (823). Es correcto y esperado: esa suma no es un total institucional.</p>
+    </section>
+    <section class="modulo" id="formas-de-firma-vs-personas">
+      <h2>Formas de firma vs. personas</h2>
+      <p>589 formas de firma detectadas. El número de personas distintas es menor: hay variantes de nombre sin consolidar.</p>
+      <p class="nota">Sin un identificador persistente como ORCID —ausente en las fuentes— no es posible afirmar que dos variantes son la misma persona. 123 firmas comparten apellido base con otra variante y 20 nombres tienen más de un Scopus Author ID. Estas ambigüedades se declaran sin resolver: consolidarlas por similitud de nombre produciría fusiones erróneas entre homónimos.</p>
+    </section>
+    <section class="modulo" id="fecha-de-corte">
+      <h2>Fecha de corte</h2>
+      <p>Las citas están actualizadas al 22 de julio de 2026. Un corte posterior daría cifras mayores.</p>
+      <p class="nota">Las citas se acumulan continuamente. Toda cifra de impacto es válida sólo respecto de su corte. Las publicaciones de 2025 tienen entre 7 y 19 meses de ventana de citación: el 46 % aún no tiene citas, lo que hace sus indicadores provisionales.</p>
+    </section>
+    <section class="modulo" id="unidad-academica">
+      <h2>Unidad académica</h2>
+      <p>Inferida desde la afiliación declarada. Disponible en el 63,8 % de los casos; el resto figura como «No determinada».</p>
+      <p class="nota">No existe como campo en las fuentes: se extrae de la cadena de afiliación. El vocabulario de unidades fue validado institucionalmente por el responsable del proyecto (T-02, 2026-08-26). La comparación entre unidades está además afectada por la cobertura desigual de Scopus entre disciplinas: medicina aparece sobrerrepresentada frente a humanidades, artes y derecho por razones de indexación, no de productividad.</p>
+    </section>
+</div>
+  </div></section>
+</main>
+<footer class="pie" id="pie" data-prerender="1">
+
+    <div class="contenedor">
+      <p>Los indicadores describen la producción indexada en Scopus, con las métricas normalizadas de SciVal. La cobertura de la base no es uniforme entre disciplinas.
+      Ver <a href="metodologia.html">metodología y limitaciones</a>.</p>
+      <p>Universo: 823 publicaciones ·
+      816 con métricas ·
+      818 con autoría detallada.
+      Build 2026-09-04.</p>
+    </div>
+</footer>
+<script type="module" src="assets/js/paginas.js"></script>
+</body>
+</html>

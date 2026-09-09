@@ -1,0 +1,6084 @@
+{
+ "meta": {
+  "titulo": "Producción fuera del corpus Scopus",
+  "descripcion": "Publicaciones con autores afiliados a la UFT recuperadas de fuentes institucionales no indexadas en Scopus/SciVal.",
+  "fuentes": [
+   "Facultad de Medicina y Salud",
+   "Repositorio institucional DSpace",
+   "Autoarchivo de biblioteca"
+  ],
+  "universo_scopus_dois": 804,
+  "fecha_generacion": "2026-09-04",
+  "advertencia": "Inventario declarado por fuentes institucionales, fuera del corpus Scopus/SciVal. Se publican las OBRAS, no a quién se le atribuye cada una: la atribución obra-persona que traen estas fuentes no está verificada, y en el inventario de autoarchivo el identificador ORCID de una fila corresponde con frecuencia a un coautor y no a quien figura como autor. Esa parte queda en la capa interna hasta que una revisión caso por caso la confirme."
+ },
+ "publicaciones": [
+  {
+   "titulo": "Unraveling the association between obesity and climacteric symptoms: a generalized structural equation modeling approach",
+   "doi": "10.1097/gme.0000000000002620",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud"
+   ],
+   "fuentes_id": [
+    "facmed"
+   ]
+  },
+  {
+   "titulo": "Treatment of small intestinal bacterial overgrowth in Chilean patients with irritable bowel syndrome: A prospective and comparative study",
+   "doi": "10.1016/j.rgmxen.2024.08.003",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud"
+   ],
+   "fuentes_id": [
+    "facmed"
+   ]
+  },
+  {
+   "titulo": "The role of cellular senescence in endothelial dysfunction and vascular remodelling in arteriovenous fistula maturation",
+   "doi": "10.1113/jp287387",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud",
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "facmed",
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Clinical association of the SCN5A c.2302A&gt;G variant (p.Ile768Val) with Brugada syndrome",
+   "doi": "10.1016/j.rec.2024.12.014",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud"
+   ],
+   "fuentes_id": [
+    "facmed"
+   ]
+  },
+  {
+   "titulo": "Patient outcomes after surgery in 17 Latin American countries (LASOS): a 7 day prospective cohort study",
+   "doi": "10.1016/s2214-109x(24)00558-8",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud"
+   ],
+   "fuentes_id": [
+    "facmed"
+   ]
+  },
+  {
+   "titulo": "Pelvic Floor Prehabilitation for Prevention of Low Anterior Resection Syndrome: Insights From a Randomized Trial (CARRET Study)",
+   "doi": "10.1111/ans.70520",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud"
+   ],
+   "fuentes_id": [
+    "facmed"
+   ]
+  },
+  {
+   "titulo": "Arcuate Foramen of the Atlas Vertebra and its Correlation with Clinical Implications in the Craniocervical Region: A Systematic Review and Meta-analysis",
+   "doi": "10.1016/j.wneu.2025.124652",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud"
+   ],
+   "fuentes_id": [
+    "facmed"
+   ]
+  },
+  {
+   "titulo": "Internal carotid artery agenesis: a systematic review of prevalence, basal brain circulation variations, and associated pathologies",
+   "doi": "10.1007/s12565-025-00873-y",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud"
+   ],
+   "fuentes_id": [
+    "facmed"
+   ]
+  },
+  {
+   "titulo": "Anatomical variants of the vertebral artery and their relationship with craniocervical disorders and surgical considerations: a systematic review and meta-analysis",
+   "doi": "10.1007/s12565-025-00855-0",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud",
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "facmed",
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Absolute neutrophil count and adverse drug reaction monitoring during clozapine treatment: consensus guidelines from a global Delphi panel",
+   "doi": "10.1016/s2215-0366(25)00098-7",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud"
+   ],
+   "fuentes_id": [
+    "facmed"
+   ]
+  },
+  {
+   "titulo": "Intravascular Lymphoma Presenting as Multiple Endocrine Failure, Transforming Into the Hemophagocytic Variant, and Relapsing as a Thrombotic Microangiopathy",
+   "doi": "10.1155/crh/5560781",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud"
+   ],
+   "fuentes_id": [
+    "facmed"
+   ]
+  },
+  {
+   "titulo": "La paradoja del plástico en la salud: herramienta vital, contaminante letal",
+   "doi": "10.32457/scr.v5i1.2836",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud"
+   ],
+   "fuentes_id": [
+    "facmed"
+   ]
+  },
+  {
+   "titulo": "Publisher Correction: A systematic review and meta-analysis: prevalence and clinical implications of anatomical variants of the hepatic portal vein (NO ES UN ARTÍCULO NUEVO)",
+   "doi": "10.1038/s41598-025-86692-7",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud"
+   ],
+   "fuentes_id": [
+    "facmed"
+   ]
+  },
+  {
+   "titulo": "Butyrate suppresses mucosal inflammation in IBD primarily through HDAC3 inhibition in monocytes and macrophages",
+   "doi": "",
+   "anio": "2025",
+   "escuela": "Escuela de Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Facultad de Medicina y Salud"
+   ],
+   "fuentes_id": [
+    "facmed"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1186/s12888-022-04023-w",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Propuestas para reducir las listas de espera odontológica: Mesa de Consenso sobre la Lista de Espera Odontológica: Metodología Delphi adaptada",
+   "doi": "10.23736/4365",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Book Chapter",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Mechanical power in pediatric acute respiratory distress syndrome: a PARDIE study",
+   "doi": "10.1186/s13054-021-03853-6",
+   "anio": "2022",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "A novel high-throughput method for acrylamide determination in potato chips by high-perfomrmance thin-layer chromatography coupled to fluorescence and mass spectrometry detection",
+   "doi": "10.1007/s12161-026-03056-1",
+   "anio": "2025",
+   "escuela": "Nutrición",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Storytelling corporativo: una revisión crítica de los enfoques de investigación y la metodología en la literatura académica del 2011 al 2020",
+   "doi": "10.5294/pacla.2022.25.2.2",
+   "anio": "2022",
+   "escuela": "Periodismo",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Latin American Consensus on the Management of Sepsis in Children: Sociedad Latinoamericana de Cuidados Intensivos Pediátricos [Latin American Pediatric Intensive Care Society] (SLACIP) Task Force: Executive Summary",
+   "doi": "10.1177/08850666211054444",
+   "anio": "2022",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Boron Schiff bases derived from a-amino acids as nucleoli/cytoplasm cell-staining fluorescent probes in vitro",
+   "doi": "10.1039/d0ra05948j",
+   "anio": "2020",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Anxiety levels in dental students of a private university in Chile",
+   "doi": "10.22533/at.ed.1594882426099",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Resistencias Materiales: El desecho como dispositivo afectivo",
+   "doi": "10.5354/0719-837x.2025.80011",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.32641/andespediatr.v93i1.4250",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Comportamiento epidemiológico de la caries de inicio precoz y su manejo preventivo en niños atendidos en el Hospital Hanga Roa, 2023-2024",
+   "doi": "10.13153/2072-3682/2024.12.02",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.31557/apjcp.2022.23.7.2497",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "El humo que transforma, nuevas miradas para entender la tecnología ritual de las pipas del Salar de Atacama",
+   "doi": "10.4067/s0719-26812023000100287",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Work/household, transport, and leisure domains account for the sex gap in physical activity in Chile",
+   "doi": "10.3389/fpubh.2022.1011790",
+   "anio": "2022",
+   "escuela": "Kinesiología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Fuerzas de cambio del proceso de evaluación: percepción docentes universitarios en COVID-19",
+   "doi": "10.21703/0718-5162.v22.n48.2023.007",
+   "anio": "2023",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Comunicación en canciones inspiradas por noticias: Construyendo memoria de víctimas",
+   "doi": "10.35588/spcjnq58",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Therapeutic plasma exchange in critically ill children: experience of the pediatric intensive care unit of two centers in Chile",
+   "doi": "10.1016/j.transci.2021.103181",
+   "anio": "2021",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1016/j.cie.2022.108632",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Diálogos participativos: propuestas de salud bucal para Chile 2026-2030",
+   "doi": "10.17077/7371",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Libro",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Estimating acrylamide and 5-hydroxymethylfurfural levels in crackers using computer vision: Effects on consumer acceptance",
+   "doi": "10.3390/foods15112011",
+   "anio": "2026",
+   "escuela": "Nutrición",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "El sentido del trabajo en mujeres privadas de libertad en Chile",
+   "doi": "10.18002/cg.v0i9.1099",
+   "anio": "2014",
+   "escuela": "Familia",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "New Year’s Eve Show: An Opportunity to Further Develop Sustainable Local Tourism in Chile",
+   "doi": "10.3390/su14073962",
+   "anio": "2022",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Educación de postgrado en pediatría en Chile: desafíos para la calidad formativa en un sistema en expansión.",
+   "doi": "10.32641/andespediatr.v97i3.6025",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "1st Global Consensus for Clinical Guidelines for the Rehabilitation of the Edentulous Maxilla: Patient and Cross-Disciplinary Expert Single-Round Surveys",
+   "doi": "10.1111/clr.70023",
+   "anio": "2026",
+   "escuela": "Odontología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Preferencias parentales de socialización valórica en el Chile contemporáneo: ¿cómo influyen la clase social y la religión de los padres en la manera en que quieren criar a sus hijos?",
+   "doi": "10.21678/apuntes.87.1027",
+   "anio": "2020",
+   "escuela": "Educación parvularia",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "A study of using metaphoric and beat gestures with motion-based and non-motion-based metaphors during retelling stories",
+   "doi": "10.3390/bs12050129",
+   "anio": "2022",
+   "escuela": "Educación básica",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Chapter 3: Risk preferences in sequential gambling decisions: A study with being games with and without requirement of previous effort",
+   "doi": "10.52305/vegs2790",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Capítulo de libro",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Design of an EEG analytical methodology for the analysis and interpretation of cerebral connectivity signals",
+   "doi": "10.1016/j.procs.2022.01.177",
+   "anio": "2022",
+   "escuela": "Ingeniería civil industrial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Reliable pain and function outcomes but limited sport performance after high tibial osteotomy for medial knee osteoarthritis in the grey zone between osteotomy and unicompartmental replacement",
+   "doi": "10.1002/ksa.70223",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Green ultrasound-sssisted extraction of bee Pollen polyphenols for bioactive ?-carrageenan food packaging films with antioxidant and UV-protective properties",
+   "doi": "10.1021/acsfoodscitech.6c00315",
+   "anio": "2026",
+   "escuela": "Ingeniería Civil Biomédica",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Dysregulated Immune Responses in COVID-19 Patients Correlating With Disease Severity and Invasive Oxygen Requirements",
+   "doi": "10.3389/fimmu.2021.769059",
+   "anio": "2021",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "The viral nucleocapsid protein and the human RNA-binding protein Mex3A promote translation of the Andes orthohantavirus small mRNA",
+   "doi": "10.1371/journal.ppat.1009931",
+   "anio": "2021",
+   "escuela": "Odontología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Legitimidad y prestigio en la ciencia ficción chilena: un análisis peritextual de los escritos de Hugo Correa y Antonio Montero (1959-1977)",
+   "doi": "10.7238/artnodes.v0i28.385684",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Hospital-wide sepsis detection: A machine learning model based on prospectively expert-validated cohort",
+   "doi": "10.3390/jcm15020855",
+   "anio": "2025",
+   "escuela": "Medicina",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Preoperative dynamic anterior tibial translation is not predictive of graft rupture after anterior cruciate ligament reconstruction",
+   "doi": "10.1002/jeo2.70784",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.4000/orda.2357",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.34720/m52w-ae33",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Capítulo de libro",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Booktokers: Generar y compartir contenidos sobre libros a través de TikTok",
+   "doi": "10.3916/c71-2022-09",
+   "anio": "2022",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1016/j.htct.2021.06.017",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Severe COVID-19 correlates with lower mitochondrial cristae density in PBMCs and greater sitting time in humans",
+   "doi": "10.14814/phy2.15369",
+   "anio": "2022",
+   "escuela": "Kinesiología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "From development to clinical practice: deployment of an interoperable and secure ML-based CDSS to aid in the early detection of sepsis",
+   "doi": "10.1016/j.ijmedinf.2026.106545",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Physiological dissociation between ventilatory ratio and ventilatory efficiency in patients with ARDS",
+   "doi": "10.1186/s40635-026-00887-4",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.15359/ru.36-1.34",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Automatons immersed in ocean currents for transformation of biomass into fuel",
+   "doi": "10.1007/978-3-030-53651-0_12",
+   "anio": "2020",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Capítulo de libro",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Prevalence of bacterial codetection and outcomes for infants intubated for respiratory infections",
+   "doi": "10.1097/pcc.0000000000003545",
+   "anio": "2024",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Infecciones respiratorias agudas graves en niños: desafíos actuales en un panorama epidemiológico en evolución",
+   "doi": "10.32641/andespediatr.v97i1.6118",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Creando conexiones: artes, género y ciencias sociales",
+   "doi": "10.22370/panambi.2024.19.5634",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.15896/rsalud.2023.01",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Determinantes estructurales relacionados con la tasa de consulta de urgencia odontológica ambulatoria en una zona fronteriza de Chile",
+   "doi": "10.20453/reh.v35i3.6505",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "International collaborative follow-up investigation of graduating high school students’ understandings of the nature of scientific inquiry: is progress Being made?",
+   "doi": "10.1080/09500693.2021.1894500",
+   "anio": "2021",
+   "escuela": "Educación básica",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Intracellular and extracellular redox signals during exercise and aging",
+   "doi": "10.1016/j.freeradbiomed.2025.10.283",
+   "anio": "2025",
+   "escuela": "Kinesiología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Microencapsulated pomegranate peel extract induces mitochondrial complex IV activity and prevents mitochondrial cristae alteration in brown adipose tissue in mice fed on a high-fat diet",
+   "doi": "10.1017/s000711452000481x",
+   "anio": "2021",
+   "escuela": "Kinesiología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Tratamientos afirmativos a niños, niñas y adolescentes que se identifican como transgénero y su sustento empírico en las políticas públicas chilenas",
+   "doi": "10.13140/rg.2.2.31709.42721",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "A regulação sanitária nos tratados de investimentos brasileiros",
+   "doi": "10.20499/2236-3645.rjp2023v25e135-2889",
+   "anio": "2022",
+   "escuela": "Derecho",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Effect of supervised resistance training on arm volume, quality of life and physical perfomance among women at high risk for breast cancer-related Lymphedema: A study protocol for a randomized controlled Trial (STRONG-B)",
+   "doi": "10.3389/fonc.2022.850564",
+   "anio": "2022",
+   "escuela": "Kinesiología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Cuando la comunidad es invisible: Responsabilidad social empresarial en la industria minera",
+   "doi": "10.17141/letrasverdes.31.2022.5082",
+   "anio": "2022",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Progressive 11?-Hydroxysteroid Dehydrogenase Type 2 Insufficiency as Kidney Function Declines",
+   "doi": "10.1210/clinem/dgae663",
+   "anio": "2026",
+   "escuela": "Ingeniería Civil Biomédica",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Future Early Childhood Teachers Designing Problem-Solving Activities",
+   "doi": "10.22342/jme.v13i2.pp239-256",
+   "anio": "2022",
+   "escuela": "Educación básica",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Cuidado colectivo y defensa de lo común: el cuidado como estrategia de resistencia entre mujeres rurales del Valle Central de Chile",
+   "doi": "10.24215/15155994e266",
+   "anio": "2025",
+   "escuela": "Familia",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "De la ecopoética infantil al videoensayo: Cartografías de un cuerpo dramatizado en diálogo con la naturaleza",
+   "doi": "10.64493/inv.22.4",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.7764/cdi.49.27509",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Dos problemas en la división de las causas: número y ser en acto o en potencia en de Principiis Naturae 5",
+   "doi": "10.15691/0718-5448vol6iss1a417",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Functional fermented cherimoya (Annona cherimola Mill.) juice using autochthonous lactic acid bacteria",
+   "doi": "10.1016/j.foodres.2020.109729",
+   "anio": "2020",
+   "escuela": "Nutrición",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1096/fj.202002615rr",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Two fish moving in their seas: How does the body language of teachers show itself who teach mathematical equations?",
+   "doi": "10.17648/acta.scientiae.xxxx",
+   "anio": "2021",
+   "escuela": "Educación básica",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Beyond Bloch: A Theoretical Blueprint of Conjugated Polymer Optoelectronics",
+   "doi": "10.1088/1402-4896/ae5036",
+   "anio": "2026",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Thyme essential oil loaded microspheres for fish fungal infection: microstructure, in vitro dynamic release and antifungal activity",
+   "doi": "10.1080/02652048.2020.1836055",
+   "anio": "2020",
+   "escuela": "Nutrición",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1142/s0219525922500060",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Low-renin hypertension in incidental adrenal adenomas and response to aldosterone-targeted therapy: a prospective study",
+   "doi": "10.1016/j.ejim.2026.107042",
+   "anio": "2026",
+   "escuela": "Ingeniería Civil Biomédica",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Sequential dynamics of memory load: contralateral delay activity and behavioral evidence",
+   "doi": "10.1097/wnr.0000000000002270",
+   "anio": "2026",
+   "escuela": "Psicología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Madres del mar: maternar y cuidar en las caletas pesqueras",
+   "doi": "10.5354/2735-7473.2025.82613",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Diagnosis and surgical management of parathyroid carcinoma",
+   "doi": "10.1007/978-3-030-84737-1_15",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Capítulo de libro",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Scientometric Analysis of Hiking Tourism and Its Relevance for Wellbeing and Knowledge Management",
+   "doi": "10.3390/ijerph19148534",
+   "anio": "2022",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Profiling and characterization of plant-based products consumers in Chile",
+   "doi": "10.20932/barataria.v0i36.704",
+   "anio": "2024",
+   "escuela": "Ingeniería civil industrial",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Disfunción mitocondrial y estrés oxidativo asociado al trastorno del espectro autista: Una revisión narrativa",
+   "doi": "10.4067/s0717-75182022000100117",
+   "anio": "2022",
+   "escuela": "Nutrición",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.31557/apjcp.2022.23.2.591",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Oscillations and Waves",
+   "doi": "10.1119/5.0166724",
+   "anio": "2024",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.32641/andespediatr.v93i1.4149",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Hacia una museografía situada: una reflexión crítica sobre la articulación entre comunidad y territorio",
+   "doi": "10.18682/cdc.vi276.12628",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1002/oby.23469",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Evaluación y apoyo nutricional en el paciente pediátrico críticamente enfermo: Revisión de la literatura",
+   "doi": "10.4067/s0717-75182021000100095",
+   "anio": "2021",
+   "escuela": "Nutrición",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Holismo semântico moderado",
+   "doi": "10.15448/1984-6746.2025.1.47720",
+   "anio": "2025",
+   "escuela": "Formación General",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Understanding beyond knowledge. Fiction, models, and cognitive gain",
+   "doi": "10.5840/bjp20261813",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Ecografía axilar prequirúrgica en pacientes con cáncer de mama. Estudio prospectivo para valorar la capacidad de predecir la carga tumoral axilar",
+   "doi": "10.1016/j.rx.2021.07.004",
+   "anio": "2021",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "A review of IoT enabled intelligent smart energy management for  photovoltaic power forecasting and generation",
+   "doi": "10.1016/j.uncres.2025.100279",
+   "anio": "2025",
+   "escuela": "Ingeniería civil industrial",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.32641/andespediatr.v92i6.4035",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1016/j.edumed.2022.100766",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Improved extraction of phenolic compounds from fruits, leaves, and stems of Ugni candollei B. and Ugni molinae T. using pressurized aqueous glycerol",
+   "doi": "10.1016/j.ifset.2026.104489",
+   "anio": "2025",
+   "escuela": "Nutrición",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1016/j.procs.2022.01.002",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Service-Specific Heterogeneity in Sepsis Variable Significance and Machine Learning Model Performance: A Stratified Analysis of the BIAlert Cohort",
+   "doi": "10.3390/jcm15134904",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Techno-economic assessment of a green hydrogen production plant for a mining operation in Chile",
+   "doi": "10.1016/j.ijhydene.2025.02.164",
+   "anio": "2025",
+   "escuela": "Ingeniería civil industrial",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Adsorption of low molecular weight food relevant polyphenols on cross-linked agarose gel",
+   "doi": "10.1016/j.molliq.2021.117972",
+   "anio": "2021",
+   "escuela": "Nutrición",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Extracorporeal membrane oxygenation in pediatric septic shock: A single-center experience in Chile",
+   "doi": "10.1177/03913988251409039",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Tibial slope in ACL reconstruction: When should it be corrected?",
+   "doi": "10.1016/j.recot.2026.03.016",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Modeling and planning a novel logistic transport system: Several drone pickups for each delivery",
+   "doi": "10.1016/j.ejor.2026.02.025",
+   "anio": "2026",
+   "escuela": "Ingeniería Civil Industrial",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Au Adatom-Linked [Au(XCH3)2] (X= S,Se,Te) Complexes on Gold (111) Surface Clusters",
+   "doi": "10.1007/s00214-026-03276-y",
+   "anio": "2026",
+   "escuela": "Ingeniería civil industrial",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Effectiveness of arthrocentesis versus other therapeutic modalities in patients with temporomandibular disorders. Systematic review and meta-analysis",
+   "doi": "10.1016/j.jdsr.2026.04.001",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Propuesta de una matriz de evaluación de la intencionalidad del desarrollo del pensamiento crítico en el currículum implementado y evaluado",
+   "doi": "10.5354/2452-5014.2023.71398",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Challenges of implementing the Paediatric Surviving Sepsis Campaign International Guidelines 2020 in resource-limited settings: A real-world view beyond the academia",
+   "doi": "10.32641/andespediatr.v92i6.4030",
+   "anio": "2021",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "More than words: an integrated framework for exploring gestures’ role in bilinguals’ use of two languages for making mathematical meaning",
+   "doi": "10.1007/s42330-022-00253-y",
+   "anio": "2022",
+   "escuela": "Educación básica",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1038/s41598-022-19510-z",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "La communication tactile au sein de la triade père-mère-bébé",
+   "doi": "10.1016/j.spp.2022.09.007",
+   "anio": "2022",
+   "escuela": "Psicología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Subnational analysis of pediatric sepsis incidence and mortality from official records in Chile and Mexico: a longitudinal study from 2014 to 2024",
+   "doi": "10.1186/s12889-026-27279-3",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1016/j.jcrc.2021.12.004",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.5209/esmp.70420",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Contribution of dentistry technicians in primary health care in Chile 2017-2020",
+   "doi": "10.22533/at.ed.1594672409075",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Spanish translation, face validity, and reliability of the ICIQ-B Questionnaire with colorectal cancer patients",
+   "doi": "10.1055/s-0041-1736639",
+   "anio": "2021",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Anterior tibial translation versus rotational instability in ACL reconstruction: Defining the problem before choosing the procedure",
+   "doi": "10.1002/jeo2.70792",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Vidas suspendidas: melancolía, ecología y kitsch",
+   "doi": "10.18682/cdc.vi276.12625",
+   "anio": "2025",
+   "escuela": "Arquitectura",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "ANIMA: Las artes escénicas como experiencia y vivencia para debatir sobre problemas sociales en educación primaria",
+   "doi": "10.17561/rtc.28.9512",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Formación de docentes de primaria: Proceso de aprendizaje, percepción y educación a distancia en pandemia",
+   "doi": "10.4151/07189729-vol.65-iss.1-art.1653",
+   "anio": "2026",
+   "escuela": "Educación básica",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Recomendaciones y efectos de la fibra dietaria en niños",
+   "doi": "10.4067/s0717-75182020000300457",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Dos novelas de ciencia ficción de la década de 1950: El fin de la infancia (Arthur C. Clarke) y Los altísimos (Hugo Correa)",
+   "doi": "10.5195/ct/2026.760",
+   "anio": "2026",
+   "escuela": "Facultad de Humanidades y Comunicaciones",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "BOLDSC: A New Dynamic, Secondary-Memory Metric Index",
+   "doi": "10.1007/978-3-032-00718-6_9",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Book chapter",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.7440/res75.2021.06",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "How do university students of different ethnic backgrounds perceive factors that hinder learning in STEM and non-STEM majors?",
+   "doi": "10.1080/07294360.2021.1902949",
+   "anio": "2021",
+   "escuela": "Educación básica",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Scientific publication speed and retractions of COVID-19 pandemic original articles.",
+   "doi": "10.26633/rpsp.2022.25",
+   "anio": "2022",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Modelando el mundo inorgánico: De principiis naturae de Sto. Tomás de Aquino y The Modeling of Nature de William A. Wallace",
+   "doi": "10.53439/stdfyt55.28.2025.55-80",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "The Audiovisual Representation of Immigration from the Perspective of Digital Community Media in Spain: El Salto TV (2017–2024)",
+   "doi": "10.1285/i20356609v19i1p180",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "A PI + Sliding-Mode Controller Based on the Discontinuous Conduction Mode for an Unidirectional Buck–Boost Converter with Electric Vehicle Applications",
+   "doi": "10.3390/en14206785",
+   "anio": "2021",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "1st Global Consensus for Clinical Guidelines for the Rehabilitation of the Edentulous Maxilla: A Single-Round Survey on the Number of Implants, Timing of Implant Placement, and Loading for Fixed Restorations.",
+   "doi": "10.1111/clr.70016",
+   "anio": "2026",
+   "escuela": "Escuela de Odontología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.32735/s0718-6568/2021-n59-1594",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "“Nadie está preparado para escuchar lo que vi” : atención de salud mental de refugiados y solicitantes de asilo en Chile",
+   "doi": "10.18294/sc.2020.3035",
+   "anio": "2020",
+   "escuela": "Odontología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "A Sub-Hourly Precipitation Dataset from a Pluviographic Network in Central Chile",
+   "doi": "10.6084/m9.figshare.29093246",
+   "anio": "2025",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Actualización sobre el manejo inicial de fracturas expuestas para médicos generales y especialistas. Revisión panorámica de la literatura",
+   "doi": "10.4067/s0034-98872026000200246",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Enhancing grid stability and sustainability through virtual power plants: A case study of Chile.",
+   "doi": "10.1016/j.asej.2026.104333",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "La Perfoconferencia: demasiada libertad sexual les convertirá en terroristas, estrategia escénica-política entre la información y la entretención",
+   "doi": "10.32621/acotaciones.2024.52.07",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.3390/socsci10050148",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Prevalence and clinical implications of median nerve variants within the carpal tunnel: A systematic review and meta-analysis",
+   "doi": "10.1016/j.cpsurg.2026.102027",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "The predictive power of stock market’s expectations volatility: A financial synchronization phenomenon",
+   "doi": "10.1371/journal.pone.0250846",
+   "anio": "2021",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Libro de resúmenes: I Jornadas Científicas de Estudiantes de Odontología 2023, Universidad Finis Terrae",
+   "doi": "10.17072/revistafinisteriana.v0i0.123456",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Libro",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "¿Qué quiere decir eso? Los desafíos de la referencia en un modelo holista del lenguaje",
+   "doi": "10.26694/pensando.vol16i39.6746",
+   "anio": "2026",
+   "escuela": "Formación General",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Historia y reflexión de una living contradiction de una formadora de profesores de matemáticas",
+   "doi": "10.22352/saustral20253117",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Vacunación profiláctica contra el VPH en adultos: inmunogenicidad, eficacia y prevención de lesiones orofaríngeas. Revisión estructurada y recomendaciones basadas en evidencia. Parte I",
+   "doi": "10.35687/s2452-454920260032988",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "La educación imaginativa como favorecedora del diseño de entornos virtuales de aprendizaje efectivos para la educación superior",
+   "doi": "10.31637/epsir-2024-1190",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "The role of executive functions, social cognition and intelligence in predicting social adaptation of vulnerable populations",
+   "doi": "10.1038/s41598-022-21985-9",
+   "anio": "2022",
+   "escuela": "Psicología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "The Formation of Collaborative Learning Teams in Schools Through Mathematical Optimization for Improving the Classroom Climate",
+   "doi": "10.1109/access.2026.3653114",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Entre sobrecarga laboral y agotamiento: las (olvidadas) condiciones laborales de las encargadas de género en universidades chilenas",
+   "doi": "10.7764/pel.63.1.2026.2",
+   "anio": "2026",
+   "escuela": "Familia",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "The Russian Invasion of Ukraine from the Infotainment Perspective: Analysis of the Coverage by Spanish Television",
+   "doi": "10.51698/tripodos.2025.58.08",
+   "anio": "2025",
+   "escuela": "Periodismo",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Profesores en evaluación: el impacto del género en los resultados de la evaluación docente universitaria",
+   "doi": "10.30827/profesorado.v29i2.32229",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Familias y tutorías entre pares en escuelas rurales: Conocimientos, valoraciones y cambios",
+   "doi": "10.38123/rre.v5i2.527",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.3390/nu13114138",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "A bi-objective optimization model to plan vaccination campaigns aided by temporary centers",
+   "doi": "10.1111/itor.70154",
+   "anio": "2026",
+   "escuela": "Ingeniería Civil Industrial",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.4206/rev.austral.cienc.soc.2021.n40-11",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Risk of cervical metastasis in primary parotid gland malignancies: A Yo-IFOS multicenter retrospective longitudinal study",
+   "doi": "10.1002/hed.70320",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Factores asociados a ventilación mecánica prolongada en niños con fallo respiratorio de causa pulmonar: estudio de cohortes del registro de LARed Network",
+   "doi": "10.1016/j.medine.2023.07.001",
+   "anio": "2023",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.3390/en13051187",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "La ciudad de Gonzalo Millán como procedimiento técnico",
+   "doi": "10.4206/rev.stultifera.2026.v9n1-06",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Patient experience and non-surgical periodontal therapy in a postgraduate periodontal training program : A qualitative study",
+   "doi": "10.4067/s2452-55882022000100016",
+   "anio": "2022",
+   "escuela": "Odontología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Enhancing medical training through 360-degree evaliation: A review and Proposal for ICU training",
+   "doi": "10.1016/j.rmclc.2026.03.005",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Typological optimization for real estate developments: 8-9 story mass-timber buildings for seismic zones.",
+   "doi": "10.52202/080513-0122",
+   "anio": "2025",
+   "escuela": "Arquitectura",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.3390/e23101307",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Mielitis flácida aguda e infeccion por enterovirus: una enfermedad grave emergente.",
+   "doi": "10.32641/andespediatr.v93i4.4137",
+   "anio": "2022",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Estrategias mediáticas en plataformas digitales: cobertura del narcotráfico en X por 24 Horas TVN y Radio Cooperativa",
+   "doi": "10.5209/pepu.99215",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Compresión traqueal extrínseca en un lactante durante ventilación mecánica invasiva. Una aproximación fisiopatológica basada en la mecánica respiratoria.",
+   "doi": "10.32641/andespediatr.v97i4.6168",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "1st Global Consensus for Clinical Guidelines for the Rehabilitation of the Edentulous Maxilla: Single-Round Survey on Implant-Supported Fixed and Removable Prostheses.",
+   "doi": "10.1111/clr.70027",
+   "anio": "2026",
+   "escuela": "Odontología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Uncovering the muscle clock–mitochondria axis through exercise",
+   "doi": "10.1016/j.tem.2025.11.001",
+   "anio": "2025",
+   "escuela": "Kinesiología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Detection of approximal caries lesions in adults: a cross-sectional study",
+   "doi": "10.2341/17-314-c",
+   "anio": "2019",
+   "escuela": "Odontología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Narrativas del duelo en televisión: cobertura del fallecimiento del expresidente Sebastián Piñera",
+   "doi": "10.18272/pd.v9i1.3955",
+   "anio": "2025",
+   "escuela": "Periodismo",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Unity of life according to St. Josemaría Escrivá: a proposal for the secularised world, with St. Joseph as a model",
+   "doi": "10.21703/2735-6345.3124",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.22456/1984-1191.93295",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.3390/horticulturae8100955",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Prognostic Value of International Normalized Ratio and Thrombocytopenia in Early Risk Stratification of Septic Patients",
+   "doi": "10.3390/biomedicines14040839",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Cámara, acción y debate. Los medios audiovisuales como metodologías transformadoras en el aula",
+   "doi": "10.17561/rtc.extra10.9862",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Entre el reconocimiento y las trayectorias biográficas: una mirada sobre las juventudes en Argentina y Latinoamérica",
+   "doi": "10.4067/s0718-22362022000200246",
+   "anio": "2022",
+   "escuela": "Educación básica",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Comprehensive Structural, Electronic, and Biological Characterization of fac-[Re(CO)3(5,6-epoxy-5,6-dihydro-1,10-phenanthroline)Br]: X-Ray, Aromaticity, Electrochemistry, and HeLa Cell Viability",
+   "doi": "10.3390/inorganics14010003",
+   "anio": "2025",
+   "escuela": "Ingeniería civil industrial",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Un liderazgo de doble filo: directoras en establecimientos de educación inicial",
+   "doi": "10.31619/caledu.n56.1189",
+   "anio": "2024",
+   "escuela": "Educación parvularia",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Inteligencia vegetal y diseño de información",
+   "doi": "https://masam.cuautitlan.unam.mx/seminarioarteydiseno/revista/index.php/reiadyc/article/view/519/306",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Desarrollo de las Matemáticas de 0 a 3 años: Lineamientos claves para Educadores de Párvulos",
+   "doi": "10.4067/s0718-07052026000100211",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Forecasting Electric Power Generation in a Photovoltaic Power Systems for Smart Energy Management",
+   "doi": "10.1109/iciccsp53532.2022.9862396",
+   "anio": "2025",
+   "escuela": "Ingeniería civil industrial",
+   "tipo": "Book chapter",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Salud Mental en docentes de odontología durante la emergencia de salud pública pandemia COVID-19",
+   "doi": "10.4067/s2452-55882024000300126",
+   "anio": "2024",
+   "escuela": "Odontología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Prevalencia y factores relacionados a caries de inicio precoz en niños de la Región de Tarapacá, Chile 2021-2024",
+   "doi": "10.13153/2073-8856-2024-12-4129",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Comment on: Is “pre-sepsis” the new sepsis? A narrative review",
+   "doi": "10.1371/journal.ppat.1013887",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "El Derecho Internacional de los derechos sociales, el proceso constituyente chileno, y la opción entre un modelo de Estado social o un Estado subsidiario",
+   "doi": "10.4013/rechtd.2022.141.03",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Are your international salespeople culturally intelligent? The influence of cultural intelligence on adaptive selling behavior with B2B customers",
+   "doi": "10.1108/jbim-02-2021-0121",
+   "anio": "2021",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Representación mediática de la ciudad e inseguridad urbana en noticias policiales: Radio BioBio y Radio Cooperativa en X (2022-2025)",
+   "doi": "10.62161/sauc.v12.6084",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Trabajadores domésticos varones: resignificaciones de la masculinidad en una ocupación feminizada",
+   "doi": "10.24201/es.2026v44.e2967",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Prebiotic Potential of Brewer’s Spent Grain Residual Solid After Enzymatic Hydrolysis: Evidence from a Colonic Fermentation Study",
+   "doi": "10.3390/foods15132378",
+   "anio": "2026",
+   "escuela": "Nutrición",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "The Mexican Ecological Conscience: A Predictive Model",
+   "doi": "10.3390/su14127050",
+   "anio": "2022",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Renal physiology and hydrosaline metabolism",
+   "doi": "10.1007/978-3-031-10256-1",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Book",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Population-attributable risk of adverse childhood experiences for high suicide risk, psychiatric admissions, and recurrent depression, in depressed outpatients.",
+   "doi": "10.1080/20008198.2021.1874600",
+   "anio": "2021",
+   "escuela": "Psicología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "RECOSAN tumors study: analysis of patients with spine surgery due to oncologic pathology",
+   "doi": "10.26502/jsr.10020336",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.5867/medwave.2021.03.8130",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Gobernanza universitaria y los principales cambios en periodo Covid-19 según los docentes con cargos administrativos",
+   "doi": "https://orcid.org/0000-0003-4273-4259",
+   "anio": "2022",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Book chapter",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Concurrent training and interindividual response in women with a high number of metabolic syndrome risk factors",
+   "doi": "10.3389/fphys.2022.934038",
+   "anio": "2022",
+   "escuela": "Kinesiología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "El mecanismo del rechazo populista según Girard, Sandel y Haidt",
+   "doi": "10.32466/eufv-xg.2023.6.761.53-63",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.3390/children9060819",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Situación de salud bucal de párvulos chilenos en un contexto comunitario",
+   "doi": "10.5354/0719-5281.2021.65187",
+   "anio": "2021",
+   "escuela": "Odontología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Entre la visibilidad y la simplificación: representación mediática del fandom K-pop en la televisión abierta chilena (2017-2024)",
+   "doi": "10.24137/raeic.13.26.4",
+   "anio": "2026",
+   "escuela": "Periodismo",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Low-grade cartilaginous vertebral tumor: a rare cause of spinal cord compression",
+   "doi": "10.29011/2574-7754.101547",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "A mutation in desmin makes skeletal muscle less vulnerable to acute muscle damage after eccentric loading in rats",
+   "doi": "10.1096/fj.202100711rr",
+   "anio": "2021",
+   "escuela": "Kinesiología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Who Will Get the Job? Hiring Practices and Inequalities in the Chilean Labour Market",
+   "doi": "10.1111/blar.12888",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Vitamin D Supplementation, Total Testosterone, and Androgen Bioavailability Markers in Adult Men: A Systematic Review and Meta-Analysis of Randomized Controlled Trials",
+   "doi": "10.3390/nu18132090",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.13140/rg.2.2.29809.92993",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "International multidisciplinary consensus statement on sepsis code guidelines: A Delphi approach",
+   "doi": "10.1111/joim.70145",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.3389/fneur.2021.599378",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Response to Letter to the Editor: Reliable pain and function outcomes after high tibial osteotomy for medial osteoarthritis in the grey area between osteotomy and unicompartmental replacement",
+   "doi": "10.1002/ksa.70366",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Essential minimum in Families of Lines",
+   "doi": "10.7169/facm/241117-29-7",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "A comprehensive review of global developments and research trends in electric vehicles",
+   "doi": "10.1007/s11135-026-02945-1",
+   "anio": "2026",
+   "escuela": "Ingeniería Civil Industrial",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Weight management interventions before IVF in overweight and obese women: a scoping review",
+   "doi": "10.1186/s43043-026-00332-2",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.5281/zenodo.6042708",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Nivel de conocimiento sobre halitosis en estudiantes de odontología de una universidad privada en Chile",
+   "doi": "10.13153/20.500.12254/4336",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Adaptación transcultural del cuestionario para valoración del fitness cardiorrespiratorio: CLINIMEX Aerobic Fitness Questionnaire",
+   "doi": "10.59856/arch.soc.chil.med.deporte.v70i1.113",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.3389/fped.2021.756083",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Imagen clínica: Triangulo de Filatov",
+   "doi": "https://andespediatrica.cl/index.php/rchped/article/view/5679",
+   "anio": "2025",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Self-study colaborativo: etapas, condiciones de la amistad crítica y aprendizajes sobre la formación",
+   "doi": "10.35362/rie8213558",
+   "anio": "2020",
+   "escuela": "Educación básica",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Analysis of predictors for spinal fusion in degenerative lumbar stenosis in Chile based on diagnosis-related groups",
+   "doi": "10.29011/2577-2252.100150",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Insectario: estructuras artrópodas para un diseño morfogenético interespecie",
+   "doi": "10.5821/jida.2025.13636",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Pressurized hot liquid extraction with 15% v/v glycerol-water as an effective environment-friendly process to obtain durvillaea incurvata and lessonia spicata phlorotannin extracts with antioxidant and antihyperglycemic potential",
+   "doi": "10.3390/antiox10071105",
+   "anio": "2021",
+   "escuela": "Nutrición",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "La sexualización de la geopolítica: masculinidades, afectos y arribismo social en \"El que merodea en la lluvia\" (1962) de Hugo Correa",
+   "doi": "10.7311/itinerarios.43.2026.07",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Contextual & physiological markers for individual distress (CP-MIND). Brain health as a comprehensive framework for Mental-health equity",
+   "doi": "10.1016/j.neuroscience.2025.12.034",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Biomarkers of oxidative stress in maternal plasma, umbilical cord and placenta of patients with gestational diabetes: a systematic review and meta-analysis",
+   "doi": "https://orcid.org/0000-0002-8536-3729||https://orcid.org/0000-0003-4698-1425",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "La creación de marionetas con objetos como herramienta para reflexionar sobre perspectiva de género: un estudio de caso aplicado en Educación Primaria",
+   "doi": "10.58265/pulso.7221",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Trayectorias de identidad docente al interior de un programa de  Pedagogía Media",
+   "doi": "10.1590/1980531411613",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Repeticiones Irreversibles: el Armadillo ante el Antropoceno",
+   "doi": "10.33324/daya.vi20.1177",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Reduction of the formation and toxicity of heterocyclic aromatic amines (PhIP, IQ, MeIQ, MeIQx) in food: potential of nucleophilic compounds as mitigating agents",
+   "doi": "10.1080/10408398.2025.2534173",
+   "anio": "2025",
+   "escuela": "Nutrición",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Impact of different exercise modalities on mitophagy in human skeletal muscle",
+   "doi": "10.1016/bs.ircmb.2025.10.005",
+   "anio": "2025",
+   "escuela": "Kinesiología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Formación y trabajo docente durante el confinamiento por COVID-19 experiencias de profesores noveles en Chile y Argentina",
+   "doi": "10.33010/ie_rie_rediech.v17i0.2516",
+   "anio": "2026",
+   "escuela": "Educación básica",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Occipitalization of the atlas: prevalence, functional and anatomical considerations. A systematic review and meta-analysis",
+   "doi": "10.1016/j.tria.2026.100465",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Experts’ subjective theories: how did they explain post-pandemic school violence in their public discourse through digital media?",
+   "doi": "10.3389/fsoc.2026.1731876",
+   "anio": "2026",
+   "escuela": "Familia",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1007/s00146-021-01333-7",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Renal infarction associated with asymptomatic COVID-19 infection",
+   "doi": "10.1016/j.htct.2021.03.008",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Comparación del rendimiento académico basado en metodología TBL y metodología tradicional de enseñanza en estudiantes de odontología en Santiago de Chile",
+   "doi": "10.13153/2520-0382.2022.01.01",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.13115/2627",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Anatomical variations of the mandibular canal and their clinical implications in dental practice: a literature review",
+   "doi": "10.1007/s00276-021-02708-7",
+   "anio": "2021",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Preservice science teacher education around the globe. Trends, challenges, and future directions",
+   "doi": "10.4324/9781003098478-15",
+   "anio": "2022",
+   "escuela": "Educación básica",
+   "tipo": "Capítulo de libro",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.4067/s0718-381x2023000300372",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "WhatsApp Web con fines académicos en tiempos de la covid-19",
+   "doi": "10.32870/ap.v13n2.2084",
+   "anio": "2021",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Viola acherontia: Diseño, arte y manipulación genética",
+   "doi": "10.20868/ardin.2026.15.5664",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "¿Cuál es el perfil de nuestros estudiantes universitarios? Características del comportamiento emprendedor en el sur de Chile",
+   "doi": "10.12804/revistas.urosario.edu.co/empresa/a.12197",
+   "anio": "2023",
+   "escuela": "Ingeniería civil industrial",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.6018/edumed.582211",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Impacto en el patrón de atención en Cirugía de Cabeza y Cuello y las medidas sanitarias adoptadas durante los primeros 150 días de la era COVID-19",
+   "doi": "10.35687/s2452-454920210061247",
+   "anio": "2021",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "The stability problem after holism: toward a contextualist metasemantics for human and artificial interpretation",
+   "doi": "10.1007/s00146-026-03243-y",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Mockup of prefabricated CLT modules for small social condos: Evaluation of machining, manufacturing, assembly, and performance for standardization in Chile",
+   "doi": "10.52202/080513-0121",
+   "anio": "2025",
+   "escuela": "Arquitectura",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Health screening of middle-aged women: what factors impact longevity?",
+   "doi": "10.1097/gme.0000000000002025",
+   "anio": "2022",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "No association detected between posterior tibial slope, static anterior tibial translation and medial meniscus repair failure after anterior cruciate ligament reconstruction",
+   "doi": "10.1002/jeo2.70715",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "The ICU pharmacist’s contribution to antimicrobial optimization through routine pharmacist interventions",
+   "doi": "http://www.doi.org/10.37201/req/166.2026",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "The human-specific duplicated α7 gene inhibits the ancestral α7, negatively regulating nicotinic acetylcholine receptor-mediated transmitter release",
+   "doi": "10.1016/j.jbc.2021.100341",
+   "anio": "2021",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Teorías subjetivas sobre violencia y convivencia escolar en editoriales de diarios chilenos pospandemia",
+   "doi": "10.22235/pe.v19i1.4855",
+   "anio": "2026",
+   "escuela": "Familia",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Malestar psicológico en la formación sanitaria: depresión, ansiedad y estrés en estudiantes de ciencias de la salud en Chile",
+   "doi": "10.6018.edumed.703841",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Neuronas espejo y sistemas neuronales asociados al aprendizaje clínico: una revisión de la literatura",
+   "doi": "10.35366/112734",
+   "anio": "2023",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "From ICU to Hospital-Wide: Implementing a Recycling Programme in a Latin American Tertiary Care Hospital",
+   "doi": "10.1111/nicc.70392",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Fate and Contingency: Ammonius and Aquinas on divine Foreknowledge in Aristotle’s De interpretatione 9",
+   "doi": "10.3390/rel17020228",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Mapping intensive care across Ibero-America: The FEPIMCTI multinational survey of bed capacity, workforce, and pandemic response",
+   "doi": "10.1016/j.jcrc.2026.155694",
+   "anio": "2026",
+   "escuela": "Facultad de Medicina y Salud",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.3389/fpsyg.2021.590283",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "In house validation for the direct determination of 5-hydroxymethyl-2- furfural (HMF) in “dulce de leche''",
+   "doi": "10.1016/j.jfca.2020.103665",
+   "anio": "2020",
+   "escuela": "Nutrición",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Análisis lírico-visual y frecuencias léxicas en la música urbana: una propuesta metodológica para el estudio de narrativas audiovisuales.",
+   "doi": "10.35951/v7i2.257",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Para el arte no, para la historia sí: Benjamín Vicuña Mackenna y las copias de obras de arte en la Exposición del Coloniaje (1873)",
+   "doi": "10.22370/syt.2023.7.3639",
+   "anio": "2026",
+   "escuela": "Publicidad",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Touching the invisible: learning electromagnetism in virtual worlds",
+   "doi": "10.1108/compel-11-2025-0567",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Pilgrimage to sacrifice: Mechanisms, causes, and time of death of the Western Andean Capacocha of the Southern Tawantinsuyu",
+   "doi": "10.1126/sciadv.adz9055",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.3389/fnut.2021.745907",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Radiological classification for degenerative lumbar spine disease: a literature review of the main systems",
+   "doi": "10.26502/fjsrs0068",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Transparencia de la inteligencia artificial en la administración pública: Una revisión de estándares internacionales",
+   "doi": "10.5102/rdi.v21i1.9422",
+   "anio": "2025",
+   "escuela": "Derecho",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Municipal Inequalities in the Prevalence of Caries-Free Children Aged 2, 4, and 6 Years in Santiago, Chile: An Ecological Study",
+   "doi": "10.15517/183d0f08",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Association of Ventilatory Ratio with Acute Cor Pulmonale and Mortality in COVID-19 ARDS: A Cohort Study",
+   "doi": "10.1177/08850666251359548",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "La participación política en tiempos actuales: planteamiento, problemas y alcances: Una revisión crítica a la luz de Alasdair Macintyre",
+   "doi": "10.5281/zenodo.7557591",
+   "anio": "2025",
+   "escuela": "Psicología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.5380/atoz.v10i3.81284",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Elevated Risk of Overweight/Obesity-Related Markers and Low Muscular Fitness in Children Attending Public Schools in Chile",
+   "doi": "10.3390/ijerph192114213",
+   "anio": "2022",
+   "escuela": "Kinesiología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Nutrición y ejercicio: claves para mejorar la vida de pacientes en hemodiálisis",
+   "doi": "10.47197/retos.v68.111468",
+   "anio": "2025",
+   "escuela": "Nutrición",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Association between adipose tissue characteristics and metabolic flexibility in humans: A systematic review",
+   "doi": "10.3389/fnut.2021.744187",
+   "anio": "2021",
+   "escuela": "Kinesiología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Constitucionalismo y partidos políticos: ascenso, funciones y crisis",
+   "doi": "10.7764/rda.13.75101",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Ursodeoxycholic acid induces sarcopenia associated with decreased protein synthesis and autophagic flux",
+   "doi": "10.1186/s40659023004318",
+   "anio": "2023",
+   "escuela": "Kinesiología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "¿Los niveles de Testosterona y Cortisol influyen en el rendimiento en el rugby? Una mirada al rugby sevens.",
+   "doi": "10.59856/arch.soc.chil.med.deporte.v67i1.23",
+   "anio": "2022",
+   "escuela": "Kinesiología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Patient- and Clinician-Reported Outcomes and the Outcome Measures in Studies Reporting on Rehabilitation of the Edentulous Maxilla With Implant-Supported Fixed Prosthesis Using Short, Standard-Length and/or Zygomatic Implants: A Systematic Review of Clinical Studies Published in the Last 10?Years.",
+   "doi": "10.1111/clr.14468",
+   "anio": "2026",
+   "escuela": "Odontología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Esto no es un museo: The Skoghall konsthall de Alfredo Jaar y Limac de Sandra Gamarra",
+   "doi": "10.4067/s0718-23762021000200329",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Análisis de canasta de mercado en supermercados mediante mapas auto-organizados",
+   "doi": "10.5380/atoz.v10i3.81491",
+   "anio": "2021",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Escritura, cuerpo y gestualidad en Cy Twombly",
+   "doi": "10.15443/rl3103",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.7764/psykhe.29.2.1494",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1007/s00894-010-0859-5",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Holismo semántico y metáforas: estructura, contexto y variación interpretativa",
+   "doi": "10.31977/grirfi.v25i3.5424",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Retratos Descentrados: segregação ocupacional de gênero e inserções laborais atípicas no mercado de trabalho chileno",
+   "doi": "https://fido.palermo.edu/servicios_dyc/publicacionesdc/cuadernos/detalle_articulo.php?id_libro=1303&id_articulo=22908",
+   "anio": "2026",
+   "escuela": "Familia",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Global neural oscillations underlie performance variability and attentional state fluctuations in humans",
+   "doi": "10.1038/s41598-026-49900-6",
+   "anio": "2026",
+   "escuela": "Kinesiología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Confirmation bias in orthopaedic surgery: the challenge of the information overload era",
+   "doi": "10.1016/j.jisako.2026.101140",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Circular economy strategies with social implications: Findings from a Case Study",
+   "doi": "10.3390/su142013658",
+   "anio": "2022",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Effectiveness of a marine 7 education program applied in a marine protected area context and designed with science education strategies",
+   "doi": "10.1007/978-3-032-09453-7_7",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Book chapter",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "De la cámara lúbrica a la caverna digital. Notas sobre imagen y medialidad",
+   "doi": "10.17000/udls.20.500.12254.7454",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Libro",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Socioeconomic status impacts metacognition of working memory and emotion recognition",
+   "doi": "10.1016/j.neuroscience.2026.07.006",
+   "anio": "2026",
+   "escuela": "Psicología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1101/2022.06.08.22276125",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Cultural historical analysis of Iranian school mathematics curriculum: The role of computational thinking",
+   "doi": "10.22342/jme.12.3.14296.411-426",
+   "anio": "2021",
+   "escuela": "Educación básica",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Concurrencia de encefalitis diseminada aguda en lactante con Síndrome inflamatorio multisistémico asociado a infección por SARS-CoV-2",
+   "doi": "10.32641/andespediatr.v92i4.3886",
+   "anio": "2021",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Los Imaginarios Cromáticos de Bradbury y Rothko: Un Ejercicio de Ficción Retrofuturista con IA",
+   "doi": "10.26807/cav.v11i21.665",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Análisis de longitud de obturación del conducto radicular en tratamientos endodónticos realizados por estudiantes de pregrado de odontología",
+   "doi": "10.17126/joralres.2024.018",
+   "anio": "2024",
+   "escuela": "Odontología",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Mapping Sweet Potato Global Research for Sustainable Food Systems: A Bibliometric Perspective.",
+   "doi": "10.3390/foods15061002",
+   "anio": "2026",
+   "escuela": "Escuela de Nutrición y Dietética, Facultad de Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Activity and Outcomes of a Multidisciplinary Sepsis Unit: Fifty Thousand Consultations over Thirteen Years",
+   "doi": "10.3390/antibiotics15080737",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "https://orcid.org/0000-0003-0577-7604",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.21533/pen.v7i1.424",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Posterior tibial slope and static anterior tibial translation are not associated with increased cyclops syndrome after anterior cruciate ligament reconstruction",
+   "doi": "10.1002/jeo2.70664",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Holismo e individuação em Quine: rumo a uma ontologia linguística mínima",
+   "doi": "10.18224/frag.v35i4.15294",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "1st Global Consensus for Clinical Guidelines for the Rehabilitation of the Edentulous Maxilla: A Single-Round Survey on Sinus Lift and Alveolar Bone Augmentation Techniques.",
+   "doi": "10.1111/clr.70018",
+   "anio": "2026",
+   "escuela": "Odontología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Mitochondria across the globe: dive rse voices, shared energy",
+   "doi": "10.1016/j.tem.2026.04.006",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.4067/s0034-98872021000200203",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Dietary eicosapentaenoic acid and docosahexaenoic acid for mitochondrial biogenesis and dynamics",
+   "doi": "10.1016/c2020-0-02475-8",
+   "anio": "2023",
+   "escuela": "Kinesiología",
+   "tipo": "Book chapter",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1101/2022.06.16.22276017",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Explorando la satisfacción y la insatisfacción del estudiantado universitario en la enseñanza remota de emergencia",
+   "doi": "10.15517/aie.v22i1.49066",
+   "anio": "2022",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.5294/pebi.2020.24.2.2",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Diagnostic accuracy of PCT, IL-6, and MR-ProADM for early identification of sepsis in the emergency department",
+   "doi": "http://www.doi.org/10.37201/req/145.2026",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "El lenguaje como trampa: Holismo semántico y la ironía del destino en Machado de Assis",
+   "doi": "10.18391/ri.v7i1.4423",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Immunoglobulin, glucocorticoid, or combination therapy for multisystem inflammatory syndrome in children: a propensity-weighted cohort study",
+   "doi": "10.1016/s2665-9913(23)00029-2",
+   "anio": "2023",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Recursos gráficos para el estudio del color para la pintura rupestre del Desierto de Atacama",
+   "doi": "10.25074/0196318.36.2580",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Characterization of the pattern of partial edentulousness in adult patients by means of the Kennedy classification",
+   "doi": "10.22533/at.ed.2165925260610",
+   "anio": "2025",
+   "escuela": "Odontología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Visualizar para transformar: Diseño y divulgación científica en Chile",
+   "doi": "10.62166/area.32.1.3779",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Development of intelligent smart energy monitoring systems for renewable energy source using Proteus?8 environment and validated with experimentation",
+   "doi": "10.1186/s43067-025-00202-3",
+   "anio": "2025",
+   "escuela": "Ingeniería civil industrial",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Forecasting aluminum prices with commodity currencies",
+   "doi": "10.1016/j.resourpol.2021.102066",
+   "anio": "2021",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Hipertensión arterial de origen endocrino en población pediátrica: Rol emergente del exceso aparente de mineralocorticoides no clásico",
+   "doi": "https://orcid.org/0000-0002-6081-1468",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "América Latina y el dolor atávico: escribir desde la herida",
+   "doi": "10.11144/javeriana.mavae21-2.ldeh",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.7764/pel.58.1.2021.6",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Las máquinas de mirar: el teleorama como dispositivo pedagógico",
+   "doi": "10.5821/ebook-9791387613815",
+   "anio": "2025",
+   "escuela": "Arquitectura",
+   "tipo": "Book chapter",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.5027/psicoperspectivas-vol18-issue3-fulltext-1658",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1096/fj.202100929r",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.33936/recus.v6i2.2704",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "A randomized clinical trial to assess the effectiveness of pre- and post-surgical pelvic floor physiotherapy for bowel symptoms, pelvic floor function, and quality of life of patients with rectal cancer: CARRET protocol",
+   "doi": "10.1186/s13063-021-05396-1",
+   "anio": "2021",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Capítulo 42: La ley natural en el occidente: una fusión de ????? ???????, biblia e ideología según J. Ratzinger en un escrito de su juventud",
+   "doi": "10.5286/0000000",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Capítulo de libro",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Comprensiones de la colaboración y el diálogo docente en Chile: implicancias para el liderazgo escolar",
+   "doi": "10.4151/07189729-vol.63-iss.1-art.1522",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.4067/s0034-98872021000300399",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Prevalencia de niños sin experiencia de caries dental en una comuna de alta prioridad social de Chile, periodo 2019 al 2023",
+   "doi": "10.13189/csr.2024.070419a",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "A network-based approach to study returns synchronization of stocks: The case of global equity markets",
+   "doi": "10.1155/2021/7676457",
+   "anio": "2021",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Renewable power generation price prediction and forecasting using machine learning",
+   "doi": "10.1002/9781394167319.ch2",
+   "anio": "2024",
+   "escuela": "Ingeniería civil industrial",
+   "tipo": "Book chapter",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Adipocyte extracellular vesicles (AdEVs) promote a proinflammatory and profibrotic profile in human renal and endothelial cells in vitro",
+   "doi": "10.1038/s41366-026-02033-2",
+   "anio": "2026",
+   "escuela": "Ingeniería Civil Biomédica",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Diseño y desarrollo de aplicación móvil para la clasificación de flora nativa chilena utilizando redes neuronales convolucionales",
+   "doi": "10.5380/atoz.v11i0.81419",
+   "anio": "2022",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Classic and “non-classic” apparent mineralocorticoid excess",
+   "doi": "10.1016/b978-0-12-801238-3.64338-6",
+   "anio": "2026",
+   "escuela": "Ingeniería Civil Biomédica",
+   "tipo": "Book chapter",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Uso de WhatsApp en los trabajadores de la salud en el proceso de vacunación chileno contra la pandemia COVID-19",
+   "doi": "10.33595/2226-1478.13.1.582",
+   "anio": "2022",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "La nostalgia como estrategia narrativa: Baldosas de Santiago",
+   "doi": "10.18682/cdc.vi276.12642",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Circular economy business model: COANIQUEM charity shops case",
+   "doi": "10.25100/cdea.v37i70.10822",
+   "anio": "2021",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Posterior hemivertebrectomy for correction of congenital kyphosis in adulthood: case report and literature review",
+   "doi": "10.29011/2574-7754.101546",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Corporizar la escritura. Pedagogía teatral y educación imaginativa en la formación de educadores infantiles",
+   "doi": "10.38123/rre.v6i2.994",
+   "anio": "2026",
+   "escuela": "CIPEF",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Expressive writing in the light of integral psychology of the person",
+   "doi": "10.1016/j.newideapsych.2026.101247",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Las voces incendiarias de Alimapu: desastre y neoliberalismo en \"Valparaíso Ardiendo\" de Rosa Alcaya (2015)",
+   "doi": "10.7764/analeslitchi.38.03",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Chapter 8: Impacts of energy storage system on PV prosumer based on household load profiles",
+   "doi": "10.1201/9781003481836",
+   "anio": "2025",
+   "escuela": "Ingeniería civil industrial",
+   "tipo": "Book chapter",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "La identificación de la expropiación indirecta: el análisis de los criterios de privación de la propiedad y del tiempo utilizados en la práctica arbitral reciente",
+   "doi": "10.12804/revistas.urosario.edu.co/acdi/a.10542",
+   "anio": "2022",
+   "escuela": "Derecho",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Rescate de hipoxemia grave con uso de óxido nítrico inhalado y decúbito prono en neumonía COVID-19 en un lactante",
+   "doi": "10.32641/andespediatr.v92i3.3849",
+   "anio": "2021",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "El arte de hilar el vacío",
+   "doi": "10.18682/cdc.vi229.11352",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Survey on spinal injections for lumbar degenerative stenosis among spine surgeons in Latin America",
+   "doi": "10.26502/fjsrs0065",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Modeling Synchronization Risk among Sustainable Exchange Trade Funds: A Statistical and Network Analysis Approach",
+   "doi": "10.3390/math10193598",
+   "anio": "2022",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Anxiety disorders in chilean adolescents: a study of their relationship with multidimensional poverty at the regional level",
+   "doi": "10.22533/at.ed.1595825280112",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Understanding success factors of Class B  enterprises in Chile: a pioneering study on socially  and environmentally responsible entrepreneurship",
+   "doi": "10.1504/ijesb.2026.153581",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Design of smart socket for monitoring of IoT-based intelligent smart energy management system",
+   "doi": "10.1007/978-981-15-8439-8_41",
+   "anio": "2021",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Capítulo de libro",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "How have women’s employment patterns during young adulthood changed in Chile? A cohort study",
+   "doi": "10.1332/175795919x15628474680736",
+   "anio": "2019",
+   "escuela": "Familia",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "El lenguaje como espejo roto: holismo semántico e identidad discursiva en Machado de Assis. Una lectura de 0 espelho desde el holismo semántico moderado",
+   "doi": "10.5281/zenodo.20491720",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Teorías subjetivas sobre convivencia y violencia escolar en discurso experto en la prensa de 2022",
+   "doi": "https://www.doi.org/10.4185/rlcs-2026-2473",
+   "anio": "2025",
+   "escuela": "Familia",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "National Parent Associations’ Subjective Theories of Post-Pandemic School Violence in Chile: A Qualitative Exploratory Study",
+   "doi": "10.3390/educsci16071038",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Interacciones pedagógicas y lenguaje matemático en sala cuna: Un estudio de caso en comunas de la Región Metropolitana",
+   "doi": "10.35811/rea.v16i1.431",
+   "anio": "2026",
+   "escuela": "Educación Parvularia",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Vitamin D status and obesity in children from Chile",
+   "doi": "10.1038/s41430-021-01043-9",
+   "anio": "2021",
+   "escuela": "Nutrición",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Chapter 19: Teaching Biology: What Research Says?",
+   "doi": "10.4324/9780367855758",
+   "anio": "2023",
+   "escuela": "Educación básica",
+   "tipo": "Book chapter",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.17648/acta.scientiae.6721",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Spontaneous Breathing Promotes Lung Injury in an Experimental Model of Alveolar Collapse",
+   "doi": "10.1038/s41598-022-16446-2",
+   "anio": "2022",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Atypical presentation of COVID-19: Chronic bilateral testicular pain with lower extremity peripheral polyneuropathy, case report",
+   "doi": "10.1016/j.eucr.2021.101932",
+   "anio": "2022",
+   "escuela": "Medicina",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Phase-controlled array of ultrasonic transducers for active focusing of waves in air. Applied to foam abatement",
+   "doi": "10.5162/ultrasonic2025/d6-b2",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.17151/kepes.2021.18.23.8",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Peri-implantitis—Is it mainly a clinician-initiated complication of implant therapy?",
+   "doi": "10.1111/prd.70051",
+   "anio": "2026",
+   "escuela": "Odontología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "The exposome of brain aging across 34 countries",
+   "doi": "10.1038/s41591-026-04302-z",
+   "anio": "2026",
+   "escuela": "Psicología",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.3390/cells11121905",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Una reconsideración del objeto formal de la vis cogitativa: la aprehensión del individuo ut existens sub natura communi",
+   "doi": "10.4067/s0719-689x2023000100111",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Consenso Argentino de Diagnóstico y Tratamiento de la Miocardiopatía Hipertrófica Año 2025",
+   "doi": "10.7775/rac.es.v94.s2",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Antidiabetic potential of extracts from Cylindropuntia imbricata (Haw.) F.M. Knuth, Opuntia engelmannii Salm-Dyck ex Engelm., Ibervillea sonorae (S. Wats.) Greene and Theobroma cacao L.",
+   "doi": "10.22201/fesz.23958723e.2024.663",
+   "anio": "2024",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1590/2175-35392021229866",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.56434/j.arch.esp.urol.20227506.75",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "#yomevacuno: satisfacción e insatisfacción laboral en campaña contra la COVID-19",
+   "doi": "10.15665/dem.v20i3.2741",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "La dimensión racional en la terapia EMDR",
+   "doi": "10.38123/psip.3.8",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Percepción del estado de salud bucal y su relación con consumo de agua, bebidas gaseosas y jugos azucarados en adultos chilenos",
+   "doi": "10.13128/4028",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "La pareja pedagógica como experiencia práctica para el desarrollo de desempeños colaborativos desde la interdisciplina en el ejercicio de la profesión docente",
+   "doi": "10.22352/saustral20232905",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Implementation of real-time optimal load scheduling for IoT-based intelligent smart energy management system using new decisive algorithm",
+   "doi": "10.1186/s43067-025-00198-w",
+   "anio": "2025",
+   "escuela": "Ingeniería civil industrial",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Occurrence of myocarditis in patients Immunized with different types of COVID-19 vaccines: A systematic review and meta-analysis",
+   "doi": "10.1016/j.virusres.2026.199748",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Association between posterior tibial slope and graft survival in high-risk anterior cruciate ligament reconstruction with lateral extra-articular tenodesis",
+   "doi": "10.1177/03635465261439932",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Reflections of future kindergarten teachers on the design of didactic sequences with the use of robots",
+   "doi": "10.29333/ejmste/12442",
+   "anio": "2022",
+   "escuela": "Educación básica",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "GLP-1RA- and Incretin-Based Therapies Within Lifestyle Interventions for Adults with Overweight or Obesity: A Systematic Review and Meta-Analysis",
+   "doi": "10.3390/nu18111781",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Balancing lung recruitment and venous congestion in ARDS: rethinking the systemic effects of PEEP",
+   "doi": "10.1007/s00134-026-08530-2",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Influence of estradiol deficiency on the mineralocorticoid receptor response in postmenopausal women: a cross-sectional study",
+   "doi": "10.1080/13697137.2025.2455181",
+   "anio": "2026",
+   "escuela": "Ingeniería Civil Biomédica",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.32641/andespediatr.v92i5.3523",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Análisis de la participación de estudiantes secundarios en la retroalimentación en el pensamiento social",
+   "doi": "10.4151/07189729-vol.63-iss.2-art.1428",
+   "anio": "2024",
+   "escuela": "CIPEF",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Evolución de las políticas públicas para la formación docente continua en Chile",
+   "doi": "10.53940/reys.v5i9.178",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1016/j.rccot.2021.01.008",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "“Go Wild for a While!”: A New Test for Forecast Evaluation in Nested Models.",
+   "doi": "10.3390/math9182254",
+   "anio": "2021",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "",
+   "doi": "10.1007/s00894-016-3183-x",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Des_Velado... Materia Inquieta",
+   "doi": "10.18682/cdc.vi276.12643",
+   "anio": "",
+   "escuela": "",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Repositorio institucional DSpace"
+   ],
+   "fuentes_id": [
+    "dspace"
+   ]
+  },
+  {
+   "titulo": "Driving hypertension: non-classic apparent mineralocorticoid excess",
+   "doi": "10.1038/s41574-025-01209-6",
+   "anio": "2025",
+   "escuela": "Ingeniería Civil Biomédica",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Automated segmentation of postsurgical resection cavities on magnetic resonance imaging in focal epilepsy: A Multicentre Epilepsy Lesion Detection study",
+   "doi": "10.1002/epi.70450",
+   "anio": "2026",
+   "escuela": "No especificado en el documento",
+   "tipo": "Article",
+   "fuentes": [
+    "Repositorio institucional DSpace",
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "dspace",
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "La vida privada de los funcionarios públicos frente a dos derechos: el acceso a la información pública y la libertad de expresión: (Algunos criterios empleados por la jurisprudencia chilena y comparada y su importancia relativa)",
+   "doi": "10.4067/s0718-00122015000100007",
+   "anio": "2018",
+   "escuela": "Derecho",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Libertad de opinión e información: algunos tópicos interesantes de la jurisprudencia chilena",
+   "doi": "artículo sin doi",
+   "anio": "2014",
+   "escuela": "Derecho",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Salud pública, vacuna y prevención: la difusión de la vacuna antivariólica en Chile, 1805-1830",
+   "doi": "10.4067/s0717-71942016000200001",
+   "anio": "2016",
+   "escuela": "CIDOC",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Testimonial tweeting: people's voice (and eyes) on anti-impeachment protests in Brazil",
+   "doi": "10.18861/ic.2018.13.1.2834",
+   "anio": "2018",
+   "escuela": "CIDOC",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "The Dystopia of the Spectator. Past Revival and Acceleration of Time in Black Mirror (\"The Entire History of You\" and \"Be Right Back\")",
+   "doi": "capítulo de libro sin doi",
+   "anio": "2018",
+   "escuela": "CIDOC",
+   "tipo": "Capítulo de libro",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Affordance is power: contradictions between communicational and technical dimensions of whatsApp’s end-to-end encryption",
+   "doi": "10.1177/2056305118795876",
+   "anio": "2018",
+   "escuela": "CIDOC",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Applying multi-criteria analysis in a port system",
+   "doi": "10.1016/j.procs.2017.11.396",
+   "anio": "2017",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Reviewing homeostasis of sustainable energy systems: How reactive and predictive homeostasis can enable electric utilities to operate distributed generation as part of their power supply services",
+   "doi": "10.1016/j.rser.2017.06.094",
+   "anio": "2018",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "A fresh look at an old problem: saturation in the retail market and how it affects both retailers and consumers",
+   "doi": "10.17485/ijst/2019/v12i18/144604",
+   "anio": "2019",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Engineering sustainable energy systems: how reactive and predictive homeostatic control can prepare electric power systems for environmental challenges",
+   "doi": "10.1016/j.procs.2017.11.391",
+   "anio": "2017",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Review and comparative study of single-stage inverters for a PV system",
+   "doi": "10.1016/j.rser.2018.04.063",
+   "anio": "2018",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Paciano Merino y José Luis Polanco: Formar lectores en la era digital",
+   "doi": "10.4067/s0718-22952016000300019",
+   "anio": "2016",
+   "escuela": "CIDOC",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Smart Energy Systems: The Need to Incorporate Homeostatically Controlled Microgrids to the Electric Power Distribution Industry: An Electric Utilities’ Perspective",
+   "doi": "10.14419/ijet.v7i2.28.12883",
+   "anio": "2018",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "El control de convencionalidad o compatibilidad (o el problema de la competencia)",
+   "doi": "10.4067/s0718-52002017000200365",
+   "anio": "2017",
+   "escuela": "Derecho",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "El principio de protección de la confianza legítima en el artículo 26 del Código Tributario",
+   "doi": "10.4067/s0718-00122018000100019",
+   "anio": "2018",
+   "escuela": "Derecho",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Salud pública en tiempos de epidemia: el caso de la escarlatina en Chile, 1832 y 1842",
+   "doi": "10.15691/%25x",
+   "anio": "2021",
+   "escuela": "CIDOC",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Low carbon energy thecnologies in sustainable energy systems",
+   "doi": "libro sin doi",
+   "anio": "2021",
+   "escuela": "Ingenieria civil informática",
+   "tipo": "Libro",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Teaching and learning of mathematics and criteria for its improvement from the perspective of future teachers: a view from the Ontosemiotic Approach.",
+   "doi": "revista sin doi",
+   "anio": "2021",
+   "escuela": "Educación básica",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Chemical properties of vitis vinifera carménère pomace extracts obtained by hot pressurized liquid extraction, and their inhibitory effect on type 2 diabetes mellitus related enzymes",
+   "doi": "10.3390/antiox10030472",
+   "anio": "2021",
+   "escuela": "Nutrición",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Multi-response optimal hot pressurized liquid recovery of extractable polyphenols from leaves of maqui (Aristotelia chilensis [Mol.] Stuntz)",
+   "doi": "10.1016/j.foodchem.2021.129729",
+   "anio": "2021",
+   "escuela": "Nutrición",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Hot pressurized liquid extraction of polyphenols from the skin and seeds of vitis vinifera L. cv. Negra Criolla Pomace a Peruvian native pisco industry waste",
+   "doi": "10.3390/agronomy11050866",
+   "anio": "2021",
+   "escuela": "Nutrición",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Epidemias, instituciones y Estado. La salud en Santiago de Chile, 1810-1842",
+   "doi": "10.12804/revistas.urosario.edu.co/revsalud/a.10595",
+   "anio": "2021",
+   "escuela": "CIDOC",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Cuarto tesis sobre literatura durante Unidad Popular chilena",
+   "doi": "10.7203/kam.17.18083",
+   "anio": "2021",
+   "escuela": "CIDOC",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Care work and class: Domestic workers' struggle for equal rights in Latin America - by Blofield, Merike",
+   "doi": "10.1111/blar.12509",
+   "anio": "2016",
+   "escuela": "Familia",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Book Review de Parenting across cultures from childhood to adolescence",
+   "doi": "10.1080/00131911.2021.1956176",
+   "anio": "2021",
+   "escuela": "Familia",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "¿Por qué estudiar sobrecarga de fluidos en niños graves? Revocación médica, heterogeneidad y resistencia al cambio.",
+   "doi": "10.32641/andespediatr.v93i4.4451",
+   "anio": "2022",
+   "escuela": "Medicina",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Prácticas artísticas contemporáneas, en el contexto de la producción de conocimiento de egresados de programas de Magíster de Artes en Chile",
+   "doi": "evaluación",
+   "anio": "2022",
+   "escuela": "Arte",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "El pensamiento antivacuna de Alfredo Helsby Hazell. Controversias y debates a fines del siglo XIX e inicios del siglo XX en Chile",
+   "doi": "10.4067/s0716-10182022000200311",
+   "anio": "2022",
+   "escuela": "CIDOC",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "A conceptual review of the literature on brand personality",
+   "doi": "10.5354/0719-0816.2022.67025",
+   "anio": "2022",
+   "escuela": "Ingeniería comercial",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Libro de resumenes: I Jornada Científica de Estudiantes de Odontología",
+   "doi": "libro de la finis no tiene doi",
+   "anio": "2024",
+   "escuela": "Odontología",
+   "tipo": "Libro",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Aportes de la Psicología integral de la persona para la comprensión de la afectividad humana",
+   "doi": "10.53439/stdfyt49.25.2022.63-76",
+   "anio": "2022",
+   "escuela": "Psicología",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "BMAL1 and CLOCK proteins exhibit differential association with mitochondrial dynamics, protein synthesis pathways and muscle strength in human muscle",
+   "doi": "10.1113/jp285955#support-information-section",
+   "anio": "2024",
+   "escuela": "Kinesiología",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Otras escrituras: Gestos, movimientos e inscripciones en el arte y la poesía contemporáneos",
+   "doi": "libro no tiene doi",
+   "anio": "2024",
+   "escuela": "Arte",
+   "tipo": "Libro",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Early childhood education in times of pandemic: the lived experience of children in Latin American countries",
+   "doi": "/10.17227/rce.num95-18798",
+   "anio": "2025",
+   "escuela": "Educación parvularia",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Diálogos participativos: propuestas de salud bucal para Chile 2026-2030",
+   "doi": "libro de la finis sin doi",
+   "anio": "2025",
+   "escuela": "Odontología",
+   "tipo": "Libro",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Resistencias Materiales: El desecho como dispositivo afectivo",
+   "doi": "https://doi. org/10.5354/0719-837x.2025.80011",
+   "anio": "2025",
+   "escuela": "Diseño",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Press and School Violence: Subjective Theories in the Post-Pandemic Narratives in Chilean Online Newspaper",
+   "doi": "10.3390/%20covid5120208",
+   "anio": "2025",
+   "escuela": "Familia",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Historia y reflexión de una living contradiction de una formadora de profesores de matemáticas",
+   "doi": "10.22352%20saustral20253117",
+   "anio": "2026",
+   "escuela": "Educación parvularia",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "La arquitectura de los estudios cinematográficos en Madrid",
+   "doi": "sin doi",
+   "anio": "2025",
+   "escuela": "Arquitectura",
+   "tipo": "Libro",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Effectiveness of a marine 7 education program applied in a marine protected area context and designed with science education strategies",
+   "doi": "10.1007/978-3-032-09453-7_7#doi",
+   "anio": "2026",
+   "escuela": "Educación básica",
+   "tipo": "Capítulo de libro",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Representación mediática de la ciudad e inseguridad urbana en noticias policiales: Radio BioBio y Radio Cooperativa en X (2022-2025)",
+   "doi": "[no especificado en el documento]",
+   "anio": "2026",
+   "escuela": "Periodismo",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Desinformación sanitaria cotidiana y persuasión visual en Instagram: legitimación de suplementos para bajar de peso en cuentas chilenas",
+   "doi": "10.21134/mhcj.v17i.3564",
+   "anio": "2026",
+   "escuela": "Periodismo",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "The ICU pharmacist’s contribution to antimicrobial optimization through routine pharmacist interventions",
+   "doi": "10.37201/req/166.2026",
+   "anio": "2026",
+   "escuela": "Medicina",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "A Digital-Twin-Enabled Resilience Framework (DTERF) for Machine-Learning-Based Anomaly Detection in High-PV Cyber–Physical Smart Grids",
+   "doi": "10.3390/su18178724",
+   "anio": "2026",
+   "escuela": "Facultad de Ingeniería",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Distribución de estilos de aprendizaje y su relación con variables sociodemográficas y académicas en estudiantes de Odontología: estudio transversal",
+   "doi": "10.6018/edumed.721001",
+   "anio": "2026",
+   "escuela": "Escuela de Odontología",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  },
+  {
+   "titulo": "Análisis bioético de decisiones terapéuticas en odontopediatría en contexto vulnerable: pulpectomía o exodoncia según el modelo deliberativo de Thomasma y Pellegrino",
+   "doi": "10.82238/rscuandes.0501.01",
+   "anio": "2025",
+   "escuela": "Escuela de Odontología",
+   "tipo": "Artículo de revista",
+   "fuentes": [
+    "Autoarchivo de biblioteca"
+   ],
+   "fuentes_id": [
+    "autoarchivo"
+   ]
+  }
+ ],
+ "resumen": {
+  "total_publicaciones": 436,
+  "sin_doi": 1,
+  "por_fuente": {
+   "facmed": 14,
+   "dspace": 378,
+   "autoarchivo": 238
+  },
+  "en_mas_de_una_fuente": 193,
+  "atribuciones_retenidas": 701,
+  "personas_nombradas_en_la_fuente": 344
+ }
+}

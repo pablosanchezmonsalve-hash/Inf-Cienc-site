@@ -1,0 +1,2399 @@
+/* Informe Bibliométrico Institucional — hoja de estilo única.
+
+   Sin dependencias externas: ninguna fuente, hoja ni script se carga desde un
+   CDN. Los datos son institucionales y el sitio debe poder servirse offline.
+
+   ORGANIZACIÓN
+     1. Tokens: color, tipografía, espacio, trazo
+     2. Base y utilidades
+     3. Estructura: cabecera, navegación, rail, pie
+     4. Componentes: KPI, módulo, nota, ayuda, tabla, filtros, estados
+     5. Gráficos e interacción
+     6. Ficha de autor
+     7. Responsive
+
+   ────────────────────────────────────────────────────────────────────────────
+   NOTA DE IMPLEMENTACIÓN · de dónde sale este sistema cromático
+
+   La identidad es VINO/BURDEOS + CHAMPÁN (paleta H), elegida por el usuario en
+   una comparativa de paletas y aplicada de forma integral: marca, dato y
+   advertencia cambiaron a la vez, no sólo la cabecera. NO es el rojo
+   institucional oficial de la Universidad Finis Terrae: no se pudo verificar su
+   valor exacto (finis.cl y los directorios de marca respondieron 403), y ANTE
+   LA DUDA NO SE INVENTÓ una pretensión oficial. Los tonos de aquí están
+   DISEÑADOS POR MEDICIÓN, no copiados. El día que exista el hex oficial, se
+   cambia --marca y sus derivados: son tokens.
+
+   Ningún color se eligió por gusto. Cada uno despeja un umbral comprobable, y
+   la comprobación se corrió sobre los DOS temas con `src/design/validar_paleta.py`.
+   Ese validador LEE los tokens de esta hoja: no se copian números aquí para no
+   repetir la fotografía que se desactualiza en silencio. Estado de hoy: el
+   validador termina en «SISTEMA CROMÁTICO VÁLIDO», con 0 fallos. Los rediseños
+   de paleta se corrigen ajustando los tokens y re-corriendo el validador; si se
+   decide dejar de afirmar una cifra, se deja de afirmar también aquí antes que
+   dejar un número viejo.
+
+   LAS DOS CONDICIONES QUE EL CONTRASTE SOLO NO CUBRE:
+
+   SEPARACIÓN DATO ↔ ADVERTENCIA. El dato es BORDEAUX (cálido) y la advertencia
+     metodológica es VERDE MONEDA (frío) — la familia complementaria. El
+     ámbar, también cálido, quedaba a ΔE 17,9 del bordeaux bajo el piso de 20,
+     así que la advertencia se movió al verde. Medido en OKLab entre
+     --serie-1 y --aviso-borde, el par que de verdad se dibuja junto —barra de
+     dato contra línea de referencia—: ΔE 26,0 en claro y 22,2 en oscuro, sobre
+     un piso de 20. Lo midió el validador, que lee los tokens en vez de creerse
+     una tabla.
+
+   RAMPA ORDINAL (Q1–Q4). Escala ORDENADA, así que un solo tono (bordeaux) en
+     cuatro pasos con luminosidad monótona. En claro sube (Q1 más oscuro, la
+     carga menor destaca); en oscuro baja (Q1 más claro), para que el paso
+     mínimo quede sobre el piso. Paso mínimo ΔE 8,1 en claro y 11,3 en oscuro,
+     cada paso ≥ 3:1 sobre la superficie, sobre un piso de 8: cuatro escalones
+     que se distinguen incluso impresos en gris. Cuatro tonos distintos habrían
+     afirmado que Q1 y Q4 no tienen relación entre sí, cuando son posiciones de
+     una misma escala.
+
+   SUPERFICIE OSCURA CÁLIDA. El tema oscuro es vino profundo (#17080a), no una
+     pizarra fría. Un rojo sobre un fondo azulado se lee sucio: el fondo tira
+     del tono al magenta. Con el dato en bordeaux, la superficie debe poder
+     sostenerlo sin tirar del matiz — el mismo motivo por el que las superficies
+     claras están teñidas hacia la familia de la marca (champán) en lugar de ser
+     grises neutros.
+
+   UNA SOLA DECLARACIÓN POR TOKEN. Antes la paleta oscura estaba escrita tres
+     veces —en el media query, en el selector explícito y en los comentarios— y
+     las tres copias podían separarse sin que nada avisara. Ahora cada token se
+     declara una vez con light-dark(); el conmutador de tema sólo cambia
+     `color-scheme`. Son 90 líneas menos y un modo entero de error menos.
+
+   TIPOGRAFÍA — pila del sistema, no fuente web. El proyecto prohíbe cargar
+     nada desde un CDN y autoalojar una familia añadiría binarios al repositorio
+     y peso al bundle. La jerarquía se construye con peso, tamaño, interletrado
+     y cifras tabulares, no con familias distintas.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════ 1. TOKENS */
+
+:root {
+  /* Por defecto se sigue al sistema operativo. El conmutador escribe
+     data-tema y eso reduce `color-scheme` a un solo valor, que es lo único
+     que light-dark() consulta. */
+  color-scheme: light dark;
+
+  /* ---- Superficies. Teñidas con champán al 6–10 %; en oscuro, vino profundo. ---- */
+  --plano:        light-dark(#f7efe6, #150507);
+  --superficie:   light-dark(#fdf6ef, #17080a);
+  --superficie-2: light-dark(#f5e7da, #1f0d10);
+
+  /* Segundo suelo de banda. Es un TOKEN y no un valor suelto para que
+     validar_paleta.py lo mida: las cifras que lo justifican están en la regla
+     de .banda-papel-2, y una cifra que sólo vive en un comentario deja de ser
+     cierta en silencio. */
+  --banda-papel-2: light-dark(#efe2d2, #1f0d10);
+
+  /* ---- Tinta. Tres niveles, todos derivados del vino de la marca. ---- */
+  --tinta:   light-dark(#241014, #f0e2d0);
+  --tinta-2: light-dark(#4a3636, #d4c2b6);
+  --tinta-3: light-dark(#5a4646, #b6a398);
+
+  --linea:        light-dark(#ebd9c6, #3a2026);
+  --linea-fuerte: light-dark(#cbb0a0, #4d2b31);
+
+  /* ---- Marca. Identidad institucional. Nunca codifica un dato. Paleta H:
+     vino / burdeos + champán (elegida por el usuario en comparativa). ---- */
+  --marca:       light-dark(#2c0c12, #180609);
+  --marca-honda: light-dark(#120405, #0a0304);
+  --marca-alta:  light-dark(#a84455, #e0a0a8);
+  --marca-tinta: light-dark(#f0ddca, #f0ddca);
+
+  /* Tinta de las cifras grandes. Existe aparte de --marca porque --marca
+     cambia de OFICIO entre temas: en claro es tinta, en oscuro es la
+     superficie de la cabecera. Usarla para el texto de un KPI funcionaba en
+     claro y en oscuro pintaba la cifra a 1,05:1, o sea invisible. Este token
+     es tinta en los dos temas y sólo eso. */
+  --cifra: light-dark(#7a2028, #f0ddca);
+
+  /* ---- Acción. Estado interactivo. Tampoco codifica un dato. ---- */
+  --accion:        light-dark(#8a2430, #f0ddca);
+  --accion-viva:   light-dark(#a84455, #f0ddca);
+  --accion-suave:  light-dark(#f6e4e4, #2a1016);
+  --accion-anillo: light-dark(rgba(168, 68, 85, .34), rgba(244, 221, 202, .38));
+
+  /* ---- Series categóricas ----
+          MEDIDO: de las seis ranuras, el sitio dibuja DOS. El anillo de
+          colaboración internacional (C-01) pide escala categórica y gasta
+          --serie-1 y --serie-2; todo lo demás cae en --serie-1 solo o en la
+          rampa ordinal.
+
+          (Una versión anterior de esta nota decía «el sitio usa UNA». Era
+          falso: `anillo()` pide siempre escala de serie, así que la segunda
+          ranura llevaba dibujándose desde el principio. Queda anotado porque
+          una paleta declarada sin usar y una paleta en uso sin validar son
+          problemas distintos y sólo el segundo es urgente.)
+
+          EL PAR EN USO SÍ ESTÁ VALIDADO, y como par, que es como se dibuja:
+            contraste  claro  7,67:1 y 5,77:1   ·  oscuro  5,48:1 y 7,50:1
+            ΔE OKLab   visión normal 25,9 / 26,6
+                       protanopía    17,5 / 17,9
+                       deuteranopía  12,2 / 12,1   ← el peor caso, sobre piso 8
+                       tritanopía    32,4 / 33,1
+
+          Las CUATRO restantes siguen RESERVADAS y NO VALIDADAS: nunca se han
+          dibujado juntas. Se conservan porque el motor las expone y un módulo
+          futuro podría pedirlas. Quien las estrene debe revalidarlas PARA EL
+          NÚMERO DE RANURAS QUE VAYA A USAR, no para seis: la separación de un
+          conjunto de tres es un problema tratable y la de seis no lo es.
+
+          La sexta ranura era carmín. Con la marca en rojo, un carmín a dos
+          pasos de --serie-1 es una trampa a la espera: se cambió por azul. ---- */
+  --serie-1: light-dark(#8a2430, #e0a0a8);   /* bordeaux · el dato, vino en ambos temas */
+  --serie-2: light-dark(#c06070, #b24a5a);   /* rosa vivo / rosa profundo · EN USO (anillo C-01) */
+  --serie-3: light-dark(#6b4bbd, #a48ae8);   /* violeta   · RESERVADA, sin validar */
+  --serie-4: light-dark(#2e7d32, #5a9e5f);   /* verde     · RESERVADA, sin validar */
+  --serie-5: light-dark(#8a5a06, #d09a2a);   /* ámbar     · RESERVADA, sin validar */
+  --serie-6: light-dark(#1c5fa8, #6fa8e8);   /* azul      · RESERVADA, sin validar */
+
+  /* ---- Rampa ordinal. Un solo tono (bordeaux), cuatro pasos, luminosidad
+          monótona. En claro sube (Q1 más oscuro); en oscuro baja (Q1 más
+          claro), para que Q1 —la carga menor— siempre destaque sobre el suelo
+          y el paso mínimo quede sobre el piso de ΔE 8. Medidas por
+          validar_paleta.py. ---- */
+  --ord-1: light-dark(#5c1f29, #f8dde0);
+  --ord-2: light-dark(#8c3845, #ebaab4);
+  --ord-3: light-dark(#a6505d, #cf828e);
+  --ord-4: light-dark(#bf6977, #9d4a56);
+
+  /* ---- Rampa de CELDAS de los mapas (treemap/heatmap). NO es la rampa
+          ordinal de arriba. Decisión del usuario: los mapas densos se vuelven
+          ilegibles si se llenan de bordeaux oscuro apelmazado + texto difícil;
+          en vez de eso usan celdas NEUTRAS CÁLIDAS, aireadas, con el bordeaux
+          reservado (vía --serie-1) para marcar el dato.
+
+          El campo del gráfico es claro en AMBOS temas: un treemap/heatmap es
+          una "hoja de datos" y debe leerse igual esté o no en modo oscuro.
+          Las celdas se llenan con el mismo relleno claro y sus etiquetas van
+          en --mapa-tinta (vino oscuro constante, también en ambos temas).
+          Si las celdas se oscurecieron con el tema (light-dark) desaparecían
+          contra el fondo oscuro de la tarjeta (1,05-3,15:1) y "no se veían"
+          (regresión 2026-09-01). ---- */
+  --mapa-1: #f7ebd6;
+  --mapa-2: #eed0b2;
+  --mapa-3: #e1b794;
+  --mapa-4: #cf9e7d;
+  --mapa-5: #b9836f;
+
+  /* Tinta de las etiquetas sobre el campo de mapa: vino oscuro FIJO en ambos
+     temas (las celdas son claras siempre, así que el texto también debe ser
+     oscuro siempre, al revés que --tinta que sí invierte). */
+  --mapa-tinta: #241014;
+
+  /* Celda DATO de los mapas: el bordeaux del dato, FIJO en ambos temas. Sin
+     light-dark: sobre un campo de mapa claro, el dato debe leer como el mismo
+     bordeaux en claro y en oscuro (si fuese --serie-1, en oscuro se volvería
+     un rosa claro que no se distinguiría del resto del campo). */
+  --mapa-dato: #8a2430;
+
+  /* ---- Ausencia de dato: gris, siempre (decisión D-09). ---- */
+  --sin-dato: light-dark(#87807a, #7d8886);
+
+  /* ---- Cromo del gráfico: recesivo por definición. ---- */
+  --red: light-dark(#f2e6da, #1f1013);
+  --eje: light-dark(#d0beb0, #4a2b31);
+
+  /* ---- Advertencia metodológica. Verdes MONEDA fríos, fuera de la familia
+          cálida del dato. Con el dato en bordeaux (cálido), el ámbar —también
+          cálido— caía a ΔE 17,9 bajo el piso de 20. Se mueve la advertencia a
+          la familia fría complementaria: verde moneda, ΔE ≥ 20 frente al dato
+          rosa en los dos temas. Lo midió `src/design/validar_paleta.py`. ---- */
+  --aviso-fondo: light-dark(#e9f1e0, #12210e);
+  --aviso-borde: light-dark(#2e7d32, #5a9e5f);
+  --aviso-tinta: light-dark(#1d4a1e, #bcdbb0);
+  /* La línea de referencia puede llevar el trazo (--aviso-borde); su ETIQUETA,
+     que dice el promedio mundial, no — ese verde claro no llega a 4,5:1 como
+     texto. Este token sí. */
+  --aviso-tinta-grafico: light-dark(#1f5d24, #5a9e5f);
+
+  /* ---- Bento / módulos premium (D-327, decidido) ----
+          Acento nuevo para el tablero, no una sustitución de la identidad
+          institucional (D-144/D-145 siguen intactas: --marca, --serie-1/2,
+          --aviso-* no se tocaron). Elegido con autorización explícita del
+          usuario, con las cifras ya medidas y mostradas antes de aplicarlo
+          (docs/DESIGN_SYNC_GUIDE.md §7): de los cuatro candidatos evaluados
+          (SESSION_NOTES.md), éste fue el más consistente entre temas —
+          contraste 5,86:1/6,67:1 contra --plano, ΔE 23,1/22,9 frente a
+          --aviso-borde, ambos por encima del piso de 20 que exige D-144 —
+          y es el que mejor cumple el criterio pedido de "acento de alto
+          contraste", en vez de la opción conservadora que reutilizaba
+          --serie-6 sin aportar identidad propia al tablero nuevo. */
+  --bento-acento: light-dark(#a8256b, #ff5fa8);
+  --bento-acento-suave: light-dark(#f9e6ee, #2e0f1e);
+
+  /* Sombra: NUNCA negro puro sobre --superficie oscura (se ve como un borde
+     sucio, no como profundidad). En oscuro se abre el halo y se sube la
+     opacidad porque una sombra sutil desaparece contra un fondo ya oscuro.
+
+     BUG REAL, encontrado revisando el sitio publicado (no en local):
+     light-dark() sólo es válido como <color>, nunca envolviendo un valor de
+     sombra completo (offset+blur+color). El navegador leía bien el token
+     -getPropertyValue devolvía el texto tal cual, porque una custom property
+     no se valida hasta que se sustituye- pero al sustituirlo en box-shadow
+     el valor completo quedaba inválido y computaba a "none": la sombra
+     nunca se dibujó, en ningún tema, sin ningún error visible. Corregido
+     envolviendo SÓLO el color en light-dark(); la geometría (offset/blur/
+     spread) queda igual en los dos temas -la sombra-alta tenía blur y
+     spread ligeramente distintos por tema, una diferencia demasiado
+     pequeña para justificar duplicar el token entero. */
+  --bento-sombra: 0 1px 2px light-dark(rgba(7, 30, 34, .06), rgba(0, 0, 0, .4));
+  --bento-sombra-alta: 0 8px 24px -8px light-dark(rgba(7, 30, 34, .18), rgba(0, 0, 0, .55));
+  --bento-radio: 12px;
+
+  /* ---- Tipografía ---- */
+  --f-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --f-cifra: var(--f-ui);
+  /* Cifras de ancho fijo: en un explorador el número cambia a cada filtro,
+     y con cifras proporcionales el bloque entero salta a cada pulsación. */
+  --num-tabular: tabular-nums;
+  --f-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Escala tipográfica. Dos registros: el de LECTURA, que sube despacio, y el
+     de CIFRA, que salta. Una plataforma de indicadores tiene que dejar que el
+     número gane la página; con una sola escala continua, la cifra clave y el
+     título de sección pesaban lo mismo y no había nada que mirar primero. */
+  /* La escala SUBIÓ ENTERA. La anterior arrancaba en 11 px y ponía las notas a
+     12,5 y las tablas a 14: por debajo de los 16 px que las guías de
+     accesibilidad dan como suelo de lectura cómoda, y el primer texto que
+     deja de leerse cuando la vista cambia con la edad. Nada baja ahora de
+     13 px, la prosa sube a 17 y los controles a 16.
+
+     Todo en `rem`, nunca en `px`: WCAG 1.4.4 exige que el texto llegue al
+     200 % sin perder contenido ni función, y eso sólo se cumple si la escala
+     entera cuelga del tamaño raíz que el lector puede cambiar en su navegador. */
+  --t-xs: .8125rem;   /* 13px · códigos, micro-etiquetas */
+  --t-s: .9375rem;    /* 15px · notas, pie */
+  --t-m: 1rem;        /* 16px · tablas, controles */
+  --t-base: 1.0625rem;/* 17px · prosa */
+  --t-l: 1.25rem;     /* 20px */
+  --t-xl: 1.5rem;     /* 24px · título de módulo */
+  --t-2xl: clamp(2rem, 1.5rem + 2.4vw, 3.25rem);       /* h1 */
+  /* La cifra tiene que GANAR la página: es lo que se viene a ver. */
+  --t-display: clamp(3.5rem, 2rem + 6.5vw, 7rem);      /* cifra de titular */
+  --t-cifra: clamp(2.75rem, 1.9rem + 3.4vw, 4.5rem);   /* valor de KPI */
+
+  /* ---- Espacio. Escala de 4 px, sin valores sueltos. ---- */
+  --e1: .25rem; --e2: .5rem;  --e3: .75rem; --e4: 1rem;
+  --e5: 1.5rem; --e6: 2rem;   --e7: 3rem;   --e8: 4.5rem;
+
+  /* ---- Trazo. Radios contenidos y sombra mínima: la separación la hace el
+          filete, no la elevación. Una interfaz analítica no flota. ---- */
+  /* 8px -> 12px (D-327, mismo criterio "premium" que --bento-radio):
+     puramente cosmético, no toca layout ni contraste, así que se sube en
+     el token compartido en vez de sólo en los paneles nuevos -las diez
+     páginas quedan con el mismo lenguaje visual, no dos estilos a la vez. */
+  --radio: 12px;
+  --radio-s: 5px;
+  --radio-pastilla: 999px;
+  --sombra-1: light-dark(0 1px 2px rgba(28, 16, 19, .05), 0 1px 2px rgba(0, 0, 0, .45));
+  --sombra-2: light-dark(0 2px 10px rgba(28, 16, 19, .07), 0 2px 10px rgba(0, 0, 0, .5));
+  --sombra-3: light-dark(0 10px 34px rgba(28, 16, 19, .16), 0 10px 34px rgba(0, 0, 0, .62));
+
+  /* Tinta sobre el fondo del botón primario: blanco en claro, la tinta oscura
+     del sitio en oscuro. Medido: 7,67:1 y 7,88:1. */
+  --boton-tinta: light-dark(#ffffff, #171214);
+
+  /* Icono de la advertencia metodológica, como máscara: hereda el color del
+     token de aviso en vez de traerlo pintado, así que sigue al tema. */
+  --icono-aviso: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2zm0 6v7m0 3v.5" fill="none" stroke="black" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+
+  --max: 1240px;
+  --rail: 224px;
+}
+
+/* El conmutador gana sobre el ajuste del sistema, en ambos sentidos. Reducir
+   `color-scheme` a un solo valor es todo lo que hace falta: light-dark()
+   resuelve el resto de la paleta sola. */
+:root[data-tema="claro"]  { color-scheme: light; }
+:root[data-tema="oscuro"] { color-scheme: dark; }
+
+/* ═════════════════════════════════════════════════════════════ 2. BASE */
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font: 400 var(--t-base)/1.62 var(--f-ui);
+  color: var(--tinta);
+  background: var(--plano);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Ligaduras contextuales sí; versalitas automáticas no: en una tabla de
+     cifras las alternativas tipográficas estorban más de lo que aportan. */
+  font-variant-ligatures: common-ligatures;
+}
+
+a {
+  color: var(--accion);
+  text-decoration-color: color-mix(in srgb, var(--accion) 40%, transparent);
+  text-underline-offset: .18em;
+  text-decoration-thickness: 1px;
+  transition: color .14s, text-decoration-color .14s;
+}
+a:hover { color: var(--marca-alta); text-decoration-color: currentColor; }
+
+/* Un foco visible y uniforme en todo el sitio, con un halo que lo despega de
+   fondos oscuros y claros por igual. */
+:where(a, button, input, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accion-viva);
+  outline-offset: 2px;
+  border-radius: var(--radio-s);
+}
+
+h1, h2, h3 { margin: 0 0 var(--e2); line-height: 1.22; color: var(--tinta); }
+h1 {
+  font-size: var(--t-2xl); font-weight: 700; letter-spacing: -.022em;
+  line-height: 1.12; text-wrap: balance;
+}
+h2 { font-size: var(--t-xl); font-weight: 640; letter-spacing: -.012em; }
+h3 { font-size: var(--t-l); font-weight: 640; letter-spacing: -.008em; }
+
+p { margin: 0 0 var(--e3); }
+p:last-child { margin-bottom: 0; }
+
+.contenedor { max-width: var(--max); margin: 0 auto; padding: 0 clamp(var(--e4), 3vw, var(--e6)); }
+
+/* Cifras tabulares SÓLO donde deben alinearse verticalmente. En un titular o
+   un KPI suelto, las proporcionales se leen mejor. */
+.num, td.num, th.num, .tick, .tip-v { font-variant-numeric: tabular-nums; }
+
+
+/* ═══════════════════════════════════════════════════════ 3. ESTRUCTURA */
+
+/* Cabecera: rojo profundo de marca con un descenso sutil hacia el fondo. Sin
+   resplandores: el énfasis lo aporta el filete inferior.
+
+   Va FIJA. En una página de cinco indicadores largos, perder de vista a qué
+   institución y a qué sección pertenece lo que se está mirando es fácil, y una
+   captura de pantalla a media página deja de ser interpretable. Es la razón por
+   la que la fila de marca se comprimió: fija y alta estorbaría. */
+.cabecera {
+  background: linear-gradient(176deg, var(--marca) 0%, var(--marca-honda) 100%);
+  color: #fff;
+  padding: var(--e3) 0 0;
+  border-bottom: 2px solid var(--accion-viva);
+}
+/* Fija SÓLO donde cabe en una banda. En un teléfono la marca, el conmutador de
+   tema y la navegación ocupan tres filas: fijarla se comía un tercio de la
+   pantalla en cada scroll, que es peor que perder la referencia. */
+@media (min-width: 900px) {
+  .cabecera { position: sticky; top: 0; z-index: 40; }
+}
+.cabecera a { color: #fff; text-decoration-color: color-mix(in srgb, #fff 45%, transparent); }
+.cabecera a:hover { color: #fff; text-decoration-color: #fff; }
+
+.marca-fila {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--e4); flex-wrap: wrap;
+}
+/* Escudo tipográfico: da un ancla visual fija a la izquierda y sostiene la
+   identidad cuando el nombre largo se envuelve. No sustituye al nombre. */
+.marca {
+  display: flex; align-items: center; gap: var(--e3);
+  min-width: 0; text-decoration: none;
+}
+.marca:hover { text-decoration: none; }
+/* Escudo institucional. El acento champán en borde y ángulo le da el toque de
+   marca; la sombra afina con el fondo de la cabecera (nunca negro puro). */
+.marca-sigla {
+  flex: none; display: grid; place-items: center;
+  width: 2.35rem; height: 2.35rem; border-radius: var(--radio-s);
+  background: color-mix(in srgb, var(--marca-tinta) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--marca-tinta) 55%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #fff 10%, transparent);
+  font: 800 var(--t-xs)/1 var(--f-ui); letter-spacing: .04em;
+}
+.marca-txt { display: flex; flex-direction: column; min-width: 0; gap: 1px; }
+.marca-txt strong { font-size: 1rem; font-weight: 700; letter-spacing: -.01em; }
+.marca-txt > span {
+  color: var(--marca-tinta); font-size: var(--t-xs); font-weight: 550;
+  letter-spacing: .04em; text-transform: uppercase;
+}
+/* Hover de la marca: el escudo «respira» y la barra de acento aparece. Pequeña
+   micro-interacción que afirma que toda la cabecera es navegable de una vez. */
+.marca { transition: gap .15s; }
+.marca:hover .marca-sigla { border-color: var(--marca-tinta); }
+.marca:hover { gap: calc(var(--e3) + 2px); }
+
+/* Selector de tema: tres estados explícitos, el primero sigue al sistema. El
+   estado activo vuelca al champán de marca (color de la identidad) en lugar de
+   al blanco neutro, para que el gesto se lea como parte de la marca. */
+.tema {
+  display: inline-flex; gap: 2px; padding: 3px;
+  background: color-mix(in srgb, #fff 9%, transparent);
+  border: 1px solid color-mix(in srgb, var(--marca-tinta) 22%, transparent);
+  border-radius: var(--radio-pastilla);
+}
+.tema button {
+  border: 0; background: none; color: var(--marca-tinta); cursor: pointer;
+  font: 600 var(--t-xs)/1 var(--f-ui); letter-spacing: .01em;
+  padding: .34rem .62rem; border-radius: var(--radio-pastilla);
+  display: inline-flex; align-items: center; gap: .3rem;
+  transition: background .14s, color .14s, box-shadow .14s;
+}
+.tema button:hover { color: #fff; background: color-mix(in srgb, #fff 14%, transparent); }
+.tema button[aria-pressed="true"] {
+  background: var(--marca-tinta); color: var(--marca);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--marca-tinta) 70%, transparent);
+}
+.tema svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.9; }
+
+/* Navegación: subrayado activo en vez de pestaña rellena. La pestaña rellena
+   dependía de que el fondo de la página fuera el mismo color; con la cabecera
+   fija ese truco deja de funcionar en cuanto la página se desplaza. */
+
+/* Conmutador del menú. Sólo se muestra en los anchos donde el nav se pliega;
+   en banda ancha queda oculto (ver media query abajo). */
+.nav-toggle {
+  display: inline-flex; align-items: center; gap: .35rem;
+  border: 1px solid color-mix(in srgb, #fff 30%, transparent);
+  background: color-mix(in srgb, #fff 10%, transparent);
+  color: #fff; font: 600 var(--t-s)/1 var(--f-ui);
+  padding: .45rem .7rem; border-radius: var(--radio-s); cursor: pointer;
+}
+.nav-toggle:hover { background: color-mix(in srgb, #fff 18%, transparent); }
+
+.nav {
+  display: none; /* colapsado por defecto; se abre con .abierto o en banda ancha */
+  flex-direction: column; gap: calc(var(--e1) * 0.75); margin-top: var(--e3);
+  padding-bottom: var(--e2);
+}
+.nav.abierto { display: flex; }
+.nav-grupo-nombre {
+  display: block; font-size: var(--t-xs); font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--marca-tinta);
+  padding: .15rem .2rem .3rem;
+}
+.nav-grupo-enlaces {
+  display: flex; flex-wrap: wrap; gap: 0 var(--e2);
+  border-top: 1px solid color-mix(in srgb, #fff 12%, transparent);
+  padding-top: .25rem;
+}
+.nav a {
+  position: relative; padding: .5rem .4rem .5rem; text-decoration: none;
+  white-space: nowrap; font-size: var(--t-m); font-weight: 550;
+  letter-spacing: -.004em; color: var(--marca-tinta); border-radius: var(--radio-s);
+  transition: color .14s, background .14s;
+}
+/* Subrayado de acento que crece desde el centro: el enlace «se carga» al pasar
+   por encima. Es el mismo gesto del producto, en el navegador. */
+.nav a::after {
+  content: ""; position: absolute; left: 50%; bottom: 2px;
+  width: 0; height: 3px; border-radius: 2px; transform: translateX(-50%);
+  background: var(--marca-tinta);
+  transition: width .16s ease;
+}
+.nav a:hover { background: color-mix(in srgb, #fff 12%, transparent); color: #fff; }
+.nav a:hover::after { width: calc(100% - .7rem); }
+.nav a[aria-current="page"] { color: #fff; font-weight: 700; }
+.nav a[aria-current="page"]::after { width: calc(100% - .7rem); background: var(--marca-tinta); }
+
+/* En banda ancha la navegación va en una sola fila y el conmutador desaparece. */
+@media (min-width: 900px) {
+  .nav-toggle { display: none; }
+  .nav { display: flex; flex-direction: row; align-items: flex-start; overflow-x: auto; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-grupo { display: flex; }
+  .nav-grupo-nombre { display: none; }
+  .nav-grupo-enlaces {
+    display: flex; gap: var(--e1); border-top: 0; padding-top: 0;
+  }
+  .nav a {
+    padding: .5rem .7rem .62rem; background: none;
+    border-radius: var(--radio-s) var(--radio-s) 0 0;
+  }
+}
+
+/* Barra de vigencia: persistente en todas las páginas, para que una captura de
+   pantalla siga siendo interpretable fuera de contexto. */
+.vigencia {
+  background: var(--superficie-2); border-bottom: 1px solid var(--linea);
+  font-size: var(--t-s); color: var(--tinta-2); padding: .5rem 0;
+}
+.vigencia .contenedor {
+  display: flex; flex-wrap: wrap; gap: var(--e1) var(--e4); align-items: center;
+}
+.vigencia b {
+  color: var(--tinta-3); font-weight: 700; font-size: var(--t-xs);
+  text-transform: uppercase; letter-spacing: .07em; margin-right: .35em;
+}
+.vigencia .sep {
+  width: 1px; height: .95em; background: var(--linea-fuerte);
+  margin: 0 calc(var(--e2) * -1);
+}
+.vigencia-guia { margin-left: auto; font-weight: 600; color: var(--accion); }
+.vigencia-guia:hover { color: var(--accion-viva); text-decoration: underline; }
+
+/* Fichas de vigencia interactivas. Cada urna (Fuente / Ventana / Citas al) es
+   un <details> que, al pulsarse, despliega una aclaración de una línea. El
+   explicador no depende de JS: el elemento <summary>+<details> es nativo y
+   funciona por teclado y en móvil. La flecha de open es la única decoración. */
+.v-chip { position: relative; display: inline-flex; align-items: baseline; }
+.v-chip summary {
+  list-style: none; cursor: pointer; display: inline-flex; align-items: center;
+  gap: .35rem; padding: .22rem .55rem; border-radius: var(--radio-pastilla);
+  border: 1px solid var(--linea); background: var(--superficie);
+  transition: border-color .14s, color .14s;
+}
+.v-chip summary::-webkit-details-marker { display: none; }
+.v-chip summary::after {
+  content: ""; width: .45rem; height: .45rem; flex: 0 0 auto; box-sizing: border-box;
+  border: solid currentColor; border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg); margin-top: -.18rem; opacity: .55;
+  transition: transform .15s;
+}
+.v-chip[open] summary::after { transform: rotate(-135deg); margin-top: .18rem; }
+.v-chip summary:hover, .v-chip[open] summary { border-color: var(--accion); color: var(--tinta-3); }
+.v-chip summary:focus-visible,
+.v-chip[open] summary:focus-visible { outline: 2px solid var(--accion); outline-offset: 2px; }
+.v-chip[open] p {
+  position: absolute; z-index: 30; top: calc(100% + .45rem); left: 0;
+  width: clamp(16rem, 22rem, 34rem);
+  margin: 0; padding: .6rem .75rem; border-radius: var(--radio-s);
+  background: var(--superficie); color: var(--tinta);
+  border: 1px solid var(--linea); box-shadow: var(--sombra-2);
+  font-size: var(--t-s); line-height: 1.45;
+}
+.v-chip summary:focus-visible { outline: 2px solid var(--accion); outline-offset: 2px; }
+
+/* Estado del recorte en la barra: pulsa en vivo mientras el explorador filtra.
+   Vive en la barra de vigencia (todas las páginas) pero sólo se rellena y se
+   enseña desde el explorador; en el resto queda oculto por el atributo hidden.
+   Es una "cifra en vivo" del informativo: primero lectura, después peso. */
+.recorte-vivo {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .15rem .6rem; border-radius: var(--radio-pastilla);
+  border: 1px solid var(--accion);
+  color: var(--accion); background: transparent;
+  font-size: var(--t-s); font-weight: 600; white-space: nowrap;
+}
+.recorte-vivo[hidden] { display: none; }
+.recorte-vivo b { color: var(--accion); font-weight: 750; }
+
+/* Lo que existe SÓLO en el papel. Simétrico de `.solo-lectores`, que existe
+   sólo para quien no ve la pantalla: en los dos casos el contenido está en el
+   marcado y es un medio el que decide si se presenta. No se declara aquí
+   dónde se enseña —eso lo hace la hoja de impresión, más abajo—; aquí sólo se
+   retira de la pantalla. */
+.solo-papel { display: none; }
+
+/* Selector de año en la barra. Sólo se enseña en las páginas explorador, que
+   es quienes lo rellenan con los años reales del corpus; en el resto queda
+   oculto por el atributo hidden y por esta regla (`hidden` ya lo esconde, esto
+   es red de seguridad por si `hidden` se ignora). */
+.v-anio[hidden] { display: none; }
+.v-anio select {
+  font: 600 var(--t-s)/1 var(--f-ui); color: var(--tinta-2);
+  background: var(--superficie); border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio-s); padding: .2rem .4rem; cursor: pointer;
+}
+
+/* Mini-foco de la portada: una fila de atajos de un toque para entrar al
+   explorador con un recorte aplicado. Va justo bajo el titular, antes del
+   estado del recorte. Botón de texto: el color del enlace es la única pista,
+   y el filete del foco al pasar por encima devuelve el acierto visual. */
+.minifoco { margin-bottom: var(--e4); }
+.minifoco-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--e2);
+  padding: var(--e2) var(--e3); border: 1px solid var(--linea);
+  border-radius: var(--radio); background: var(--superficie);
+}
+.minifoco-titulo {
+  font-size: var(--t-xs); font-weight: 700; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--tinta-3); margin-right: var(--e1);
+}
+.foco-boton {
+  border: 0; background: none; cursor: pointer; padding: .3rem .5rem;
+  font: 600 var(--t-s)/1 var(--f-ui); color: var(--accion);
+  border-radius: var(--radio-s); text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.foco-boton:hover { background: var(--superficie-2); border-bottom-color: var(--accion); }
+.foco-boton:focus-visible { outline: 2px solid var(--accion); outline-offset: 2px; }
+.foco-limpiar { color: var(--tinta-2); }
+.foco-limpiar:hover { color: var(--tinta-3); border-bottom-color: var(--linea-fuerte); }
+
+/* Migas de posición en la barra de vigencia: dicen dónde está el lector y dan
+   una vuelta fija a la portada. En la portada misma «Portada → Portada» es
+   redundante, por eso la etiqueta y el separador se suprimen ahí. Clase propia
+   (`.v-migas`) para no chocar con `.migas` — el breadcrumb de contenido de las
+   secciones, línea 508 —. */
+.v-migas {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: var(--t-s); font-weight: 600; color: var(--tinta-3);
+  margin: 0;
+}
+.v-migas a { color: var(--accion); text-decoration: none; }
+.v-migas a:hover { text-decoration: underline; }
+.v-migas .migas-sep { color: var(--linea-fuerte); }
+.v-migas .migas-actual { color: var(--tinta-3); }
+body[data-pagina="portada"] .v-migas .migas-actual { display: none; }
+body[data-pagina="portada"] .v-migas .migas-sep { display: none; }
+
+main { padding: var(--e5) 0 var(--e8); }
+.intro { color: var(--tinta-2); max-width: 66ch; font-size: var(--t-l); margin-top: var(--e2); }
+
+.migas { font-size: var(--t-s); color: var(--tinta-3); margin-bottom: var(--e3); }
+.migas a { color: var(--tinta-2); }
+
+/* Encabezado de una página de sección. Filete de marca a la izquierda: separa
+   el título de la sección del título de un módulo sin usar otro tamaño más. */
+.encabezado-seccion {
+  border-left: 3px solid var(--accion-viva);
+  padding-left: var(--e4); margin: var(--e3) 0 var(--e6);
+}
+.encabezado-seccion h1 { margin: 0; }
+
+/* ------------------------------------------------------- titular de portada */
+
+/* Las plataformas del oficio abren con la MAGNITUD, no con el índice: hay que
+   saber de qué tamaño es el objeto antes de que un desglose signifique algo.
+   Tres cifras, no seis: un titular con seis cifras no tiene titular. */
+.hero { margin: var(--e3) 0 var(--e7); }
+.hero h1 { margin: var(--e1) 0 0; }
+.hero .intro { margin-top: 0; }
+/* Título e introducción en dos columnas a partir del ancho en que el título
+   deja de necesitar toda la línea. Apilados dejaban media pantalla vacía a la
+   derecha y empujaban las cifras por debajo del pliegue. */
+.hero-texto { display: grid; gap: var(--e4); align-items: start; }
+@media (min-width: 900px) {
+  .hero-texto { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: var(--e7); }
+  .hero .intro { padding-top: .5rem; }
+}
+.hero-kicker {
+  font: 700 var(--t-xs)/1 var(--f-ui); letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accion); margin: 0;
+}
+/* Las tres cifras comparten rejilla de filas, no sólo de columnas: con filas
+   independientes, una etiqueta de dos líneas desalineaba las otras dos y el
+   trío dejaba de leerse como un trío. */
+.hero-cifras {
+  display: grid; gap: var(--e5) var(--e6); margin: var(--e6) 0 0;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-rows: auto auto;
+  border-top: 1px solid var(--linea-fuerte); padding-top: var(--e5);
+}
+.hero-cifras > div {
+  min-width: 0; display: grid; grid-row: span 2;
+  grid-template-rows: subgrid; align-content: start;
+}
+.cifra-display {
+  font: 700 var(--t-display)/.92 var(--f-cifra);
+  letter-spacing: -.042em; color: var(--cifra);
+  font-variant-numeric: tabular-nums lining-nums;
+  display: block; margin: 0; align-self: end;
+}
+.cifra-display .suf { font-size: .42em; letter-spacing: -.01em; margin-left: .08em; }
+.cifra-etq {
+  margin: var(--e3) 0 0; font-size: var(--t-m); font-weight: 650;
+  color: var(--tinta); line-height: 1.35;
+}
+.cifra-etq span {
+  display: block; font-size: var(--t-xs); font-weight: 500;
+  color: var(--tinta-3); margin-top: 3px; letter-spacing: .005em;
+}
+
+/* ------------------------------------------ disposición con índice lateral */
+
+/* El panel de entidades fijo a la izquierda es el patrón de SciVal, y resuelve
+   un problema real: en una página de cinco indicadores largos hay que poder ver
+   qué hay y saltar sin recorrerla entera.
+
+   Debajo de 1040 px no hay ancho para dos columnas y el índice se convierte en
+   una fila de pastillas desplazable sobre el contenido. No se oculta: es la
+   única vista general de la página. */
+/* ═══════════════════════════════════ BANDAS · unidad de composición
+
+   Una banda es una franja a sangre con su propio suelo. El patrón viene del
+   informe narrativo: una banda sostiene UNA afirmación, y los suelos alternan
+   para que dos bandas seguidas no se lean como una sola.
+
+   Cinco variantes cerradas, no composiciones sueltas: si cada banda fuera
+   dibujada a mano, cada página nueva empezaría de cero.
+
+   QUÉ ADMITE CADA SUELO (medido; ver la lámina «Sistema de bandas»):
+     papel · papel-2 · contraste  admiten todo, incluidas figuras y ausencia.
+     énfasis (champán / vino)     SÓLO titular y prosa: es la banda de la marca,
+                                  dedicada al cierre, y no recibe figuras.
+                                  Cada suelo se mide con validar_paleta.py.
+
+   La banda de contraste REDEFINE los tokens en su propio ámbito. Así los
+   módulos, gráficos y sellos que caen dentro se adaptan solos: no hay una
+   segunda hoja de estilo para «lo que va sobre fondo oscuro». */
+.banda { padding: var(--e7) 0; }
+.banda + .banda { padding-top: var(--e7); }
+.banda-papel    { background: var(--plano); }
+.banda-enfasis  { background: light-dark(#f0ddca, #180609); }
+
+/* El segundo papel NO puede ser --superficie-2. Ese token es un tinte que se
+   aplica ENCIMA del blanco de tarjeta (chips, cabeceras de tabla, hover) y en
+   tema claro se acerca al papel sin separación útil: la alternancia sólo
+   funcionaba en oscuro, y en claro dejaba aire entre dos bandas sin que nada
+   explicara el corte.
+
+   Este suelo tiene valor propio, teñido champán (en la paleta cálida H). Lo que
+   lo fija no es un gusto sino un techo medido: tiene que sostener la ausencia
+   (--sin-dato ≥ 3:1) con el dato en bordeaux encima. Ese suelo lo mide
+   src/design/validar_paleta.py contra --tinta, --tinta-3, --accion, --serie-1
+   y --sin-dato; si se oscurece un paso de más, la ausencia cae bajo 3:1. El
+   validador es el juez, no esta nota. */
+.banda-papel-2  { background: var(--banda-papel-2); }
+
+/* El borde de ese suelo mide poco en claro: es real, pero no alcanza para
+   sostener solo un corte de sección. En oscuro no hace falta —vino profundo
+   contra vino-2 da suficiente ΔE—, así que la costura existe sólo donde el
+   papel no puede separarse más. */
+.banda-papel + .banda-papel-2,
+.banda-papel-2 + .banda-papel { border-top: 1px solid light-dark(#d0b89f, transparent); }
+
+/* Con la banda de énfasis en champán claro, el --tinta-3 global (#5a4646) ya
+   mide 6,63:1 y no hace falta subirlo: el solo subido rompía el ritmo del
+   metadato. En oscuro, sobre vino profundo, también pasa. */
+
+.banda-contraste {
+  background: light-dark(#180609, #180609);
+  --superficie:   light-dark(#200b0e, #200b0e);
+  --superficie-2: light-dark(#2a1014, #2a1014);
+  --plano:        light-dark(#180609, #180609);
+  --tinta:        #f0e2d0;
+  --tinta-2:      #d4c2b6;
+  /* Más claro que el --tinta-3 global: dentro de la banda, --superficie-2 sube
+     en el tema oscuro y el chip de código caía a 4,28:1. Medido contra los
+     cuatro fondos que la banda puede presentar. */
+  --tinta-3:      #bfae9f;
+  --linea:        light-dark(#3a2026, #3a2026);
+  --linea-fuerte: light-dark(#4d2b31, #4d2b31);
+  --serie-1:      #e0a0a8;
+  --serie-2:      #b24a5a;
+  --sin-dato:     #7d8886;
+  --ord-1:        #f8dde0;
+  --ord-2:        #ebaab4;
+  --ord-3:        #cf828e;
+  --ord-4:        #9d4a56;
+  --boton-tinta:  #2c0c12;
+  --accion:       #f0ddca;
+  --accion-viva:  #f0ddca;
+  --cifra:        #f0ddca;
+  --red:          #1f1013;
+  --eje:          #4a2b31;
+  --aviso-fondo:  #12210e;
+  --aviso-borde:  #5a9e5f;
+  --aviso-tinta:  #bcdbb0;
+  --aviso-tinta-grafico: #5a9e5f;
+  color: var(--tinta);
+}
+
+
+/* Encabezado de banda: el gancho y la afirmación que la banda sostiene. */
+.banda-titulo { max-width: 62ch; margin: 0 0 var(--e5); }
+.banda-gancho {
+  font: 650 var(--t-xs)/1 var(--f-ui); letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accion); margin: 0 0 var(--e3);
+}
+.banda-titulo h2 { margin: 0 0 var(--e2); }
+.banda-titulo p { color: var(--tinta-2); margin: 0; }
+
+/* Cierre: enlaces a las demás secciones, sin figuras. */
+.banda-salidas {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--e5); margin-top: var(--e5);
+}
+.banda-salidas a {
+  border-top: 2px solid currentColor; padding-top: var(--e3);
+  text-decoration: none; color: var(--tinta); display: block;
+}
+.banda-salidas a strong { display: block; font-size: var(--t-l); margin-bottom: var(--e1); }
+.banda-salidas a span { font-size: var(--t-s); font-weight: 650; color: var(--accion); }
+.banda-salidas a:hover span { text-decoration: underline; }
+
+.disposicion { display: block; }
+@media (min-width: 1040px) {
+  .disposicion {
+    display: grid; grid-template-columns: var(--rail) minmax(0, 1fr);
+    gap: var(--e6); align-items: start;
+  }
+}
+.rail { min-width: 0; }
+@media (min-width: 1040px) {
+  .rail { position: sticky; top: 7.4rem; }
+}
+.rail-titulo {
+  font: 700 var(--t-xs)/1 var(--f-ui); letter-spacing: .12em;
+  text-transform: uppercase; color: var(--tinta-3);
+  margin: 0 0 var(--e3);
+}
+.rail ol { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--e1); }
+.rail a {
+  display: block; text-decoration: none; border-radius: var(--radio-s);
+  padding: var(--e2) var(--e3); color: var(--tinta-2); font-size: var(--t-m);
+  line-height: 1.3; transition: background .14s, color .14s, border-color .14s;
+}
+.rail-cod {
+  display: block; font: 600 var(--t-xs)/1 var(--f-mono);
+  letter-spacing: .04em; color: var(--tinta-3); margin-bottom: 2px;
+}
+/* En el índice, el diferido se marca pero no se esconde. */
+.rail-marca {
+  font: 650 var(--t-xs)/1 var(--f-ui); letter-spacing: .04em;
+  color: var(--aviso-tinta); background: var(--aviso-fondo);
+  border: 1px solid var(--aviso-borde); border-radius: var(--radio-s);
+  padding: .1em .4em; white-space: nowrap;
+}
+.rail a:hover { background: var(--superficie-2); color: var(--tinta); text-decoration: none; }
+.rail a.activo { background: var(--accion-suave); color: var(--tinta); font-weight: 650; }
+.rail a.activo .rail-cod { color: var(--accion); }
+
+/* Por debajo del punto de corte: fila de pastillas desplazable. */
+@media (max-width: 1039px) {
+  .rail { margin-bottom: var(--e5); }
+  .rail ol { overflow-x: auto; padding-bottom: var(--e2); scrollbar-width: thin; }
+  .rail li { flex: none; }
+  .rail a {
+    border: 1px solid var(--linea); border-radius: var(--radio-pastilla);
+    background: var(--superficie); white-space: nowrap;
+  }
+  .rail-txt { display: none; }
+  .rail-cod { margin: 0; font-size: var(--t-m); color: var(--tinta-2); }
+  .rail a.activo { border-color: var(--accion-viva); }
+}
+@media (min-width: 1040px) {
+  .rail ol { flex-direction: column; }
+  .rail a { border-left: 2px solid var(--linea); border-radius: 0 var(--radio-s) var(--radio-s) 0; }
+  .rail a.activo { border-left-color: var(--accion-viva); }
+}
+
+.pie {
+  border-top: 1px solid var(--linea); background: var(--superficie);
+  padding: var(--e5) 0; font-size: var(--t-s); color: var(--tinta-2);
+}
+.pie p { margin: var(--e1) 0; }
+
+.salto-contenido { position: absolute; left: -9999px; }
+.salto-contenido:focus {
+  left: var(--e4); top: var(--e4); background: var(--superficie); color: var(--tinta);
+  padding: var(--e2) var(--e4); z-index: 60; border-radius: var(--radio);
+  box-shadow: var(--sombra-3); border: 1px solid var(--linea-fuerte);
+}
+
+/* Título de agrupación por encima de un grupo de tarjetas. */
+.titulo-seccion {
+  font-size: var(--t-xs); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .12em; color: var(--tinta-3);
+  margin: var(--e6) 0 var(--e3); display: flex; align-items: center; gap: var(--e3);
+}
+.titulo-seccion::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--linea-fuerte), transparent);
+}
+
+/* ══════════════════════════════════════════════════════ 4. COMPONENTES */
+
+/* ------------------------------------------------------------------ KPI */
+.kpis {
+  display: grid; gap: var(--e3); margin: var(--e5) 0 var(--e6);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+/* Seis tarjetas en una rejilla automática dejan cinco arriba y una huérfana.
+   El recuento lo publica el JS y aquí se elige una repartición pareja. */
+@media (min-width: 880px) {
+  .kpis[data-n="4"] { grid-template-columns: repeat(4, 1fr); }
+  .kpis[data-n="5"] { grid-template-columns: repeat(5, 1fr); }
+  .kpis[data-n="6"] { grid-template-columns: repeat(3, 1fr); }
+  .kpis[data-n="7"], .kpis[data-n="8"] { grid-template-columns: repeat(4, 1fr); }
+}
+
+.kpi {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--linea); border-top: 2px solid var(--accion-viva);
+  border-radius: var(--radio); padding: var(--e4);
+  background: var(--superficie); box-shadow: var(--sombra-1);
+  display: flex; flex-direction: column;
+  transition: border-color .16s, box-shadow .16s;
+}
+.kpi:hover { box-shadow: var(--sombra-2); border-color: var(--linea-fuerte); border-top-color: var(--accion-viva); }
+.kpi .valor {
+  font: 700 var(--t-cifra)/1.04 var(--f-cifra);
+  color: var(--cifra); letter-spacing: -.028em;
+}
+.kpi .valor small { font-size: .48em; font-weight: 650; color: var(--tinta-2); margin-left: .12em; letter-spacing: -.01em; }
+.kpi .etiqueta {
+  font-size: var(--t-m); font-weight: 650; margin-top: var(--e2); color: var(--tinta);
+  display: flex; align-items: center; gap: 0; flex-wrap: wrap; line-height: 1.35;
+}
+/* La advertencia del indicador, dentro de la tarjeta. Recesiva respecto de la
+   cifra pero legible: es la que impide leer «556 autores» como 556 personas. */
+.kpi-nota {
+  font-size: var(--t-xs); line-height: 1.45; color: var(--tinta-2);
+  margin-top: var(--e2); padding-top: var(--e2);
+  border-top: 1px solid var(--linea);
+}
+
+.kpi .denominador {
+  font-size: var(--t-xs); color: var(--tinta-3); margin-top: var(--e1);
+  font-variant-numeric: tabular-nums; letter-spacing: .005em;
+}
+.kpi .secundario {
+  font-size: var(--t-s); color: var(--tinta-2); margin-top: auto;
+  padding-top: var(--e2); line-height: 1.45;
+}
+.kpi .secundario strong { color: var(--tinta); }
+
+/* -------------------------------------------------------------- módulos */
+.modulo {
+  border: 1px solid var(--linea); border-radius: var(--radio);
+  padding: var(--e5); margin: 0 0 var(--e4);
+  background: var(--superficie); box-shadow: var(--sombra-1);
+  scroll-margin-top: var(--e4);
+}
+.modulo:focus-visible { outline: 2px solid var(--accion-viva); outline-offset: 3px; }
+
+/* Módulo de un indicador que no se publica. Se distingue del publicado sin
+   competir con él: borde punteado y superficie recesiva dicen «aquí no hay
+   figura» antes de leer una palabra. No se atenúa con opacidad porque el
+   texto que explica POR QUÉ no se publica es lo único que el módulo tiene,
+   y atenuarlo lo volvería letra pequeña. */
+.modulo-diferido {
+  border-style: dashed; border-color: var(--linea-fuerte);
+  background: var(--superficie-2); box-shadow: none;
+}
+.modulo-diferido > header { border-bottom-color: var(--linea-fuerte); }
+.diferido-detalle { color: var(--tinta-2); margin: 0 0 var(--e3); }
+/* El margen de anclaje sólo hace falta donde la cabecera es fija: si no, deja
+   un hueco vacío sobre el módulo al saltar desde el índice. */
+@media (min-width: 900px) { .modulo { scroll-margin-top: 7.5rem; } }
+.modulo > header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: var(--e4); margin-bottom: var(--e4); padding-bottom: var(--e3);
+  border-bottom: 1px solid var(--linea); flex-wrap: wrap;
+}
+.modulo-id {
+  display: flex; align-items: baseline; gap: var(--e3);
+  flex-wrap: wrap; min-width: 0; flex: 1 1 16rem;
+}
+.modulo > header h2 { margin: 0; }
+.modulo .codigo {
+  font: 600 var(--t-xs)/1 var(--f-mono); letter-spacing: .04em;
+  color: var(--tinta-3); background: var(--superficie-2);
+  border: 1px solid var(--linea); border-radius: var(--radio-s);
+  padding: .22rem .45rem; white-space: nowrap; flex: none;
+}
+.modulo-compacto { padding: var(--e4); }
+.modulo-lectura { margin-top: var(--e5); }
+
+/* Conmutador Gráfico ⇄ Tabla. Existe sólo si hay JavaScript: sin él las dos
+   vistas se muestran y un control que no conmuta nada sería una promesa falsa. */
+.vistas { display: none; }
+.js .vistas {
+  display: inline-flex; flex: none; gap: 2px; padding: 2px;
+  background: var(--superficie-2); border: 1px solid var(--linea);
+  border-radius: var(--radio-pastilla);
+}
+.vistas button {
+  border: 0; background: none; cursor: pointer; color: var(--tinta-2);
+  font: 600 var(--t-xs)/1 var(--f-ui); letter-spacing: .02em;
+  padding: .38rem .72rem; border-radius: var(--radio-pastilla);
+  transition: background .14s, color .14s;
+}
+.vistas button:hover { color: var(--tinta); }
+.vistas button[aria-pressed="true"] {
+  background: var(--superficie); color: var(--tinta);
+  box-shadow: var(--sombra-1); border: 1px solid var(--linea);
+  padding: calc(.38rem - 1px) calc(.72rem - 1px);
+}
+/* Contraer a una sola vista es una mejora, no el comportamiento base. */
+.js .vista[data-activa="false"] { display: none; }
+.vista + .vista { margin-top: var(--e4); }
+
+.rejilla {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: var(--e4); align-items: start;
+}
+.rejilla > .modulo { margin: 0; }
+.enlace-seguir { font-weight: 650; }
+
+/* Nota contextual vs. advertencia destacada: dos niveles distintos por diseño.
+   Marcar todo igual equivale a no marcar nada. */
+.nota { font-size: var(--t-s); color: var(--tinta-2); margin-top: var(--e3); line-height: 1.5; }
+.nota strong { color: var(--tinta); }
+
+/* Estado de verificación de un ORCID contra el registro de su titular.
+   El significado va en la palabra, no en el color: quitarle el color a estas
+   etiquetas no les quita la información (WCAG 1.4.1). El color sólo separa
+   «respaldado por evidencia» de «pendiente de mirar».
+   Los guiones bajos vienen del veredicto que emite src/enrich/orcid_api.py;
+   se conservan tal cual para que la clase y el dato sean rastreables. */
+.nota-orcid-verificado,
+.nota-orcid-declarado,
+.nota-orcid-revisado,
+.nota-orcid-neutro,
+.nota-orcid-sin-confirmar {
+  display: inline-block; margin-top: 0; white-space: nowrap;
+  font-size: var(--t-xs); font-weight: 650; letter-spacing: .02em;
+  padding: .1rem .38rem; border-radius: var(--radio-s); border: 1px solid;
+}
+.nota-orcid-verificado {
+  color: var(--accion); background: var(--accion-suave);
+  border-color: color-mix(in srgb, var(--accion-viva) 40%, transparent);
+}
+/* «Declarado por el titular» es un estado bueno, pero no es lo mismo que una
+   verificación independiente: comparte familia con la verificada y se separa
+   de ella con el borde y el fondo, no sólo con la palabra. */
+.nota-orcid-declarado {
+  color: var(--accion); background: transparent;
+  border-color: color-mix(in srgb, var(--accion-viva) 55%, transparent);
+  border-style: dashed;
+}
+/* Ámbar, el mismo de las advertencias metodológicas: esto es una salvedad
+   sobre el dato, no un error del dato. */
+.nota-orcid-sin-confirmar {
+  color: var(--aviso-tinta); background: var(--aviso-fondo);
+  border-color: color-mix(in srgb, var(--aviso-borde) 45%, transparent);
+}
+/* Confirmado por una persona. Se separa de «verificado» porque el respaldo es
+   de otra naturaleza —un juicio humano, no el cruce de dos fuentes— y de
+   «declarado» porque aquí sí hubo alguien comprobando. */
+.nota-orcid-revisado {
+  color: var(--marca-alta); background: transparent;
+  border-color: color-mix(in srgb, var(--marca-alta) 55%, transparent);
+}
+
+/* Ausencia de evidencia, no evidencia en contra: gris, como todo lo que en
+   este proyecto significa «no hay dato» (decisión D-09). */
+.nota-orcid-neutro {
+  color: var(--tinta-3); background: var(--superficie-2); border-color: var(--linea);
+}
+.nota-destacada {
+  background: var(--aviso-fondo);
+  border: 1px solid color-mix(in srgb, var(--aviso-borde) 30%, transparent);
+  border-left: 3px solid var(--aviso-borde);
+  padding: var(--e3) var(--e4); border-radius: var(--radio-s);
+  font-size: var(--t-m); color: var(--aviso-tinta); margin: var(--e3) 0; line-height: 1.5;
+}
+.nota-destacada b {
+  display: flex; align-items: center; gap: var(--e1); margin-bottom: var(--e1);
+  font-size: var(--t-xs); text-transform: uppercase; letter-spacing: .07em; font-weight: 700;
+}
+.nota-destacada b::before {
+  content: ""; width: 13px; height: 13px; flex: none;
+  background: var(--aviso-borde);
+  -webkit-mask: var(--icono-aviso) center/contain no-repeat;
+  mask: var(--icono-aviso) center/contain no-repeat;
+}
+
+/* ---------------------------------------------------------------- ayuda */
+/* El BOTÓN es el área táctil (24×24, WCAG 2.5.8) y el CÍRCULO lo dibuja
+   ::before a 1,05rem. Separarlos permite cumplir el mínimo de puntero sin
+   engordar una marca que va pegada a un título: si el círculo creciera a 24 px
+   competiría con el texto que anota. `isolation` deja el ::before sobre el
+   fondo del propio botón y bajo el signo de interrogación. */
+.ayuda {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border: 0; background: none; padding: 0;
+  position: relative; isolation: isolate;
+  font: 700 var(--t-xs)/1 var(--f-ui); color: var(--tinta-3); cursor: help;
+  margin-left: var(--e1); flex: none;
+  transition: color .14s;
+}
+.ayuda::before {
+  content: ""; position: absolute; z-index: -1;
+  width: 1.05rem; height: 1.05rem; border-radius: 50%;
+  border: 1px solid var(--linea-fuerte); background: var(--superficie-2);
+  transition: border-color .14s, background .14s;
+}
+.ayuda:hover { color: var(--accion); }
+.ayuda:hover::before { border-color: var(--accion-viva); background: var(--accion-suave); }
+.ayuda-panel {
+  position: absolute; z-index: 30; max-width: 320px;
+  background: var(--superficie); border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio); padding: var(--e3) var(--e4); font-size: var(--t-m);
+  box-shadow: var(--sombra-3); color: var(--tinta); line-height: 1.5;
+}
+.ayuda-panel strong { display: block; margin-bottom: var(--e1); }
+.ayuda-panel[hidden] { display: none; }
+
+/* --------------------------------------------------------------- tablas */
+.tabla-envoltura {
+  overflow-x: auto; border: 1px solid var(--linea); border-radius: var(--radio);
+  background: var(--superficie); box-shadow: var(--sombra-1);
+}
+table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: var(--t-m); }
+th, td {
+  text-align: left; padding: var(--e2) var(--e3);
+  border-bottom: 1px solid var(--linea); vertical-align: top;
+}
+th {
+  background: var(--superficie-2);
+  font: 650 var(--t-xs)/1.3 var(--f-ui); letter-spacing: .07em; text-transform: uppercase;
+  color: var(--tinta-2); position: sticky; top: 0; z-index: 1; white-space: nowrap;
+  border-bottom: 1px solid var(--linea-fuerte);
+}
+td.num, th.num { text-align: right; }
+tbody tr:last-child td { border-bottom: 0; }
+
+/* Fila activa: fondo teñido y un filete de acción a la izquierda. El fondo solo
+   es demasiado tenue en pantallas de bajo contraste. */
+tbody tr { transition: background .1s; }
+tbody tr td:first-child { box-shadow: inset 3px 0 0 transparent; transition: box-shadow .1s; }
+tbody tr:hover { background: var(--accion-suave); }
+tbody tr:hover td:first-child { box-shadow: inset 3px 0 0 var(--accion-viva); }
+tbody tr:focus-within { background: var(--accion-suave); }
+tbody tr:focus-within td:first-child { box-shadow: inset 3px 0 0 var(--accion-viva); }
+
+/* Cabecera ordenable: la afordancia se ve ANTES de pasar el puntero. */
+/* Enfocable y operable con teclado: antes sólo respondía al clic, de modo que
+   la tabla no se podía ordenar sin ratón (WCAG 2.1.1). */
+th[aria-sort] { cursor: pointer; user-select: none; padding-right: 1.35rem; position: relative; }
+th[aria-sort]:focus-visible { outline: 2px solid var(--accion-viva); outline-offset: -2px; }
+th[aria-sort]::after {
+  content: "↕"; position: absolute; right: var(--e2); top: 50%; transform: translateY(-50%);
+  font-size: .95em; opacity: .35; transition: opacity .14s, color .14s;
+}
+th[aria-sort]:hover { color: var(--accion); background: var(--accion-suave); }
+th[aria-sort]:hover::after { opacity: .8; }
+th[aria-sort="ascending"], th[aria-sort="descending"] { color: var(--accion); }
+th[aria-sort="ascending"]::after { content: "↑"; opacity: 1; color: var(--accion-viva); }
+th[aria-sort="descending"]::after { content: "↓"; opacity: 1; color: var(--accion-viva); }
+/* La columna por la que se ordena se distingue en todo su alto. */
+td.ordenada { background: color-mix(in srgb, var(--accion-viva) 5%, transparent); font-weight: 600; }
+
+.sin-dato-txt { color: var(--tinta-3); font-style: italic; font-size: .95em; }
+
+ /* Tabla equivalente de un módulo. Ya no vive detrás de un desplegable: es la
+    segunda vista, y la que se cita. Cifras tabulares y alineación a la derecha
+    para que las columnas se comparen de un vistazo. */
+.tabla-datos { font-size: var(--t-m); }
+.tabla-datos table { font-size: var(--t-m); }
+.tabla-datos td.num, .tabla-datos th.num { font-variant-numeric: tabular-nums lining-nums; }
+/* Diferencia contra lo esperado: signo Y color. El signo va primero porque es
+   el que sobrevive al daltonismo y a la impresión en gris. */
+.tabla-datos td.sobre { color: var(--accion); font-weight: 650; }
+.tabla-datos td.bajo  { color: var(--tinta-2); font-weight: 650; }
+
+/* Etiqueta en línea, para marcas cortas junto a un nombre. */
+.etiqueta-en-linea {
+  font: 600 var(--t-xs)/1.5 var(--f-ui); letter-spacing: .015em;
+  color: var(--tinta-2); background: var(--superficie-2);
+  border: 1px solid var(--linea); border-radius: var(--radio-s);
+  padding: .04rem .38rem; white-space: nowrap; display: inline-block;
+}
+.etiqueta-orcid {
+  font-family: var(--f-mono); font-size: var(--t-xs); text-decoration: none;
+  color: var(--accion); border-color: color-mix(in srgb, var(--accion-viva) 45%, transparent);
+  background: var(--accion-suave);
+}
+.etiqueta-orcid:hover { background: color-mix(in srgb, var(--accion-viva) 18%, transparent); color: var(--accion); }
+
+/* Título que existe para el esquema del documento, no para la vista. Se usa
+   donde una banda necesita encabezado para que los módulos cuelguen de algo,
+   pero escribirlo en pantalla sería ruido: el rail ya dice lo mismo. No usa
+   display:none ni visibility:hidden, que lo sacarían también del lector. */
+.solo-lectores {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; margin: -1px; padding: 0; border: 0;
+}
+
+/* ------------------------------------------------- objetivos de puntero */
+/* WCAG 2.2 · SC 2.5.8 pide 24×24 px CSS por objetivo. Medido a 360 px, el
+   sitio tenía siete controles por debajo: el botón de ayuda a 17×17, las
+   etiquetas ORCID y el enlace de vigencia a 20 de alto, y el enlace de
+   seguimiento a 15.
+
+   Los enlaces que van DENTRO de un párrafo quedan como están: la propia norma
+   los exceptúa, y agrandarlos rompería el interlineado de la prosa sin que
+   nadie gane nada. Los que se arreglan son los que NO están en prosa.
+
+   Se amplía por PADDING, con un margen negativo que lo compensa: así crece la
+   caja real del control —que es lo que se puede medir y lo que recibe el
+   puntero— y la maquetación no se mueve ni un píxel. Un pseudo-elemento
+   superpuesto parecía más limpio, pero al probarlo por hit-test no recibía el
+   evento: el área existía en la hoja y no en la pantalla. */
+.vigencia-guia, .enlace-seguir, .etiqueta-orcid, .enlace-dato {
+  display: inline-block; padding-block: 4px; margin-block: -4px;
+}
+
+/* Los controles de verdad sí crecen: son cajas, no texto corrido. */
+button, .boton, [role="tab"] { min-height: 24px; }
+
+/* La casilla nativa medía 13×13. Es el único control del sitio que se toca
+   con el dedo sobre una lista larga. */
+input[type="checkbox"], input[type="radio"] { width: 1.5rem; height: 1.5rem; }
+
+/* -------------------------------------------------------------- filtros */
+.filtros {
+  border: 1px solid var(--linea); border-radius: var(--radio);
+  padding: var(--e4); background: var(--superficie);
+  margin-bottom: var(--e4); box-shadow: var(--sombra-1);
+}
+.filtros h2 { margin: 0 0 var(--e3); font-size: var(--t-l); }
+.grupo-filtro { margin-bottom: var(--e4); }
+.grupo-filtro:last-child { margin-bottom: 0; }
+.grupo-filtro > label, .grupo-filtro > span.etiqueta {
+  display: block; font: 650 var(--t-xs)/1.4 var(--f-ui);
+  text-transform: uppercase; letter-spacing: .07em; color: var(--tinta-2);
+  margin-bottom: var(--e2);
+}
+.opciones { display: flex; flex-wrap: wrap; gap: var(--e1); max-height: 9rem; overflow-y: auto; padding: 2px; }
+.opcion {
+  display: inline-flex; align-items: center; gap: var(--e1); font-size: var(--t-m);
+  border: 1px solid var(--linea-fuerte); border-radius: var(--radio-pastilla);
+  padding: .24rem .62rem; background: var(--superficie); cursor: pointer;
+  transition: border-color .14s, background .14s, color .14s;
+}
+.opcion:hover { border-color: var(--accion-viva); color: var(--accion); }
+.opcion:has(input:checked) {
+  border-color: var(--accion-viva); background: var(--accion-suave);
+  color: var(--accion); font-weight: 600;
+}
+.opcion input { margin: 0; accent-color: var(--accion-viva); }
+.opcion.desactivada { opacity: .38; cursor: not-allowed; }
+.opcion.desactivada:hover { border-color: var(--linea-fuerte); color: inherit; }
+.opcion .n { color: var(--tinta-3); font-variant-numeric: tabular-nums; font-size: .94em; }
+
+input[type="search"], select {
+  width: 100%; padding: .5rem .65rem; border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio-s); background: var(--superficie); color: var(--tinta);
+  font: 400 var(--t-m)/1.4 var(--f-ui); transition: border-color .14s, box-shadow .14s;
+}
+input[type="search"]:focus, select:focus {
+  outline: none; border-color: var(--accion-viva);
+  box-shadow: 0 0 0 3px var(--accion-anillo);
+}
+input[type="checkbox"] { accent-color: var(--accion-viva); }
+
+.chips { display: flex; flex-wrap: wrap; gap: var(--e1); margin-bottom: var(--e3); }
+.chip {
+  background: var(--accion-suave); color: var(--accion);
+  border: 1px solid color-mix(in srgb, var(--accion-viva) 40%, transparent);
+  border-radius: var(--radio-pastilla); padding: .18rem .25rem .18rem .6rem;
+  font: 600 var(--t-s)/1.5 var(--f-ui); display: inline-flex; gap: var(--e1); align-items: center;
+}
+.chip button {
+  background: none; border: 0; color: inherit; cursor: pointer;
+  font-size: 1rem; line-height: 1; padding: 0 .22rem; opacity: .65; border-radius: 50%;
+}
+.chip button:hover { opacity: 1; }
+
+.boton {
+  border: 1px solid var(--linea-fuerte); background: var(--superficie); color: var(--tinta);
+  border-radius: var(--radio-s); padding: .48rem .85rem;
+  font: 600 var(--t-m)/1.3 var(--f-ui); cursor: pointer;
+  transition: background .14s, border-color .14s, color .14s;
+}
+.boton:hover { background: var(--accion-suave); border-color: var(--accion-viva); color: var(--accion); }
+/* El botón primario NO puede llevar texto blanco fijo. En tema claro el fondo
+   es un rojo hondo y el blanco da 7,67:1; en oscuro el mismo token se aclara a
+   un rosa y el blanco caería a 2,84:1. La tinta del botón es un token que
+   cambia con el tema, igual que su fondo. */
+.boton-primario { background: var(--accion); color: var(--boton-tinta); border-color: var(--accion); }
+.boton-primario:hover { background: var(--accion-viva); border-color: var(--accion-viva); color: var(--boton-tinta); }
+.boton:disabled { opacity: .42; cursor: not-allowed; }
+.boton:disabled:hover { background: var(--superficie); border-color: var(--linea-fuerte); color: var(--tinta); }
+
+.resumen-resultados { font-size: var(--t-m); color: var(--tinta-2); margin: var(--e2) 0 var(--e4); }
+.resumen-resultados strong { color: var(--tinta); font-variant-numeric: tabular-nums; }
+.paginacion { display: flex; gap: var(--e2); align-items: center; justify-content: center; margin-top: var(--e4); }
+
+/* -------------------------------------------------------------- estados */
+.vacio, .error {
+  border: 1px dashed var(--linea-fuerte); border-radius: var(--radio);
+  padding: var(--e6) var(--e4); text-align: center; color: var(--tinta-2);
+}
+.error { border-color: var(--aviso-borde); background: var(--aviso-fondo); color: var(--aviso-tinta); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* ══════════════════════════════════════ 5. GRÁFICOS E INTERACCIÓN */
+
+.grafico { width: 100%; overflow-x: auto; position: relative; }
+
+/* El gráfico es UN punto de tabulación y por dentro se recorre con las
+   flechas. Eso sólo sirve si el lector lo sabe, así que la pista aparece
+   cuando el foco entra y se va cuando sale: quien usa el ratón no la ve nunca
+   y quien llega con el teclado la tiene justo cuando la necesita. La escribe
+   el CSS y no el marcado porque es una instrucción sobre CÓMO se usa este
+   medio, no contenido del informe.
+
+   Va DEBAJO del gráfico y en flujo, no superpuesta. Probada encima, tapaba la
+   primera barra y su valor: una ayuda que esconde el dato que vino a explicar
+   está peor que no estar. Ocupa cero alto hasta que el foco entra, así que el
+   desplazamiento sólo lo ve quien está usando el teclado. */
+.grafico::after {
+  content: "← → recorren las barras · Inicio y Fin van a los extremos";
+  display: block; overflow: hidden; height: 0;
+  font: 600 var(--t-xs)/1.6 var(--f-ui); color: var(--tinta-3);
+  transition: height .14s;
+}
+.grafico:focus-within::after { height: 1.6em; }
+@media (prefers-reduced-motion: reduce) { .grafico::after { transition: none; } }
+svg.chart { display: block; width: 100%; height: auto; }
+
+/* El color se emite como atributo `fill` desde el JS, y aquí NO se declara
+   `fill`: una regla CSS gana al atributo de presentación, y declararla hacía
+   que «Sin dato declarado» se pintara del color de una serie medida. */
+svg.chart .barra { transition: opacity .13s; }
+svg.chart .barra:not([fill]) { fill: var(--serie-1); }
+
+/* Exploración: al señalar una marca, las demás se atenúan. El resalte no
+   depende sólo de opacidad —que se pierde en pantallas de bajo contraste—
+   sino también de un contorno en la marca activa. */
+svg.chart.hay-foco .marca { opacity: .34; }
+svg.chart.hay-foco .marca.activa { opacity: 1; }
+svg.chart .marca.activa .barra {
+  stroke: var(--tinta); stroke-width: 1.5; paint-order: stroke fill;
+}
+svg.chart .marca.activa text.valor { fill: var(--tinta); }
+svg.chart g.marca:focus { outline: none; }
+svg.chart g.marca:focus-visible .barra {
+  stroke: var(--accion-viva); stroke-width: 2.5; paint-order: stroke fill;
+}
+
+svg.chart .red { stroke: var(--red); stroke-width: 1; }
+svg.chart .eje { stroke: var(--eje); stroke-width: 1; }
+svg.chart text { fill: var(--tinta-2); font: 500 13px/1 var(--f-ui); }
+svg.chart text.valor { fill: var(--tinta); font-weight: 650; font-variant-numeric: tabular-nums; }
+svg.chart text.tick { fill: var(--tinta-3); font-size: 12px; font-variant-numeric: tabular-nums; }
+svg.chart .ref { stroke: var(--aviso-borde); stroke-dasharray: 5 4; stroke-width: 1.5; }
+
+/* ---- Formas nuevas: desviación, acumulada, distribución, proporcional ----
+   No son adornos. Cada una existe porque la forma anterior afirmaba algo falso
+   sobre la estructura del dato; el criterio de elección es la RELACIÓN que
+   expresa el indicador, según el Visual Vocabulary del Financial Times. */
+
+/* Desviación: déficit y superávit se distinguen por posición respecto del eje
+   —arriba o abajo—, que es un canal que no depende del color. El tono sólo
+   refuerza. */
+/* Ambos van en el color del dato a propósito: una primera versión pintaba el
+   déficit con --sin-dato y eso decía otra cosa. Ese gris significa AUSENCIA de
+   dato (D-09), y un FWCI por debajo del promedio es un valor MEDIDO. Teñirlo
+   de gris confundía «no lo sabemos» con «lo sabemos y es bajo». */
+svg.chart .barra.deficit,
+svg.chart .barra.superavit { fill: var(--serie-1); }
+
+/* Acumulada: la pista muestra el total contra el que se lee cada tramo, y la
+   línea vertical dice que un tramo está CONTENIDO en el siguiente. Antes
+   usaba `--red` (1,21:1 claro / 1,08:1 oscuro, medido con Chromium contra
+   `--superficie`): muy por debajo del piso 3:1 de WCAG 1.4.11 para objetos
+   gráficos, y `contraste.mjs` nunca lo medía porque su selector sólo cubre
+   `rect.barra`/`circle` — ver ese archivo para la ampliación de cobertura.
+   `--tinta-3` ya es un token validado (6,18:1 / 5,75:1 contra `--superficie`
+   en este mismo componente, medido) — se reutiliza en vez de inventar uno.
+   Sin opacidad reducida a propósito: medida con `opacity:.55` la mezcla baja
+   a 2,38:1/2,73:1 y vuelve a incumplir el piso — el mismo error que se
+   corrige aquí, evitado por no repetirlo. */
+svg.chart .acum-pista { fill: var(--tinta-3); }
+svg.chart .acum-nido {
+  stroke: var(--linea-fuerte); stroke-width: 1.4; stroke-dasharray: 3 3; fill: none;
+}
+
+/* Proporcional: sin hueco entre segmentos —son partes de un mismo total— y con
+   el porcentaje dentro cuando cabe. */
+svg.chart .segmento { transition: opacity .13s; }
+svg.chart text.seg-pct {
+  fill: var(--superficie); font-weight: 650; font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.leyenda-seg { gap: var(--e1) var(--e4); }
+.seg-leyenda { white-space: nowrap; }
+svg.chart text.ref-etq { fill: var(--aviso-tinta-grafico); font-weight: 650; font-size: 12px; }
+
+/* ---- red() · C-05, red de coautoría ----
+   La primitiva no lleva color categórico: la pertenencia a un grupo la dice la
+   POSICIÓN, y el color queda para el eje de ausencia de unidad. Estas reglas
+   sólo fijan cromo recesivo y tipografía; el relleno de cada nodo lo emite el
+   JS como atributo `fill`, y aquí NO se declara `fill` para las marcas —una
+   regla CSS ganaría al atributo y pintaría la trama de ausencia como si fuera
+   una medición—. */
+svg.chart.red-svg { min-width: 680px; }
+svg.chart.red-svg .vinculo { transition: opacity .13s; }
+svg.chart.red-svg .nodo-red { cursor: pointer; }
+svg.chart.red-svg .nodo-red:focus { outline: none; }
+svg.chart.red-svg .nodo-red:focus-visible circle.marca-nodo {
+  stroke: var(--accion-viva); stroke-width: 2.6;
+}
+/* Fijar un nodo con clic o Intro: mismo patrón que `svg.chart.hay-foco
+   .marca`/`.marca.activa` (dimming al filtrar), aplicado aquí al par
+   nodo+coautores en vez de a la barra activa. `.en-foco` la ponen `data-red-nodo`
+   y sus `data-vecinos`, y las líneas `.vinculo` cuyo `data-a`/`data-b` coincide
+   con el nodo fijado — ver la interacción en paginas.js. */
+svg.chart.red-svg.hay-foco .nodo-red { opacity: .12; }
+svg.chart.red-svg.hay-foco .nodo-red.en-foco { opacity: 1; }
+svg.chart.red-svg.hay-foco .vinculo { opacity: .05; }
+svg.chart.red-svg.hay-foco .vinculo.en-foco { opacity: .95; stroke: var(--tinta); stroke-width: 1.5; }
+svg.chart.red-svg .nodo-red.en-foco circle.marca-nodo { stroke: var(--accion-viva); stroke-width: 2.6; }
+svg.chart.red-svg text.etiqueta-grupo {
+  fill: var(--tinta-2);
+  font: 650 10px var(--f-ui); letter-spacing: .06em; text-transform: uppercase;
+}
+svg.chart.red-svg text.etiqueta-firma { fill: var(--tinta-2); font: 400 9px var(--f-mono); }
+svg.chart.red-svg text.etiqueta-firma.sin-unidad { fill: var(--tinta-3); }
+svg.chart.red-svg text.aislados-titulo {
+  fill: var(--tinta-2); font: 650 10.5px var(--f-ui); letter-spacing: .05em;
+}
+
+/* ---- Marca del valor esperado, en barras horizontales ----
+   Un trazo vertical sobre la barra, en el verde-moneda de las referencias: el
+   mismo color que la línea del promedio mundial en I-04, porque dicen lo mismo
+   —esto es lo que cabría esperar— y aprenderlo una vez debe servir en todo el
+   sitio. */
+svg.chart .esperado {
+  stroke: var(--aviso-borde); stroke-width: 2.2; stroke-linecap: round;
+}
+
+/* ---- Trama del multivaluado ----
+   Traduce a forma una advertencia que hasta ahora sólo existía en prosa: si la
+   barra está rayada, las barras NO suman el total. El rayado no depende del
+   color —las líneas van en el color de la superficie y cortan el relleno—, de
+   modo que se lee igual en ambos temas, con cualquier daltonismo y sobre papel
+   en blanco y negro. */
+svg.chart .trama { pointer-events: none; }
+
+/* ---- Sello de procedencia ----
+   Franja monoespaciada bajo el gráfico. Monoespaciada a propósito: son datos
+   de catálogo —fuente, fecha, N— y la cifra tabular permite compararlos de un
+   módulo a otro sin que bailen. Recesivo cuando la cobertura es completa;
+   advertencia cuando no lo es. */
+.sello {
+  display: flex; flex-wrap: wrap; gap: var(--e2) var(--e4);
+  align-items: baseline;
+  margin: var(--e3) 0 0; padding: var(--e2) var(--e3);
+  border: 1px solid var(--linea); border-radius: var(--radio-s);
+  background: var(--superficie-2);
+  font: 400 var(--t-xs)/1.5 var(--f-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--tinta-2);
+}
+.sello b {
+  font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--tinta-3); margin-right: .35em; font-size: .95em;
+}
+/* Cobertura por debajo del umbral: el sello deja de informar y advierte. */
+.sello-aviso {
+  background: var(--aviso-fondo);
+  border-color: color-mix(in srgb, var(--aviso-borde) 45%, transparent);
+  color: var(--aviso-tinta);
+}
+.sello-aviso b { color: var(--aviso-tinta); opacity: .85; }
+.sello-alerta {
+  font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--aviso-tinta);
+}
+.sello-alerta::before { content: "⚠ "; }
+
+.leyenda-ref {
+  display: flex; align-items: center; gap: var(--e2);
+  font-size: var(--t-s); color: var(--tinta-2);
+  margin: var(--e2) 0 0; line-height: 1.5;
+}
+.leyenda-ref::before {
+  content: ""; flex: none; width: 2px; height: 13px;
+  background: var(--aviso-borde); border-radius: 1px;
+}
+
+/* La leyenda del rayado se construye con el MISMO patrón que usa el gráfico,
+   no con un icono aparte que pueda quedar desincronizado. */
+.leyenda-trama {
+  display: flex; align-items: center; gap: var(--e2);
+  font-size: var(--t-s); color: var(--tinta-2); margin: var(--e2) 0 0;
+}
+.leyenda-trama::before {
+  content: ""; flex: none; width: 26px; height: 13px; border-radius: 3px;
+  /* Mismo período y mismo grosor que el <pattern> del SVG (7 px / 2,4 px):
+     si la muestra no coincide con lo dibujado, la leyenda deja de enseñar el
+     código y pasa a ser un adorno parecido. */
+  background:
+    repeating-linear-gradient(45deg,
+      var(--superficie) 0 2.4px, transparent 2.4px 7px),
+    var(--serie-1);
+}
+
+/* Leyenda del anillo. En las barras la identidad no la lleva una leyenda sino
+   la etiqueta de la propia barra y su valor visible al lado: es relieve
+   suficiente, y una leyenda repetiría lo que ya está escrito junto a la marca. */
+.leyenda {
+  display: flex; flex-wrap: wrap; gap: var(--e1) var(--e4);
+  font-size: var(--t-s); color: var(--tinta-2); margin-top: var(--e3);
+}
+.leyenda span.punto {
+  display: inline-block; width: .62rem; height: .62rem;
+  border-radius: 2px; margin-right: var(--e1); vertical-align: -1px;
+}
+.leyenda strong { color: var(--tinta); font-variant-numeric: tabular-nums; }
+
+/* Tooltip. Sigue al puntero y también responde al foco de teclado. */
+.tip {
+  position: fixed; z-index: 50; pointer-events: none;
+  background: var(--superficie); border: 1px solid var(--linea-fuerte);
+  border-left: 3px solid var(--accion-viva);
+  border-radius: var(--radio-s); box-shadow: var(--sombra-3);
+  padding: var(--e2) var(--e3); font-size: var(--t-m); color: var(--tinta);
+  max-width: 280px; line-height: 1.45;
+}
+.tip[hidden] { display: none; }
+.tip .tip-t { font-weight: 650; display: block; margin-bottom: .1rem; }
+.tip .tip-v { font-weight: 650; font-size: 1.05em; }
+.tip .tip-n { color: var(--tinta-2); font-size: .92em; display: block; margin-top: .15rem; }
+
+/* ═════════════════════════════════════════════ 6. FICHA DE AUTOR */
+
+.ficha-cabecera {
+  background: var(--superficie); border: 1px solid var(--linea);
+  border-top: 2px solid var(--accion-viva); border-radius: var(--radio);
+  padding: var(--e4) var(--e5); margin-bottom: var(--e4); box-shadow: var(--sombra-1);
+}
+.ficha-cabecera h1 { margin-bottom: var(--e1); }
+.identificadores {
+  display: flex; flex-wrap: wrap; gap: var(--e3) var(--e6);
+  font-size: var(--t-m); margin-top: var(--e3); padding-top: var(--e3);
+  border-top: 1px solid var(--linea);
+}
+/* Sólo el PRIMER span es la etiqueta del campo. Sin `:first-child` esto
+   alcanzaba a cualquier span hermano, y había dos: el marcador de ausencia
+   («No disponible en las fuentes actuales») salía en versalitas, en gris y
+   en 11 px, o sea con el mismo aspecto que la etiqueta que tenía encima —
+   la ficha mostraba dos etiquetas y ningún valor. El atajo `font:` además
+   reponía font-style a normal, de modo que la cursiva de .sin-dato-txt
+   tampoco llegaba a verse. */
+.identificadores div > span:first-child {
+  display: block; color: var(--tinta-3); font: 650 var(--t-xs)/1.4 var(--f-ui);
+  text-transform: uppercase; letter-spacing: .07em; margin-bottom: .1rem;
+}
+
+/* ══════════════════════════════════════════════════════ 7. RESPONSIVE */
+
+@media (max-width: 900px) {
+  .nav { gap: 0; margin-top: var(--e3); overflow-x: auto; flex-wrap: nowrap; scrollbar-width: thin; }
+  .nav a { white-space: nowrap; }
+}
+
+@media (max-width: 640px) {
+  :root { --t-base: .9375rem; }
+  .modulo { padding: var(--e4) var(--e3) var(--e4); }
+  .modulo > header { flex-wrap: wrap; gap: var(--e2); }
+  .kpi { padding: var(--e3); }
+  .kpis { gap: var(--e2); }
+  th, td { padding: var(--e2); }
+  .identificadores { gap: var(--e3); }
+  .marca-fila { gap: var(--e2); }
+  .encabezado-seccion { padding-left: var(--e3); margin-bottom: var(--e5); }
+  /* El nombre del icono de tema se cae antes que el icono: tres pastillas con
+     texto ocupan la fila entera y empujan la navegación a una cuarta. */
+  .tema button span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .tema button { padding: .42rem .5rem; }
+  /* En una sola columna no hay nada que alinear entre cifras, y la rejilla
+     compartida sólo abre un hueco entre el número y su etiqueta. */
+  .hero-cifras { gap: var(--e5); grid-template-rows: none; }
+  .hero-cifras > div { display: block; grid-row: auto; }
+  .cifra-etq { margin-top: var(--e2); }
+}
+
+/* Descargar el informe. Vive en la barra de vigencia porque es donde ya está
+   la procedencia: quien mira de qué fecha son los datos es quien va a querer
+   llevárselos. */
+.descargar {
+  display: inline-flex; align-items: center; gap: var(--e2);
+  font: 650 var(--t-s)/1 var(--f-ui);
+  /* `--marca` NO sirve aquí: en oscuro vale #2a1016, que es un color de
+     SUPERFICIE, no de tinta — sobre el fondo oscuro daba 1,05:1 y el botón era
+     invisible. Lo cazó la batería de contraste, no una revisión visual. La
+     tinta de marca es `--marca-alta`, la misma que usa `a:hover`. */
+  color: var(--marca-alta); background: var(--superficie);
+  border: 1px solid var(--linea-fuerte); border-radius: var(--radio-pastilla);
+  padding: .34em .8em; cursor: pointer; margin-left: auto;
+}
+.descargar svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2; }
+.descargar:hover { background: var(--superficie-2); border-color: var(--marca-alta); }
+.descargar:focus-visible { outline: 2px solid var(--marca-alta); outline-offset: 2px; }
+/* El enlace de la guía perdía su empuje a la derecha en cuanto el botón tomó
+   el `margin-left:auto`. Se lo devuelve un hueco fijo, no otro `auto`: dos
+   `auto` en la misma fila reparten el sobrante y descolocan a los dos. */
+.vigencia-guia { margin-left: var(--e4); }
+
+/* Impresión: el informe se imprime y se archiva, así que el papel no puede
+   perder ni el dato ni su procedencia. Las dos vistas de cada módulo se
+   imprimen —la figura y la tabla—, porque en papel no hay conmutador.
+
+   La página impresa ES el informe exportable: mismo origen que la pantalla, sin
+   una segunda maquetación que pudiera divergir. Lo que cambia es lo que el
+   papel exige y la pantalla no —tamaño de hoja, márgenes, cortes de página y
+   una procedencia que viaje en cada hoja—, porque una hoja suelta de un PDF
+   archivado no tiene barra de vigencia encima. */
+@page {
+  size: A4 portrait;
+  margin: 16mm 14mm 18mm;
+}
+
+@media print {
+  /* Cromo de interfaz que no tiene nada que hacer en papel. El panel de
+     filtros del explorador usa `.explorador-panel` (no el antiguo
+     `.filtros`, que se deja por las páginas que aún lo arrancan); sin
+     ocultarlo, la columna sticky de filtros imprimiría a la izquierda de
+     todas las páginas del informe.
+
+     `#estado-recorte` va por id y no por clase: `.estado-recorte` no existe en
+     ninguna página —el contenedor siempre fue un id—, así que la regla no
+     ocultaba nada y el bloque de pantalla se imprimía entero, con su botón
+     «Ver todo» y su enlace al listado. Lo que declara el recorte en papel es
+     `.recorte-impreso`, escrito para el papel. */
+  /* `.banda-salidas` son cuatro tarjetas de navegación —«Producción · Ver la
+     sección →»— que en papel no llevan a ninguna parte: cuatro promesas
+     muertas ocupando la última hoja de la portada. La banda de texto que las
+     acompaña sí se queda: dice que cada indicador declara su denominador, y
+     eso vale igual impreso. */
+  .banda-salidas,
+  .cabecera, .tema, .filtros, .paginacion, .salto-contenido,
+  .rail, .vigencia-guia, .descargar, .ayuda, .tooltip, .nav-toggle,
+  .v-migas, .v-chip, .recorte-vivo, .v-anio, .minifoco,
+  .explorador-panel, .filtros-explorador, #estado-recorte,
+  #controles, .treemap-migas, .treemap-leyenda, .migas { display: none; }
+  /* El conmutador Gráfico ⇄ Tabla. `.vistas { display: none }` de arriba NO
+     bastaba: `.js .vistas` (línea 994) lo enciende con dos clases y gana por
+     especificidad, no por orden, así que el par «Gráfico Tabla» se imprimía
+     junto a cada figura. Medido en el PDF, no en la pantalla: en papel las dos
+     vistas se despliegan y el control no conmuta nada. */
+  .js .vistas { display: none; }
+
+  /* Los desplegables van abiertos en papel. Un `<details>` cerrado imprime su
+     resumen y nada más, y eso vaciaba justo el contenido que no puede
+     perderse: el panel «Qué NO dice esta sección» salía como un titular de
+     advertencia sin la advertencia, que es peor que no ponerlo (`docs/EJES.md`
+     dice que sin esa parte el panel «sería un subtítulo»). El triángulo se
+     retira porque en una hoja no hay nada que desplegar. */
+  details::details-content { content-visibility: visible; }
+  summary { list-style: none; }
+
+  body { background: #fff; }
+  .disposicion { display: block; }
+  .modulo, .kpi, .tabla-envoltura { box-shadow: none; border-color: #999; break-inside: avoid; }
+  /* Las tarjetas de cifra no se parten por la mitad.
+
+     Medido en el PDF: la portada cortaba la tercera fila y la hoja siguiente
+     abría con «Citas por publicación · 816 sobre las que tienen métricas» sin
+     el número, que se había quedado en la anterior. Un rótulo sin su cifra no
+     es media tarjeta: es una afirmación sin sujeto.
+
+     La regla `.kpi` que ya estaba nunca se aplicó: las cifras de la portada y
+     de cada sección no son `.kpi` sino `.ficha` dentro de `.tablero` —`.kpi`
+     es el tablero de las páginas antiguas—, así que la declaración existía y
+     no tocaba nada. Además `break-inside: avoid` sobre una rejilla o sus
+     hijos Chromium no lo cumple, comprobado sobre el PDF. En papel las
+     tarjetas dejan de ser hijas de rejilla y pasan a ser bloques en línea de
+     media columna: se ven igual, dos por fila, y ahora sí son indivisibles.
+
+     `font-size: 0` en el contenedor come el espacio en blanco entre bloques en
+     línea, que si no abre un carril de un carácter entre las dos columnas; las
+     tarjetas recuperan su tamaño. */
+     La regla NO va aquí sino al final del archivo, en su propio bloque
+     `@media print`. Este bloque vive en MITAD de la hoja, y una consulta de
+     medios no añade especificidad: `.tablero { display: grid }`, escrito más
+     abajo para la pantalla, le gana por puro orden de aparición a cualquier
+     `.tablero { … }` escrito aquí. Se vio en el PDF —las tarjetas salían al
+     24 % de ancho, que es el 49 % de media columna de rejilla— y no leyendo
+     la hoja. Buscar «PAPEL, AL FINAL» al pie del archivo. */
+  .vistas { display: none; }
+  .js .vista[data-activa="false"] { display: block; }
+  .hero-texto { display: block; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .85em; color: #555; }
+
+  /* La procedencia se queda, y sin el aspecto de barra de interfaz: en papel
+     es la línea de crédito del informe.
+
+     Ojo con lo que «quedarse» significaba antes: las tres pastillas que
+     llevan fuente, ventana y fecha de corte son `<details>` y están en la
+     lista de arriba, así que esta caja se imprimía con su filete y sin una
+     palabra dentro. Lo que hace de esto una línea de crédito de verdad son
+     los dos párrafos `.solo-papel` que el cromo escribe en la barra. */
+  .vigencia {
+    border: 0; border-bottom: 1.5px solid #000; background: #fff;
+    padding: 0 0 6pt; margin-bottom: 12pt;
+  }
+  /* La barra es una fila flex en pantalla. En papel sus dos párrafos son dos
+     líneas, una debajo de otra: en flex se habrían repartido el ancho. */
+  .vigencia .contenedor { padding: 0; display: block; }
+
+  /* `:not(:empty)` y no `.solo-papel` a secas, por dos razones: un párrafo que
+     alguna vez quede sin texto no debe imprimir una línea en blanco, y la
+     especificidad extra gana a `.solo-papel { display: none }` sin depender
+     del orden del archivo. */
+  .solo-papel:not(:empty) { display: block; }
+  .credito-impreso, .recorte-impreso {
+    margin: 0; font-size: 8.5pt; line-height: 1.4; color: #000;
+  }
+  .credito-impreso { font-weight: 600; }
+  .recorte-impreso { color: #333; }
+
+  /* Nota medida, para que nadie la repita: convertir `.cortes` de rejilla a
+     flujo de bloque en papel NO cambia nada. A 182 mm de ancho útil la rejilla
+     ya resuelve a una sola columna, así que el apilado es el mismo y el
+     recuento de hojas fue idéntico. Las hojas a medio llenar no vienen de la
+     rejilla: vienen de que cinco bloques miden entre 205 y 267 mm sobre una
+     hoja útil de 263 y no pueden compartir con nadie. */
+
+  /* ── El índice ──────────────────────────────────────────────────────────
+     Sólo existe en el PDF que genera `informe_pdf.mjs`: el número de hoja lo
+     lee él del documento ya compuesto, y el botón del navegador no tiene forma
+     de saberlo. La MAQUETA vive aquí de todos modos, que es donde se decide
+     cómo se ve el papel; el generador inyecta el marcado y nada más.
+
+     Abre hoja propia y la cierra: un índice que empieza a media página, debajo
+     de las cifras, no se encuentra al hojear. */
+  .indice-informe {
+    break-before: page; break-after: page; break-inside: auto;
+    padding-top: 4mm;
+  }
+  .indice-informe h2 { font-size: 15pt; margin: 0 0 2mm; }
+  .indice-nota { font-size: 8.5pt; color: #444; margin: 0 0 6mm; max-width: 105mm; }
+  .indice-informe > ol { list-style: none; margin: 0; padding: 0; }
+  .indice-informe > ol > li { break-inside: avoid; margin: 0 0 6mm; }
+  .indice-sec {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 6mm; margin: 0; font-size: 11pt;
+    border-bottom: .5pt solid #999; padding-bottom: 1mm;
+  }
+  .indice-hojas { font-size: 8.5pt; color: #444; font-weight: 400; white-space: nowrap; }
+  .indice-archivo {
+    font-family: var(--f-mono, ui-monospace, monospace);
+    font-size: 7.5pt; color: #555; margin: 1mm 0 2mm;
+  }
+  .indice-informe ul { list-style: none; margin: 0; padding: 0; }
+  /* Cada gráfico en una línea: código, título y hoja. El puntillado une el
+     título con su número sin obligar a seguir un renglón vacío con el dedo. */
+  .indice-informe ul li {
+    display: flex; align-items: baseline; gap: 2mm;
+    font-size: 9.5pt; line-height: 1.7; break-inside: avoid;
+  }
+  .indice-cod {
+    font-family: var(--f-mono, ui-monospace, monospace);
+    font-size: 8pt; color: #555; min-width: 13mm;
+  }
+  .indice-tit { flex: 0 1 auto; overflow: hidden; white-space: nowrap; }
+  /* La guía de puntos es un elemento propio y VACÍO que crece hasta el número
+     de hoja, con el puntillado en su borde inferior. La primera versión ponía
+     una ristra fija de puntos en un `::after` del título: como la ristra tiene
+     largo fijo, cada línea terminaba en un sitio distinto —se ve en el PDF—, y
+     alargarla sólo mueve el problema. Un borde sobre una caja elástica mide
+     exactamente el hueco libre, sea cual sea el título. */
+  .indice-guia {
+    flex: 1 1 0; min-width: 4mm; align-self: center;
+    border-bottom: .5pt dotted #999; margin: 0 1.5mm;
+  }
+  .indice-hoja { font-size: 8.5pt; color: #333; white-space: nowrap; }
+
+  /* ── La banda oscura se imprime en tinta sobre blanco ───────────────────
+     `.banda-contraste` invierte la paleta: fondo vino profundo y tinta clara
+     (#f0e2d0). En pantalla funciona. En papel depende de un ajuste del
+     diálogo de impresión que el sitio no controla: «Gráficos de fondo» va
+     APAGADO por defecto en Chrome, así que el fondo no se pinta y la tinta
+     clara queda sobre blanco. Medido sobre dos PDF del mismo documento: el
+     resumen metodológico —lo que hace interpretable todo lo demás— sale
+     ilegible en la corrida por defecto.
+
+     Se resuelve en el lado del papel, no pidiéndole al lector que acierte con
+     una casilla: una hoja es blanca, y una banda oscura es un recurso de
+     pantalla. Afecta al anexo metodológico y a la banda de indicadores no
+     publicados de cada sección; ninguna de las dos lleva figuras, así que no
+     hay series de color que reajustar. */
+  .banda-contraste {
+    background: #fff;
+    --superficie: #fff; --superficie-2: #f2f2f2; --plano: #fff;
+    --tinta: #000; --tinta-2: #222; --tinta-3: #444;
+    --linea: #999; --linea-fuerte: #666;
+  }
+
+  /* ── El bloque de gráfico en papel ──────────────────────────────────────
+     Un gráfico del informe es una unidad de lectura de cinco partes, y las
+     cinco tienen que caber juntas o no se entiende ninguna:
+
+       1. el título del corte,
+       2. la figura,
+       3. la tabla equivalente, que es la figura en cifras,
+       4. qué muestra y qué cuidado exige,
+       5. el sello: fuente, corte, N y cobertura del recorte.
+
+     `.corte` no estaba en ninguna regla de corte de página —sólo `.modulo`, que
+     es de las páginas antiguas—, así que una sección podía dejar la figura al
+     final de una hoja y su tabla, su explicación y su procedencia en la
+     siguiente. Con eso, la hoja que alguien fotocopia o cita enseña un dibujo
+     sin decir sobre cuántos casos está medido. */
+  .corte, .corte-red { break-inside: avoid; }
+  /* Cuando el bloque entero no cabe —y con veinte barras y su tabla no cabe—,
+     `break-inside: avoid` no puede cumplirse y el navegador parte por donde
+     quiera. Estas cuatro piezas se declaran indivisibles aparte, así que el
+     corte se parte DENTRO de la tabla, que repite su encabezado, y nunca a
+     mitad de una figura ni de la frase que la explica. */
+  .corte .vista[data-vista="grafico"], .corte-red .vista[data-vista="nodos"],
+  .lectura-grafico, .lectura-cuidado, .sello { break-inside: avoid; }
+  /* La figura no crece a lo alto de la hoja: un gráfico de 20 cm de alto
+     empuja fuera todo lo que lo explica y obliga a partir el bloque, que es
+     justo lo que la regla de arriba evita. */
+  .corte .grafico svg, .corte .vista svg { max-height: 90mm; height: auto; }
+  .corte-red svg { max-height: 120mm; }
+
+  /* La red imprime UNA vista, no cuatro. En pantalla el lector elige entre
+     nodos, matriz, arcos y la tabla de pares; en papel se despliegan todas por
+     la regla de «las dos vistas de cada módulo», y aquí esa regla se vuelve en
+     contra: tres dibujos de lo mismo y un listado de una fila por par de
+     firmas, que medido son cuarenta páginas. La sección de colaboración pasaba
+     de 8 a 49 hojas por esa tabla sola.
+
+     Es la misma razón por la que el informe no vuelca publicaciones ni autores:
+     un anexo de cientos de páginas que nadie lee no es parte de un informe. Lo
+     que se retira se declara en la hoja. */
+  .corte-red .vista[data-vista="matriz"],
+  .corte-red .vista[data-vista="arcos"],
+  .corte-red .vista[data-vista="tabla"] { display: none; }
+
+  /* ── La tabla se imprime sólo cuando añade algo ─────────────────────────
+     «En papel no hay conmutador, así que se imprimen las dos vistas» era
+     cierto a medias. Vale para el treemap, el mapa de calor y la mediana por
+     año, donde la figura no rotula cada valor. No vale para una barra que ya
+     lleva su cifra escrita al lado: ahí la tabla repite fila por fila lo que
+     la figura acaba de decir. Medido sobre el PDF: «Autores por publicación»
+     dibujaba seis barras rotuladas y debajo seis filas con los mismos seis
+     números y las mismas seis etiquetas.
+
+     La condición no es una lista de formas escrita aquí —divergiría del
+     generador en cuanto se añada un gráfico—: cada figura declara en su SVG
+     si rotula todos sus valores Y todas sus categorías (`data-cifras`), y
+     `barrasH` la marca `parciales` en cuanto una etiqueta no cupo. Por eso
+     «Unidad académica» conserva su tabla: es donde «Facultad de Arquitectura,
+     Diseño y Estudios Creativos» aparece entero, y la barra lo recortó.
+
+     Por omisión la tabla se imprime: una figura que no declara nada es una
+     figura de la que no sabemos si basta. */
+  .corte:has(.vista[data-vista="grafico"] svg[data-cifras="completas"])
+    .vista[data-vista="tabla"] { display: none; }
+
+  /* La tabla equivalente, en papel, es la figura en cifras y no una tabla de
+     interfaz. Con el interlineado de pantalla, las 21 filas de «Áreas
+     temáticas» ocupaban 1.048 px —más de una hoja útil— y empujaban fuera de
+     la página la explicación y el sello del gráfico al que pertenecen. Medido
+     a ancho de A4, no supuesto. */
+  .corte table, .corte-red table { font-size: 8pt; }
+  /* La leyenda de la trama no se retira —para algunos cortes es la única frase
+     que dice que las barras no suman— pero sí se aprieta: en pantalla ocupa 49
+     px y es una línea. */
+  .leyenda-trama { font-size: 8pt; line-height: 1.35; margin: 3pt 0 0; }
+  .corte th, .corte td,
+  .corte-red th, .corte-red td { padding: 1.5pt 6pt; line-height: 1.35; }
+  .corte .tabla-envoltura, .corte-red .tabla-envoltura {
+    box-shadow: none; border-color: #999; border-radius: 0;
+  }
+  /* El sello es una línea de crédito, no una tarjeta: en papel pierde el fondo
+     y el marco de interfaz y se aprieta a un par de líneas. */
+  .sello {
+    font-size: 7.5pt; gap: 2pt 10pt; padding: 3pt 0 0; margin-top: 4pt;
+    background: none; border: 0; border-top: .5pt solid #999; border-radius: 0;
+  }
+
+  /* Qué muestra y qué cuidado exige: su versión de papel está en la cola del
+     archivo, no aquí. Las dos clases tienen ahora estilo de PANTALLA —dejaron
+     de ser `solo-papel`—, escrito más abajo, y una consulta de medios no añade
+     especificidad: puesta aquí, la regla de papel perdía por orden y el PDF
+     salía con el interlineado de la pantalla. Buscar «PAPEL, AL FINAL». */
+
+  /* Cortes. Un titular al pie de una hoja y su figura en la siguiente es el
+     defecto clásico de imprimir una web sin decirle nada al navegador. */
+  h1, h2, h3 { break-after: avoid; }
+  .modulo { break-inside: avoid; }
+  .seccion + .seccion, .modulo + .modulo { break-before: auto; }
+  table { break-inside: auto; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+
+  /* El pie de página lleva el universo y sus tres denominadores: es lo que
+     hace interpretable cualquier cifra de la hoja anterior, y por D-16 no
+     puede quedarse sólo en la pantalla. */
+  .pie { border-top: 1.5px solid #000; padding-top: 6pt; }
+}
+
+/* ------------------------------------------------------- catálogo de indicadores
+   Sin tokens nuevos: los estados reutilizan el par --aviso-tinta sobre
+   --aviso-fondo, que ya está medido (8,74 y 11,75 de contraste), y el neutro
+   sale de --superficie-2. Introducir un verde y un rojo aquí habría metido dos
+   colores sin validar en un sistema que se valida entero. */
+.estado {
+  display: inline-block; padding: .12em .5em; border-radius: var(--radio-s);
+  font-size: var(--t-s); font-weight: 650; white-space: nowrap;
+  background: var(--superficie-2); color: var(--tinta-2);
+  border: 1px solid var(--linea);
+}
+.estado[data-e="publicado"] { color: var(--tinta); border-color: var(--linea-fuerte); }
+.estado[data-e="diferido"],
+.estado[data-e="no_calculable"],
+.estado[data-e="fuera_de_alcance"] {
+  background: var(--aviso-fondo); color: var(--aviso-tinta); border-color: var(--aviso-borde);
+}
+.tabla-catalogo td { vertical-align: top; }
+.tabla-catalogo .nota { margin-top: 2px; display: block; }
+/* La fila del motivo pertenece a la de encima: sin línea que las separe se lee
+   como continuación y no como una entrada más de las cuarenta. */
+.tabla-catalogo tr.cat-motivo > td {
+  border-top: 0; padding-top: 0; padding-bottom: var(--e3);
+  font-size: var(--t-s); color: var(--tinta-2);
+}
+.tabla-catalogo tr.cat-motivo strong { color: var(--tinta); }
+
+/* Auditoría de datos, en metodologia.html (V2-27). */
+.val-resumen { font-size: var(--t-m); margin: 0 0 var(--e3); }
+.tabla-validacion { font-size: var(--t-s); }
+.tabla-validacion .mono { font-family: var(--f-mono); font-size: .92em; white-space: nowrap; }
+.tabla-validacion td, .tabla-validacion th { vertical-align: top; }
+/* Una tabla de 30 filas uniforme esconde justo la fila que importa leer: la
+   única que falla. Ámbar, no rojo — el rojo aquí es del DATO, no de una
+   advertencia metodológica (ver la nota sobre contraste dato/advertencia
+   más arriba en este archivo). */
+.val-falla { background: var(--aviso-fondo); }
+.val-falla td { color: var(--aviso-tinta); }
+
+/* ------------------------------------------------------ panel conceptual de sección
+   Abre cada sección y ocupa el ancho completo: en la rejilla de dos columnas
+   iría a parar a la del índice, y el aviso de qué NO responde una sección no es
+   material de barra lateral.
+
+   Sin tokens nuevos. El término «No responde» se marca con el color de acción
+   porque es la parte que justifica el panel: si se lee una sola, que sea ésa. */
+.panel-eje {
+  grid-column: 1 / -1;
+  background: var(--superficie-2);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: var(--e4) var(--e5);
+  margin-bottom: var(--e5);
+}
+.panel-eje h2 { margin: 0 0 var(--e3); font-size: var(--t-l); }
+.panel-eje dl { margin: 0; display: grid; gap: var(--e2) var(--e4); }
+@media (min-width: 720px) {
+  .panel-eje dl { grid-template-columns: max-content minmax(0, 1fr); }
+}
+.panel-eje dt {
+  font-size: var(--t-s); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--tinta-2); padding-top: .15em;
+}
+.panel-eje dt:nth-of-type(2) { color: var(--accion); }
+.panel-eje dd { margin: 0; color: var(--tinta); line-height: 1.55; }
+.panel-eje dd + dt { margin-top: var(--e2); }
+
+/* ══════════════════════════════════════════════════════════ EXPLORADOR ══ */
+/* La portada dejó de ser un informe que se lee y pasó a ser un conjunto de
+   datos que se interroga. Todo lo de aquí sirve a esa idea: el recorte manda,
+   las cifras son lo primero que se ve, y el contexto metodológico está a un
+   clic en vez de ocupar la pantalla. */
+
+/* `min-width: 0` en el ítem de grid, no en `.explorador`: el mínimo implícito
+   de un ítem de grid/flex es el de su CONTENIDO (`min-width: auto`), no el de
+   su contenedor. Una faceta con una etiqueta larga sin punto de corte —«Facultad
+   de Arquitectura, Diseño y Estudios Creativos»— empujaba el panel entero a su
+   ancho de contenido (717px) aunque el viewport fuera de 430px: desborde
+   horizontal medido, no de estilo. El `.chip` en sí ya envuelve su texto (no
+   lleva `white-space: nowrap`); lo que faltaba era dejarlo encogerse primero. */
+.explorador { display: grid; gap: var(--e5); min-width: 0; }
+.explorador-panel { min-width: 0; }
+@media (min-width: 62rem) {
+  /* Los controles a un lado y el resultado al otro: se ve la causa y el
+     efecto a la vez. Apilados, cambiar un filtro movía el resultado fuera de
+     la pantalla y había que buscarlo. */
+  .explorador { grid-template-columns: 17rem minmax(0, 1fr); gap: var(--e6); align-items: start; }
+  .explorador-panel { position: sticky; top: 5.5rem; max-height: calc(100vh - 7rem); overflow-y: auto; }
+}
+
+/* ---- estado del recorte: qué se está mirando ---- */
+.recorte-estado {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--e2) var(--e3);
+  margin: 0 0 var(--e5); padding-bottom: var(--e4);
+  border-bottom: 2px solid var(--tinta);
+}
+.recorte-n {
+  font: 800 var(--t-2xl)/1 var(--f-cifra); color: var(--tinta);
+  font-variant-numeric: tabular-nums; letter-spacing: -.03em;
+}
+.recorte-de { font-size: var(--t-l); color: var(--tinta-2); }
+.recorte-que { display: flex; flex-wrap: wrap; gap: var(--e2); }
+.recorte-todo { color: var(--tinta-3); font-size: var(--t-s); }
+.recorte-chip {
+  font: 600 var(--t-s)/1 var(--f-ui); color: var(--accion);
+  background: var(--accion-suave); border: 1px solid var(--accion-viva);
+  border-radius: 999px; padding: .35rem .7rem;
+}
+.boton-limpiar { margin-left: auto; }
+
+/* ---- las cifras. Son lo que se viene a ver, así que ganan la página. ---- */
+.tablero {
+  display: grid; gap: var(--e4);
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  margin-bottom: var(--e6);
+}
+.ficha {
+  border: 1px solid var(--linea); border-radius: var(--radio);
+  padding: var(--e4) var(--e4) var(--e3);
+  background: var(--superficie);
+  /* La cifra no puede saltar de sitio al recalcularse. */
+  display: flex; flex-direction: column; gap: var(--e1);
+  /* Mismo tratamiento "premium" que .bento-card (D-327): las fichas KPI
+     son el componente más repetido del sitio -las diez páginas lo usan-,
+     así que es donde el cambio de look se nota más y cuesta menos: sólo
+     sombra + elevación al hover, ninguna propiedad que afecte layout o
+     contraste. */
+  box-shadow: var(--bento-sombra);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.ficha:hover, .ficha:focus-within {
+  box-shadow: var(--bento-sombra-alta);
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ficha { transition: none; }
+  .ficha:hover, .ficha:focus-within { transform: none; }
+}
+.ficha-valor {
+  font: 800 var(--t-cifra)/.95 var(--f-cifra);
+  font-variant-numeric: tabular-nums; letter-spacing: -.035em;
+  color: var(--cifra); margin: 0;
+}
+.ficha-etq { font: 700 var(--t-m)/1.3 var(--f-ui); margin: 0; color: var(--tinta); }
+.ficha-base { font-size: var(--t-s); color: var(--tinta-3); margin: 0; }
+.ficha-base b { color: var(--tinta-2); font-variant-numeric: tabular-nums; }
+/* Qué es la cifra, no sobre cuántos está medida: eso lo dice `.ficha-base`.
+   Va separada por un filete porque son dos registros distintos —el
+   denominador es dato, la lectura es explicación— y pegadas se leen como una
+   sola frase larga. Cuerpo pequeño y tinta apagada: acompaña a la cifra, no
+   compite con ella. */
+.ficha-lectura {
+  margin: var(--e2) 0 0; padding-top: var(--e2);
+  border-top: 1px solid var(--linea);
+  font-size: var(--t-xs); line-height: 1.5; color: var(--tinta-3);
+}
+
+/* Al recalcular, la cifra parpadea una vez. Sin señal, un filtro que cambia
+   poco parece no haber hecho nada. Con `prefers-reduced-motion` no ocurre. */
+@media (prefers-reduced-motion: no-preference) {
+  .ficha-valor { transition: color .18s; }
+  .ficha-valor.cambia { animation: latido .42s ease-out; }
+  @keyframes latido {
+    0%   { transform: translateY(-.12em); opacity: .35; }
+    100% { transform: none; opacity: 1; }
+  }
+}
+
+/* ---- los controles ---- */
+.filtros-explorador { display: grid; gap: var(--e2); }
+.dim { border: 1px solid var(--linea); border-radius: var(--radio); background: var(--superficie); }
+.dim > summary {
+  cursor: pointer; padding: var(--e3) var(--e4); font: 700 var(--t-m)/1 var(--f-ui);
+  display: flex; align-items: center; gap: var(--e2); min-height: 44px;
+  border-radius: var(--radio);
+}
+.dim > summary::marker { color: var(--tinta-3); }
+.dim[open] > summary { border-bottom: 1px solid var(--linea); border-radius: var(--radio) var(--radio) 0 0; }
+.dim-n {
+  margin-left: auto; background: var(--accion); color: var(--boton-tinta);
+  border-radius: 999px; min-width: 1.5rem; text-align: center;
+  font-size: var(--t-xs); padding: .15rem .45rem;
+}
+.dim-ops { display: flex; flex-wrap: wrap; gap: var(--e2); padding: var(--e3) var(--e4) var(--e4); }
+.chip {
+  display: inline-flex; align-items: center; gap: var(--e2);
+  border: 1px solid var(--linea-fuerte); border-radius: 999px;
+  background: var(--plano); color: var(--tinta);
+  font: 500 var(--t-s)/1 var(--f-ui); padding: .5rem .75rem;
+  min-height: 36px; cursor: pointer;
+  transition: background .12s, border-color .12s, color .12s;
+}
+.chip:hover { border-color: var(--accion-viva); }
+.chip-n { color: var(--tinta-3); font-variant-numeric: tabular-nums; font-size: var(--t-xs); }
+.chip-on { background: var(--accion); border-color: var(--accion); color: var(--boton-tinta); }
+.chip-on .chip-n { color: var(--boton-tinta); opacity: .8; }
+
+/* ---- qué muestra cada figura, y qué cuidado exige ----
+   Pie de figura, no nota al margen. Va debajo del gráfico y por encima del
+   sello, en el orden en que se lee: primero el dato, luego qué cuenta, luego
+   de dónde sale.
+
+   Estuvo `solo-papel` hasta que se vio el problema: la ayuda contextual y el
+   glosario sirven a quien ya sospecha que no entiende algo, y la persona que
+   llega a un tablero bibliométrico desde su propia disciplina no siempre lo
+   sospecha. La frase junto a la figura sirve al caso normal.
+
+   El rótulo va en versalitas, el mismo recurso del sello, para que las dos
+   piezas se lean como ficha del gráfico y no como prosa suelta. Se distinguen
+   por el color de la barra: la lectura describe, el cuidado advierte. */
+.lectura-grafico, .lectura-cuidado {
+  margin: var(--e3) 0 0; padding-left: var(--e3);
+  border-left: 2px solid var(--linea-fuerte);
+  font-size: var(--t-s); line-height: 1.55; color: var(--tinta-2);
+}
+.lectura-cuidado { border-left-color: var(--aviso-borde, var(--linea-fuerte)); }
+.lectura-grafico b, .lectura-cuidado b {
+  display: block; font-size: var(--t-xs); letter-spacing: .08em;
+  text-transform: uppercase; color: var(--tinta-3); margin-bottom: 2px;
+}
+/* En una tarjeta bento la figura ya viene con su título propio, así que la
+   lectura se pega al borde inferior de la tarjeta y no a la figura. */
+.bento-card .lectura-grafico { margin-top: var(--e4); }
+
+/* ---- el informe completo en PDF ----
+   Sólo aparece si la corrida que construyó el sitio también generó el informe
+   (`data/informe.json`). No compite con el botón «Descargar informe» de la
+   barra: aquél da la página que se está viendo con sus filtros, éste da las
+   seis secciones con su índice y sus hojas numeradas. */
+.informe-pdf {
+  border: 1px solid var(--linea); border-radius: var(--radio);
+  background: var(--superficie); padding: var(--e4) var(--e5);
+  margin: 0 0 var(--e5);
+}
+.informe-pdf h2 { font: 700 var(--t-l)/1.25 var(--f-ui); margin: 0 0 var(--e2); }
+.informe-pdf-intro { color: var(--tinta-2); margin: 0 0 var(--e3); max-width: 68ch; }
+.informe-pdf-lista {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: var(--e2) var(--e4);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+.informe-pdf-lista li {
+  display: flex; align-items: baseline; gap: var(--e2);
+  border-top: 1px solid var(--linea); padding-top: var(--e2);
+}
+.informe-pdf-lista a { font-weight: 600; }
+.informe-pdf-dato {
+  color: var(--tinta-3); font-size: var(--t-xs);
+  font-variant-numeric: tabular-nums; margin-left: auto; white-space: nowrap;
+}
+/* En papel no se ofrece: quien tiene la hoja delante ya tiene el informe, y un
+   enlace impreso no lleva a ninguna parte. Mismo criterio que la navegación. */
+@media print { .informe-pdf { display: none; } }
+
+/* ---- los cortes que responden ---- */
+.cortes { display: grid; gap: var(--e5); grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); }
+.corte {
+  border: 1px solid var(--linea); border-radius: var(--radio);
+  padding: var(--e4); background: var(--superficie); min-width: 0;
+}
+.corte > h3 { font: 700 var(--t-l)/1.25 var(--f-ui); margin: 0 0 var(--e3); }
+
+/* La red de coautoría dibuja con `svg.chart.red-svg { min-width:680px }» —
+   necesario para que nodos y etiquetas no se aplasten. Compartiendo una de
+   las dos columnas de `.cortes` (mínimo 20rem = 320px) ese mínimo se sale
+   de la tarjeta: `.grafico` scrollea horizontal, pero el grafo se ve cortado
+   a primera vista en vez de completo. Ocupa la fila entera. */
+.corte-red { grid-column: 1 / -1; }
+
+/* ---- la nota metodológica, plegada ---- */
+/* «Menos información y más datos»: el contexto no se borra —sigue siendo la
+   diferencia entre leer bien una cifra y leerla mal— pero deja de competir
+   con ella por la pantalla. */
+.metodo { margin-top: var(--e5); border-top: 1px solid var(--linea); padding-top: var(--e3); }
+.metodo > summary {
+  cursor: pointer; font: 600 var(--t-s)/1 var(--f-ui); color: var(--tinta-2);
+  min-height: 32px; display: flex; align-items: center; gap: var(--e2);
+}
+.metodo > summary:hover { color: var(--accion); }
+.metodo-cuerpo { font-size: var(--t-s); color: var(--tinta-2); padding-top: var(--e3); }
+.metodo-cuerpo p { margin: 0 0 var(--e2); }
+
+/* Cabecera de portada: identidad y procedencia, nada más. Lo que explica el
+   informe vive detrás de un control porque el dato manda la pantalla. */
+.portada-cabecera { padding: var(--e5) 0 var(--e4); }
+.portada-id h1 {
+  font: 800 var(--t-2xl)/1.05 var(--f-ui); letter-spacing: -.03em; margin: 0;
+}
+.portada-sub { color: var(--tinta-2); font-size: var(--t-m); margin: var(--e2) 0 0; }
+/* La ventana, declarada donde no se puede no verla.
+   El rango «2023–2025» ya estaba en la línea de arriba y en la barra de
+   vigencia, pero un rango no dice lo que un lector necesita saber: que lo
+   posterior NO está. Alguien que abra esto en 2026 puede leerlo como el estado
+   actual de la producción, y esa lectura no la corrige un rango.
+   Va en verde-moneda, que es la familia de la advertencia metodológica y está
+   fuera de la del dato — y visible, no dentro del desplegable: una advertencia
+   detrás de un clic es una advertencia que nadie lee. */
+.ventana-cierre {
+  margin: var(--e3) 0 0; max-width: 62ch;
+  font-size: var(--t-s); line-height: 1.55; color: var(--aviso-tinta);
+  background: var(--aviso-fondo);
+  border: 1px solid var(--aviso-borde); border-left-width: 3px;
+  border-radius: var(--radio-s); padding: var(--e2) var(--e3);
+}
+.ventana-cierre b { color: var(--aviso-tinta); }
+.portada-metodo { margin-top: var(--e3); border-top: 0; padding-top: 0; }
+.portada-metodo .metodo-cuerpo { max-width: 68ch; }
+
+/* El símbolo no compite con la cifra: va menor y en la misma línea. */
+.ficha-sufijo { font-size: .5em; margin-left: .12em; font-weight: 700; }
+
+/* Cabecera de corte: el título y el conmutador Gráfico ⇄ Tabla en una línea. */
+.corte-cab {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--e3);
+  margin-bottom: var(--e3);
+}
+.corte-cab > h3 { margin: 0; flex: 1 1 auto; min-width: 0; }
+.corte-cab .vistas { flex: none; }
+
+/* Índice de cortes, bajo los filtros. */
+.rail-titulo {
+  font: 700 var(--t-xs)/1 var(--f-ui); text-transform: uppercase;
+  letter-spacing: .07em; color: var(--tinta-3); margin: var(--e5) 0 var(--e2);
+}
+
+/* El ancla del índice tiene que dejar el corte BAJO la cabecera fija, no
+   detrás de ella. Es el mismo margen que ya usaban los módulos. */
+.corte { scroll-margin-top: var(--e4); }
+@media (min-width: 900px) { .corte { scroll-margin-top: 7.5rem; } }
+
+/* Espacio al final para que el ÚLTIMO corte pueda subir hasta la cabecera.
+   Sin esto el documento se acaba antes y el enlace del índice al último
+   indicador no movía nada: el ancla parecía rota cuando lo que faltaba era
+   recorrido. Es la razón de que exista, no un margen decorativo.
+
+   Va en `.explorador-resultado`, no en `.cortes`: en producción.html el
+   tablero Bento (jerarquía y temáticas) va DESPUÉS de `.cortes`, y ese
+   padding anclado a `.cortes` quedaba a mitad de página en vez de al final,
+   empujando el treemap lejos del resto de las métricas con un hueco de
+   45vh. El contenedor de resultado sí es el último elemento en todas las
+   páginas del explorador, con o sin Bento. */
+.explorador-resultado { padding-bottom: 45vh; min-width: 0; }
+
+/* Buscador dentro del panel de filtros: misma caja que las dimensiones. */
+.dim-busca { padding: var(--e3) var(--e4) var(--e4); margin-bottom: var(--e2); }
+.dim-busca label {
+  display: block; font: 700 var(--t-m)/1 var(--f-ui); margin-bottom: var(--e2);
+}
+.dim-busca input {
+  width: 100%; font: 400 var(--t-m)/1.4 var(--f-ui);
+  padding: .55rem .7rem; border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio-s); background: var(--plano); color: var(--tinta);
+}
+
+/* El campo de la dimensión «Autor». Mismo aspecto que el buscador general
+   —es la misma acción, escribir para acotar— pero dentro del desplegable de su
+   dimensión, junto a las firmas ya elegidas, que se quitan como cualquier otra
+   pastilla. */
+.busca-autor {
+  width: 100%; font: 400 var(--t-m)/1.4 var(--f-ui); margin-top: var(--e2);
+  padding: .5rem .65rem; border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio-s); background: var(--plano); color: var(--tinta);
+}
+.dim-ops .nota { margin-top: var(--e2); }
+
+/* Las salvaguardas de un informe personal. Van sobre las cifras que califican
+   y se imprimen con ellas: son la advertencia que hace legible un PDF nominal
+   fuera del sitio. */
+.salvaguardas { margin-bottom: var(--e5); }
+.salvaguardas .nota { margin-top: var(--e3); }
+.ficha-acciones { margin: var(--e4) 0 var(--e5); }
+
+.acciones-tabla { display: flex; align-items: center; gap: var(--e3); margin-bottom: var(--e4); }
+/* La barra de selección de gráficos del catálogo. Va pegada arriba de las
+   tablas y con su propio aire: se marca mientras se recorren las cuarenta
+   filas, y tiene que seguir a la vista. */
+.acciones-graficos { flex-wrap: wrap; margin-top: var(--e4); }
+.acciones-graficos #estado-graficos { margin-right: auto; font-weight: 650; color: var(--tinta-2); }
+#orden-graficos { font-family: var(--f-mono); font-size: var(--t-xs); margin: 0 0 var(--e4); }
+.tabla-catalogo .col-marca { width: 2.4rem; }
+.acciones-tabla #estado-seleccion { margin-right: auto; font-weight: 650; color: var(--tinta-2); }
+
+/* Columna de casillas de selección en Publicaciones: ancho fijo, angosto,
+   sin el padding lateral que las demás celdas llevan por defecto —si no, el
+   checkbox queda descentrado respecto de su propia columna. */
+.col-marca { width: 2.4rem; text-align: center; padding-inline: .4rem !important; }
+.col-marca input[type="checkbox"] { width: 1.1rem; height: 1.1rem; margin: 0; cursor: pointer; }
+
+.enlace-lista { font-weight: 650; font-size: var(--t-s); white-space: nowrap; }
+
+/* ════════════════════════════════════════════ IMPRESIÓN: ajustes de layout ═
+   Overrides de PANTALLA para el informe descargable, al final del archivo a
+   propósito: las reglas de esta cola tienen la misma especificidad que las
+   del resto del sitio para los mismos selectores, y en la cascada manda la
+   última. Los @media print de la mitad del archivo (sección 1608) se quedan
+   atrás de las reglas del explorador (líneas ~1737 y ~1930); poner aquí los
+   que deshacen el layout de pantalla garantiza que ganen.
+
+   El explorador de portada y de producción es un grid de dos columnas (panel
+   de filtros + resultado). En papel se colapsa a una sola columna: sin los
+   filtros a la izquierda, los gráficos y las cifras aprovechan todo el ancho
+   de la hoja en vez de quedar encerrados en ~390px frente a un panel vacío. */
+@media print {
+  /* Qué muestra y qué cuidado exige, en papel. Van entre la tabla y el sello:
+     primero se ve el dato, luego se lee qué cuenta, y al final de dónde sale.
+     El rótulo en versalitas es el mismo recurso del sello, para que se lean
+     como una ficha y no como prosa suelta.
+
+     Aquí y no en el bloque de la mitad del archivo: las dos clases tienen
+     estilo de pantalla desde que dejaron de ser `solo-papel`, y ese estilo se
+     escribe después. Sin esta cola, el papel heredaba el cuerpo y el
+     interlineado de la pantalla. */
+  .lectura-grafico, .lectura-cuidado {
+    margin: 6pt 0 0; font-size: 8.5pt; line-height: 1.45; color: #000;
+    padding-left: 8pt; border-left: 1.5pt solid #000;
+  }
+  .lectura-cuidado { border-left-color: #666; color: #333; }
+  .lectura-grafico b, .lectura-cuidado b {
+    display: block; font-size: 7pt; letter-spacing: .08em;
+    text-transform: uppercase; margin-bottom: 1pt; color: #000;
+  }
+  .bento-card .lectura-grafico { margin-top: 6pt; }
+
+  /* La lectura de la cifra, apretada. Seis fichas con su frase ocupan una hoja
+     entera si conservan el interlineado de pantalla. */
+  .ficha-lectura {
+    margin: 3pt 0 0; padding-top: 3pt; font-size: 7pt; line-height: 1.35;
+    color: #333; border-top: .5pt solid #999;
+  }
+
+  /* Las tarjetas de cifra no se parten por la mitad. Medido en el PDF: la
+     portada cortaba la tercera fila y la hoja siguiente abría con «Citas por
+     publicación · 816 sobre las que tienen métricas» sin el número, que se
+     había quedado en la anterior. Un rótulo sin su cifra no es media tarjeta:
+     es una afirmación sin sujeto.
+
+     `break-inside: avoid` no lo cumple Chromium ni sobre una rejilla ni sobre
+     sus hijos, así que en papel las fichas dejan de ser hijas de rejilla y
+     pasan a ser bloques en línea de media columna: se ven igual, dos por
+     fila, y ahora sí son indivisibles. Va en esta cola y no en el bloque de
+     la mitad del archivo por la razón que encabeza esta sección: allí
+     `.tablero { display: grid }`, escrito después para la pantalla, le ganaba
+     por orden. Comprobado sobre el PDF, donde las fichas salían al 24 % de
+     ancho —el 49 % de media columna de rejilla— antes de moverla aquí.
+
+     `font-size: 0` en el contenedor come el espacio en blanco entre bloques
+     en línea, que si no abre un carril de un carácter entre las columnas; las
+     fichas recuperan su tamaño. */
+  .tablero { display: block; font-size: 0; margin-bottom: 6mm; }
+  .tablero > .ficha {
+    display: inline-block; width: 49%; vertical-align: top; box-sizing: border-box;
+    font-size: 10pt; break-inside: avoid; margin: 0 0 2%;
+  }
+  .tablero > .ficha:nth-child(odd) { margin-right: 2%; }
+
+  .explorador { display: block; }
+  .explorador-resultado { padding-bottom: 0; }
+
+  /* La primera página del PDF es la portada: el título del informe en papel
+     debe leerse como cabecera de documento, no como el borde superior de una
+     web. Se le da aire vertical, se centra el bloque y se cierra con un filete
+     que separa la página de portada del cuerpo que la sigue. */
+  .portada-cabecera { padding: 34mm 0 28mm; text-align: center; }
+  .portada-cabecera .portada-id h1 {
+    font-size: 30pt; line-height: 1.1; letter-spacing: -.02em; padding: 0 0 10pt;
+    border-bottom: 1.5px solid #000; margin-bottom: 10pt;
+  }
+  .portada-sub { font-size: 11.5pt; max-width: none; margin-top: 4pt; }
+  /* La pasada en que la portada se corta a mitad de su bloque no debe vaciar
+     media página para romper el título a la mitad. */
+  .portada-cabecera { break-inside: avoid; }
+
+  /* Los tableros Bento (treemap y heatmap de producción) no deben cortarse a
+     la mitad de la figura: un mapa de calor partido por un salto de página no
+     se puede leer. Se les pide no partir, igual que a los módulos. */
+  .bento-card { break-inside: avoid; }
+}

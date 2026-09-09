@@ -1,0 +1,219 @@
+/* modern-ui.css — Sistema de tablero "Bento" para los módulos nuevos
+   (jerarquía institucional, mapa de temáticas). Capa ESTRUCTURAL: no declara
+   NINGÚN color propio, todo referencia tokens de `app.css`, que sigue siendo
+   la única fuente de autoridad del sistema cromático
+   (docs/DESIGN_SYNC_GUIDE.md §0). Así `validar_paleta.py` sigue midiendo el
+   sistema completo sin tener que aprender a leer un segundo archivo.
+
+   Opcional por diseño: una página que no lo enlaza no pierde nada del sitio
+   base — `app.css` sigue siendo suficiente por sí solo. */
+
+/* ═══════════════════════════════════ Bento Grid ═══════════════════════ */
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+/* Una tarjeta puede pedir más ancho (el treemap respira mejor con dos
+   columnas) sin salirse del sistema de grilla. La grilla vive DENTRO de
+   .explorador-resultado (la columna derecha del explorador): `span 2` ocupa
+   las dos columnas de la grilla, que suman la columna derecha entera. NO se
+   saca la grilla a ancho completo del .explorador: al hacerlo invadía la
+   columna del panel de filtros (sticky) y éste tapaba el mapa al scrollear. */
+.bento-grid > .bento-ancha { grid-column: span 2; }
+@media (max-width: 52rem) {
+  .bento-grid > .bento-ancha { grid-column: span 1; }
+}
+@media (max-width: 52rem) {
+  .bento-grid > .bento-ancha { grid-column: span 1; }
+}
+
+.bento-card {
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: var(--bento-radio);
+  box-shadow: var(--bento-sombra);
+  padding: 1.25rem 1.375rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  /* transform aparte de box-shadow: animar box-shadow repinta toda la
+     tarjeta en cada frame; transform es lo único que el compositor mueve sin
+     recalcular layout ni pintura, así el hover no cuesta más en un tablero
+     con una docena de tarjetas que en uno con dos. */
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.bento-card:hover,
+.bento-card:focus-within {
+  box-shadow: var(--bento-sombra-alta);
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .bento-card { transition: none; }
+  .bento-card:hover, .bento-card:focus-within { transform: none; }
+}
+
+.bento-card h3 {
+  margin: 0;
+  font-size: var(--t-l);
+  color: var(--tinta);
+}
+.bento-card .bento-nota {
+  margin: 0;
+  font-size: var(--t-s);
+  color: var(--tinta-2);
+}
+
+/* ═══════════════════════════════════ Treemap ══════════════════════════ */
+
+.treemap-migas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .2rem;
+  font-size: var(--t-s);
+  color: var(--tinta-2);
+  min-height: 1.6rem;
+}
+.treemap-miga {
+  font: inherit;
+  color: var(--bento-acento);
+  background: none;
+  border: 0;
+  padding: .1rem .2rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.treemap-miga:hover, .treemap-miga:focus-visible {
+  background: var(--bento-acento-suave);
+  outline: 2px solid transparent;
+}
+.treemap-miga-actual { color: var(--tinta); font-weight: 600; }
+
+.treemap-lienzo {
+  position: relative;
+  width: 100%;
+  min-height: 22rem;
+  overflow: hidden;
+}
+.treemap-capa {
+  position: absolute;
+  inset: 0;
+  transition: opacity .32s ease, transform .32s ease;
+}
+.treemap-entrando { opacity: 0; transform: scale(.32); }
+.treemap-saliendo { opacity: 0; transform: scale(1.5); pointer-events: none; }
+
+.treemap-svg { width: 100%; height: 100%; display: block; }
+
+.treemap-celda {
+  stroke: var(--superficie);
+  stroke-width: 2;
+  transition: filter .12s ease;
+}
+.treemap-nodo:hover .treemap-celda,
+.treemap-nodo:focus-visible .treemap-celda,
+.treemap-nodo.activa .treemap-celda {
+  filter: brightness(1.08);
+}
+.treemap-nodo:focus-visible .treemap-celda {
+  stroke: var(--accion);
+  stroke-width: 3;
+}
+.treemap-nodo.es-clicable { cursor: pointer; }
+
+svg.chart .treemap-etq {
+  fill: var(--superficie);
+  font-size: 12.5px;
+  font-weight: 600;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: var(--marca);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+svg.chart .treemap-cifra {
+  fill: var(--superficie);
+  font-size: 11px;
+  font-variant-numeric: var(--num-tabular);
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: var(--marca);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  opacity: .9;
+}
+
+/* Separación entre celdas: la rampa ordinal es bordeaux y sus tonos vecinos
+   no se distinguen mucho entre sí; un resquicio de la superficie de la tarjeta
+   entre celda y celda hace que el treemap se lea como un MOSAICO y no como un
+   bloque bordeaux uniforme (apelmazado). */
+svg.chart .treemap-celda { stroke: var(--superficie); stroke-width: 2px; }
+.treemap-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .35rem;
+  font-size: var(--t-s);
+  color: var(--tinta-2);
+}
+.treemap-ley-titulo { font-weight: 600; }
+.treemap-ley-mostrar {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid var(--linea);
+}
+.treemap-ley-sin { background: var(--sin-dato) !important; }
+.treemap-ley-rotulo { color: var(--tinta-2); }
+
+/* ═══════════════════════════════════ Heatmap ══════════════════════════ */
+
+.heatmap-svg { width: 100%; height: auto; display: block; }
+.heatmap-anio {
+  fill: var(--tinta-2);
+  font-size: 12px;
+  font-variant-numeric: var(--num-tabular);
+}
+.heatmap-etq {
+  fill: var(--tinta-2);
+  font-size: 12px;
+}
+svg.chart .heatmap-cifra {
+  fill: var(--mapa-tinta);
+  font-size: 11px;
+  font-variant-numeric: var(--num-tabular);
+  pointer-events: none;
+  text-anchor: middle;
+}
+/* Texto de la célula DATO (bordeaux --mapa-dato, oscuro fijo): necesita
+   tinta CLARA también en ambos temas. --marca-tinta es crema clara y fija
+   (a diferencia de --tinta, que sí invierte), justo lo que pide una celda
+   de dato oscura sobre el campo claro del mapa. */
+svg.chart .heatmap-cifra.es-clara { fill: var(--marca-tinta); }
+.heatmap-celda rect { transition: filter .12s ease; }
+.heatmap-celda:hover rect,
+.heatmap-celda:focus-visible rect {
+  filter: brightness(1.15);
+}
+.heatmap-celda:focus-visible rect {
+  stroke: var(--accion);
+  stroke-width: 2;
+}
+.heatmap-leyenda {
+  fill: var(--tinta-2);
+  font-size: 11px;
+  font-variant-numeric: var(--num-tabular);
+}
+.heatmap-ley-guia { stroke: var(--tinta-3); stroke-width: 1; }
+.heatmap-ley-titulo { fill: var(--tinta-2); }
+.heatmap-ley-marca { fill: var(--tinta-2); }
+.heatmap-vacio {
+  color: var(--tinta-2);
+  font-size: var(--t-s);
+  padding: 2rem 0;
+  text-align: center;
+}
