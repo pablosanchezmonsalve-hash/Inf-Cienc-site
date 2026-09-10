@@ -2396,4 +2396,70 @@ svg.chart .trama { pointer-events: none; }
      la mitad de la figura: un mapa de calor partido por un salto de página no
      se puede leer. Se les pide no partir, igual que a los módulos. */
   .bento-card { break-inside: avoid; }
+
+  /* ── La carátula del informe ───────────────────────────────────────────────
+     La escribe `informe_pdf.mjs`, que es quien sabe que hay un DOCUMENTO y no
+     una página suelta mandada a imprimir; aquí se decide, como todo lo demás
+     del papel, cómo se ve.
+
+     Ocupa la hoja entera: `break-after: page` empuja el índice a la hoja 2.
+     La altura se pide en `min-height` y no en `height` para que un recorte de
+     nombre largo la estire en vez de desbordarla. */
+  .portada-informe {
+    min-height: 232mm; padding: 42mm 0 0; break-after: page; break-inside: avoid;
+  }
+  .pi-institucion {
+    font-size: 11pt; letter-spacing: .1em; text-transform: uppercase;
+    color: #333; margin: 0 0 6mm;
+  }
+  .pi-titulo {
+    font-size: 32pt; line-height: 1.08; letter-spacing: -.02em;
+    margin: 0 0 8mm; padding: 0 0 6mm; border-bottom: 2px solid #000;
+    max-width: 150mm;
+  }
+  /* El alcance es lo que distingue dos informes de esta misma plataforma, así
+     que se imprime más grande que la procedencia y antes que ella. */
+  .pi-alcance { font-size: 13pt; line-height: 1.45; margin: 0 0 2mm; max-width: 140mm; }
+  .pi-seleccion { font-size: 10.5pt; color: #333; margin: 0 0 2mm; max-width: 140mm; }
+  .pi-ventana { font-size: 11pt; color: #333; margin: 0 0 16mm; }
+
+  .pi-datos { margin: 0 0 14mm; max-width: 118mm; }
+  .pi-fila {
+    display: flex; justify-content: space-between; gap: 8mm;
+    font-size: 10pt; margin: 0; padding: 2.2mm 0; border-bottom: .5pt solid #ddd;
+  }
+  .pi-rotulo { color: #444; }
+  .pi-valor { font-variant-numeric: tabular-nums; text-align: right; }
+
+  .pi-bases { max-width: 140mm; }
+  .pi-bases-tit {
+    font-size: 8.5pt; letter-spacing: .08em; text-transform: uppercase;
+    color: #444; margin: 0 0 2mm;
+  }
+  .pi-bases-cifras { font-size: 10.5pt; line-height: 1.5; margin: 0 0 2mm; }
+  .pi-bases-nota { font-size: 9pt; color: #444; margin: 0; }
+
+  /* Con carátula, el TÍTULO de la página sobra: la hoja 1 lo dice entero y en
+     grande. Se apagan el titular y su línea de procedencia, no el bloque
+     completo: `.ventana-cierre` avisa de lo que NO está en el informe —lo
+     publicado después de la ventana— y eso la carátula no lo dice.
+
+     Con `:has()` y no con el hermano adyacente: entre la carátula y el titular
+     va el índice, así que `+` dejó de casar en cuanto se ordenaron las tres
+     piezas como se leen. */
+  body:has(.portada-informe) .portada-cabecera h1,
+  body:has(.portada-informe) .portada-sub { display: none; }
+  body:has(.portada-informe) .portada-cabecera { padding: 0 0 10mm; text-align: left; }
+
+  /* La banda de crédito y la de recorte son la identidad del informe repetida
+     en letra chica, y la carátula ya las dice enteras y en grande. Se apaga la
+     BARRA ENTERA y no sus dos párrafos: `.vigencia` lleva un filete inferior,
+     así que vaciarla dejaba una raya suelta sobre la carátula. Es el mismo
+     defecto que el comentario de la barra (sección de impresión, ~1710) dejó
+     anotado, reaparecido por el otro lado.
+
+     Sólo en el archivo que lleva carátula: las demás secciones conservan su
+     banda, porque una hoja suelta tiene que seguir diciendo de qué informe
+     salió. */
+  body:has(.portada-informe) .vigencia { display: none; }
 }
