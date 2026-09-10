@@ -2210,7 +2210,7 @@ svg.chart .trama { pointer-events: none; }
 }
 .portada-sub { color: var(--tinta-2); font-size: var(--t-m); margin: var(--e2) 0 0; }
 /* La ventana, declarada donde no se puede no verla.
-   El rango «2023–2025» ya estaba en la línea de arriba y en la barra de
+   El rango «2020–2025» ya estaba en la línea de arriba y en la barra de
    vigencia, pero un rango no dice lo que un lector necesita saber: que lo
    posterior NO está. Alguien que abra esto en 2026 puede leerlo como el estado
    actual de la producción, y esa lectura no la corrige un rango.

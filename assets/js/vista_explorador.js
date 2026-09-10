@@ -162,8 +162,8 @@ export function advertenciaMuestraReducida(umbral) {
     PDF descargado — que es donde hace falta, porque un PDF nominal circula sin
     el sitio al lado.
 
-    Se muestra para las 530 entidades, no sólo para las 50 que superan el
-    umbral: 480 quedan por debajo, y excluirlas de su propio informe sería
+    Se muestra para las 829 entidades, no sólo para las 68 que superan el
+    umbral: 761 quedan por debajo, y excluirlas de su propio informe sería
     decidir sobre esas personas en silencio en vez de declararles la
     limitación. Es la decisión del usuario del 2026-09-07. */
 /** La banda de una unidad con pocas publicaciones.
@@ -278,14 +278,14 @@ export function controles(pubs, sel, { buscador = false } = {}) {
 
 /** La dimensión de persona no se dibuja como las demás.
 
-    Quinientas treinta pastillas no son un filtro, son una guía telefónica: la
-    lista deja de ser recorrible mucho antes de llegar al nombre que se busca,
-    y empuja el resto del panel fuera de la pantalla. Se dibuja lo elegido
+    Ochocientas veintinueve pastillas no son un filtro, son una guía telefónica:
+    la lista deja de ser recorrible mucho antes de llegar al nombre que se
+    busca, y empuja el resto del panel fuera de la pantalla. Se dibuja lo elegido
     —pastillas, que se quitan igual que cualquier otra— y un campo de búsqueda
     con `datalist`, que es autocompletado del navegador: sin librería, con
     teclado, y legible por un lector de pantalla.
 
-    Las opciones son las del recorte vigente, no las 530 siempre: con un año o
+    Las opciones son las del recorte vigente, no las 829 siempre: con un año o
     una unidad ya elegidos, sugerir a quien no publicó nada ahí ofrecería un
     filtro que deja la página vacía. */
 function opcionesAutor(opciones, elegidos) {

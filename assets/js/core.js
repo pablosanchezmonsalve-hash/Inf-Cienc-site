@@ -420,9 +420,9 @@ export const esSinDato = v => SIN_DATO.test(String(v).trim());
 
     Responde, sin que haya que buscarlo, a las cuatro preguntas que decide si
     una cifra puede citarse: de dónde sale, a qué fecha, sobre cuántos casos y
-    con qué cobertura. El N NO es global —823 en producción, 816 en impacto,
-    1.207 pares en unidad académica— y por eso viaja pegado al gráfico y no en
-    el pie de la página.
+    con qué cobertura. El N NO es global —1.342 en producción y en impacto,
+    1.960 pares autor × publicación en unidad académica— y por eso viaja pegado
+    al gráfico y no en el pie de la página.
 
     Por debajo del umbral de cobertura declarado en config, el sello cambia de
     registro y pasa a ser una advertencia. Lo decide el dato. */
@@ -1096,10 +1096,10 @@ export function desviacion(datos, {
 
 /** DISTRIBUCIÓN ACUMULADA — umbrales anidados (FT: «Distribution»).
 
-    Para I-05. Los tramos son ACUMULADOS: las 3 publicaciones del top 1 % están
+    Para I-05. Los tramos son ACUMULADOS: las 11 publicaciones del top 1 % están
     también en el top 5 %, en el top 10 % y en el top 25 %. Dibujarlos como
     cuatro barras hermanas sugiere cuatro grupos disjuntos que podrían sumarse
-    —322, una cifra sin significado—. Aquí cada tramo se dibuja CONTENIDO en el
+    —524, una cifra sin significado—. Aquí cada tramo se dibuja CONTENIDO en el
     siguiente, que es la relación real. */
 export function acumulada(datos, { titulo = '', total = null, ancho = 680, sufijo = '' } = {}) {
   if (!datos.length) return '<p class="vacio">Sin datos para mostrar.</p>';

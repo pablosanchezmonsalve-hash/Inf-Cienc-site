@@ -31,7 +31,7 @@
 export const DIMENSIONES = [
   ['anio',          'Año',                p => [String(p.anio)]],
   /* La persona. Los nombres de `autores_uft` YA son los canónicos de cada
-     entidad —530 nombres distintos, ninguno una variante suelta, y ninguna
+     entidad —829 nombres distintos, ninguno una variante suelta, y ninguna
      entidad comparte nombre con otra: comprobado sobre el artefacto—, así que
      filtrar por nombre es exacto y no hay heurística de emparejamiento en el
      navegador, que es lo que `D-08` prohíbe.
@@ -271,7 +271,7 @@ export const personaDelRecorte = (sel) =>
     filtro de año no pasa a ser «muestra reducida» por eso; lo que baja es el
     tamaño del corte, y eso ya lo declara la línea del recorte.
 
-    Coincide con `n_publicaciones` de `authors.json` para las 530 entidades
+    Coincide con `n_publicaciones` de `authors.json` para las 829 entidades
     —comprobado sobre el artefacto—, así que la ficha y el informe recortado
     dicen el mismo número sin que éste tenga que cargar aquél. */
 export const publicacionesDe = (pubs, nombre) =>
@@ -433,8 +433,9 @@ export function porCampo(pubs_sel, clave, { tope = 0 } = {}) {
     encima del 100 %. Aquí se cuenta la publicación, no sus valores. */
 /* Los tres cortes numéricos no pasan por un extractor de valores: se dibujan
    desde `sumaPorAnio`, `medianaPorAnio` y `umbralesPercentil`. Su cobertura es
-   cuántas publicaciones traen ese número — 816 de 823, no 823 —. El corte
-   `percentil` lee `percentil_citacion`, que es como se llama el campo. */
+   cuántas publicaciones traen ese número y no cuántas hay en el recorte —hoy
+   coinciden, 1.342 de 1.342, pero la regla no depende de que coincidan—. El
+   corte `percentil` lee `percentil_citacion`, que es como se llama el campo. */
 const NUMERICO = { citas: 'citas', fwci: 'fwci', percentil: 'percentil_citacion' };
 
 export function cobertura(pubs_sel, clave) {

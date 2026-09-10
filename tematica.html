@@ -78,22 +78,22 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </details>
       <span class="sep" aria-hidden="true"></span>
       <details class="v-chip">
-        <summary>Ventana <b>2023–2025</b></summary>
+        <summary>Ventana <b>2020–2025</b></summary>
         <p>Fechas de publicación consideradas como universo del informe. Fuera de este periodo un trabajo no aparece.</p>
       </details>
       <span class="sep" aria-hidden="true"></span>
       <details class="v-chip">
-        <summary>Citas al <b>2026-07-22</b></summary>
+        <summary>Citas al <b>2026-08-30</b></summary>
         <p>Fecha en que se congelaron el recuento de citas y las métricas derivadas.</p>
       </details>
       <span class="recorte-vivo" id="recorte-vivo" hidden></span>
       <p class="solo-papel credito-impreso">
         Universidad Finis Terrae · Informe Bibliométrico Institucional.
         Fuentes: Scopus · SciVal.
-        Ventana 2023–2025.
-        Citas actualizadas al 2026-07-22.
+        Ventana 2020–2025.
+        Citas actualizadas al 2026-08-30.
       </p>
-      <p class="solo-papel recorte-impreso" id="recorte-impreso">Sin filtros: el informe completo, 823 publicaciones.</p>
+      <p class="solo-papel recorte-impreso" id="recorte-impreso">Sin filtros: el informe completo, 1.342 publicaciones.</p>
       <p class="solo-papel recorte-impreso" id="seleccion-impresa"></p>
       <label class="v-anio" id="recorte-anio-env" hidden>
         <span class="solo-lectores">Filtrar por año</span>
@@ -127,10 +127,10 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
 
   <div id="estado-recorte" data-prerender="1">
 <p class="recorte-estado" role="status">
-    <span class="recorte-n">823</span>
-    <span class="recorte-de">de 823 publicaciones</span>
+    <span class="recorte-n">1.342</span>
+    <span class="recorte-de">de 1.342 publicaciones</span>
     <span class="recorte-que recorte-todo">sin filtros · el informe completo</span>
-    <a class="enlace-lista" href="publicaciones.html">Ver las 823 publicaciones →</a>
+    <a class="enlace-lista" href="publicaciones.html">Ver las 1.342 publicaciones →</a>
   </p>
 </div>
 
@@ -141,12 +141,18 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
 <div class="filtros-explorador"><details class="dim" open>
       <summary><span class="dim-nombre">Año</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
+            data-dim="anio" data-valor="2020"
+            aria-pressed="false">2020<span class="chip-n">131</span></button><button type="button" class="chip"
+            data-dim="anio" data-valor="2021"
+            aria-pressed="false">2021<span class="chip-n">199</span></button><button type="button" class="chip"
+            data-dim="anio" data-valor="2022"
+            aria-pressed="false">2022<span class="chip-n">194</span></button><button type="button" class="chip"
             data-dim="anio" data-valor="2023"
-            aria-pressed="false">2023<span class="chip-n">228</span></button><button type="button" class="chip"
+            aria-pressed="false">2023<span class="chip-n">227</span></button><button type="button" class="chip"
             data-dim="anio" data-valor="2024"
-            aria-pressed="false">2024<span class="chip-n">276</span></button><button type="button" class="chip"
+            aria-pressed="false">2024<span class="chip-n">273</span></button><button type="button" class="chip"
             data-dim="anio" data-valor="2025"
-            aria-pressed="false">2025<span class="chip-n">319</span></button></div>
+            aria-pressed="false">2025<span class="chip-n">318</span></button></div>
     </details><details class="dim" >
       <summary><span class="dim-nombre">Autor</span></summary>
       <div class="dim-ops">
@@ -154,103 +160,121 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <input type="search" id="q-autor" class="busca-autor" list="autores-sugeridos"
       placeholder="Escriba una firma…" autocomplete="off"
       aria-describedby="q-autor-ayuda">
-    <datalist id="autores-sugeridos"><option value="Orellana-Donoso M.">39</option><option value="Mujika I.">30</option><option value="Yanine F.F.">26</option><option value="Ferre A.">25</option><option value="Giglio Jiménez A.">24</option><option value="Mariotti-Celis M.S.">22</option><option value="Díaz F.">21</option><option value="Castro-Sepúlveda M.">20</option><option value="Fernández-Verdejo R.">20</option><option value="Henríquez-Olguín C.">16</option><option value="Strauss F.J.">16</option><option value="Dreyse J.">16</option><option value="Farsani D.">14</option><option value="López-Arana S.">13</option><option value="Hartmann D.">13</option><option value="Simón L.">12</option><option value="Cancino-López J.">12</option><option value="Zbinden-Foncea H.">11</option><option value="Bustos-Arriagada E.">10</option><option value="Hidalgo M.">9</option><option value="González-Valderrama A.">9</option><option value="Reccius A.">8</option><option value="Puyol F.">7</option><option value="Landskron G.">7</option><option value="Castillo-Valenzuela O.">7</option><option value="Montalva-Valenzuela F.">7</option><option value="Ruiz-Riquelme P.">6</option><option value="Pedreros C.">6</option><option value="Gubbins V.">6</option><option value="Muzard A.">6</option><option value="Aedo S.">6</option><option value="Valle M.A.">6</option><option value="Balboa E.">5</option><option value="Torres K.">5</option><option value="Benites M.H.">5</option><option value="Rojas-Costa G.M.">5</option><option value="Cancino J.">5</option><option value="Salas-Guzmán N.">5</option><option value="Mena C.">5</option><option value="Murray N.P.">5</option><option value="Núñez-Lisboa M.N.">5</option><option value="Moyano Dávila C.">5</option><option value="Etchegaray-Armijo K.">5</option><option value="Hasbún P.">5</option><option value="Paredes R.">5</option><option value="Carvajal C.">5</option><option value="Santibáñez D.">5</option><option value="Rego T.">5</option><option value="Hidalgo-Rosa Y.">5</option><option value="Jorquera J.">5</option><option value="Tiscornia C.">4</option><option value="Vasquez F.">4</option><option value="Galleguillos R.">4</option><option value="Arroyo A.">4</option><option value="Montero V.">4</option><option value="Pino-Zúñiga J.">4</option><option value="Morales J.-P.">4</option><option value="González A.">4</option><option value="Carvajal G.">4</option><option value="Casals M.">4</option><option value="Zambrano C.">4</option><option value="Molina M.">4</option><option value="Martínez-Mardones M.B.">4</option><option value="Tuñón-Suárez M.">4</option><option value="Cortina A.H.">4</option><option value="Massa A.A.">4</option><option value="Castiglioni C.">3</option><option value="Pastén-Henríquez B.">3</option><option value="Lorca-Ponce E.">3</option><option value="Vásquez F.">3</option><option value="Contreras-Contreras G.">3</option><option value="Vergara K.">3</option><option value="Valenzuela R.">3</option><option value="Muszalski H.">3</option><option value="Kobayashi M.A.">3</option><option value="Guevara E.">3</option><option value="Carriel-Nesvara A.">3</option><option value="Hernández L.T.">3</option><option value="Mansilla-Obando K.">3</option><option value="Amarouch García I.">3</option><option value="Valdés C.Á.">3</option><option value="Lang M.">3</option><option value="Pizarro S.">3</option><option value="Arenas-Massa Á.">3</option><option value="Moya P.">3</option><option value="Giordanino E.">3</option><option value="Undurraga R.">3</option><option value="Rojas D.">3</option><option value="Cerón M.L.">3</option><option value="Marín G.J.">3</option><option value="Salas C.">3</option><option value="Soto-Suazo M.">3</option><option value="Dávila C.M.">3</option><option value="Santander A.S.">3</option><option value="Rojas-Saffie J.P.">3</option><option value="Larrañaga M.">2</option><option value="Villena J.M.">2</option><option value="Ayares G.">2</option><option value="Sanhueza M.B.">2</option><option value="Flores P.C.">2</option><option value="Jiménez A.G.">2</option><option value="Cerda E.">2</option><option value="Ramos A.">2</option><option value="Montero-Orellana M.J.">2</option><option value="Ossa-Cox M.">2</option><option value="Tabilo Prieto I.">2</option><option value="Saenz A.">2</option><option value="Maldonado-Agurto R.">2</option><option value="Avilés-Dorlhiac R.">2</option><option value="Crisóstomo Flores P.">2</option><option value="Retamal M.J.">2</option><option value="Muñoz-Medina C.">2</option><option value="Gaete M.">2</option><option value="Loyola M.T.">2</option><option value="Zañartu T.V.">2</option><option value="Sánchez-Duque C.">2</option><option value="Nachar R.">2</option><option value="Saud F.">2</option><option value="Gutiérrez J.">2</option><option value="Manzur A.">2</option><option value="Lomboy Finsterbusch M.I.">2</option><option value="De la Fuente López M.">2</option><option value="Valderrama P.">2</option><option value="Gálvez M.">2</option><option value="Quezada M.">2</option><option value="Figueroa D.">2</option><option value="Santos M.">2</option><option value="Caffarena P.">2</option><option value="Widow G.L.">2</option><option value="Nieto I.">2</option><option value="Ferreira-Wortsman C.">2</option><option value="Martínez M.">2</option><option value="Urrutia A.">2</option><option value="Candia-Véjar A.">2</option><option value="Morales Sepúlveda J.P.">2</option><option value="Hayes-Ortiz T.">2</option><option value="Chavez-Reyes A.">2</option><option value="Ballesteros P. P.">2</option><option value="Caffarena-Barcenilla C.">2</option><option value="Jan N.V.S.">2</option><option value="Álvarez-Valdés C.">2</option><option value="Vargas-Foitzick R.">2</option><option value="Díaz M.J.H.">2</option><option value="Ayala M.">2</option><option value="Torrealba F.P.">2</option><option value="Soto L.">2</option><option value="Villarroel V.">2</option><option value="Cottin M.">2</option><option value="Gómez Barbieri G.">2</option><option value="Ortiz-Orellana G.">2</option><option value="Buchuk P.">2</option><option value="Gómez-Sotta E.">2</option><option value="Llanos G.">2</option><option value="Lucero-Mora J.">2</option><option value="Busquets-Losada P.">2</option><option value="De la Fuente M.">2</option><option value="Van Sint Jan N.">2</option><option value="Zárate A.">2</option><option value="Rodríguez C.">2</option><option value="Soto M.">2</option><option value="García-Matte N.">2</option><option value="Domínguez A.">2</option><option value="Gutiérrez-Pino J.">2</option><option value="Stöwhas K.">2</option><option value="Diaz-Pizarro M.">2</option><option value="Allende-Valenzuela T.">2</option><option value="Morales-Guevara R.">2</option><option value="Aqueveque-Muñoz C.">2</option><option value="Cid N.">2</option><option value="Verschae G.">2</option><option value="Mardones-Falcone G.">1</option><option value="Paredes M.V.B.">1</option><option value="Orellana C.">1</option><option value="Osorio M.">1</option><option value="Catalán C.">1</option><option value="Tapia V.">1</option><option value="Águila D.">1</option><option value="Rivera-Tovar P.R.">1</option><option value="Mariotti-Cellis M.S.">1</option><option value="Urrea F.">1</option><option value="Olive F.">1</option><option value="Gutiérrez S.">1</option><option value="Rodríguez M.F.">1</option><option value="Martín M.J.S.">1</option><option value="Urbina K.G.D.">1</option><option value="Zamorano A.">1</option><option value="Neira M.">1</option><option value="Garcia K.">1</option><option value="Franchello M.">1</option><option value="Bastías J.">1</option><option value="González S.E.">1</option><option value="Silva I.M.">1</option><option value="Herrero J.">1</option><option value="Tapia-Castillo A.">1</option><option value="De la fuente López M.">1</option><option value="Arauco Rodríguez D.">1</option><option value="Bencina Matus F.">1</option><option value="Beytia Osses I.">1</option><option value="Cárdenas Larenas J.P.">1</option><option value="Guardia Castro D.">1</option><option value="Moraga Concha J.">1</option><option value="Ibañez H.">1</option><option value="Verdugo F.J.">1</option><option value="Reyes M.">1</option><option value="Castillo L.P.">1</option><option value="Cruz D.H.-D.L.">1</option><option value="Reccius-Meza A.">1</option><option value="Franchello M.E.">1</option><option value="Espinoza A.R.">1</option><option value="Basáez-Miranda E.">1</option><option value="Casals-Hill A.">1</option><option value="Zamora L.C.">1</option><option value="Vargas C.H.">1</option><option value="Gutierrez M.">1</option><option value="Figueroa-Bustos A.">1</option><option value="Ferre Contreras A.">1</option><option value="Conti Donoso F.">1</option><option value="Letelier Widow G.">1</option><option value="Fuente M.D.L.">1</option><option value="Erazo P.V.">1</option><option value="Escobar-González S.">1</option><option value="C F.O.">1</option><option value="Garcia J.">1</option><option value="Rojas Gonzaga T.">1</option><option value="Aravena S.C.">1</option><option value="Esis Villarroel I.S.">1</option><option value="Barrenechea-Salvador M.">1</option><option value="Caro-Navarro J.">1</option><option value="Cervela-Díaz M.">1</option><option value="Chacón-Ortiz C.">1</option><option value="Claudet-Córdoba N.">1</option><option value="Almendras-Chacana R.A.">1</option><option value="Cisternas-Zamora L.A.">1</option><option value="Bopp M.-J.">1</option><option value="Jeria-Espinoza V.">1</option><option value="Solar P.">1</option><option value="Figueroa-Moya D.">1</option><option value="Bilicic D.">1</option><option value="Valderrama E P.">1</option><option value="Pineda T.">1</option><option value="Henríquez C.">1</option><option value="Moreno S.">1</option><option value="Cortés-Sylvester M.F.">1</option><option value="Polanco V.">1</option><option value="San Martín T.">1</option><option value="Ramos T.">1</option><option value="Caro J.C.">1</option><option value="Ponce N.">1</option><option value="Zamorano S.">1</option><option value="Hernández R.N.">1</option><option value="Aguilar-Risco C.">1</option><option value="Mendez-Rebolledo G.">1</option><option value="Coloma C.R.-T.">1</option><option value="Sánchez M.">1</option><option value="Herrera N.">1</option><option value="López-Soto P.">1</option><option value="Ramos-Alarcón M.B.">1</option><option value="Rugeles F.L.">1</option><option value="Chiuminatto P.">1</option><option value="Hill A.C.">1</option><option value="Quintero K.C.">1</option><option value="Fernández J.">1</option><option value="Bellomi P.">1</option><option value="Thielemann L.">1</option><option value="Debesa-Arregui L.M.">1</option><option value="Barrera E.G.">1</option><option value="Montalva J.T.">1</option><option value="Abara J.F.">1</option><option value="Caffarena Barcenilla P.">1</option><option value="Perez S.">1</option><option value="Andrade Kobayashi M.">1</option><option value="Rocco-Toloza V.">1</option><option value="Ponce P.">1</option><option value="Bustos-Muñoz D.">1</option><option value="Arregui L.M.D.">1</option><option value="Aránguiz P.M.">1</option><option value="Avendano B.S.">1</option><option value="Valenzuela T.">1</option><option value="Diaz-Reiher M.">1</option><option value="Flores-Opazo M.">1</option><option value="Bustamante A.">1</option><option value="Jannas-Vela S.">1</option><option value="Festa R.R.">1</option><option value="Varas-Diaz G.">1</option><option value="Dorlhiac R.A.">1</option><option value="Faúndez M.O.">1</option><option value="Salomé Mariotti Celis M.">1</option><option value="Riquelme P.R.">1</option><option value="Angulo J.">1</option><option value="Pino J.">1</option><option value="Hube-Antoine C.">1</option><option value="Elorrieta V.">1</option><option value="Kompatzki Á.">1</option><option value="Salvadó J.A.">1</option><option value="Velasco A.">1</option><option value="Villena J.">1</option><option value="Silva-Figueroa A.M.">1</option><option value="Bäuerle N.E.">1</option><option value="Saffie J.P.R.">1</option><option value="Milla V.P.">1</option><option value="Hevia-Larraín V.">1</option><option value="Ramos-Navarro C.">1</option><option value="Saúl M.J.">1</option><option value="Aedo Monsalve S.">1</option><option value="Duarte L.">1</option><option value="Arazo M.C.R.">1</option><option value="Ponce D.">1</option><option value="Roncone D. E.">1</option><option value="Valenzuela L. G.">1</option><option value="Vallejos P. G.">1</option><option value="Araujo J.T.">1</option><option value="Casas-Cordero J.P.">1</option><option value="Arazo-Rusindo M.">1</option><option value="D’andurain J.">1</option><option value="López V.">1</option><option value="Godoy-Torres V.">1</option><option value="de Souza Costa D.">1</option><option value="Canihuante C.Z.">1</option><option value="Herrera Araya D.">1</option><option value="Hidago-Rosa Y.">1</option><option value="Mancilla R.">1</option><option value="Mansilla K.Y.">1</option><option value="Hidalgo-Pérez H.">1</option><option value="Ishtiaque T.A.">1</option><option value="Johansen A.">1</option><option value="Shabani R.">1</option><option value="Torp O.">1</option><option value="Valero-Breton M.">1</option><option value="Valencia I.">1</option><option value="Sepúlveda J.P.M.">1</option><option value="Tavera A.T.">1</option><option value="Irarrázaval C.A.A.">1</option><option value="Macho R.A.M.">1</option><option value="Moltedo N.I.F.">1</option><option value="Roos J.A.C.">1</option><option value="Letelier J.P.">1</option><option value="Barcenilla P.C.">1</option><option value="Gomez D.S.">1</option><option value="Arellano P.">1</option><option value="Regueira T.">1</option><option value="Carrillo D.J.P.">1</option><option value="Munita M.A.">1</option><option value="Torrealba J.">1</option><option value="Olavarría N.">1</option><option value="Henrriquez C.">1</option><option value="Tapia I.">1</option><option value="Méndez-Sánchez R.E.">1</option><option value="Franco D.R.">1</option><option value="Inzulza S.">1</option><option value="Venegas M.">1</option><option value="Sepúlveda A I.">1</option><option value="Irarrázaval C.A.">1</option><option value="Macho R.M.">1</option><option value="Roos A.C.">1</option><option value="Cárdenas D.C.">1</option><option value="Roa Cáceres C.">1</option><option value="Ubierna D.B.B.">1</option><option value="Castillo N.">1</option><option value="Jaque Y.">1</option><option value="Llera C.">1</option><option value="Norambuena C.">1</option><option value="Peragallo J.">1</option><option value="Schlageter F.">1</option><option value="Vallejos G.">1</option><option value="Tapia R.H.">1</option><option value="Sepulveda I.">1</option><option value="Berrocal Silva L.">1</option><option value="Jofré Bartholin M.">1</option><option value="Letelier F.">1</option><option value="Aguirre M.">1</option><option value="Ahumada F.">1</option><option value="Ortiz F.">1</option><option value="Altamirano M.">1</option><option value="Alviz M.">1</option><option value="Cruzat J.C.">1</option><option value="González P.S.">1</option><option value="Ostornol A.F.">1</option><option value="Guevara Ó.J.">1</option><option value="Díaz-Eris A.">1</option><option value="Navarro-Plazaola N.">1</option><option value="Neira B.C.">1</option><option value="Norambuena-Narváez C.">1</option><option value="von Hoveling-Schindler A.">1</option><option value="García F.">1</option><option value="Nazal L.">1</option><option value="Kemeny R.">1</option><option value="Brocco S.Z.">1</option><option value="Barbieri G.G.">1</option><option value="van Sint Jan D N.">1</option><option value="Hernández Cortina A.">1</option><option value="Lermanda Peña C.">1</option><option value="Ibáñez-Muñoz R.C.">1</option><option value="Hernandez A.">1</option><option value="Poblete Alday P.">1</option><option value="Troncoso-Ortiz E.J.">1</option><option value="Perez-Jiménez D.">1</option><option value="Colihuinca T.O.">1</option><option value="Ramirez P.">1</option><option value="Rodríguez I.">1</option><option value="Zalaquett R.">1</option><option value="Vidal C. M.">1</option><option value="Dıaz F.">1</option><option value="Gómez G.G.">1</option><option value="Donoso M.O.">1</option><option value="Olivares M.">1</option><option value="Figueroa F.C.">1</option><option value="Tapia-Curimil G.">1</option><option value="Huepe-Artigas D.">1</option><option value="Aravena-Ríos P.">1</option><option value="Fuentes-Abarca A.">1</option><option value="Romero-Zucchino D.">1</option><option value="María José H.">1</option><option value="Sandoval P.P.P.">1</option><option value="Aroca Siré P.">1</option><option value="Bassa J.C.">1</option><option value="Muñoz Fuentes C.">1</option><option value="Reyes J.">1</option><option value="Gómez G.">1</option><option value="Contreras Valeria C.">1</option><option value="Williams Oyarce C.">1</option><option value="Von Moltke R.">1</option><option value="Carneiro A.M.Y.">1</option><option value="Villalobos P.">1</option><option value="Prieto I.T.">1</option><option value="Carrasco G.">1</option><option value="Araneda C.">1</option><option value="Romero C.">1</option><option value="Vásquez G.">1</option><option value="Figueroa-Toledo A.M.">1</option><option value="Marchese-Bittencourt M.">1</option><option value="de la Fuente M.">1</option><option value="Aceves Álvarez O.">1</option><option value="Suazo F.">1</option><option value="Trautmann D.">1</option><option value="Valderrama Y.">1</option><option value="Díaz-Castro F.">1</option><option value="Figueroa A.M.">1</option><option value="Peñaloza P.F.">1</option><option value="Zaio Á.">1</option><option value="González J.H.">1</option><option value="Ramos T.F.">1</option><option value="Coloma B.">1</option><option value="Cooper A.">1</option><option value="Inostroza P.">1</option><option value="Serrano M.J.">1</option><option value="Valenzuela C.">1</option><option value="Cavada G.">1</option><option value="Fortuny E.">1</option><option value="Benites M.">1</option><option value="Sepúlveda P. P.">1</option><option value="Silva A.K.">1</option><option value="Castro-Cruz M.">1</option><option value="Cáceres-Hernández A.">1</option><option value="Quintana-Guiñez F.">1</option><option value="Prado-Medel C.">1</option><option value="Molina C.">1</option><option value="Chacana R.A.">1</option><option value="González-Hernández J.">1</option><option value="de Guevara D.L.H.">1</option><option value="Cavada Chacón G.">1</option><option value="Horna Campos O.">1</option><option value="Martínez M.M.">1</option><option value="López A.L.">1</option><option value="Vallejos-Penaloza G.">1</option><option value="Lagos M.">1</option><option value="Torres K.O.">1</option><option value="Díaz-Galaz L.">1</option><option value="Barrientos J.">1</option><option value="Echeverría K.">1</option><option value="Cartaya M.A.">1</option><option value="Smague D.">1</option><option value="Vergara F.V.">1</option><option value="López Y.M.">1</option><option value="de la Cruz P.S.">1</option><option value="Martineau P.D.H.C.">1</option><option value="Mayo B.">1</option><option value="Penroz S.">1</option><option value="Cayu E.">1</option><option value="Williams C.">1</option><option value="Nazer M.I.">1</option><option value="Rodas C.">1</option><option value="Moena Benítez M.F.">1</option><option value="Rivas Orrego J.">1</option><option value="Díaz Rubio F.">1</option><option value="Giancáspero-Inostroza F.">1</option><option value="Toledo S.H.">1</option><option value="Ibañez V.">1</option><option value="Martínez Galdames B.">1</option><option value="Martínez-Cárdenas B.">1</option><option value="Elton Í.A.G.">1</option><option value="Chadwick C.F.">1</option><option value="Errázuriz A.M.">1</option><option value="Candell M.B.">1</option><option value="Galaz M.T.V.">1</option><option value="Landreau C.C.">1</option><option value="Martin P.A.Q.S.">1</option><option value="Villarroel N.C.">1</option><option value="Pinzón-Merchán M.">1</option><option value="Álamos-Vial N.">1</option><option value="Fermín-González M.">1</option><option value="Botto Stuven A.">1</option><option value="Villegas P.A.P.">1</option><option value="Tovar W.">1</option><option value="Edwards-Toro F.">1</option><option value="Gálvez-Bravo F.">1</option><option value="Opazo-García C.">1</option><option value="Triat M.T.">1</option><option value="Rojas J.P.">1</option><option value="de Vos V.">1</option><option value="Marrugo N.">1</option><option value="Palma G.">1</option><option value="Venegas J.C.">1</option><option value="Alba V.">1</option><option value="Pavez S.">1</option><option value="Val V.">1</option><option value="González I.">1</option><option value="Loyola M.">1</option><option value="Rufin-Larraín A.">1</option><option value="Hevia D.">1</option><option value="Salas N.">1</option><option value="García J.">1</option><option value="Muñoz-Concha D.">1</option><option value="Fuentealba J.M.">1</option><option value="García-Meneses C.">1</option><option value="Arriagada I C.">1</option><option value="Conejero R A.">1</option><option value="Covarrubias C P.">1</option><option value="Doña V J.">1</option><option value="Hurtado D M.J.">1</option><option value="Maldonado J D.">1</option></datalist>
-    <p class="nota" id="q-autor-ayuda">530 firmas en este recorte.
+    <datalist id="autores-sugeridos"><option value="Mujika I.">69</option><option value="Yanine F.F.">43</option><option value="Orellana-Donoso M.">40</option><option value="Castro-Sepúlveda M.">38</option><option value="Mariotti-Celis M.S.">34</option><option value="Farsani D.">32</option><option value="Zbinden-Foncea H.">31</option><option value="Díaz F.">29</option><option value="Fernández-Verdejo R.">28</option><option value="Ferre A.">26</option><option value="Murray N.P.">26</option><option value="Aedo S.">25</option><option value="Giglio Jiménez A.">24</option><option value="Cancino-López J.">19</option><option value="González-Valderrama A.">19</option><option value="Henríquez-Olguín C.">16</option><option value="Strauss F.J.">16</option><option value="Dreyse J.">16</option><option value="Valle M.A.">16</option><option value="Hartmann D.">15</option><option value="Simón L.">13</option><option value="Bustos-Arriagada E.">13</option><option value="López-Arana S.">13</option><option value="Castillo-Valenzuela O.">12</option><option value="Landskron G.">10</option><option value="Peñailillo L.">10</option><option value="Jannas-Vela S.">10</option><option value="Hidalgo M.">9</option><option value="Gubbins V.">9</option><option value="Reccius A.">8</option><option value="Mena C.">8</option><option value="Etchegaray-Armijo K.">8</option><option value="Carvajal G.">8</option><option value="Undurraga R.">8</option><option value="Ferreira-Wortsman C.">8</option><option value="Cortina A.H.">8</option><option value="Tuñón-Suárez M.">8</option><option value="Puyol F.">7</option><option value="Cancino J.">7</option><option value="Montalva-Valenzuela F.">7</option><option value="Muzard A.">7</option><option value="Flores-Opazo M.">7</option><option value="Ruiz-Riquelme P.">6</option><option value="Pedreros C.">6</option><option value="Mansilla-Obando K.">6</option><option value="Hasbún P.">6</option><option value="Nachar R.">6</option><option value="Santibáñez D.">6</option><option value="Marín G.J.">6</option><option value="Cottin M.">6</option><option value="Martínez-Mardones M.B.">6</option><option value="Llanos-Herrera G.R.">6</option><option value="Balboa E.">5</option><option value="Torres K.">5</option><option value="Benites M.H.">5</option><option value="Rojas-Costa G.M.">5</option><option value="Salas-Guzmán N.">5</option><option value="Montero V.">5</option><option value="Kobayashi M.A.">5</option><option value="Núñez-Lisboa M.N.">5</option><option value="Moyano Dávila C.">5</option><option value="Paredes R.">5</option><option value="Carvajal C.">5</option><option value="Rego T.">5</option><option value="Cerón M.L.">5</option><option value="Massa A.A.">5</option><option value="Hidalgo-Rosa Y.">5</option><option value="Jorquera J.">5</option><option value="Lorca-Ponce E.">4</option><option value="Tiscornia C.">4</option><option value="Galleguillos R.">4</option><option value="Arroyo A.">4</option><option value="Pino-Zúñiga J.">4</option><option value="Hernández L.T.">4</option><option value="Morales J.-P.">4</option><option value="González A.">4</option><option value="Casals M.">4</option><option value="Zambrano C.">4</option><option value="Cordova F.">4</option><option value="Williams C.">4</option><option value="Córdova F.">4</option><option value="Letelier J.P.">4</option><option value="Salvadó J.A.">4</option><option value="Velasco A.">4</option><option value="Hardy N.">4</option><option value="Cavada G.">4</option><option value="Soto-Suazo M.">4</option><option value="Munita M.A.">4</option><option value="Fuentes J.">4</option><option value="Salas N.">4</option><option value="De la Fuente M.">4</option><option value="Soto L.">4</option><option value="Dávila C.M.">4</option><option value="Molina M.">4</option><option value="Castiglioni C.">3</option><option value="Pastén-Henríquez B.">3</option><option value="Vásquez F.">3</option><option value="Contreras-Contreras G.">3</option><option value="Vasquez F.">3</option><option value="Vergara K.">3</option><option value="Valenzuela R.">3</option><option value="Muszalski H.">3</option><option value="Guevara E.">3</option><option value="Carriel-Nesvara A.">3</option><option value="Amarouch García I.">3</option><option value="Valdés C.Á.">3</option><option value="Esis Villarroel I.S.">3</option><option value="Lang M.">3</option><option value="Pizarro S.">3</option><option value="Arenas-Massa Á.">3</option><option value="Moya P.">3</option><option value="Giordanino E.">3</option><option value="Caffarena P.">3</option><option value="Abara J.F.">3</option><option value="Rojas D.">3</option><option value="Manuel Loyola T.">3</option><option value="Tapia G.">3</option><option value="Quinteros M.J.">3</option><option value="Santelices L.">3</option><option value="Mariotti Celis M.S.">3</option><option value="Gutierrez M.F.">3</option><option value="Opitz T.">3</option><option value="Valero-Breton M.">3</option><option value="Opazo M.U.">3</option><option value="Duarte L.">3</option><option value="Loyola M.">3</option><option value="Valenzuela T.">3</option><option value="Norambuena C.">3</option><option value="Zarate A.J.">3</option><option value="Rubio F.D.">3</option><option value="Fermín-González M.">3</option><option value="Varas-Diaz G.">3</option><option value="Dorlhiac R.A.">3</option><option value="Barcenilla P.C.">3</option><option value="Regueira T.">3</option><option value="Alday P.P.">3</option><option value="Bugueño R.A.P.">3</option><option value="Candia-Véjar A.">3</option><option value="Urrutia A.">3</option><option value="Martínez M.">3</option><option value="Salas C.">3</option><option value="Santander A.S.">3</option><option value="Rojas-Saffie J.P.">3</option><option value="Larrañaga M.">2</option><option value="Villena J.M.">2</option><option value="Ayares G.">2</option><option value="Sanhueza M.B.">2</option><option value="Flores P.C.">2</option><option value="Jiménez A.G.">2</option><option value="Cerda E.">2</option><option value="Ramos A.">2</option><option value="González S.E.">2</option><option value="Montero-Orellana M.J.">2</option><option value="Ossa-Cox M.">2</option><option value="Tabilo Prieto I.">2</option><option value="Saenz A.">2</option><option value="Guesalaga R.">2</option><option value="Maldonado-Agurto R.">2</option><option value="Avilés-Dorlhiac R.">2</option><option value="Crisóstomo Flores P.">2</option><option value="Retamal M.J.">2</option><option value="Muñoz-Medina C.">2</option><option value="Gaete M.">2</option><option value="Loyola M.T.">2</option><option value="Zañartu T.V.">2</option><option value="Aravena S.C.">2</option><option value="Figueroa-Bustos A.">2</option><option value="Sánchez-Duque C.">2</option><option value="Saud F.">2</option><option value="Gutiérrez J.">2</option><option value="Manzur A.">2</option><option value="Lomboy Finsterbusch M.I.">2</option><option value="De la Fuente López M.">2</option><option value="Moreno S.">2</option><option value="Valderrama P.">2</option><option value="Gálvez M.">2</option><option value="Quezada M.">2</option><option value="Figueroa D.">2</option><option value="Santos M.">2</option><option value="Thielemann L.">2</option><option value="Caffarena Barcenilla P.">2</option><option value="Widow G.L.">2</option><option value="González E.">2</option><option value="Zúñiga C.">2</option><option value="Rada I.">2</option><option value="Gómez G.G.">2</option><option value="Avilés R.">2</option><option value="Monje C.">2</option><option value="Penailillo L.">2</option><option value="Ayala Munita M.">2</option><option value="Edson Bustos A.">2</option><option value="Chacón G.C.">2</option><option value="Barros J.R.">2</option><option value="de la Cruz P.S.">2</option><option value="Cordova F.M.">2</option><option value="Medina C.A.">2</option><option value="Chávez-Reyes A.">2</option><option value="Mackay K.">2</option><option value="Silva-Figueroa A.">2</option><option value="Aviles R.">2</option><option value="Nieto I.">2</option><option value="Losada P.B.">2</option><option value="Riquelme P.R.">2</option><option value="Barcenilla D.P.C.">2</option><option value="Araya-Quezada C.">2</option><option value="Bittner S.">2</option><option value="Vega E.">2</option><option value="López V.">2</option><option value="Herrera I.H.">2</option><option value="Valdés O.">2</option><option value="Gutiérrez M.F.">2</option><option value="Espinoza C.">2</option><option value="Villarroel I.E.">2</option><option value="Córdova F.M.">2</option><option value="Díaz Rubio F.">2</option><option value="Franco D.R.">2</option><option value="Pino J.">2</option><option value="Saldías I.C.">2</option><option value="Sepulveda I.">2</option><option value="Zilveti M.">2</option><option value="Faúndez M.O.">2</option><option value="Bolt A.">2</option><option value="Elorrieta V.">2</option><option value="Castro C.">2</option><option value="Hinostroza C.">2</option><option value="Arellano P.">2</option><option value="Morales Sepúlveda J.P.">2</option><option value="Cárdenas D.C.">2</option><option value="Ubierna D.B.B.">2</option><option value="Hayes-Ortiz T.">2</option><option value="Chavez-Reyes A.">2</option><option value="Ballesteros P. P.">2</option><option value="Christie J.D.">2</option><option value="Caffarena-Barcenilla C.">2</option><option value="Jan N.V.S.">2</option><option value="Álvarez-Valdés C.">2</option><option value="Vargas-Foitzick R.">2</option><option value="Díaz M.J.H.">2</option><option value="Ayala M.">2</option><option value="Torrealba F.P.">2</option><option value="Villarroel V.">2</option><option value="Gómez Barbieri G.">2</option><option value="Ortiz-Orellana G.">2</option><option value="Buchuk P.">2</option><option value="Gómez-Sotta E.">2</option><option value="Llanos G.">2</option><option value="Lucero-Mora J.">2</option><option value="Busquets-Losada P.">2</option><option value="Van Sint Jan N.">2</option><option value="Zárate A.">2</option><option value="Rodríguez C.">2</option><option value="Soto M.">2</option><option value="García-Matte N.">2</option><option value="Domínguez A.">2</option><option value="Gutiérrez-Pino J.">2</option><option value="Stöwhas K.">2</option><option value="Diaz-Pizarro M.">2</option><option value="Allende-Valenzuela T.">2</option><option value="Morales-Guevara R.">2</option><option value="Aqueveque-Muñoz C.">2</option><option value="Cid N.">2</option><option value="Verschae G.">2</option><option value="Mardones-Falcone G.">1</option><option value="Paredes M.V.B.">1</option><option value="Orellana C.">1</option><option value="Osorio M.">1</option><option value="Catalán C.">1</option><option value="Tapia V.">1</option><option value="Águila D.">1</option><option value="Rivera-Tovar P.R.">1</option><option value="Mariotti-Cellis M.S.">1</option><option value="Urrea F.">1</option><option value="Olive F.">1</option><option value="Gutiérrez S.">1</option><option value="Rodríguez M.F.">1</option><option value="Martín M.J.S.">1</option><option value="Urbina K.G.D.">1</option><option value="Zamorano A.">1</option><option value="Neira M.">1</option><option value="Garcia K.">1</option><option value="Franchello M.">1</option><option value="Bastías J.">1</option><option value="Silva I.M.">1</option><option value="Herrero J.">1</option><option value="Tapia-Castillo A.">1</option><option value="De la fuente López M.">1</option><option value="Arauco Rodríguez D.">1</option><option value="Bencina Matus F.">1</option><option value="Beytia Osses I.">1</option><option value="Cárdenas Larenas J.P.">1</option><option value="Guardia Castro D.">1</option><option value="Moraga Concha J.">1</option><option value="Ibañez H.">1</option><option value="Verdugo F.J.">1</option><option value="Reyes M.">1</option><option value="Castillo L.P.">1</option><option value="Cruz D.H.-D.L.">1</option><option value="Reccius-Meza A.">1</option><option value="Franchello M.E.">1</option><option value="Espinoza A.R.">1</option><option value="Basáez-Miranda E.">1</option><option value="Casals-Hill A.">1</option><option value="Zamora L.C.">1</option><option value="Vargas C.H.">1</option><option value="Gutierrez M.">1</option><option value="Ferre Contreras A.">1</option><option value="Conti Donoso F.">1</option><option value="Letelier Widow G.">1</option><option value="Fuente M.D.L.">1</option><option value="Erazo P.V.">1</option><option value="Escobar-González S.">1</option><option value="C F.O.">1</option><option value="Garcia J.">1</option><option value="Rojas Gonzaga T.">1</option><option value="Barrenechea-Salvador M.">1</option><option value="Caro-Navarro J.">1</option><option value="Cervela-Díaz M.">1</option><option value="Chacón-Ortiz C.">1</option><option value="Claudet-Córdoba N.">1</option><option value="Almendras-Chacana R.A.">1</option><option value="Cisternas-Zamora L.A.">1</option><option value="Bopp M.-J.">1</option><option value="Jeria-Espinoza V.">1</option><option value="Solar P.">1</option><option value="Figueroa-Moya D.">1</option><option value="Bilicic D.">1</option><option value="Valderrama E P.">1</option><option value="Pineda T.">1</option><option value="Henríquez C.">1</option><option value="Cortés-Sylvester M.F.">1</option><option value="Polanco V.">1</option><option value="San Martín T.">1</option><option value="Ramos T.">1</option><option value="Caro J.C.">1</option><option value="Ponce N.">1</option><option value="Zamorano S.">1</option><option value="Hernández R.N.">1</option><option value="Aguilar-Risco C.">1</option><option value="Mendez-Rebolledo G.">1</option><option value="Coloma C.R.-T.">1</option><option value="Sánchez M.">1</option><option value="Herrera N.">1</option><option value="López-Soto P.">1</option><option value="Ramos-Alarcón M.B.">1</option><option value="Rugeles F.L.">1</option><option value="Chiuminatto P.">1</option><option value="Hill A.C.">1</option><option value="Quintero K.C.">1</option><option value="Fernández J.">1</option><option value="Debesa-Arregui L.M.">1</option><option value="Barrera E.G.">1</option><option value="Montalva J.T.">1</option><option value="Perez S.">1</option><option value="Andrade Kobayashi M.">1</option><option value="Rocco-Toloza V.">1</option><option value="Ponce P.">1</option><option value="Bustos-Muñoz D.">1</option><option value="Arregui L.M.D.">1</option><option value="Aránguiz P.M.">1</option><option value="Avendano B.S.">1</option><option value="Valladares-Ide D.">1</option><option value="Aedo C.">1</option><option value="Cartagena M.">1</option><option value="Contreras A.">1</option><option value="Marín G.">1</option><option value="Collao N.">1</option><option value="Zárate A.J.">1</option><option value="Peña V.M.">1</option><option value="Ojeda H.">1</option><option value="Sepulveda P.">1</option><option value="von Höveling A.">1</option><option value="Arias M.">1</option><option value="Cancino K.D.">1</option><option value="Escudero E.">1</option><option value="Santander M.">1</option><option value="Riquelme-Castañeda J.A.">1</option><option value="Vega-Massó R.A.">1</option><option value="Oyarzún A.">1</option><option value="Berrocal L.">1</option><option value="Jofré M.">1</option><option value="Bustos E.R.">1</option><option value="Molina C.R.">1</option><option value="Pacheco L.">1</option><option value="Saravia A.">1</option><option value="Aranda J.">1</option><option value="Villagrán C.">1</option><option value="Ávalos-Allele D.">1</option><option value="Barriga Pooley P.">1</option><option value="Alexis Medina P.">1</option><option value="Gallardo P.">1</option><option value="Palma P.">1</option><option value="Fernándezb R.">1</option><option value="Pau P.M.">1</option><option value="Mariolly Gutiérrrez R.">1</option><option value="Jesam F.">1</option><option value="Lobos C.">1</option><option value="Valverde-Ampai W.">1</option><option value="Berríos L.">1</option><option value="Cassasa M.A.">1</option><option value="Ramírez E.S.">1</option><option value="Araya J.A.">1</option><option value="Torrealba T.C.">1</option><option value="Perez F.">1</option><option value="Ramirez C.">1</option><option value="Valdes O.">1</option><option value="Quinteros M.">1</option><option value="Hecht F.Z.">1</option><option value="Magner N.S.">1</option><option value="RIQUELME S.">1</option><option value="Gonzalez-Bartholin R.">1</option><option value="Nickel R.">1</option><option value="Troncoso F.">1</option><option value="Madariaga Becerra L.">1</option><option value="Ana María Pacheco F.">1</option><option value="Bayron Valenzuela C.">1</option><option value="Cristián Valenzuela H.">1</option><option value="Mónica Martínez M.">1</option><option value="Sebastián E.G.">1</option><option value="Paula C.B.">1</option><option value="Aguilera M.P.">1</option><option value="Kokaly M.">1</option><option value="Bugueño R.P.">1</option><option value="Cuevas I.C.">1</option><option value="Henríquez Herrera I.">1</option><option value="Jazanovich D.">1</option><option value="Lange F.">1</option><option value="Hosiasson S. S.">1</option><option value="Patiño A.B.">1</option><option value="Pinto C. M.">1</option><option value="Villalón U. H.">1</option><option value="Alliende L.M.">1</option><option value="Atria P.J.">1</option><option value="Riquelme S.">1</option><option value="Caballero Muñoz E.M.">1</option><option value="Villegas C.A.">1</option><option value="Ilabaca J.">1</option><option value="Hanisch M.S.">1</option><option value="Fernandez M.R.">1</option><option value="Orellana M.">1</option><option value="Bravo M.J.">1</option><option value="Carvajal A.">1</option><option value="Edson B.A.">1</option><option value="Karina E.A.">1</option><option value="Vilicic T.P.V.">1</option><option value="Soto R.">1</option><option value="Mayol E.M.">1</option><option value="Alejandro Zárate C.">1</option><option value="Fernández N.Z.">1</option><option value="Perillán Torres J.">1</option><option value="Reinike B.W.">1</option><option value="Valenzuela T.A.">1</option><option value="Santibáñez-Gómez D.">1</option><option value="Gómez-Barbieri G.">1</option><option value="Torres-Bavestrello L.">1</option><option value="Zárate-Castillo A.">1</option><option value="Peñailillo L.E.">1</option><option value="Gunnarsson J.">1</option><option value="Alarcón A.">1</option><option value="Muñoz R.">1</option><option value="Magner N.">1</option><option value="Valle M.">1</option><option value="de los Ángeles Ferrer-Mavárez M.">1</option><option value="Cádiz M.">1</option><option value="Dougnac A.">1</option><option value="Méndez N.">1</option><option value="Silva S.">1</option><option value="Bernucci Piedra J.M.">1</option><option value="Bilicic Ubierna D.B.">1</option><option value="Cattarinich Schiffrin N.">1</option><option value="Coronel Cárdenas D.">1</option><option value="Soto Munizaga R.">1</option><option value="Santos M.L.B.">1</option><option value="Avilés Dorlhiac R.">1</option><option value="Navarro Plazaola N.">1</option><option value="Vega Chacana M.">1</option><option value="Raimundo Avilés D.">1</option><option value="Carla Montiel G.">1</option><option value="Patricio Barriga P.">1</option><option value="Soto Godoy L.">1</option><option value="Cruces P.">1</option><option value="Gonzalez J.">1</option><option value="Valenzuela J.">1</option><option value="SILVA-FIGUEROA A.">1</option><option value="MUNITA M.A.">1</option><option value="Castro Cruz M.">1</option><option value="Hodge-Dupré E.A.">1</option><option value="Pfeifer J.">1</option><option value="Castillo-Vargas E.">1</option><option value="Díaz-Fabres A.">1</option><option value="Palacios-García F.">1</option><option value="Parra-Novoa M.F.">1</option><option value="Sapiain-González S.">1</option><option value="Josefa Valenzuela S.">1</option><option value="Aguirre E.">1</option><option value="Yanine-Misleh F.">1</option><option value="Álvarez M.R.">1</option><option value="Sedini F.M.R.">1</option><option value="Cataldo M.">1</option><option value="Nunez-Lisboa M.">1</option><option value="Godoy-Órdenes R.">1</option><option value="Caamaño M.">1</option><option value="Gonzalez A.">1</option><option value="Quintana-Aguirre N.">1</option><option value="Karina Etchegaray A.">1</option><option value="Marcelo Cádiz C.">1</option><option value="Oscar Castillo V.">1</option><option value="Inostroza M.">1</option><option value="Kompen M.J.">1</option><option value="Núñez O.">1</option><option value="IDALIA SEPÚLVEDA M.">1</option><option value="Mariolly G.R.">1</option><option value="Jaque-Ulloa D.">1</option><option value="Santos-López M.">1</option><option value="Camposano L.L.">1</option><option value="De Abreu M.G.">1</option><option value="Cortés-Segovia P.">1</option><option value="Castro O.J.">1</option><option value="dos Santos M.L.B.">1</option><option value="Franco Díaz R.">1</option><option value="Lange F.V.">1</option><option value="López C.">1</option><option value="Sánchez R.">1</option><option value="Troncoso M.P.">1</option><option value="Antonia Cooper S.">1</option><option value="Felipe Vergara T.">1</option><option value="Jennifer Green M.">1</option><option value="Luisa Cerón M.">1</option><option value="Goosey-Tolfrey V.L.">1</option><option value="Cifuentes H.F.">1</option><option value="Araya G.">1</option><option value="Bader D.">1</option><option value="Cornejo M.C.">1</option><option value="Álvarez F.">1</option><option value="Carvallo C.">1</option><option value="Garnham N.">1</option><option value="Jara K.">1</option><option value="Lobos N.">1</option><option value="Morales R.">1</option><option value="Mosso C.">1</option><option value="Negrete F.">1</option><option value="Rojas M.">1</option><option value="Schüler C.">1</option><option value="Vidal M.">1</option><option value="Pacheco E.F.">1</option><option value="Cancino López J.">1</option><option value="Nieto Larrain I.">1</option><option value="Diaz-Reiher M.">1</option><option value="Vargas G.O.">1</option><option value="Kaiser-Cifuentes R.">1</option><option value="Smok C.">1</option><option value="Lorca E.">1</option><option value="Duarte-Silva L.">1</option><option value="Barreda B.">1</option><option value="Contreras E. I.">1</option><option value="González C.T.">1</option><option value="Bustamante A.">1</option><option value="Morán M.">1</option><option value="Asenjo A.">1</option><option value="Río M.P.D.">1</option><option value="Suazo M.S.">1</option><option value="Rios L.">1</option><option value="Donaire E.">1</option><option value="López-Hermida Russo A.">1</option><option value="Murray N.">1</option><option value="Festa R.R.">1</option><option value="Rodríguez F.">1</option><option value="Morales-Acuna F.">1</option><option value="Jaramillo D.A.F.M.">1</option><option value="Montecinos T.I.R.">1</option><option value="Muñoz C.Á.R.">1</option><option value="Osses M.A.V.">1</option><option value="Camus P.P.S.">1</option><option value="Sepúlveda Aguilar I.">1</option><option value="Tiscornia-González C.">1</option><option value="Llanos-Herrera G.">1</option><option value="Pedro Z.-V.">1</option><option value="Pizarro C.C.">1</option><option value="Miranda F.">1</option><option value="Villalobos I.A.M.">1</option><option value="Tapia M.L.">1</option><option value="Dan H.S.">1</option><option value="Gabriel C.C.">1</option><option value="Martínez-Mardones M.">1</option><option value="Roberto S.O.">1</option><option value="Scarleth J.C.">1</option><option value="Mariotti M.S.">1</option><option value="Muñoz V.A.G.">1</option><option value="Sánchez E.J.A.T.">1</option><option value="Luci G.">1</option><option value="Vargas P.">1</option><option value="Vilarroel I.E.">1</option><option value="Cuevas A.">1</option><option value="Cabello J.M.">1</option><option value="Ríos-Pohl L.">1</option><option value="Martinez Jalilie M.">1</option><option value="Salomé Mariotti Celis M.">1</option><option value="Angulo J.">1</option><option value="Meneghello R.">1</option><option value="Domínguez D.">1</option><option value="Léniz A.">1</option><option value="Miranda X.">1</option><option value="Hube-Antoine C.">1</option><option value="Kompatzki Á.">1</option><option value="Villena J.">1</option><option value="Silva-Figueroa A.M.">1</option><option value="Bäuerle N.E.">1</option><option value="Saffie J.P.R.">1</option><option value="Milla V.P.">1</option><option value="Hevia-Larraín V.">1</option><option value="Ramos-Navarro C.">1</option><option value="Saúl M.J.">1</option><option value="Aedo Monsalve S.">1</option><option value="Arazo M.C.R.">1</option><option value="Ponce D.">1</option><option value="Munizaga R.S.">1</option><option value="Piedra J.M.B.">1</option><option value="Schiffrin N.C.">1</option><option value="Roncone D. E.">1</option><option value="Valenzuela L. G.">1</option><option value="Vallejos P. G.">1</option><option value="Araujo J.T.">1</option><option value="Muñoz F.">1</option><option value="Casas-Cordero J.P.">1</option><option value="Arazo-Rusindo M.">1</option><option value="D’andurain J.">1</option><option value="Godoy-Torres V.">1</option><option value="Cruzat J.P.">1</option><option value="de Souza Costa D.">1</option><option value="Canihuante C.Z.">1</option><option value="Gallardo P.A.">1</option><option value="Herrera Araya D.">1</option><option value="Hidago-Rosa Y.">1</option><option value="Mancilla R.">1</option><option value="Mansilla K.Y.">1</option><option value="Hidalgo-Pérez H.">1</option><option value="Ishtiaque T.A.">1</option><option value="Johansen A.">1</option><option value="Shabani R.">1</option><option value="Torp O.">1</option><option value="Valencia I.">1</option><option value="Cubillos Torres M.C.">1</option><option value="Sepúlveda J.P.M.">1</option><option value="Tavera A.T.">1</option><option value="Irarrázaval C.A.A.">1</option><option value="Macho R.A.M.">1</option><option value="Moltedo N.I.F.">1</option><option value="Roos J.A.C.">1</option><option value="Gomez D.S.">1</option><option value="Gonzalo C.P.">1</option><option value="Villarroel I.S.E.">1</option><option value="Carrillo D.J.P.">1</option><option value="Torrealba J.">1</option><option value="Olavarría N.">1</option><option value="Henrriquez C.">1</option><option value="Tapia I.">1</option><option value="Méndez-Sánchez R.E.">1</option><option value="Inzulza S.">1</option><option value="Venegas M.">1</option><option value="Sepúlveda A I.">1</option><option value="Irarrázaval C.A.">1</option><option value="Macho R.M.">1</option><option value="Roos A.C.">1</option><option value="Roa Cáceres C.">1</option><option value="Castillo N.">1</option><option value="Jaque Y.">1</option><option value="Llera C.">1</option><option value="Peragallo J.">1</option><option value="Schlageter F.">1</option><option value="Vallejos G.">1</option><option value="Berrocal Silva L.">1</option><option value="Jofré Bartholin M.">1</option><option value="Letelier F.">1</option><option value="Aguirre M.">1</option><option value="Ahumada F.">1</option><option value="Ortiz F.">1</option><option value="Altamirano M.">1</option><option value="Alviz M.">1</option><option value="Cruzat J.C.">1</option><option value="González P.S.">1</option><option value="Ostornol A.F.">1</option><option value="Urzúa Opazo M.">1</option><option value="Guevara Ó.J.">1</option><option value="Díaz-Eris A.">1</option><option value="Navarro-Plazaola N.">1</option><option value="Neira B.C.">1</option><option value="Norambuena-Narváez C.">1</option><option value="von Hoveling-Schindler A.">1</option><option value="García F.">1</option><option value="Nazal L.">1</option><option value="Kemeny R.">1</option><option value="Brocco S.Z.">1</option><option value="Barbieri G.G.">1</option><option value="van Sint Jan D N.">1</option><option value="Hernández Cortina A.">1</option><option value="Lermanda Peña C.">1</option><option value="Ibáñez-Muñoz R.C.">1</option><option value="Hernandez A.">1</option><option value="Poblete Alday P.">1</option><option value="Troncoso-Ortiz E.J.">1</option><option value="Perez-Jiménez D.">1</option><option value="Colihuinca T.O.">1</option><option value="Ramirez P.">1</option><option value="Rodríguez I.">1</option><option value="Vidal C. M.">1</option><option value="Dıaz F.">1</option><option value="Donoso M.O.">1</option><option value="Olivares M.">1</option><option value="Figueroa F.C.">1</option><option value="Tapia-Curimil G.">1</option><option value="Huepe-Artigas D.">1</option><option value="Aravena-Ríos P.">1</option><option value="Fuentes-Abarca A.">1</option><option value="Romero-Zucchino D.">1</option><option value="María José H.">1</option><option value="Sandoval P.P.P.">1</option><option value="Aroca Siré P.">1</option><option value="Bassa J.C.">1</option><option value="Muñoz Fuentes C.">1</option><option value="Reyes J.">1</option><option value="Gómez G.">1</option><option value="Contreras Valeria C.">1</option><option value="Williams Oyarce C.">1</option><option value="Von Moltke R.">1</option><option value="Carneiro A.M.Y.">1</option><option value="Villalobos P.">1</option><option value="Prieto I.T.">1</option><option value="Carrasco G.">1</option><option value="Araneda C.">1</option><option value="Romero C.">1</option><option value="Vásquez G.">1</option><option value="Figueroa-Toledo A.M.">1</option><option value="Marchese-Bittencourt M.">1</option><option value="Lustig J.I.C.">1</option><option value="Barrientos M.F.H.">1</option><option value="Ortiz B.I.H.">1</option><option value="de la Fuente M.">1</option><option value="Aceves Álvarez O.">1</option><option value="Suazo F.">1</option><option value="Trautmann D.">1</option><option value="Lamarca C.">1</option><option value="Valderrama Y.">1</option><option value="Díaz-Castro F.">1</option><option value="Figueroa A.M.">1</option><option value="Peñaloza P.F.">1</option><option value="Zaio Á.">1</option><option value="González J.H.">1</option><option value="Ramos T.F.">1</option><option value="Coloma B.">1</option><option value="Cooper A.">1</option><option value="Inostroza P.">1</option><option value="Serrano M.J.">1</option><option value="Valenzuela C.">1</option><option value="Fortuny E.">1</option><option value="Benites M.">1</option><option value="Sepúlveda P. P.">1</option><option value="Silva A.K.">1</option><option value="Castro-Cruz M.">1</option><option value="Cáceres-Hernández A.">1</option><option value="Quintana-Guiñez F.">1</option><option value="Prado-Medel C.">1</option><option value="Molina C.">1</option><option value="Chacana R.A.">1</option><option value="González-Hernández J.">1</option><option value="de Guevara D.L.H.">1</option><option value="Cavada Chacón G.">1</option><option value="Horna Campos O.">1</option><option value="Martínez M.M.">1</option><option value="López A.L.">1</option><option value="Vallejos-Penaloza G.">1</option><option value="Lagos M.">1</option><option value="Torres K.O.">1</option><option value="Díaz-Galaz L.">1</option><option value="Barrientos J.">1</option><option value="Echeverría K.">1</option><option value="Cartaya M.A.">1</option><option value="Smague D.">1</option><option value="Vergara F.V.">1</option><option value="López Y.M.">1</option><option value="Martineau P.D.H.C.">1</option><option value="Mayo B.">1</option><option value="Penroz S.">1</option><option value="Cayu E.">1</option><option value="Nazer M.I.">1</option><option value="Rodas C.">1</option><option value="Moena Benítez M.F.">1</option><option value="Rivas Orrego J.">1</option><option value="Giancáspero-Inostroza F.">1</option><option value="Toledo S.H.">1</option><option value="Ibañez V.">1</option><option value="Martínez Galdames B.">1</option><option value="Martínez-Cárdenas B.">1</option><option value="Elton Í.A.G.">1</option><option value="Chadwick C.F.">1</option><option value="Errázuriz A.M.">1</option><option value="Candell M.B.">1</option><option value="Galaz M.T.V.">1</option><option value="Landreau C.C.">1</option><option value="Martin P.A.Q.S.">1</option><option value="Villarroel N.C.">1</option><option value="Pinzón-Merchán M.">1</option><option value="Álamos-Vial N.">1</option><option value="Botto Stuven A.">1</option><option value="Villegas P.A.P.">1</option><option value="Tovar W.">1</option><option value="Edwards-Toro F.">1</option><option value="Gálvez-Bravo F.">1</option><option value="Opazo-García C.">1</option><option value="Triat M.T.">1</option><option value="Rojas J.P.">1</option><option value="de Vos V.">1</option><option value="Marrugo N.">1</option><option value="Palma G.">1</option><option value="Venegas J.C.">1</option><option value="Alba V.">1</option><option value="Pavez S.">1</option><option value="Val V.">1</option><option value="González I.">1</option><option value="Rufin-Larraín A.">1</option><option value="Hevia D.">1</option><option value="García J.">1</option><option value="Muñoz-Concha D.">1</option><option value="Fuentealba J.M.">1</option><option value="García-Meneses C.">1</option><option value="Arriagada I C.">1</option><option value="Conejero R A.">1</option><option value="Covarrubias C P.">1</option><option value="Doña V J.">1</option><option value="Hurtado D M.J.">1</option><option value="Maldonado J D.">1</option></datalist>
+    <p class="nota" id="q-autor-ayuda">829 firmas en este recorte.
       Son formas de firma, no personas: las que una revisión humana declaró la misma
       persona ya están fusionadas; el resto puede incluir variantes.</p></div>
     </details><details class="dim" >
       <summary><span class="dim-nombre">Área QS</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
             data-dim="qs_area" data-valor="Life Sciences &amp; Medicine"
-            aria-pressed="false">Life Sciences &amp; Medicine<span class="chip-n">537</span></button><button type="button" class="chip"
+            aria-pressed="false">Life Sciences &amp; Medicine<span class="chip-n">862</span></button><button type="button" class="chip"
             data-dim="qs_area" data-valor="Social Sciences &amp; Management"
-            aria-pressed="false">Social Sciences &amp; Management<span class="chip-n">192</span></button><button type="button" class="chip"
+            aria-pressed="false">Social Sciences &amp; Management<span class="chip-n">344</span></button><button type="button" class="chip"
             data-dim="qs_area" data-valor="Engineering &amp; Technology"
-            aria-pressed="false">Engineering &amp; Technology<span class="chip-n">102</span></button><button type="button" class="chip"
+            aria-pressed="false">Engineering &amp; Technology<span class="chip-n">167</span></button><button type="button" class="chip"
             data-dim="qs_area" data-valor="Arts &amp; Humanities"
-            aria-pressed="false">Arts &amp; Humanities<span class="chip-n">94</span></button><button type="button" class="chip"
+            aria-pressed="false">Arts &amp; Humanities<span class="chip-n">153</span></button><button type="button" class="chip"
             data-dim="qs_area" data-valor="Natural Sciences"
-            aria-pressed="false">Natural Sciences<span class="chip-n">71</span></button></div>
+            aria-pressed="false">Natural Sciences<span class="chip-n">109</span></button></div>
     </details><details class="dim" >
       <summary><span class="dim-nombre">Unidad académica</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
             data-dim="unidad" data-valor="Facultad de Medicina y Salud"
-            aria-pressed="false">Facultad de Medicina y Salud<span class="chip-n">382</span></button><button type="button" class="chip"
+            aria-pressed="false">Facultad de Medicina y Salud<span class="chip-n">596</span></button><button type="button" class="chip"
             data-dim="unidad" data-valor="No determinada"
-            aria-pressed="false">No determinada<span class="chip-n">286</span></button><button type="button" class="chip"
-            data-dim="unidad" data-valor="Facultad de Educación y Ciencias Sociales"
-            aria-pressed="false">Facultad de Educación y Ciencias Sociales<span class="chip-n">47</span></button><button type="button" class="chip"
+            aria-pressed="false">No determinada<span class="chip-n">482</span></button><button type="button" class="chip"
             data-dim="unidad" data-valor="Facultad de Ingeniería"
-            aria-pressed="false">Facultad de Ingeniería<span class="chip-n">46</span></button><button type="button" class="chip"
+            aria-pressed="false">Facultad de Ingeniería<span class="chip-n">69</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Facultad de Educación y Ciencias Sociales"
+            aria-pressed="false">Facultad de Educación y Ciencias Sociales<span class="chip-n">62</span></button><button type="button" class="chip"
             data-dim="unidad" data-valor="Facultad de Economía y Negocios"
-            aria-pressed="false">Facultad de Economía y Negocios<span class="chip-n">17</span></button><button type="button" class="chip"
+            aria-pressed="false">Facultad de Economía y Negocios<span class="chip-n">39</span></button><button type="button" class="chip"
             data-dim="unidad" data-valor="Escuela de Kinesiología"
-            aria-pressed="false">Escuela de Kinesiología<span class="chip-n">17</span></button><button type="button" class="chip"
+            aria-pressed="false">Escuela de Kinesiología<span class="chip-n">36</span></button><button type="button" class="chip"
             data-dim="unidad" data-valor="Escuela de Nutrición y Dietética"
-            aria-pressed="false">Escuela de Nutrición y Dietética<span class="chip-n">12</span></button><button type="button" class="chip"
-            data-dim="unidad" data-valor="Sin dato declarado"
-            aria-pressed="false">Sin dato declarado<span class="chip-n">9</span></button><button type="button" class="chip"
+            aria-pressed="false">Escuela de Nutrición y Dietética<span class="chip-n">18</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Facultad de Humanidades y Comunicaciones"
+            aria-pressed="false">Facultad de Humanidades y Comunicaciones<span class="chip-n">9</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Facultad de Derecho"
+            aria-pressed="false">Facultad de Derecho<span class="chip-n">9</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Escuela de Enfermería"
+            aria-pressed="false">Escuela de Enfermería<span class="chip-n">6</span></button><button type="button" class="chip"
             data-dim="unidad" data-valor="Facultad de Artes"
             aria-pressed="false">Facultad de Artes<span class="chip-n">6</span></button><button type="button" class="chip"
-            data-dim="unidad" data-valor="Facultad de Derecho"
-            aria-pressed="false">Facultad de Derecho<span class="chip-n">5</span></button><button type="button" class="chip"
-            data-dim="unidad" data-valor="Facultad de Humanidades y Comunicaciones"
-            aria-pressed="false">Facultad de Humanidades y Comunicaciones<span class="chip-n">4</span></button><button type="button" class="chip"
-            data-dim="unidad" data-valor="Escuela de Enfermería"
-            aria-pressed="false">Escuela de Enfermería<span class="chip-n">3</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Escuela de Ciencias de la Familia"
+            aria-pressed="false">Escuela de Ciencias de la Familia<span class="chip-n">6</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Sin dato declarado"
+            aria-pressed="false">Sin dato declarado<span class="chip-n">5</span></button><button type="button" class="chip"
             data-dim="unidad" data-valor="Facultad de Arquitectura, Diseño y Estudios Creativos"
             aria-pressed="false">Facultad de Arquitectura, Diseño y Estudios Creativos<span class="chip-n">3</span></button><button type="button" class="chip"
-            data-dim="unidad" data-valor="Escuela de Ciencias de la Familia"
-            aria-pressed="false">Escuela de Ciencias de la Familia<span class="chip-n">2</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Escuela de Literatura"
+            aria-pressed="false">Escuela de Literatura<span class="chip-n">3</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="School of Physiotherapy"
+            aria-pressed="false">School of Physiotherapy<span class="chip-n">2</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Escuela de Postgrado"
+            aria-pressed="false">Escuela de Postgrado<span class="chip-n">2</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Facultad de Ingenierĺa"
+            aria-pressed="false">Facultad de Ingenierĺa<span class="chip-n">1</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Facultad de Medicina y Facultad de Odontología"
+            aria-pressed="false">Facultad de Medicina y Facultad de Odontología<span class="chip-n">1</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Escuela de Educación Parvularia"
+            aria-pressed="false">Escuela de Educación Parvularia<span class="chip-n">1</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="School of Business and Economics"
+            aria-pressed="false">School of Business and Economics<span class="chip-n">1</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Faculty of Humanities and Communications"
+            aria-pressed="false">Faculty of Humanities and Communications<span class="chip-n">1</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Escuela de Post grado"
+            aria-pressed="false">Escuela de Post grado<span class="chip-n">1</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="Escuela de Historia – CIDOC"
+            aria-pressed="false">Escuela de Historia – CIDOC<span class="chip-n">1</span></button><button type="button" class="chip"
+            data-dim="unidad" data-valor="School of Family Studies"
+            aria-pressed="false">School of Family Studies<span class="chip-n">1</span></button><button type="button" class="chip"
             data-dim="unidad" data-valor="Escuela de Ingeniería Civil Industrial"
             aria-pressed="false">Escuela de Ingeniería Civil Industrial<span class="chip-n">1</span></button></div>
     </details><details class="dim" >
       <summary><span class="dim-nombre">Tipo documental</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
             data-dim="tipo" data-valor="Article"
-            aria-pressed="false">Article<span class="chip-n">595</span></button><button type="button" class="chip"
+            aria-pressed="false">Article<span class="chip-n">1.010</span></button><button type="button" class="chip"
             data-dim="tipo" data-valor="Review"
-            aria-pressed="false">Review<span class="chip-n">133</span></button><button type="button" class="chip"
+            aria-pressed="false">Review<span class="chip-n">175</span></button><button type="button" class="chip"
             data-dim="tipo" data-valor="Book chapter"
-            aria-pressed="false">Book chapter<span class="chip-n">24</span></button><button type="button" class="chip"
-            data-dim="tipo" data-valor="Letter"
-            aria-pressed="false">Letter<span class="chip-n">24</span></button><button type="button" class="chip"
+            aria-pressed="false">Book chapter<span class="chip-n">45</span></button><button type="button" class="chip"
             data-dim="tipo" data-valor="Conference paper"
-            aria-pressed="false">Conference paper<span class="chip-n">18</span></button><button type="button" class="chip"
-            data-dim="tipo" data-valor="Editorial"
-            aria-pressed="false">Editorial<span class="chip-n">8</span></button><button type="button" class="chip"
+            aria-pressed="false">Conference paper<span class="chip-n">37</span></button><button type="button" class="chip"
+            data-dim="tipo" data-valor="Letter"
+            aria-pressed="false">Letter<span class="chip-n">32</span></button><button type="button" class="chip"
             data-dim="tipo" data-valor="Note"
-            aria-pressed="false">Note<span class="chip-n">7</span></button><button type="button" class="chip"
+            aria-pressed="false">Note<span class="chip-n">14</span></button><button type="button" class="chip"
+            data-dim="tipo" data-valor="Editorial"
+            aria-pressed="false">Editorial<span class="chip-n">13</span></button><button type="button" class="chip"
             data-dim="tipo" data-valor="Erratum"
-            aria-pressed="false">Erratum<span class="chip-n">7</span></button><button type="button" class="chip"
+            aria-pressed="false">Erratum<span class="chip-n">9</span></button><button type="button" class="chip"
             data-dim="tipo" data-valor="Short survey"
             aria-pressed="false">Short survey<span class="chip-n">4</span></button><button type="button" class="chip"
             data-dim="tipo" data-valor="Book"
-            aria-pressed="false">Book<span class="chip-n">2</span></button><button type="button" class="chip"
-            data-dim="tipo" data-valor="Chapter"
-            aria-pressed="false">Chapter<span class="chip-n">1</span></button></div>
+            aria-pressed="false">Book<span class="chip-n">3</span></button></div>
     </details><details class="dim" >
       <summary><span class="dim-nombre">Acceso abierto</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
             data-dim="open_access" data-valor="Gold"
-            aria-pressed="false">Gold<span class="chip-n">466</span></button><button type="button" class="chip"
+            aria-pressed="false">Gold<span class="chip-n">744</span></button><button type="button" class="chip"
             data-dim="open_access" data-valor="Green"
-            aria-pressed="false">Green<span class="chip-n">449</span></button><button type="button" class="chip"
+            aria-pressed="false">Green<span class="chip-n">730</span></button><button type="button" class="chip"
             data-dim="open_access" data-valor="Sin dato declarado"
-            aria-pressed="false">Sin dato declarado<span class="chip-n">233</span></button><button type="button" class="chip"
+            aria-pressed="false">Sin dato declarado<span class="chip-n">399</span></button><button type="button" class="chip"
             data-dim="open_access" data-valor="Hybrid gold"
-            aria-pressed="false">Hybrid gold<span class="chip-n">64</span></button><button type="button" class="chip"
+            aria-pressed="false">Hybrid gold<span class="chip-n">87</span></button><button type="button" class="chip"
             data-dim="open_access" data-valor="Bronze"
-            aria-pressed="false">Bronze<span class="chip-n">28</span></button></div>
+            aria-pressed="false">Bronze<span class="chip-n">46</span></button></div>
     </details><details class="dim" >
       <summary><span class="dim-nombre">Colaboración</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
-            data-dim="colaboracion" data-valor="Internacional"
-            aria-pressed="false">Internacional<span class="chip-n">418</span></button><button type="button" class="chip"
             data-dim="colaboracion" data-valor="Nacional"
-            aria-pressed="false">Nacional<span class="chip-n">398</span></button><button type="button" class="chip"
-            data-dim="colaboracion" data-valor="Sin dato declarado"
-            aria-pressed="false">Sin dato declarado<span class="chip-n">7</span></button></div>
+            aria-pressed="false">Nacional<span class="chip-n">674</span></button><button type="button" class="chip"
+            data-dim="colaboracion" data-valor="Internacional"
+            aria-pressed="false">Internacional<span class="chip-n">668</span></button></div>
     </details></div><nav class="rail" aria-label="Indicadores de la sección">
     <p class="rail-titulo">En esta sección</p>
     <a href="#T-05">
@@ -268,38 +292,38 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <h2 class="solo-lectores">Indicadores del recorte</h2>
       <div id="cifras" data-prerender="1">
 <div class="tablero"><article class="ficha" data-k="publicaciones">
-      <p class="ficha-valor" data-valor="publicaciones">823</p>
+      <p class="ficha-valor" data-valor="publicaciones">1.342</p>
       <h3 class="ficha-etq">Publicaciones</h3>
-      <p class="ficha-base"><b data-base="publicaciones">823</b> publicaciones en el recorte</p>
+      <p class="ficha-base"><b data-base="publicaciones">1.342</b> publicaciones en el recorte</p>
       <p class="ficha-lectura">Cuántas publicaciones distintas caen en el recorte. Una publicación cuenta una sola vez aunque la firmen varias personas de la institución.</p>
     </article><article class="ficha" data-k="citas">
-      <p class="ficha-valor" data-valor="citas">3.935</p>
+      <p class="ficha-valor" data-valor="citas">14.245</p>
       <h3 class="ficha-etq">Citas recibidas<button class="ayuda" type="button" data-ayuda="Fecha de corte"
     aria-label="Qué significa Fecha de corte">?</button></h3>
-      <p class="ficha-base"><b data-base="citas">816</b> sobre las que tienen métricas</p>
+      <p class="ficha-base"><b data-base="citas">1.342</b> sobre las que tienen métricas</p>
       <p class="ficha-lectura">El total de citas que han recibido esas publicaciones hasta la fecha de corte que declara el pie. Es una suma acumulada, así que lo publicado antes lleva más tiempo reuniéndolas.</p>
     </article><article class="ficha" data-k="citas_por_pub">
-      <p class="ficha-valor" data-valor="citas_por_pub">4,82</p>
+      <p class="ficha-valor" data-valor="citas_por_pub">10,61</p>
       <h3 class="ficha-etq">Citas por publicación</h3>
-      <p class="ficha-base"><b data-base="citas_por_pub">816</b> sobre las que tienen métricas</p>
+      <p class="ficha-base"><b data-base="citas_por_pub">1.342</b> sobre las que tienen métricas</p>
       <p class="ficha-lectura">Las citas totales divididas por las publicaciones que tienen métricas. Es un promedio: unas pocas publicaciones muy citadas lo levantan para todas, y no describe a la publicación típica.</p>
     </article><article class="ficha" data-k="fwci_mediano">
-      <p class="ficha-valor" data-valor="fwci_mediano">0,41</p>
+      <p class="ficha-valor" data-valor="fwci_mediano">0,48</p>
       <h3 class="ficha-etq">FWCI mediano<button class="ayuda" type="button" data-ayuda="FWCI"
     aria-label="Qué significa FWCI">?</button></h3>
-      <p class="ficha-base"><b data-base="fwci_mediano">816</b> 1,00 = promedio mundial</p>
+      <p class="ficha-base"><b data-base="fwci_mediano">1.342</b> 1,00 = promedio mundial</p>
       <p class="ficha-lectura">El FWCI compara las citas de cada publicación con las esperadas para su campo, su año y su tipo, y 1,00 es el promedio mundial. Se muestra la mediana del recorte y no el promedio, porque el promedio de los FWCI de un conjunto no es el FWCI del conjunto.</p>
     </article><article class="ficha" data-k="internacional">
-      <p class="ficha-valor" data-valor="internacional">51,2<span class="ficha-sufijo">%</span></p>
+      <p class="ficha-valor" data-valor="internacional">49,8<span class="ficha-sufijo">%</span></p>
       <h3 class="ficha-etq">Colaboración internacional<button class="ayuda" type="button" data-ayuda="Colaboración internacional"
     aria-label="Qué significa Colaboración internacional">?</button></h3>
-      <p class="ficha-base"><b data-base="internacional">816</b> sobre las que declaran país</p>
+      <p class="ficha-base"><b data-base="internacional">1.342</b> sobre las que declaran país</p>
       <p class="ficha-lectura">El porcentaje de publicaciones firmadas con al menos una institución de otro país, sobre las que declaran país. Mide con quién se publica, no la calidad de lo publicado.</p>
     </article><article class="ficha" data-k="autores">
-      <p class="ficha-valor" data-valor="autores">530</p>
+      <p class="ficha-valor" data-valor="autores">829</p>
       <h3 class="ficha-etq">Autores UFT<button class="ayuda" type="button" data-ayuda="Formas de firma"
     aria-label="Qué significa Formas de firma">?</button></h3>
-      <p class="ficha-base"><b data-base="autores">818</b> formas de firma, no personas</p>
+      <p class="ficha-base"><b data-base="autores">1.342</b> formas de firma, no personas</p>
       <p class="ficha-lectura">Cuántas firmas distintas de la institución aparecen en el recorte. Son formas de firma ya consolidadas por revisión humana, no necesariamente personas distintas: una persona que firma de dos maneras sin consolidar cuenta dos veces.</p>
     </article></div>
 </div>
@@ -326,64 +350,64 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <rect width="7" height="7" fill="none"/>
       <line x1="0" y1="0" x2="0" y2="7" stroke="var(--superficie)" stroke-width="2.4"/>
     </pattern></defs><g class="marca" data-k="Life Sciences &amp; Medicine" tabindex="0" role="listitem"
-        aria-label="Life Sciences &amp; Medicine: 537"
-        data-tip="Life Sciences &amp; Medicine" data-tip-v="537"
+        aria-label="Life Sciences &amp; Medicine: 862"
+        data-tip="Life Sciences &amp; Medicine" data-tip-v="862"
         >
       <text x="216" y="16.5" text-anchor="end">Life Sciences &amp; Medicine</text>
       <rect class="barra" fill="var(--serie-1)" x="226" y="6"
         width="398" height="14" rx="4"/><rect class="trama" x="226" y="6" width="398"
            height="14" rx="4" fill="url(#g13-t)"/>
-      <text class="valor" x="631" y="16.5">537</text>
+      <text class="valor" x="631" y="16.5">862</text>
     </g><g class="marca" data-k="Social Sciences &amp; Management" tabindex="-1" role="listitem"
-        aria-label="Social Sciences &amp; Management: 192"
-        data-tip="Social Sciences &amp; Management" data-tip-v="192"
+        aria-label="Social Sciences &amp; Management: 344"
+        data-tip="Social Sciences &amp; Management" data-tip-v="344"
         >
       <text x="216" y="42.5" text-anchor="end">Social Sciences &amp; Management</text>
       <rect class="barra" fill="var(--serie-1)" x="226" y="32"
-        width="142.30167597765364" height="14" rx="4"/><rect class="trama" x="226" y="32" width="142.30167597765364"
+        width="158.830626450116" height="14" rx="4"/><rect class="trama" x="226" y="32" width="158.830626450116"
            height="14" rx="4" fill="url(#g13-t)"/>
-      <text class="valor" x="375.30167597765364" y="42.5">192</text>
+      <text class="valor" x="391.83062645011603" y="42.5">344</text>
     </g><g class="marca" data-k="Engineering &amp; Technology" tabindex="-1" role="listitem"
-        aria-label="Engineering &amp; Technology: 102"
-        data-tip="Engineering &amp; Technology" data-tip-v="102"
+        aria-label="Engineering &amp; Technology: 167"
+        data-tip="Engineering &amp; Technology" data-tip-v="167"
         >
       <text x="216" y="68.5" text-anchor="end">Engineering &amp; Technology</text>
       <rect class="barra" fill="var(--serie-1)" x="226" y="58"
-        width="75.59776536312849" height="14" rx="4"/><rect class="trama" x="226" y="58" width="75.59776536312849"
+        width="77.10672853828306" height="14" rx="4"/><rect class="trama" x="226" y="58" width="77.10672853828306"
            height="14" rx="4" fill="url(#g13-t)"/>
-      <text class="valor" x="308.5977653631285" y="68.5">102</text>
+      <text class="valor" x="310.10672853828305" y="68.5">167</text>
     </g><g class="marca" data-k="Arts &amp; Humanities" tabindex="-1" role="listitem"
-        aria-label="Arts &amp; Humanities: 94"
-        data-tip="Arts &amp; Humanities" data-tip-v="94"
+        aria-label="Arts &amp; Humanities: 153"
+        data-tip="Arts &amp; Humanities" data-tip-v="153"
         >
       <text x="216" y="94.5" text-anchor="end">Arts &amp; Humanities</text>
       <rect class="barra" fill="var(--serie-1)" x="226" y="84"
-        width="69.6685288640596" height="14" rx="4"/><rect class="trama" x="226" y="84" width="69.6685288640596"
+        width="70.64269141531322" height="14" rx="4"/><rect class="trama" x="226" y="84" width="70.64269141531322"
            height="14" rx="4" fill="url(#g13-t)"/>
-      <text class="valor" x="302.66852886405957" y="94.5">94</text>
+      <text class="valor" x="303.6426914153132" y="94.5">153</text>
     </g><g class="marca" data-k="Natural Sciences" tabindex="-1" role="listitem"
-        aria-label="Natural Sciences: 71"
-        data-tip="Natural Sciences" data-tip-v="71"
+        aria-label="Natural Sciences: 109"
+        data-tip="Natural Sciences" data-tip-v="109"
         >
       <text x="216" y="120.5" text-anchor="end">Natural Sciences</text>
       <rect class="barra" fill="var(--serie-1)" x="226" y="110"
-        width="52.621973929236496" height="14" rx="4"/><rect class="trama" x="226" y="110" width="52.621973929236496"
+        width="50.327146171693734" height="14" rx="4"/><rect class="trama" x="226" y="110" width="50.327146171693734"
            height="14" rx="4" fill="url(#g13-t)"/>
-      <text class="valor" x="285.6219739292365" y="120.5">71</text>
+      <text class="valor" x="283.32714617169376" y="120.5">109</text>
     </g></svg></div></div>
       </div>
       <div class="vista" id="T-05-tabla" data-vista="tabla" data-activa="false">
         <div class="tabla-envoltura tabla-datos"><table>
     <thead><tr><th scope="col">Categoría</th><th scope="col" class="num">n</th></tr></thead><tbody><tr><td>Life Sciences &amp; Medicine</td>
-      <td class="num">537</td>
+      <td class="num">862</td>
       </tr><tr><td>Social Sciences &amp; Management</td>
-      <td class="num">192</td>
+      <td class="num">344</td>
       </tr><tr><td>Engineering &amp; Technology</td>
-      <td class="num">102</td>
+      <td class="num">167</td>
       </tr><tr><td>Arts &amp; Humanities</td>
-      <td class="num">94</td>
+      <td class="num">153</td>
       </tr><tr><td>Natural Sciences</td>
-      <td class="num">71</td>
+      <td class="num">109</td>
       </tr></tbody></table></div>
       </div>
       <p class="leyenda-trama">Barras rayadas: no son partes de un total y no suman.</p>
@@ -395,9 +419,9 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       
       <p class="sello">
     <span><b>Fuente</b> SciVal</span>
-    <span><b>Corte</b> 2026-07-22</span>
-    <span><b>N</b> 823 publicaciones</span>
-    <span><b>Cobertura</b> 97,2 % · 800 con dato</span>
+    <span><b>Corte</b> 2026-08-30</span>
+    <span><b>N</b> 1.342 publicaciones</span>
+    <span><b>Cobertura</b> 98,1 % · 1.317 con dato</span>
     </p>
     </section><section class="corte" id="T-01"
       data-corte="asjc" tabindex="-1">
@@ -419,229 +443,229 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <rect width="7" height="7" fill="none"/>
       <line x1="0" y1="0" x2="0" y2="7" stroke="var(--superficie)" stroke-width="2.4"/>
     </pattern></defs><g class="marca" data-k="General Medicine" tabindex="0" role="listitem"
-        aria-label="General Medicine: 87"
-        data-tip="General Medicine" data-tip-v="87"
+        aria-label="General Medicine: 124"
+        data-tip="General Medicine" data-tip-v="124"
         >
       <text x="221" y="16.5" text-anchor="end">General Medicine</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="6"
         width="393" height="14" rx="4"/><rect class="trama" x="231" y="6" width="393"
            height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="631" y="16.5">87</text>
-    </g><g class="marca" data-k="Education" tabindex="-1" role="listitem"
-        aria-label="Education: 59"
-        data-tip="Education" data-tip-v="59"
-        >
-      <text x="221" y="42.5" text-anchor="end">Education</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="32"
-        width="266.51724137931035" height="14" rx="4"/><rect class="trama" x="231" y="32" width="266.51724137931035"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="504.51724137931035" y="42.5">59</text>
+      <text class="valor" x="631" y="16.5">124</text>
     </g><g class="marca" data-k="Orthopedics and Sports Medicine" tabindex="-1" role="listitem"
-        aria-label="Orthopedics and Sports Medicine: 59"
-        data-tip="Orthopedics and Sports Medicine" data-tip-v="59"
+        aria-label="Orthopedics and Sports Medicine: 110"
+        data-tip="Orthopedics and Sports Medicine" data-tip-v="110"
         >
-      <text x="221" y="68.5" text-anchor="end">Orthopedics and Sports Medi…</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="58"
-        width="266.51724137931035" height="14" rx="4"/><rect class="trama" x="231" y="58" width="266.51724137931035"
+      <text x="221" y="42.5" text-anchor="end">Orthopedics and Sports Medi…</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="32"
+        width="348.6290322580645" height="14" rx="4"/><rect class="trama" x="231" y="32" width="348.6290322580645"
            height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="504.51724137931035" y="68.5">59</text>
-    </g><g class="marca" data-k="Food Science" tabindex="-1" role="listitem"
-        aria-label="Food Science: 57"
-        data-tip="Food Science" data-tip-v="57"
-        >
-      <text x="221" y="94.5" text-anchor="end">Food Science</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="84"
-        width="257.48275862068965" height="14" rx="4"/><rect class="trama" x="231" y="84" width="257.48275862068965"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="495.48275862068965" y="94.5">57</text>
+      <text class="valor" x="586.6290322580645" y="42.5">110</text>
     </g><g class="marca" data-k="Physical Therapy, Sports Therapy and Rehabilitation" tabindex="-1" role="listitem"
-        aria-label="Physical Therapy, Sports Therapy and Rehabilitation: 42"
-        data-tip="Physical Therapy, Sports Therapy and Rehabilitation" data-tip-v="42"
+        aria-label="Physical Therapy, Sports Therapy and Rehabilitation: 92"
+        data-tip="Physical Therapy, Sports Therapy and Rehabilitation" data-tip-v="92"
         >
-      <text x="221" y="120.5" text-anchor="end">Physical Therapy, Sports Th…</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="110"
-        width="189.72413793103448" height="14" rx="4"/><rect class="trama" x="231" y="110" width="189.72413793103448"
+      <text x="221" y="68.5" text-anchor="end">Physical Therapy, Sports Th…</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="58"
+        width="291.5806451612903" height="14" rx="4"/><rect class="trama" x="231" y="58" width="291.5806451612903"
            height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="427.7241379310345" y="120.5">42</text>
+      <text class="valor" x="529.5806451612902" y="68.5">92</text>
+    </g><g class="marca" data-k="Education" tabindex="-1" role="listitem"
+        aria-label="Education: 90"
+        data-tip="Education" data-tip-v="90"
+        >
+      <text x="221" y="94.5" text-anchor="end">Education</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="84"
+        width="285.241935483871" height="14" rx="4"/><rect class="trama" x="231" y="84" width="285.241935483871"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="523.241935483871" y="94.5">90</text>
+    </g><g class="marca" data-k="Food Science" tabindex="-1" role="listitem"
+        aria-label="Food Science: 81"
+        data-tip="Food Science" data-tip-v="81"
+        >
+      <text x="221" y="120.5" text-anchor="end">Food Science</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="110"
+        width="256.71774193548384" height="14" rx="4"/><rect class="trama" x="231" y="110" width="256.71774193548384"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="494.71774193548384" y="120.5">81</text>
     </g><g class="marca" data-k="Nutrition and Dietetics" tabindex="-1" role="listitem"
-        aria-label="Nutrition and Dietetics: 40"
-        data-tip="Nutrition and Dietetics" data-tip-v="40"
+        aria-label="Nutrition and Dietetics: 64"
+        data-tip="Nutrition and Dietetics" data-tip-v="64"
         >
       <text x="221" y="146.5" text-anchor="end">Nutrition and Dietetics</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="136"
-        width="180.68965517241378" height="14" rx="4"/><rect class="trama" x="231" y="136" width="180.68965517241378"
+        width="202.83870967741936" height="14" rx="4"/><rect class="trama" x="231" y="136" width="202.83870967741936"
            height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="418.6896551724138" y="146.5">40</text>
-    </g><g class="marca" data-k="Surgery" tabindex="-1" role="listitem"
-        aria-label="Surgery: 37"
-        data-tip="Surgery" data-tip-v="37"
-        >
-      <text x="221" y="172.5" text-anchor="end">Surgery</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="162"
-        width="167.13793103448276" height="14" rx="4"/><rect class="trama" x="231" y="162" width="167.13793103448276"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="405.1379310344828" y="172.5">37</text>
-    </g><g class="marca" data-k="Molecular Biology" tabindex="-1" role="listitem"
-        aria-label="Molecular Biology: 33"
-        data-tip="Molecular Biology" data-tip-v="33"
-        >
-      <text x="221" y="198.5" text-anchor="end">Molecular Biology</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="188"
-        width="149.06896551724137" height="14" rx="4"/><rect class="trama" x="231" y="188" width="149.06896551724137"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="387.0689655172414" y="198.5">33</text>
-    </g><g class="marca" data-k="Physiology" tabindex="-1" role="listitem"
-        aria-label="Physiology: 31"
-        data-tip="Physiology" data-tip-v="31"
-        >
-      <text x="221" y="224.5" text-anchor="end">Physiology</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="214"
-        width="140.0344827586207" height="14" rx="4"/><rect class="trama" x="231" y="214" width="140.0344827586207"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="378.0344827586207" y="224.5">31</text>
-    </g><g class="marca" data-k="Biochemistry" tabindex="-1" role="listitem"
-        aria-label="Biochemistry: 29"
-        data-tip="Biochemistry" data-tip-v="29"
-        >
-      <text x="221" y="250.5" text-anchor="end">Biochemistry</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="240"
-        width="131" height="14" rx="4"/><rect class="trama" x="231" y="240" width="131"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="369" y="250.5">29</text>
-    </g><g class="marca" data-k="Clinical Biochemistry" tabindex="-1" role="listitem"
-        aria-label="Clinical Biochemistry: 26"
-        data-tip="Clinical Biochemistry" data-tip-v="26"
-        >
-      <text x="221" y="276.5" text-anchor="end">Clinical Biochemistry</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="266"
-        width="117.44827586206897" height="14" rx="4"/><rect class="trama" x="231" y="266" width="117.44827586206897"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="355.44827586206895" y="276.5">26</text>
-    </g><g class="marca" data-k="Computer Science Applications" tabindex="-1" role="listitem"
-        aria-label="Computer Science Applications: 25"
-        data-tip="Computer Science Applications" data-tip-v="25"
-        >
-      <text x="221" y="302.5" text-anchor="end">Computer Science Applicatio…</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="292"
-        width="112.93103448275862" height="14" rx="4"/><rect class="trama" x="231" y="292" width="112.93103448275862"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="350.9310344827586" y="302.5">25</text>
-    </g><g class="marca" data-k="History" tabindex="-1" role="listitem"
-        aria-label="History: 25"
-        data-tip="History" data-tip-v="25"
-        >
-      <text x="221" y="328.5" text-anchor="end">History</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="318"
-        width="112.93103448275862" height="14" rx="4"/><rect class="trama" x="231" y="318" width="112.93103448275862"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="350.9310344827586" y="328.5">25</text>
-    </g><g class="marca" data-k="Pediatrics, Perinatology and Child Health" tabindex="-1" role="listitem"
-        aria-label="Pediatrics, Perinatology and Child Health: 25"
-        data-tip="Pediatrics, Perinatology and Child Health" data-tip-v="25"
-        >
-      <text x="221" y="354.5" text-anchor="end">Pediatrics, Perinatology an…</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="344"
-        width="112.93103448275862" height="14" rx="4"/><rect class="trama" x="231" y="344" width="112.93103448275862"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="350.9310344827586" y="354.5">25</text>
-    </g><g class="marca" data-k="Cell Biology" tabindex="-1" role="listitem"
-        aria-label="Cell Biology: 24"
-        data-tip="Cell Biology" data-tip-v="24"
-        >
-      <text x="221" y="380.5" text-anchor="end">Cell Biology</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="370"
-        width="108.41379310344827" height="14" rx="4"/><rect class="trama" x="231" y="370" width="108.41379310344827"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="346.41379310344826" y="380.5">24</text>
-    </g><g class="marca" data-k="Critical Care and Intensive Care Medicine" tabindex="-1" role="listitem"
-        aria-label="Critical Care and Intensive Care Medicine: 24"
-        data-tip="Critical Care and Intensive Care Medicine" data-tip-v="24"
-        >
-      <text x="221" y="406.5" text-anchor="end">Critical Care and Intensive…</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="396"
-        width="108.41379310344827" height="14" rx="4"/><rect class="trama" x="231" y="396" width="108.41379310344827"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="346.41379310344826" y="406.5">24</text>
-    </g><g class="marca" data-k="General Social Sciences" tabindex="-1" role="listitem"
-        aria-label="General Social Sciences: 23"
-        data-tip="General Social Sciences" data-tip-v="23"
-        >
-      <text x="221" y="432.5" text-anchor="end">General Social Sciences</text>
-      <rect class="barra" fill="var(--serie-1)" x="231" y="422"
-        width="103.89655172413794" height="14" rx="4"/><rect class="trama" x="231" y="422" width="103.89655172413794"
-           height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="341.8965517241379" y="432.5">23</text>
+      <text class="valor" x="440.8387096774194" y="146.5">64</text>
     </g><g class="marca" data-k="Public Health, Environmental and Occupational Health" tabindex="-1" role="listitem"
-        aria-label="Public Health, Environmental and Occupational Health: 22"
-        data-tip="Public Health, Environmental and Occupational Health" data-tip-v="22"
+        aria-label="Public Health, Environmental and Occupational Health: 51"
+        data-tip="Public Health, Environmental and Occupational Health" data-tip-v="51"
         >
-      <text x="221" y="458.5" text-anchor="end">Public Health, Environmenta…</text>
+      <text x="221" y="172.5" text-anchor="end">Public Health, Environmenta…</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="162"
+        width="161.63709677419357" height="14" rx="4"/><rect class="trama" x="231" y="162" width="161.63709677419357"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="399.63709677419354" y="172.5">51</text>
+    </g><g class="marca" data-k="History" tabindex="-1" role="listitem"
+        aria-label="History: 50"
+        data-tip="History" data-tip-v="50"
+        >
+      <text x="221" y="198.5" text-anchor="end">History</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="188"
+        width="158.46774193548387" height="14" rx="4"/><rect class="trama" x="231" y="188" width="158.46774193548387"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="396.4677419354839" y="198.5">50</text>
+    </g><g class="marca" data-k="Surgery" tabindex="-1" role="listitem"
+        aria-label="Surgery: 49"
+        data-tip="Surgery" data-tip-v="49"
+        >
+      <text x="221" y="224.5" text-anchor="end">Surgery</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="214"
+        width="155.29838709677418" height="14" rx="4"/><rect class="trama" x="231" y="214" width="155.29838709677418"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="393.29838709677415" y="224.5">49</text>
+    </g><g class="marca" data-k="Molecular Biology" tabindex="-1" role="listitem"
+        aria-label="Molecular Biology: 47"
+        data-tip="Molecular Biology" data-tip-v="47"
+        >
+      <text x="221" y="250.5" text-anchor="end">Molecular Biology</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="240"
+        width="148.95967741935485" height="14" rx="4"/><rect class="trama" x="231" y="240" width="148.95967741935485"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="386.9596774193549" y="250.5">47</text>
+    </g><g class="marca" data-k="Physiology" tabindex="-1" role="listitem"
+        aria-label="Physiology: 47"
+        data-tip="Physiology" data-tip-v="47"
+        >
+      <text x="221" y="276.5" text-anchor="end">Physiology</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="266"
+        width="148.95967741935485" height="14" rx="4"/><rect class="trama" x="231" y="266" width="148.95967741935485"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="386.9596774193549" y="276.5">47</text>
+    </g><g class="marca" data-k="Pediatrics, Perinatology and Child Health" tabindex="-1" role="listitem"
+        aria-label="Pediatrics, Perinatology and Child Health: 46"
+        data-tip="Pediatrics, Perinatology and Child Health" data-tip-v="46"
+        >
+      <text x="221" y="302.5" text-anchor="end">Pediatrics, Perinatology an…</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="292"
+        width="145.79032258064515" height="14" rx="4"/><rect class="trama" x="231" y="292" width="145.79032258064515"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="383.7903225806451" y="302.5">46</text>
+    </g><g class="marca" data-k="Biochemistry" tabindex="-1" role="listitem"
+        aria-label="Biochemistry: 42"
+        data-tip="Biochemistry" data-tip-v="42"
+        >
+      <text x="221" y="328.5" text-anchor="end">Biochemistry</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="318"
+        width="133.11290322580643" height="14" rx="4"/><rect class="trama" x="231" y="318" width="133.11290322580643"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="371.11290322580646" y="328.5">42</text>
+    </g><g class="marca" data-k="General Social Sciences" tabindex="-1" role="listitem"
+        aria-label="General Social Sciences: 42"
+        data-tip="General Social Sciences" data-tip-v="42"
+        >
+      <text x="221" y="354.5" text-anchor="end">General Social Sciences</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="344"
+        width="133.11290322580643" height="14" rx="4"/><rect class="trama" x="231" y="344" width="133.11290322580643"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="371.11290322580646" y="354.5">42</text>
+    </g><g class="marca" data-k="Law" tabindex="-1" role="listitem"
+        aria-label="Law: 40"
+        data-tip="Law" data-tip-v="40"
+        >
+      <text x="221" y="380.5" text-anchor="end">Law</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="370"
+        width="126.77419354838709" height="14" rx="4"/><rect class="trama" x="231" y="370" width="126.77419354838709"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="364.7741935483871" y="380.5">40</text>
+    </g><g class="marca" data-k="Physiology (medical)" tabindex="-1" role="listitem"
+        aria-label="Physiology (medical): 37"
+        data-tip="Physiology (medical)" data-tip-v="37"
+        >
+      <text x="221" y="406.5" text-anchor="end">Physiology (medical)</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="396"
+        width="117.26612903225806" height="14" rx="4"/><rect class="trama" x="231" y="396" width="117.26612903225806"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="355.26612903225805" y="406.5">37</text>
+    </g><g class="marca" data-k="Computer Science Applications" tabindex="-1" role="listitem"
+        aria-label="Computer Science Applications: 36"
+        data-tip="Computer Science Applications" data-tip-v="36"
+        >
+      <text x="221" y="432.5" text-anchor="end">Computer Science Applicatio…</text>
+      <rect class="barra" fill="var(--serie-1)" x="231" y="422"
+        width="114.0967741935484" height="14" rx="4"/><rect class="trama" x="231" y="422" width="114.0967741935484"
+           height="14" rx="4" fill="url(#g14-t)"/>
+      <text class="valor" x="352.0967741935484" y="432.5">36</text>
+    </g><g class="marca" data-k="Psychiatry and Mental Health" tabindex="-1" role="listitem"
+        aria-label="Psychiatry and Mental Health: 34"
+        data-tip="Psychiatry and Mental Health" data-tip-v="34"
+        >
+      <text x="221" y="458.5" text-anchor="end">Psychiatry and Mental Health</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="448"
-        width="99.3793103448276" height="14" rx="4"/><rect class="trama" x="231" y="448" width="99.3793103448276"
+        width="107.75806451612902" height="14" rx="4"/><rect class="trama" x="231" y="448" width="107.75806451612902"
            height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="337.3793103448276" y="458.5">22</text>
-    </g><g class="marca" data-k="General Biochemistry,Genetics and Molecular Biology" tabindex="-1" role="listitem"
-        aria-label="General Biochemistry,Genetics and Molecular Biology: 19"
-        data-tip="General Biochemistry,Genetics and Molecular Biology" data-tip-v="19"
+      <text class="valor" x="345.758064516129" y="458.5">34</text>
+    </g><g class="marca" data-k="Sociology and Political Science" tabindex="-1" role="listitem"
+        aria-label="Sociology and Political Science: 34"
+        data-tip="Sociology and Political Science" data-tip-v="34"
         >
-      <text x="221" y="484.5" text-anchor="end">General Biochemistry,Geneti…</text>
+      <text x="221" y="484.5" text-anchor="end">Sociology and Political Sci…</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="474"
-        width="85.82758620689656" height="14" rx="4"/><rect class="trama" x="231" y="474" width="85.82758620689656"
+        width="107.75806451612902" height="14" rx="4"/><rect class="trama" x="231" y="474" width="107.75806451612902"
            height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="323.82758620689657" y="484.5">19</text>
-    </g><g class="marca" data-k="General Engineering" tabindex="-1" role="listitem"
-        aria-label="General Engineering: 19"
-        data-tip="General Engineering" data-tip-v="19"
+      <text class="valor" x="345.758064516129" y="484.5">34</text>
+    </g><g class="marca" data-k="Cultural Studies" tabindex="-1" role="listitem"
+        aria-label="Cultural Studies: 33"
+        data-tip="Cultural Studies" data-tip-v="33"
         >
-      <text x="221" y="510.5" text-anchor="end">General Engineering</text>
+      <text x="221" y="510.5" text-anchor="end">Cultural Studies</text>
       <rect class="barra" fill="var(--serie-1)" x="231" y="500"
-        width="85.82758620689656" height="14" rx="4"/><rect class="trama" x="231" y="500" width="85.82758620689656"
+        width="104.58870967741935" height="14" rx="4"/><rect class="trama" x="231" y="500" width="104.58870967741935"
            height="14" rx="4" fill="url(#g14-t)"/>
-      <text class="valor" x="323.82758620689657" y="510.5">19</text>
+      <text class="valor" x="342.58870967741933" y="510.5">33</text>
     </g></svg></div></div>
       </div>
       <div class="vista" id="T-01-tabla" data-vista="tabla" data-activa="false">
         <div class="tabla-envoltura tabla-datos"><table>
     <thead><tr><th scope="col">Categoría</th><th scope="col" class="num">n</th></tr></thead><tbody><tr><td>General Medicine</td>
-      <td class="num">87</td>
-      </tr><tr><td>Education</td>
-      <td class="num">59</td>
+      <td class="num">124</td>
       </tr><tr><td>Orthopedics and Sports Medicine</td>
-      <td class="num">59</td>
-      </tr><tr><td>Food Science</td>
-      <td class="num">57</td>
+      <td class="num">110</td>
       </tr><tr><td>Physical Therapy, Sports Therapy and Rehabilitation</td>
-      <td class="num">42</td>
+      <td class="num">92</td>
+      </tr><tr><td>Education</td>
+      <td class="num">90</td>
+      </tr><tr><td>Food Science</td>
+      <td class="num">81</td>
       </tr><tr><td>Nutrition and Dietetics</td>
-      <td class="num">40</td>
-      </tr><tr><td>Surgery</td>
-      <td class="num">37</td>
-      </tr><tr><td>Molecular Biology</td>
-      <td class="num">33</td>
-      </tr><tr><td>Physiology</td>
-      <td class="num">31</td>
-      </tr><tr><td>Biochemistry</td>
-      <td class="num">29</td>
-      </tr><tr><td>Clinical Biochemistry</td>
-      <td class="num">26</td>
-      </tr><tr><td>Computer Science Applications</td>
-      <td class="num">25</td>
-      </tr><tr><td>History</td>
-      <td class="num">25</td>
-      </tr><tr><td>Pediatrics, Perinatology and Child Health</td>
-      <td class="num">25</td>
-      </tr><tr><td>Cell Biology</td>
-      <td class="num">24</td>
-      </tr><tr><td>Critical Care and Intensive Care Medicine</td>
-      <td class="num">24</td>
-      </tr><tr><td>General Social Sciences</td>
-      <td class="num">23</td>
+      <td class="num">64</td>
       </tr><tr><td>Public Health, Environmental and Occupational Health</td>
-      <td class="num">22</td>
-      </tr><tr><td>General Biochemistry,Genetics and Molecular Biology</td>
-      <td class="num">19</td>
-      </tr><tr><td>General Engineering</td>
-      <td class="num">19</td>
+      <td class="num">51</td>
+      </tr><tr><td>History</td>
+      <td class="num">50</td>
+      </tr><tr><td>Surgery</td>
+      <td class="num">49</td>
+      </tr><tr><td>Molecular Biology</td>
+      <td class="num">47</td>
+      </tr><tr><td>Physiology</td>
+      <td class="num">47</td>
+      </tr><tr><td>Pediatrics, Perinatology and Child Health</td>
+      <td class="num">46</td>
+      </tr><tr><td>Biochemistry</td>
+      <td class="num">42</td>
+      </tr><tr><td>General Social Sciences</td>
+      <td class="num">42</td>
+      </tr><tr><td>Law</td>
+      <td class="num">40</td>
+      </tr><tr><td>Physiology (medical)</td>
+      <td class="num">37</td>
+      </tr><tr><td>Computer Science Applications</td>
+      <td class="num">36</td>
+      </tr><tr><td>Psychiatry and Mental Health</td>
+      <td class="num">34</td>
+      </tr><tr><td>Sociology and Political Science</td>
+      <td class="num">34</td>
+      </tr><tr><td>Cultural Studies</td>
+      <td class="num">33</td>
       </tr></tbody></table></div>
       </div>
       <p class="leyenda-trama">Barras rayadas: no son partes de un total y no suman.</p>
@@ -649,13 +673,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="lectura-grafico"><b>Qué muestra</b>
       Cada barra es una categoría temática de la revista en que se publicó y cuenta sus publicaciones. Se dibujan las veinte con más.</p>
     <p class="lectura-cuidado"><b>Cuidado</b>
-      Clasifica la revista, no el artículo. 1.796 asignaciones para 816 publicaciones.</p>
+      Clasifica la revista, no el artículo. 2.973 asignaciones para 1.342 publicaciones.</p>
       
       <p class="sello">
     <span><b>Fuente</b> Scopus</span>
-    <span><b>Corte</b> 2026-07-22</span>
-    <span><b>N</b> 823 publicaciones</span>
-    <span><b>Cobertura</b> 99,1 % · 816 con dato</span>
+    <span><b>Corte</b> 2026-08-30</span>
+    <span><b>N</b> 1.342 publicaciones</span>
+    <span><b>Cobertura</b> 100,0 % · 1.342 con dato</span>
     </p>
     </section><section class="corte" id="T-04"
       data-corte="ods" tabindex="-1">
@@ -677,183 +701,183 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <rect width="7" height="7" fill="none"/>
       <line x1="0" y1="0" x2="0" y2="7" stroke="var(--superficie)" stroke-width="2.4"/>
     </pattern></defs><g class="marca" data-k="SDG 3" tabindex="0" role="listitem"
-        aria-label="SDG 3: 194"
-        data-tip="SDG 3" data-tip-v="194"
+        aria-label="SDG 3: 322"
+        data-tip="SDG 3" data-tip-v="322"
         >
       <text x="86" y="16.5" text-anchor="end">SDG 3</text>
       <rect class="barra" fill="var(--serie-1)" x="96" y="6"
         width="528" height="14" rx="4"/><rect class="trama" x="96" y="6" width="528"
            height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="631" y="16.5">194</text>
+      <text class="valor" x="631" y="16.5">322</text>
     </g><g class="marca" data-k="SDG 4" tabindex="-1" role="listitem"
-        aria-label="SDG 4: 43"
-        data-tip="SDG 4" data-tip-v="43"
+        aria-label="SDG 4: 60"
+        data-tip="SDG 4" data-tip-v="60"
         >
       <text x="86" y="42.5" text-anchor="end">SDG 4</text>
       <rect class="barra" fill="var(--serie-1)" x="96" y="32"
-        width="117.03092783505154" height="14" rx="4"/><rect class="trama" x="96" y="32" width="117.03092783505154"
+        width="98.38509316770185" height="14" rx="4"/><rect class="trama" x="96" y="32" width="98.38509316770185"
            height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="220.03092783505156" y="42.5">43</text>
+      <text class="valor" x="201.38509316770185" y="42.5">60</text>
     </g><g class="marca" data-k="SDG 7" tabindex="-1" role="listitem"
-        aria-label="SDG 7: 24"
-        data-tip="SDG 7" data-tip-v="24"
+        aria-label="SDG 7: 40"
+        data-tip="SDG 7" data-tip-v="40"
         >
       <text x="86" y="68.5" text-anchor="end">SDG 7</text>
       <rect class="barra" fill="var(--serie-1)" x="96" y="58"
-        width="65.31958762886597" height="14" rx="4"/><rect class="trama" x="96" y="58" width="65.31958762886597"
+        width="65.59006211180125" height="14" rx="4"/><rect class="trama" x="96" y="58" width="65.59006211180125"
            height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="168.31958762886597" y="68.5">24</text>
+      <text class="valor" x="168.59006211180125" y="68.5">40</text>
     </g><g class="marca" data-k="SDG 10" tabindex="-1" role="listitem"
-        aria-label="SDG 10: 23"
-        data-tip="SDG 10" data-tip-v="23"
+        aria-label="SDG 10: 36"
+        data-tip="SDG 10" data-tip-v="36"
         >
       <text x="86" y="94.5" text-anchor="end">SDG 10</text>
       <rect class="barra" fill="var(--serie-1)" x="96" y="84"
-        width="62.597938144329895" height="14" rx="4"/><rect class="trama" x="96" y="84" width="62.597938144329895"
+        width="59.03105590062112" height="14" rx="4"/><rect class="trama" x="96" y="84" width="59.03105590062112"
            height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="165.5979381443299" y="94.5">23</text>
+      <text class="valor" x="162.0310559006211" y="94.5">36</text>
     </g><g class="marca" data-k="SDG 9" tabindex="-1" role="listitem"
-        aria-label="SDG 9: 21"
-        data-tip="SDG 9" data-tip-v="21"
+        aria-label="SDG 9: 32"
+        data-tip="SDG 9" data-tip-v="32"
         >
       <text x="86" y="120.5" text-anchor="end">SDG 9</text>
       <rect class="barra" fill="var(--serie-1)" x="96" y="110"
-        width="57.154639175257735" height="14" rx="4"/><rect class="trama" x="96" y="110" width="57.154639175257735"
+        width="52.47204968944099" height="14" rx="4"/><rect class="trama" x="96" y="110" width="52.47204968944099"
            height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="160.15463917525773" y="120.5">21</text>
-    </g><g class="marca" data-k="SDG 5" tabindex="-1" role="listitem"
-        aria-label="SDG 5: 18"
-        data-tip="SDG 5" data-tip-v="18"
-        >
-      <text x="86" y="146.5" text-anchor="end">SDG 5</text>
-      <rect class="barra" fill="var(--serie-1)" x="96" y="136"
-        width="48.98969072164949" height="14" rx="4"/><rect class="trama" x="96" y="136" width="48.98969072164949"
-           height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="151.98969072164948" y="146.5">18</text>
-    </g><g class="marca" data-k="SDG 11" tabindex="-1" role="listitem"
-        aria-label="SDG 11: 15"
-        data-tip="SDG 11" data-tip-v="15"
-        >
-      <text x="86" y="172.5" text-anchor="end">SDG 11</text>
-      <rect class="barra" fill="var(--serie-1)" x="96" y="162"
-        width="40.82474226804124" height="14" rx="4"/><rect class="trama" x="96" y="162" width="40.82474226804124"
-           height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="143.82474226804123" y="172.5">15</text>
+      <text class="valor" x="155.472049689441" y="120.5">32</text>
     </g><g class="marca" data-k="SDG 16" tabindex="-1" role="listitem"
-        aria-label="SDG 16: 15"
-        data-tip="SDG 16" data-tip-v="15"
+        aria-label="SDG 16: 29"
+        data-tip="SDG 16" data-tip-v="29"
         >
-      <text x="86" y="198.5" text-anchor="end">SDG 16</text>
+      <text x="86" y="146.5" text-anchor="end">SDG 16</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="136"
+        width="47.5527950310559" height="14" rx="4"/><rect class="trama" x="96" y="136" width="47.5527950310559"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="150.5527950310559" y="146.5">29</text>
+    </g><g class="marca" data-k="SDG 5" tabindex="-1" role="listitem"
+        aria-label="SDG 5: 28"
+        data-tip="SDG 5" data-tip-v="28"
+        >
+      <text x="86" y="172.5" text-anchor="end">SDG 5</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="162"
+        width="45.91304347826087" height="14" rx="4"/><rect class="trama" x="96" y="162" width="45.91304347826087"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="148.91304347826087" y="172.5">28</text>
+    </g><g class="marca" data-k="SDG 11" tabindex="-1" role="listitem"
+        aria-label="SDG 11: 23"
+        data-tip="SDG 11" data-tip-v="23"
+        >
+      <text x="86" y="198.5" text-anchor="end">SDG 11</text>
       <rect class="barra" fill="var(--serie-1)" x="96" y="188"
-        width="40.82474226804124" height="14" rx="4"/><rect class="trama" x="96" y="188" width="40.82474226804124"
+        width="37.714285714285715" height="14" rx="4"/><rect class="trama" x="96" y="188" width="37.714285714285715"
            height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="143.82474226804123" y="198.5">15</text>
-    </g><g class="marca" data-k="SDG 13" tabindex="-1" role="listitem"
-        aria-label="SDG 13: 11"
-        data-tip="SDG 13" data-tip-v="11"
-        >
-      <text x="86" y="224.5" text-anchor="end">SDG 13</text>
-      <rect class="barra" fill="var(--serie-1)" x="96" y="214"
-        width="29.938144329896907" height="14" rx="4"/><rect class="trama" x="96" y="214" width="29.938144329896907"
-           height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="132.93814432989691" y="224.5">11</text>
-    </g><g class="marca" data-k="SDG 1" tabindex="-1" role="listitem"
-        aria-label="SDG 1: 6"
-        data-tip="SDG 1" data-tip-v="6"
-        >
-      <text x="86" y="250.5" text-anchor="end">SDG 1</text>
-      <rect class="barra" fill="var(--serie-1)" x="96" y="240"
-        width="16.329896907216494" height="14" rx="4"/><rect class="trama" x="96" y="240" width="16.329896907216494"
-           height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="119.3298969072165" y="250.5">6</text>
-    </g><g class="marca" data-k="SDG 2" tabindex="-1" role="listitem"
-        aria-label="SDG 2: 5"
-        data-tip="SDG 2" data-tip-v="5"
-        >
-      <text x="86" y="276.5" text-anchor="end">SDG 2</text>
-      <rect class="barra" fill="var(--serie-1)" x="96" y="266"
-        width="13.608247422680412" height="14" rx="4"/><rect class="trama" x="96" y="266" width="13.608247422680412"
-           height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="116.6082474226804" y="276.5">5</text>
+      <text class="valor" x="140.71428571428572" y="198.5">23</text>
     </g><g class="marca" data-k="SDG 8" tabindex="-1" role="listitem"
-        aria-label="SDG 8: 5"
-        data-tip="SDG 8" data-tip-v="5"
+        aria-label="SDG 8: 16"
+        data-tip="SDG 8" data-tip-v="16"
         >
-      <text x="86" y="302.5" text-anchor="end">SDG 8</text>
-      <rect class="barra" fill="var(--serie-1)" x="96" y="292"
-        width="13.608247422680412" height="14" rx="4"/><rect class="trama" x="96" y="292" width="13.608247422680412"
+      <text x="86" y="224.5" text-anchor="end">SDG 8</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="214"
+        width="26.236024844720497" height="14" rx="4"/><rect class="trama" x="96" y="214" width="26.236024844720497"
            height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="116.6082474226804" y="302.5">5</text>
+      <text class="valor" x="129.2360248447205" y="224.5">16</text>
+    </g><g class="marca" data-k="SDG 13" tabindex="-1" role="listitem"
+        aria-label="SDG 13: 12"
+        data-tip="SDG 13" data-tip-v="12"
+        >
+      <text x="86" y="250.5" text-anchor="end">SDG 13</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="240"
+        width="19.677018633540374" height="14" rx="4"/><rect class="trama" x="96" y="240" width="19.677018633540374"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="122.67701863354037" y="250.5">12</text>
+    </g><g class="marca" data-k="SDG 1" tabindex="-1" role="listitem"
+        aria-label="SDG 1: 10"
+        data-tip="SDG 1" data-tip-v="10"
+        >
+      <text x="86" y="276.5" text-anchor="end">SDG 1</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="266"
+        width="16.39751552795031" height="14" rx="4"/><rect class="trama" x="96" y="266" width="16.39751552795031"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="119.3975155279503" y="276.5">10</text>
     </g><g class="marca" data-k="SDG 12" tabindex="-1" role="listitem"
-        aria-label="SDG 12: 4"
-        data-tip="SDG 12" data-tip-v="4"
+        aria-label="SDG 12: 10"
+        data-tip="SDG 12" data-tip-v="10"
         >
-      <text x="86" y="328.5" text-anchor="end">SDG 12</text>
-      <rect class="barra" fill="var(--serie-1)" x="96" y="318"
-        width="10.88659793814433" height="14" rx="4"/><rect class="trama" x="96" y="318" width="10.88659793814433"
+      <text x="86" y="302.5" text-anchor="end">SDG 12</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="292"
+        width="16.39751552795031" height="14" rx="4"/><rect class="trama" x="96" y="292" width="16.39751552795031"
            height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="113.88659793814433" y="328.5">4</text>
+      <text class="valor" x="119.3975155279503" y="302.5">10</text>
+    </g><g class="marca" data-k="SDG 2" tabindex="-1" role="listitem"
+        aria-label="SDG 2: 8"
+        data-tip="SDG 2" data-tip-v="8"
+        >
+      <text x="86" y="328.5" text-anchor="end">SDG 2</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="318"
+        width="13.118012422360248" height="14" rx="4"/><rect class="trama" x="96" y="318" width="13.118012422360248"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="116.11801242236025" y="328.5">8</text>
+    </g><g class="marca" data-k="SDG 14" tabindex="-1" role="listitem"
+        aria-label="SDG 14: 7"
+        data-tip="SDG 14" data-tip-v="7"
+        >
+      <text x="86" y="354.5" text-anchor="end">SDG 14</text>
+      <rect class="barra" fill="var(--serie-1)" x="96" y="344"
+        width="11.478260869565217" height="14" rx="4"/><rect class="trama" x="96" y="344" width="11.478260869565217"
+           height="14" rx="4" fill="url(#g15-t)"/>
+      <text class="valor" x="114.47826086956522" y="354.5">7</text>
     </g><g class="marca" data-k="SDG 15" tabindex="-1" role="listitem"
         aria-label="SDG 15: 3"
         data-tip="SDG 15" data-tip-v="3"
         >
-      <text x="86" y="354.5" text-anchor="end">SDG 15</text>
-      <rect class="barra" fill="var(--serie-1)" x="96" y="344"
-        width="8.164948453608247" height="14" rx="4"/><rect class="trama" x="96" y="344" width="8.164948453608247"
-           height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="111.16494845360825" y="354.5">3</text>
-    </g><g class="marca" data-k="SDG 14" tabindex="-1" role="listitem"
-        aria-label="SDG 14: 2"
-        data-tip="SDG 14" data-tip-v="2"
-        >
-      <text x="86" y="380.5" text-anchor="end">SDG 14</text>
+      <text x="86" y="380.5" text-anchor="end">SDG 15</text>
       <rect class="barra" fill="var(--serie-1)" x="96" y="370"
-        width="5.443298969072165" height="14" rx="4"/><rect class="trama" x="96" y="370" width="5.443298969072165"
+        width="4.919254658385094" height="14" rx="4"/><rect class="trama" x="96" y="370" width="4.919254658385094"
            height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="108.44329896907216" y="380.5">2</text>
+      <text class="valor" x="107.9192546583851" y="380.5">3</text>
     </g><g class="marca" data-k="SDG 6" tabindex="-1" role="listitem"
         aria-label="SDG 6: 2"
         data-tip="SDG 6" data-tip-v="2"
         >
       <text x="86" y="406.5" text-anchor="end">SDG 6</text>
       <rect class="barra" fill="var(--serie-1)" x="96" y="396"
-        width="5.443298969072165" height="14" rx="4"/><rect class="trama" x="96" y="396" width="5.443298969072165"
+        width="3.279503105590062" height="14" rx="4"/><rect class="trama" x="96" y="396" width="3.279503105590062"
            height="14" rx="4" fill="url(#g15-t)"/>
-      <text class="valor" x="108.44329896907216" y="406.5">2</text>
+      <text class="valor" x="106.27950310559007" y="406.5">2</text>
     </g></svg></div></div>
       </div>
       <div class="vista" id="T-04-tabla" data-vista="tabla" data-activa="false">
         <div class="tabla-envoltura tabla-datos"><table>
     <thead><tr><th scope="col">Categoría</th><th scope="col" class="num">n</th></tr></thead><tbody><tr><td>SDG 3</td>
-      <td class="num">194</td>
+      <td class="num">322</td>
       </tr><tr><td>SDG 4</td>
-      <td class="num">43</td>
+      <td class="num">60</td>
       </tr><tr><td>SDG 7</td>
-      <td class="num">24</td>
+      <td class="num">40</td>
       </tr><tr><td>SDG 10</td>
-      <td class="num">23</td>
+      <td class="num">36</td>
       </tr><tr><td>SDG 9</td>
-      <td class="num">21</td>
-      </tr><tr><td>SDG 5</td>
-      <td class="num">18</td>
-      </tr><tr><td>SDG 11</td>
-      <td class="num">15</td>
+      <td class="num">32</td>
       </tr><tr><td>SDG 16</td>
-      <td class="num">15</td>
-      </tr><tr><td>SDG 13</td>
-      <td class="num">11</td>
-      </tr><tr><td>SDG 1</td>
-      <td class="num">6</td>
-      </tr><tr><td>SDG 2</td>
-      <td class="num">5</td>
+      <td class="num">29</td>
+      </tr><tr><td>SDG 5</td>
+      <td class="num">28</td>
+      </tr><tr><td>SDG 11</td>
+      <td class="num">23</td>
       </tr><tr><td>SDG 8</td>
-      <td class="num">5</td>
+      <td class="num">16</td>
+      </tr><tr><td>SDG 13</td>
+      <td class="num">12</td>
+      </tr><tr><td>SDG 1</td>
+      <td class="num">10</td>
       </tr><tr><td>SDG 12</td>
-      <td class="num">4</td>
+      <td class="num">10</td>
+      </tr><tr><td>SDG 2</td>
+      <td class="num">8</td>
+      </tr><tr><td>SDG 14</td>
+      <td class="num">7</td>
       </tr><tr><td>SDG 15</td>
       <td class="num">3</td>
-      </tr><tr><td>SDG 14</td>
-      <td class="num">2</td>
       </tr><tr><td>SDG 6</td>
       <td class="num">2</td>
       </tr></tbody></table></div>
@@ -863,13 +887,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="lectura-grafico"><b>Qué muestra</b>
       Cada barra cuenta las publicaciones que la fuente asocia a ese Objetivo de Desarrollo Sostenible. Es un recuento, no un reparto del total: la mayoría de las publicaciones no tiene ninguno asignado.</p>
     <p class="lectura-cuidado"><b>Cuidado</b>
-      Cobertura 38 %. Se reporta como recuento, nunca como distribución porcentual del total.</p>
+      Cobertura 38,8 %. Se reporta como recuento, nunca como distribución porcentual del total.</p>
       
       <p class="sello sello-aviso">
     <span><b>Fuente</b> SciVal</span>
-    <span><b>Corte</b> 2026-07-22</span>
-    <span><b>N</b> 823 publicaciones</span>
-    <span><b>Cobertura</b> 37,7 % · 310 con dato</span>
+    <span><b>Corte</b> 2026-08-30</span>
+    <span><b>N</b> 1.342 publicaciones</span>
+    <span><b>Cobertura</b> 38,8 % · 521 con dato</span>
     <span class="sello-alerta">cobertura baja</span></p>
     </section>
 </div>
@@ -885,10 +909,10 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <div class="contenedor">
       <p>Los indicadores describen la producción indexada en Scopus, con las métricas normalizadas de SciVal. La cobertura de la base no es uniforme entre disciplinas.
       Ver <a href="metodologia.html">metodología y limitaciones</a>.</p>
-      <p>Universo: 823 publicaciones ·
-      816 con métricas ·
-      818 con autoría detallada.
-      Build 2026-09-04.</p>
+      <p>Universo: 1.342 publicaciones ·
+      1.342 con métricas ·
+      1.342 con autoría detallada.
+      Build 2026-09-10.</p>
     </div>
 </footer>
 <script type="module" src="assets/js/paginas.js"></script>

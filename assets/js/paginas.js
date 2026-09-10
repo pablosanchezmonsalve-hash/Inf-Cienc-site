@@ -724,7 +724,7 @@ async function autores() {
   const campo = document.getElementById('buscar-autor');
   /* Llegar buscando a alguien y no encontrarlo sería peor que no ofrecer la
      búsqueda: la vista por defecto oculta las firmas por debajo del umbral, y
-     480 de las 530 lo están. Si la búsqueda viene en la URL se abre la lista
+     761 de las 829 lo están. Si la búsqueda viene en la URL se abre la lista
      entera y los dos controles enseñan el estado real, en vez de filtrar por
      detrás. */
   if (q) {
@@ -865,7 +865,7 @@ async function fichaAutor() {
       consolidación de identidades requiere validación institucional u ORCID, pendientes.</div>` : ''}
 
     <!-- La entrada al informe recortado a esta persona. Va aquí y no en un panel
-         de filtros: una lista de 530 firmas no es un filtro, y quien quiere el
+         de filtros: una lista de 829 firmas no es un filtro, y quien quiere el
          informe de alguien suele estar mirando a ese alguien. -->
     <p class="ficha-acciones"><a class="enlace-lista"
       href="index.html?autor=${encodeURIComponent(a.nombre_en_fuente)}"

@@ -78,22 +78,22 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </details>
       <span class="sep" aria-hidden="true"></span>
       <details class="v-chip">
-        <summary>Ventana <b>2023–2025</b></summary>
+        <summary>Ventana <b>2020–2025</b></summary>
         <p>Fechas de publicación consideradas como universo del informe. Fuera de este periodo un trabajo no aparece.</p>
       </details>
       <span class="sep" aria-hidden="true"></span>
       <details class="v-chip">
-        <summary>Citas al <b>2026-07-22</b></summary>
+        <summary>Citas al <b>2026-08-30</b></summary>
         <p>Fecha en que se congelaron el recuento de citas y las métricas derivadas.</p>
       </details>
       <span class="recorte-vivo" id="recorte-vivo" hidden></span>
       <p class="solo-papel credito-impreso">
         Universidad Finis Terrae · Informe Bibliométrico Institucional.
         Fuentes: Scopus · SciVal.
-        Ventana 2023–2025.
-        Citas actualizadas al 2026-07-22.
+        Ventana 2020–2025.
+        Citas actualizadas al 2026-08-30.
       </p>
-      <p class="solo-papel recorte-impreso" id="recorte-impreso">Sin filtros: el informe completo, 823 publicaciones.</p>
+      <p class="solo-papel recorte-impreso" id="recorte-impreso">Sin filtros: el informe completo, 1.342 publicaciones.</p>
       <p class="solo-papel recorte-impreso" id="seleccion-impresa"></p>
       <label class="v-anio" id="recorte-anio-env" hidden>
         <span class="solo-lectores">Filtrar por año</span>
@@ -132,13 +132,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
 
     <ul>
       <li>Fuentes: Scopus, SciVal</li>
-      <li>Ventana temporal: 2023–2025</li>
-      <li>Citas actualizadas al: <strong>2026-07-22</strong></li>
-      <li>Export de origen: 2026-07-31</li>
-      <li>Publicaciones: 823 ·
-          con métricas: 816 ·
-          con autoría detallada: 818</li>
-      <li>Build: 2026-09-04</li>
+      <li>Ventana temporal: 2020–2025</li>
+      <li>Citas actualizadas al: <strong>2026-08-30</strong></li>
+      <li>Export de origen: 2026-09-08</li>
+      <li>Publicaciones: 1.342 ·
+          con métricas: 1.342 ·
+          con autoría detallada: 1.342</li>
+      <li>Build: 2026-09-10</li>
     </ul>
 </div>
   </section>
@@ -153,8 +153,8 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
 
     <p class="val-resumen">
       <strong>30</strong> reglas evaluadas ·
-      <strong>29</strong> pasan ·
-      <strong>1</strong> falla ·
+      <strong>27</strong> pasan ·
+      <strong>3</strong> fallan ·
       <strong>0</strong> bloqueantes fallando.
       Es la compuerta que el propio build no deja pasar si alguna regla bloqueante falla.
     </p>
@@ -170,7 +170,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <td>bloqueante</td>
       <td>Todo registro tiene EID con formato válido</td>
       <td>Pasa</td>
-      <td>818/818</td>
+      <td>1342/1342</td>
     </tr><tr class="">
       <td class="mono">E-02</td>
       <td>bloqueante</td>
@@ -188,7 +188,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <td>bloqueante</td>
       <td>Año dentro de la ventana declarada</td>
       <td>Pasa</td>
-      <td>rango observado=2023-2025</td>
+      <td>rango observado=2020-2025</td>
     </tr><tr class="">
       <td class="mono">E-05</td>
       <td>bloqueante</td>
@@ -206,25 +206,25 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <td>alta</td>
       <td>Sin columnas residuales de join en fuentes activas</td>
       <td>Pasa</td>
-      <td>detectadas en rdata (fuente de referencia, no activa): 6</td>
+      <td>fuente de referencia no leída (paquete `rdata` ausente); no afecta a las fuentes activas</td>
     </tr><tr class="">
       <td class="mono">E-08</td>
       <td>media</td>
       <td>n de registros leído coincide con el declarado</td>
       <td>Pasa</td>
-      <td>declarado=816 leído=816</td>
+      <td>declarado=1342 leído=1342</td>
     </tr><tr class="">
       <td class="mono">D-01</td>
       <td>bloqueante</td>
       <td>Sin EID repetido</td>
       <td>Pasa</td>
       <td>0</td>
-    </tr><tr class="">
+    </tr><tr class="val-falla">
       <td class="mono">D-02</td>
       <td>alta</td>
       <td>Sin DOI repetido entre los no nulos</td>
-      <td>Pasa</td>
-      <td>0</td>
+      <td><strong>FALLA</strong></td>
+      <td>2</td>
     </tr><tr class="">
       <td class="mono">D-03</td>
       <td>alta</td>
@@ -236,19 +236,19 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <td>alta</td>
       <td>Duplicados probables por título marcados, no resueltos</td>
       <td>Pasa</td>
-      <td>1 grupo(s) · 1 revisado(s) por una persona · 0 pendiente(s)</td>
+      <td>3 grupo(s) · 1 revisado(s) por una persona · 2 pendiente(s)</td>
     </tr><tr class="">
       <td class="mono">P-03</td>
       <td>alta</td>
       <td>Variantes de nombre encoladas sin colapso automático</td>
       <td>Pasa</td>
-      <td>123 entradas</td>
+      <td>207 entradas</td>
     </tr><tr class="">
       <td class="mono">P-04</td>
       <td>alta</td>
       <td>Nombres con múltiples Scopus ID encolados</td>
       <td>Pasa</td>
-      <td>20 entradas</td>
+      <td>29 entradas</td>
     </tr><tr class="">
       <td class="mono">E-09</td>
       <td>alta</td>
@@ -260,13 +260,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <td>bloqueante</td>
       <td>Toda publicación tiene al menos una detección institucional</td>
       <td>Pasa</td>
-      <td>sin detección=0</td>
+      <td>sin detección=1 · 1 resuelta(s) por una persona y corroborada(s) por el método duro · 0 pendiente(s)</td>
     </tr><tr class="">
       <td class="mono">I-04</td>
       <td>alta</td>
       <td>Métodos duro y blando reconciliados sin contradicción</td>
       <td>Pasa</td>
-      <td>solo_duro=0 solo_blando=7</td>
+      <td>solo_duro=1 (1 revisado(s) por una persona · 0 pendiente(s)) solo_blando=0</td>
     </tr><tr class="">
       <td class="mono">I-05</td>
       <td>bloqueante</td>
@@ -278,7 +278,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <td>media</td>
       <td>Unidad académica no imputada cuando no es inferible</td>
       <td>Pasa</td>
-      <td>cobertura=63.8 %, 437 pares etiquetados &#39;No determinada&#39;</td>
+      <td>cobertura=64.2 %, 703 pares etiquetados &#39;No determinada&#39;</td>
     </tr><tr class="">
       <td class="mono">I-08</td>
       <td>alta</td>
@@ -290,7 +290,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <td>alta</td>
       <td>Discrepancias entre fuentes listadas nominalmente</td>
       <td>Pasa</td>
-      <td>solo_scopus=7 solo_scival=5</td>
+      <td>solo_scopus=0 solo_scival=0</td>
     </tr><tr class="">
       <td class="mono">X-02</td>
       <td>alta</td>
@@ -303,12 +303,12 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <td>DOI coincide entre fuentes</td>
       <td>Pasa</td>
       <td>0</td>
-    </tr><tr class="">
+    </tr><tr class="val-falla">
       <td class="mono">X-04</td>
       <td>media</td>
       <td>Diferencia de citas entre fuentes dentro de tolerancia (1 %)</td>
-      <td>Pasa</td>
-      <td>scopus=3909 scival=3935 delta=+26 (+0.67 %)</td>
+      <td><strong>FALLA</strong></td>
+      <td>scopus=14421 scival=14245 delta=-176 (-1.22 %)</td>
     </tr><tr class="">
       <td class="mono">X-05</td>
       <td>bloqueante</td>
@@ -320,31 +320,31 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <td>bloqueante</td>
       <td>Suma por año igual al total del universo</td>
       <td>Pasa</td>
-      <td>823/823</td>
+      <td>1342/1342</td>
     </tr><tr class="">
       <td class="mono">V-03</td>
       <td>bloqueante</td>
       <td>Suma de publicaciones por autor mayor al total (conteo completo)</td>
       <td>Pasa</td>
-      <td>suma_por_autor=1205 universo=823</td>
+      <td>suma_por_autor=1960 universo=1342</td>
     </tr><tr class="">
       <td class="mono">V-06</td>
       <td>alta</td>
       <td>Autores con n&lt;5 marcables como no interpretables</td>
       <td>Pasa</td>
-      <td>538/589 autores con n&lt;5</td>
+      <td>818/888 autores con n&lt;5</td>
     </tr><tr class="">
       <td class="mono">V-07</td>
       <td>bloqueante</td>
       <td>Fecha de corte declarada para la fuente de métricas</td>
       <td>Pasa</td>
-      <td>scival=2026-07-22 scopus=sin declarar (T-06)</td>
+      <td>scival=2026-08-30 scopus=sin declarar (T-06)</td>
     </tr><tr class="">
       <td class="mono">V-10</td>
       <td>alta</td>
       <td>Campos bajo el umbral de cobertura (80 %) identificados</td>
       <td>Pasa</td>
-      <td>ODS 37,9 % · Open Access 72,2 % · unidad académica 63.8 % (pares autor x publicación)</td>
+      <td>ODS 38.8 % · Open Access 70.3 % · unidad académica 64.2 % (pares autor x publicación)</td>
     </tr></tbody>
         </table></div>
       </div>
@@ -418,7 +418,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       cuartiles de revista— proceden de <strong>SciVal</strong>: cada módulo
       declara en su sello cuál de las dos fuentes lo sostiene.</li>
       <li>La unidad académica se infiere de la afiliación declarada y está
-      disponible en el 63,8 % de los casos (pares autor × publicación). El
+      disponible en el 64,2 % de los casos (pares autor × publicación). El
       vocabulario de unidades fue validado institucionalmente por el
       responsable del proyecto (T-02); la cobertura desigual de Scopus entre
       disciplinas sigue distorsionando la comparación entre unidades.</li>
@@ -427,7 +427,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <li id="li-orcid"><strong>ORCID no viene de Scopus ni de SciVal.</strong> Se recupera de
       Crossref y del registro público de ORCID, y cada asignación se contrasta
       contra el registro de su titular: hoy hay <span id="orcid-cobertura" data-prerender="1">
-268 de 530 formas de firma con ORCID
+268 de 829 formas de firma con ORCID
 </span>,
       cada una etiquetada con la evidencia que la respalda. Ver
       <em>Cobertura de ORCID</em> en la documentación del proyecto.</li>
@@ -501,12 +501,12 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <section class="modulo" id="fwci-field-weighted-citation-impact">
       <h2>FWCI — Field-Weighted Citation Impact</h2>
       <p>Citas recibidas frente a las esperadas para publicaciones del mismo campo, año y tipo. 1,0 = promedio mundial.</p>
-      <p class="nota">Compara las citas observadas con las esperadas de un conjunto de referencia mundial equivalente. Un valor de 1,0 significa exactamente el promedio mundial; 0,5, la mitad. Se calcula sobre el conjunto completo, no promediando los FWCI individuales. Es inestable con pocas publicaciones o ventanas cortas: no debe usarse para comparar personas. En este informe: media 0,87, mediana 0,41 sobre 816 publicaciones. La diferencia entre ambas indica una distribución muy asimétrica — unas pocas publicaciones muy citadas elevan la media.</p>
+      <p class="nota">Compara las citas observadas con las esperadas de un conjunto de referencia mundial equivalente. Un valor de 1,0 significa exactamente el promedio mundial; 0,5, la mitad. Se calcula sobre el conjunto completo, no promediando los FWCI individuales. Es inestable con pocas publicaciones o ventanas cortas: no debe usarse para comparar personas. En este informe: media 1,14, mediana 0,48 sobre 1.342 publicaciones. La diferencia entre ambas indica una distribución muy asimétrica — unas pocas publicaciones muy citadas elevan la media.</p>
     </section>
     <section class="modulo" id="percentil-de-citacion-top-10">
       <h2>Percentil de citación / Top 10 %</h2>
       <p>Posición de la publicación entre las más citadas de su campo. Menor es mejor: el top 10 % son las más citadas.</p>
-      <p class="nota">Cada publicación recibe un percentil según sus citas dentro de su campo y año. El «top 10 %» agrupa las que están en el decil más citado. En un conjunto sin sesgo, ~10 % de las publicaciones caen en el top 10 %. Aquí son 75 de 816 (9,2 %).</p>
+      <p class="nota">Cada publicación recibe un percentil según sus citas dentro de su campo y año. El «top 10 %» agrupa las que están en el decil más citado. En un conjunto sin sesgo, ~10 % de las publicaciones caen en el top 10 %. Aquí son 115 de 1.342 (8,6 %).</p>
     </section>
     <section class="modulo" id="sjr-citescore-snip-metricas-de-revista">
       <h2>SJR, CiteScore, SNIP — métricas de revista</h2>
@@ -516,11 +516,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <section class="modulo" id="cuartil-q1">
       <h2>Cuartil Q1</h2>
       <p>La revista está entre el 25 % de mayor percentil de su categoría. Describe la revista, no el artículo.</p>
-      <p class="nota">Se calcula con el percentil SJR del año de publicación: Q1 = percentil ≤ 25. Cobertura 762 de 816 publicaciones; las restantes no tienen percentil SJR y se muestran como «sin dato», no como Q4.</p>
+      <p class="nota">Se calcula con el percentil SJR del año de publicación: Q1 = percentil ≤ 25. Cobertura 1.223 de 1.342 publicaciones; las restantes no tienen percentil SJR y se muestran como «sin dato», no como Q4.</p>
     </section>
     <section class="modulo" id="colaboracion-internacional">
       <h2>Colaboración internacional</h2>
-      <p>Publicaciones con autores de más de un país. Aquí: 51,2 %.</p>
+      <p>Publicaciones con autores de más de un país. Aquí: 49,8 %.</p>
       <p class="nota">Cuenta países distintos entre las afiliaciones. No mide la intensidad ni la calidad de la colaboración: una publicación con un coautor extranjero y otra con quince cuentan igual.</p>
     </section>
     <section class="modulo" id="componente-y-comunidad-red-de-coautoria">
@@ -531,46 +531,46 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <section class="modulo" id="asjc-all-science-journal-classification">
       <h2>ASJC — All Science Journal Classification</h2>
       <p>Clasificación temática de la revista, no del artículo. Una publicación puede estar en varias áreas.</p>
-      <p class="nota">Elsevier clasifica cada fuente en una o más de 249 categorías. Como es multivaluada, **las asignaciones (1.796) superan a las publicaciones (816)** y los porcentajes no suman 100 %. Que un artículo esté en «General Medicine» significa que su revista está clasificada así, no que ese sea su tema exacto.</p>
+      <p class="nota">Elsevier clasifica cada fuente en una o más categorías; en este corpus aparecen 271. Como es multivaluada, **las asignaciones (2.973) superan a las publicaciones (1.342)** y los porcentajes no suman 100 %. Que un artículo esté en «General Medicine» significa que su revista está clasificada así, no que ese sea su tema exacto.</p>
     </section>
     <section class="modulo" id="topic-y-prominencia-tematica">
       <h2>Topic y prominencia temática</h2>
       <p>Clúster de artículos que se citan entre sí. La prominencia mide la atención del campo, no el desempeño de la institución.</p>
       <p class="nota">Los Topics agrupan documentos por patrones de co-citación. Se asignan al documento, no a la revista, y por eso son más precisos que ASJC. La prominencia combina citas, visualizaciones y financiamiento recientes del *topic*. Un topic muy prominente indica un área con mucha actividad mundial; no dice nada sobre la calidad del trabajo institucional en ella.</p>
     </section>
-    <section class="modulo" id="h-index-en-ventana-2023-2025">
-      <h2>h-index en ventana 2023–2025</h2>
-      <p>h publicaciones con al menos h citas, contando sólo 2023–2025. No es el h-index de carrera.</p>
-      <p class="nota">Restringido a la ventana del informe, es sistemáticamente mucho menor que el h-index de trayectoria completa. Con 3 años, **442 de las 530 entidades publicadas tienen h ≤ 1**: sobre el conjunto entero el indicador casi no discrimina. Se muestra sólo en fichas con 5 o más publicaciones, y siempre etiquetado «en ventana». Entre esas 50, la mediana es 3 y el máximo 9: donde se publica sí separa, y por eso se publica ahí y no en todas.</p>
+    <section class="modulo" id="h-index-en-ventana-2020-2025">
+      <h2>h-index en ventana 2020–2025</h2>
+      <p>h publicaciones con al menos h citas, contando sólo 2020–2025. No es el h-index de carrera.</p>
+      <p class="nota">Restringido a la ventana del informe, es sistemáticamente mucho menor que el h-index de trayectoria completa. Con 6 años, **675 de las 829 entidades publicadas tienen h ≤ 1**: sobre el conjunto entero el indicador casi no discrimina. Se muestra sólo en fichas con 5 o más publicaciones, y siempre etiquetado «en ventana». Entre esas 68, la mediana es 4 y el máximo 20: donde se publica sí separa, y por eso se publica ahí y no en todas.</p>
     </section>
     <section class="modulo" id="acceso-abierto">
       <h2>Acceso abierto</h2>
       <p>Estado OA declarado por Scopus. La ausencia de valor no significa «no es OA».</p>
-      <p class="nota">Disponible en 590 de 816 publicaciones (72,3 %). Tipos: Gold, Green, Hybrid gold, Bronze; una publicación puede tener varios. Las 226 sin valor se muestran como «sin dato declarado», no como acceso cerrado.</p>
+      <p class="nota">Disponible en 943 de 1.342 publicaciones (70,3 %). Tipos: Gold, Green, Hybrid gold, Bronze; una publicación puede tener varios. Las 399 sin valor se muestran como «sin dato declarado», no como acceso cerrado.</p>
     </section>
     <section class="modulo" id="ods-objetivos-de-desarrollo-sostenible">
       <h2>ODS — Objetivos de Desarrollo Sostenible</h2>
-      <p>Mapeo de la publicación a los ODS de Naciones Unidas. Sólo 38 % del corpus tiene ODS asignado.</p>
-      <p class="nota">Con cobertura del 38 %, se reporta como recuento de publicaciones con ODS asignado, nunca como distribución porcentual del total: eso implicaría que el 62 % restante no se relaciona con ningún ODS, lo cual no está establecido.</p>
+      <p>Mapeo de la publicación a los ODS de Naciones Unidas. Sólo 38,8 % del corpus tiene ODS asignado.</p>
+      <p class="nota">Con cobertura del 38,8 %, se reporta como recuento de publicaciones con ODS asignado, nunca como distribución porcentual del total: eso implicaría que el 61,2 % restante no se relaciona con ningún ODS, lo cual no está establecido.</p>
     </section>
     <section class="modulo" id="conteo-completo">
       <h2>Conteo completo</h2>
       <p>Cada autor UFT recibe la publicación entera. Por eso la suma por autor supera el total institucional.</p>
-      <p class="nota">Una publicación con 3 autores UFT aporta 1 a cada uno. La suma de publicaciones por autor (1.205) excede el total de publicaciones (823). Es correcto y esperado: esa suma no es un total institucional.</p>
+      <p class="nota">Una publicación con 3 autores UFT aporta 1 a cada uno. La suma de publicaciones por autor (1.960) excede el total de publicaciones (1.342). Es correcto y esperado: esa suma no es un total institucional.</p>
     </section>
     <section class="modulo" id="formas-de-firma-vs-personas">
       <h2>Formas de firma vs. personas</h2>
-      <p>589 formas de firma detectadas. El número de personas distintas es menor: hay variantes de nombre sin consolidar.</p>
-      <p class="nota">Sin un identificador persistente como ORCID —ausente en las fuentes— no es posible afirmar que dos variantes son la misma persona. 123 firmas comparten apellido base con otra variante y 20 nombres tienen más de un Scopus Author ID. Estas ambigüedades se declaran sin resolver: consolidarlas por similitud de nombre produciría fusiones erróneas entre homónimos.</p>
+      <p>888 formas de firma detectadas. El número de personas distintas es menor: hay variantes de nombre sin consolidar.</p>
+      <p class="nota">Sin un identificador persistente como ORCID —ausente en las fuentes— no es posible afirmar que dos variantes son la misma persona. 207 firmas comparten apellido base con otra variante y 29 nombres tienen más de un Scopus Author ID. Estas ambigüedades se declaran sin resolver: consolidarlas por similitud de nombre produciría fusiones erróneas entre homónimos.</p>
     </section>
     <section class="modulo" id="fecha-de-corte">
       <h2>Fecha de corte</h2>
-      <p>Las citas están actualizadas al 22 de julio de 2026. Un corte posterior daría cifras mayores.</p>
-      <p class="nota">Las citas se acumulan continuamente. Toda cifra de impacto es válida sólo respecto de su corte. Las publicaciones de 2025 tienen entre 7 y 19 meses de ventana de citación: el 46 % aún no tiene citas, lo que hace sus indicadores provisionales.</p>
+      <p>Las citas están actualizadas al 30 de agosto de 2026. Un corte posterior daría cifras mayores.</p>
+      <p class="nota">Las citas se acumulan continuamente. Toda cifra de impacto es válida sólo respecto de su corte. Las publicaciones de 2025 tienen entre 8 y 20 meses de ventana de citación: el 42 % aún no tiene citas, lo que hace sus indicadores provisionales.</p>
     </section>
     <section class="modulo" id="unidad-academica">
       <h2>Unidad académica</h2>
-      <p>Inferida desde la afiliación declarada. Disponible en el 63,8 % de los casos; el resto figura como «No determinada».</p>
+      <p>Inferida desde la afiliación declarada. Disponible en el 64,2 % de los casos; el resto figura como «No determinada».</p>
       <p class="nota">No existe como campo en las fuentes: se extrae de la cadena de afiliación. El vocabulario de unidades fue validado institucionalmente por el responsable del proyecto (T-02, 2026-08-26). La comparación entre unidades está además afectada por la cobertura desigual de Scopus entre disciplinas: medicina aparece sobrerrepresentada frente a humanidades, artes y derecho por razones de indexación, no de productividad.</p>
     </section>
 </div>
@@ -581,10 +581,10 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <div class="contenedor">
       <p>Los indicadores describen la producción indexada en Scopus, con las métricas normalizadas de SciVal. La cobertura de la base no es uniforme entre disciplinas.
       Ver <a href="metodologia.html">metodología y limitaciones</a>.</p>
-      <p>Universo: 823 publicaciones ·
-      816 con métricas ·
-      818 con autoría detallada.
-      Build 2026-09-04.</p>
+      <p>Universo: 1.342 publicaciones ·
+      1.342 con métricas ·
+      1.342 con autoría detallada.
+      Build 2026-09-10.</p>
     </div>
 </footer>
 <script type="module" src="assets/js/paginas.js"></script>
