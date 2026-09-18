@@ -129,15 +129,15 @@ export const PAGINAS = [
   ['autores.html', 'Autores'],
   ['publicaciones.html', 'Publicaciones'],
   ['fuentes-externas.html', 'Fuentes externas'],
+  ['datos.html', 'Descarga de datos'],
   ['indicadores.html', 'Indicadores'],
   ['produccion-ampliada.html', 'Producción ampliada'],
   ['metodologia.html', 'Metodología'],
 ];
 
-/* Navegación agrupada en secciones. Cada grupo agrega un rótulo corto que sólo
-   se muestra en el menú colapsado (móvil/tablet); en banda ancha los dos
-   grupos de la izquierda (Informe / Datos) se tratan como uno y no se rotulan,
-   para no meter más ruido del que se quita. */
+/* Navegación agrupada en secciones. Cada grupo lleva su rótulo corto en la
+   barra lateral: once enlaces seguidos en una columna no se recorren, tres
+   grupos rotulados sí. */
 export const NAV_GRUPOS = [
   {
     nombre: 'Informe',
@@ -145,7 +145,7 @@ export const NAV_GRUPOS = [
   },
   {
     nombre: 'Datos',
-    paginas: ['autores.html', 'publicaciones.html', 'fuentes-externas.html'],
+    paginas: ['autores.html', 'publicaciones.html', 'fuentes-externas.html', 'datos.html'],
   },
   {
     nombre: 'Sobre este informe',
@@ -153,16 +153,34 @@ export const NAV_GRUPOS = [
   },
 ];
 
-/** El nav completo marcado por grupo. En banda ancha los grupos se funden en
-    una sola fila (sin rótulos); el rótulo de grupo aparece sólo cuando el menú
-    se colapsa. `paginaActual` decide el aria-current. */
+/* Iconos de la barra lateral: trazos de 24 px escritos aquí. El diseño usa
+   Material Symbols, que se sirve desde un CDN, y el sitio no carga nada de
+   fuera (D-30). */
+const ICONOS = {
+  'index.html': 'M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z',
+  'produccion.html': 'M5 20v-9M12 20V4M19 20v-6M3 20h18',
+  'impacto.html': 'M3 17l6-6 4 4 8-8M15 7h6v6',
+  'colaboracion.html': 'M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 6.5M18 14a6.5 6.5 0 0 1 3.5 6',
+  'tematica.html': 'M12 3 2 8l10 5 10-5-10-5zM2 13l10 5 10-5M2 18l10 5 10-5',
+  'autores.html': 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0',
+  'publicaciones.html': 'M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3M9 7h6',
+  'fuentes-externas.html': 'M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5',
+  'datos.html': 'M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2',
+  'indicadores.html':'M10 6h10M10 12h10M10 18h10M4 6l1.2 1.2L7.5 5M4 12l1.2 1.2 2.3-2.2M4 18l1.2 1.2 2.3-2.2',
+  'produccion-ampliada.html': 'M4 4h16v16H4zM12 8v8M8 12h8',
+  'metodologia.html': 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4',
+};
+
+/** La navegación de la barra lateral, por grupo y con icono. `paginaActual`
+    decide el aria-current. */
 export function navHtml(paginaActual) {
   return NAV_GRUPOS.map(g => `<div class="nav-grupo">
-    <span class="nav-grupo-nombre">${g.nombre}</span>
-    <span class="nav-grupo-enlaces">${g.paginas.map(href => {
+    <p class="nav-grupo-nombre">${g.nombre}</p>
+    ${g.paginas.map(href => {
       const [, txt] = PAGINAS.find(([h]) => h === href) || [];
-      return `<a href="${href}"${href === paginaActual ? ' aria-current="page"' : ''}>${txt}</a>`;
-    }).join('')}</span>
+      return `<a href="${href}"${href === paginaActual ? ' aria-current="page"' : ''}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="${ICONOS[href] || ''}"/></svg><span>${txt}</span></a>`;
+    }).join('')}
   </div>`).join('');
 }
 
@@ -190,26 +208,54 @@ export function cromo(meta, paginaActual, tema = 'auto') {
       <span>${txt}</span></button>`).join('')}</div>`;
 
   return {
+    /* Barra lateral y barra superior: la estructura de la pantalla «Inicio»
+       del diseño de Stitch. La lateral lleva `id="menu-nav"` porque es lo que
+       abre el botón «Menú» por debajo de 1040 px. Los años y el botón de
+       descarga están aquí y no en la vigencia porque el diseño los pone en la
+       barra superior; sus id no cambian. */
     cabecera: `
-    <div class="contenedor">
-      <div class="marca-fila">
-        <a class="marca" href="index.html">
-          <span class="marca-sigla" aria-hidden="true">UFT</span>
-          <span class="marca-txt">
-            <strong>${escapar(meta.institucion)}</strong>
-            <span>${escapar(meta.titulo_plataforma)}</span>
-          </span>
-        </a>
+    <div class="lateral" id="menu-nav">
+      <a class="marca" href="index.html">
+        <span class="marca-sigla" aria-hidden="true">UFT</span>
+        <span class="marca-txt">
+          <strong>${escapar(meta.institucion)}</strong>
+          <span>${escapar(meta.titulo_plataforma)}</span>
+        </span>
+      </a>
+      <p class="lateral-ventana"><span>Ventana ${escapar(meta.fuentes.join(' · '))}</span>
+        <b>${meta.ventana.inicio}–${meta.ventana.fin} · citas al ${escapar(meta.fecha_corte_citas)}</b></p>
+      <nav class="nav" aria-label="Secciones">${nav}</nav>
+      <div class="lateral-pie">
+        <div class="lateral-filtros" id="lateral-filtros" hidden></div>
         ${selectorTema}
-        <button type="button" class="nav-toggle" aria-expanded="false"
-          aria-controls="menu-nav" aria-label="Abrir menú de secciones">
-          <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"
-            fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
-            <path d="M4 7h16M4 12h16M4 17h16"/></svg>
-          <span>Secciones</span>
-        </button>
+        <p class="lateral-doc"><a href="metodologia.html">Documentación</a>
+          <span>Build ${escapar(meta.fecha_build)}</span></p>
       </div>
-      <nav class="nav" id="menu-nav" aria-label="Secciones">${nav}</nav>
+    </div>
+    <div class="barra-sup">
+      <button type="button" class="nav-toggle" aria-expanded="false"
+        aria-controls="menu-nav" aria-label="Abrir menú de secciones">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"
+          fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+          <path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span>Menú</span>
+      </button>
+      <a class="barra-marca" href="index.html">
+        <span class="marca-sigla" aria-hidden="true">UFT</span>${escapar(meta.institucion_corta)}</a>
+      <form class="buscador" action="publicaciones.html" method="get" role="search">
+        <label class="solo-lectores" for="buscar-global">Buscar publicaciones por título, fuente o autor</label>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm9 2-4.3-4.3"/></svg>
+        <input type="search" id="buscar-global" name="q" autocomplete="off"
+          placeholder="Buscar por título, fuente o autor…">
+      </form>
+      <div class="anios" id="recorte-anio-env" role="group"
+        aria-label="Filtrar por año de publicación" hidden></div>
+      <button type="button" class="descargar" id="descargar-informe"
+        title="Abre el diálogo de impresión del navegador; elija «Guardar como PDF»">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
+          fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Descargar informe
+      </button>
     </div>`,
 
     /* La barra de vigencia lleva dos párrafos que en pantalla no existen y en
@@ -263,16 +309,6 @@ export function cromo(meta, paginaActual, tema = 'auto') {
       <p class="solo-papel recorte-impreso" id="recorte-impreso">${
         escapar(fraseRecorte(universo, universo))}</p>
       <p class="solo-papel recorte-impreso" id="seleccion-impresa"></p>
-      <label class="v-anio" id="recorte-anio-env" hidden>
-        <span class="solo-lectores">Filtrar por año</span>
-        <select id="recorte-anio" aria-label="Filtrar por año de publicación"></select>
-      </label>
-      <button type="button" class="descargar" id="descargar-informe"
-        title="Abre el diálogo de impresión del navegador; elija «Guardar como PDF»">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
-          fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Descargar informe
-      </button>
       <a class="vigencia-guia" href="metodologia.html">Cómo leer estos indicadores →</a>
     </div>`,
 
@@ -312,24 +348,31 @@ export async function montarCabecera(paginaActual) {
   document.querySelectorAll('.tema button').forEach(b =>
     b.addEventListener('click', () => aplicarTema(b.dataset.tema)));
 
-  /* Menú de navegación colapsable: en móvil/tablet el nav se pliega bajo un
-     conmutador y se despliega al pulsarlo. El conmutador sólo se ve donde hace
-     falta (CSS); en banda ancha queda oculto y este escucha no estorba. */
+  /* La barra lateral es un cajón por debajo de 1040 px: la abre el botón
+     «Menú» y la cierran elegir una sección, Escape o un clic fuera. En banda
+     ancha el botón no se ve y la barra está siempre a la vista, así que estos
+     escuchas no estorban. */
   const toggle = document.querySelector('.nav-toggle');
   const nav = document.getElementById('menu-nav');
   if (toggle && nav) {
-    toggle.addEventListener('click', () => {
-      const abierto = nav.classList.toggle('abierto');
+    const poner = abierto => {
+      nav.classList.toggle('abierto', abierto);
       toggle.setAttribute('aria-expanded', String(abierto));
       toggle.setAttribute('aria-label',
         abierto ? 'Cerrar menú de secciones' : 'Abrir menú de secciones');
+    };
+    toggle.addEventListener('click', () => {
+      const abrir = !nav.classList.contains('abierto');
+      poner(abrir);
+      if (abrir) nav.querySelector('a')?.focus();
     });
-    // Elegir una sección cierra el menú (en pantallas donde el nav se pliega).
-    nav.addEventListener('click', e => {
-      if (e.target.closest('a')) {
-        nav.classList.remove('abierto');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.setAttribute('aria-label', 'Abrir menú de secciones');
+    nav.addEventListener('click', e => { if (e.target.closest('a')) poner(false); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && nav.classList.contains('abierto')) { poner(false); toggle.focus(); }
+    });
+    document.addEventListener('click', e => {
+      if (nav.classList.contains('abierto') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+        poner(false);
       }
     });
   }

@@ -124,43 +124,92 @@ function actualizarRecorteVivo(publicaciones, sel) {
      que es la que el cromo deja pre-renderizada. */
   const papel = document.getElementById('recorte-impreso');
   if (papel) papel.textContent = c.fraseRecorte(n, total, X.describir(sel));
+
+  /* Y al pie de la barra lateral, el bloque «Filtros activos» del diseño:
+     cuántas dimensiones recortan y cuáles. La redacción sale de
+     `X.describir(sel)`, la misma de la frase de pantalla y de la del papel. */
+  const lateral = document.getElementById('lateral-filtros');
+  if (lateral) {
+    const partes = X.describir(sel);
+    lateral.innerHTML = `<p class="lateral-filtros-cab"><span>Filtros activos</span><b>${
+        partes.length ? `${partes.length} ${partes.length === 1 ? 'aplicado' : 'aplicados'}` : 'ninguno'}</b></p>
+      <p class="lateral-filtros-que">${partes.length
+        ? partes.map(p => c.escapar(p)).join('<br>') : 'Sin filtros: el informe completo.'}</p>
+      <p class="lateral-filtros-n">${c.nf.format(n)} de ${c.nf.format(total)} publicaciones</p>`;
+    lateral.hidden = false;
+  }
 }
 
-/* Selector de año en la barra de vigencia. Al elegir un año se filtra el
-   explorador de la página de inmediato (mismo recorte que tocar el chip de
-   año en los controles). Se rellena con los años reales del corpus y se
-   preselecciona el año activo, si lo hay; en una página sin explorador nunca
-   se llama y el select queda oculto.
+/* Los controles se repintan enteros a cada cambio, y con eso se cerraba la
+   píldora en la que se estaba eligiendo: marcar dos años obligaba a abrirla dos
+   veces. Se recuerda cuáles estaban abiertas, por su nombre, y se reabren. */
+function repintarControles(zona, html) {
+  const abiertas = new Set([...zona.querySelectorAll('details.dim[open] .dim-nombre')]
+    .map(e => e.textContent));
+  zona.innerHTML = html;
+  zona.querySelectorAll('details.dim').forEach(d => {
+    if (abiertas.has(d.querySelector('.dim-nombre')?.textContent)) d.open = true;
+  });
+}
 
-   El `<select>` es un elemento estable de la barra común, así que el escucha
-   se engancha UNA vez y el contenido se redibuja en cada repintado — volver a
+/* Una píldora abierta se cierra con Escape o con un clic fuera de ella. Estos
+   escuchas se enganchan al cargar el módulo, antes que los del explorador, así
+   que un clic sobre un valor llega aquí con la píldora todavía en el documento
+   y no la cierra. */
+document.addEventListener('click', e => {
+  document.querySelectorAll('details.dim[open]').forEach(d => {
+    if (!d.contains(e.target)) d.open = false;
+  });
+});
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  const abierta = document.querySelector('details.dim[open]');
+  if (!abierta) return;
+  abierta.open = false;
+  abierta.querySelector('summary')?.focus();
+});
+
+/* Años de la barra superior. Al elegir uno se filtra el explorador de la
+   página de inmediato (mismo recorte que tocar el chip de año en los
+   controles). Son botones y no un `<select>` porque la barra del diseño los
+   enseña a la vista: los tres más recientes y «Todos». En una página sin
+   explorador nunca se llama y el grupo queda oculto.
+
+   El contenedor es un elemento estable de la barra común, así que el escucha
+   se engancha UNA vez y los botones se redibujan en cada repintado — volver a
    engancharlo a cada `pintar` acumularía manejadores. `actual()` devuelve el
    recorte vigente en cada momento y `cambiar(s)` lo sustituye y repinta. */
 function montarSelectorAnio(publicaciones, actual, cambiar) {
   const env = document.getElementById('recorte-anio-env');
-  const selAnio = document.getElementById('recorte-anio');
-  if (!env || !selAnio) return;
-  selAnio.addEventListener('change', () => {
-    const v = selAnio.value;
+  if (!env) return;
+  env.addEventListener('click', e => {
+    const b = e.target.closest('button[data-anio]');
+    if (!b) return;
     const s = { ...actual(), anio: undefined };
-    if (v) s.anio = [v];
+    if (b.dataset.anio) s.anio = [b.dataset.anio];
     cambiar(s);
   });
-  redibujarSelectorAnio(publicaciones, actual(), selAnio, env);
+  redibujarSelectorAnio(publicaciones, actual(), env);
 }
 
-/* Refresca las opciones del selector y el valor activo tras un repintado. */
-function redibujarSelectorAnio(publicaciones, sel, selAnio, env) {
-  if (!selAnio || !env) return;
+/* Refresca los botones y el activo tras un repintado. Un año elegido que no
+   esté entre los tres de la barra se añade: si lo que se mira no aparece
+   marcado, el control diría que no hay filtro. */
+function redibujarSelectorAnio(publicaciones, sel, env) {
+  if (!env) return;
   const años = X.facetas(publicaciones, sel, 'anio');
   const lista = [...años.keys()]
     .filter(a => a !== 'Sin dato declarado')
     .sort((a, b) => Number(b) - Number(a));
   if (lista.length < 2) { env.hidden = true; return; }
   env.hidden = false;
-  const activo = (sel.anio || [])[0] || '';
-  selAnio.innerHTML = '<option value="">Todo el periodo</option>'
-    + lista.map(a => `<option value="${a}"${a === activo ? ' selected' : ''}>${a}</option>`).join('');
+  const elegidos = sel.anio || [];
+  const visibles = lista.slice(0, 3);
+  elegidos.filter(a => !visibles.includes(a)).forEach(a => visibles.push(a));
+  const boton = (valor, txt, pulsado) =>
+    `<button type="button" data-anio="${c.escapar(valor)}" aria-pressed="${pulsado}">${c.escapar(txt)}</button>`;
+  env.innerHTML = visibles.map(a => boton(a, a, elegidos.includes(a))).join('')
+    + boton('', 'Todos', !elegidos.length);
 }
 
 /* Mini-foco de la portada: unos atajos de un toque para entrar al explorador
@@ -209,6 +258,8 @@ async function montarExplorador(claveSeccion) {
     controles: document.getElementById('controles'),
     cifras: document.getElementById('cifras'),
     cortes: document.getElementById('cortes'),
+    dinamica: document.getElementById('dinamica'),
+    masCitadas: document.getElementById('mas-citadas'),
     // Sólo existen en produccion.html (Bento Grid). El resto de las
     // secciones no tiene estos contenedores y quedan en null — se
     // comprueban antes de usarlos, igual que zonas.diferidos.
@@ -281,6 +332,10 @@ async function montarExplorador(claveSeccion) {
   }
 
   let sel = X.leerURL();
+  // La página pre-renderizada sin recorte no pasa por `pintar()`, y el bloque
+  // de filtros activos de la barra lateral se quedaría oculto hasta el primer
+  // filtro.
+  actualizarRecorteVivo(publicaciones, sel);
 
   function pintar({ nuevaEntrada = false } = {}) {
     const partes = claveSeccion
@@ -293,16 +348,18 @@ async function montarExplorador(claveSeccion) {
       .map(e => [e.dataset.valor, e.textContent]));
 
     zonas.estado.innerHTML = partes.estado;
-    zonas.controles.innerHTML = partes.controles;
+    repintarControles(zonas.controles, partes.controles);
     zonas.cifras.innerHTML = partes.cifras;
     actualizarRecorteVivo(publicaciones, sel);
-    redibujarSelectorAnio(publicaciones, sel,
-      document.getElementById('recorte-anio'), document.getElementById('recorte-anio-env'));
+    redibujarSelectorAnio(publicaciones, sel, document.getElementById('recorte-anio-env'));
     redibujarMiniFoco(publicaciones, sel, document.getElementById('minifoco'));
     // Los cortes se repintan DENTRO de la transición: hay que medir la
     // geometría antes y después del cambio, y el orden sólo se garantiza si el
     // repintado ocurre en medio.
     anim.transicion(zonas.cortes, () => { zonas.cortes.innerHTML = partes.cortes; });
+    // Las dos tablas de la portada. Las secciones no tienen estos contenedores.
+    if (zonas.dinamica) zonas.dinamica.innerHTML = partes.dinamica || '';
+    if (zonas.masCitadas) zonas.masCitadas.innerHTML = partes.masCitadas || '';
 
     // El mapa de calor de temáticas (Bento Grid) reacciona al mismo recorte
     // que el resto de la página: mismo criterio, un solo filtro. No lleva
@@ -502,7 +559,7 @@ async function publicaciones() {
       const antes = document.getElementById('q');
       const tenia = document.activeElement === antes;
       const pos = antes ? antes.selectionStart : null;
-      zonas.controles.innerHTML = VX.controles(pubs, sel, { buscador: true });
+      repintarControles(zonas.controles, VX.controles(pubs, sel, { buscador: true }));
       if (tenia) {
         const ahora = document.getElementById('q');
         ahora.focus();
@@ -631,7 +688,7 @@ async function exportar(filas, { esSeleccion = false } = {}) {
       ? `# Selección manual: ${filas.length} ${filas.length === 1 ? 'publicación marcada' : 'publicaciones marcadas'} una por una, de ${meta.denominadores.universo_total} en total.`
       : `# Subconjunto exportado: ${filas.length} de ${meta.denominadores.universo_total} publicaciones`,
   ].join('\n');
-  const cols = ['eid', 'anio', 'titulo', 'fuente', 'tipo', 'doi', 'citas', 'fwci', 'percentil_citacion', 'n_paises'];
+  const cols = v.COLUMNAS_CSV;
   const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
   const csv = [cab, cols.join(','), ...filas.map(f => cols.map(k => esc(f[k])).join(','))].join('\n');
   const url = URL.createObjectURL(new Blob([`﻿${csv}`], { type: 'text/csv;charset=utf-8' }));
@@ -926,14 +983,15 @@ async function fichaAutor() {
 /* =========================================================== metodología */
 async function metodologia() {
   const glosarioEl = document.getElementById('glosario');
-  const procedenciaEl = document.getElementById('procedencia');
+  const fichaEl = document.getElementById('ficha-tecnica-datos');
   const validacionEl = document.getElementById('validacion');
-  if (yaPintado(glosarioEl) && yaPintado(procedenciaEl) && yaPintado(validacionEl)) return;
-  const { entradas } = await c.cargar('glossary.json');
-  const meta = await c.cargar('meta.json');
+  if (yaPintado(glosarioEl) && yaPintado(fichaEl) && yaPintado(validacionEl)) return;
+  const [{ entradas }, meta, val, { kpis }] = await Promise.all([c.cargar('glossary.json'),
+    c.cargar('meta.json'), c.cargar('validacion.json'), c.cargar('kpis.json')]);
+  const notaP01 = (kpis.find(k => k.codigo === 'P-01') || {}).nota;
   glosarioEl.innerHTML = v.glosario(entradas);
-  procedenciaEl.innerHTML = v.procedencia(meta);
-  if (validacionEl) validacionEl.innerHTML = v.validacion(await c.cargar('validacion.json'));
+  fichaEl.innerHTML = v.fichaTecnica(meta, val, notaP01 && notaP01.texto);
+  validacionEl.innerHTML = v.validacion(val);
 
   // La cifra de cobertura de ORCID crece sola (T-19 corre por cron mensual):
   // escribirla a mano en el HTML es exactamente cómo terminó diciendo
@@ -1101,14 +1159,7 @@ async function fuentesexternas() {
   document.getElementById('aviso-fuentes').innerHTML =
     `<b>Sobre este listado</b> ${c.escapar(meta.advertencia)}`;
 
-  document.getElementById('kpis-fuentes').innerHTML =
-    `<article class="kpi"><div class="valor">${c.nf.format(resumen.total_publicaciones)}</div>
-      <div class="etiqueta">Publicaciones fuera de Scopus</div></article>
-    <article class="kpi"><div class="valor">${c.nf.format(resumen.atribuciones_retenidas)}</div>
-      <div class="etiqueta">Atribuciones obra-persona en revisión</div>
-      <div class="secundario">no se publican hasta confirmarse</div></article>
-    <article class="kpi"><div class="valor">${c.nf.format(meta.universo_scopus_dois)}</div>
-      <div class="etiqueta">DOIs en universo Scopus</div></article>`;
+  document.getElementById('kpis-fuentes').innerHTML = v.kpisFuentesExternas(meta, resumen);
 
   const fuentesCortas = { facmed: 'Fac. Medicina', dspace: 'DSpace', autoarchivo: 'Autoarchivo' };
   let sel = { fuente: [], anio: [], q: undefined };
@@ -1213,7 +1264,23 @@ async function fuentesexternas() {
 }
 
 /* ============================================================== arranque */
-const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada };
+/* ===================================================== descarga de datos */
+/* La página llega pre-renderizada entera; aquí sólo se pone el botón del CSV,
+   que se genera en el navegador con la misma `exportar()` del listado. */
+async function datos() {
+  montarDescargaInforme();
+  const zona = document.getElementById('csv-accion');
+  if (!zona) return;
+  const meta = await c.cargar('meta.json');
+  zona.innerHTML = `<button type="button" class="boton boton-primario" id="descargar-csv">
+    Descargar CSV · ${c.nf.format(meta.denominadores.universo_total)} publicaciones</button>`;
+  zona.querySelector('button').addEventListener('click', async () => {
+    const { publicaciones: pubs } = await c.cargar('publications.json');
+    exportar(pubs);
+  });
+}
+
+const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada, datos };
 
 /** C-05: fija (o suelta, si ya estaba fijado) el nodo `g` y resalta sus
     coautores directos — mismo patrón visual que el filtro atenúa las barras

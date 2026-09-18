@@ -24,15 +24,39 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
 <a class="salto-contenido" href="#contenido">Saltar al contenido</a>
 <header class="cabecera" id="cabecera" data-prerender="1">
 
-    <div class="contenedor">
-      <div class="marca-fila">
-        <a class="marca" href="index.html">
-          <span class="marca-sigla" aria-hidden="true">UFT</span>
-          <span class="marca-txt">
-            <strong>Universidad Finis Terrae</strong>
-            <span>Informe Bibliométrico Institucional</span>
-          </span>
-        </a>
+    <div class="lateral" id="menu-nav">
+      <a class="marca" href="index.html">
+        <span class="marca-sigla" aria-hidden="true">UFT</span>
+        <span class="marca-txt">
+          <strong>Universidad Finis Terrae</strong>
+          <span>Informe Bibliométrico Institucional</span>
+        </span>
+      </a>
+      <p class="lateral-ventana"><span>Ventana Scopus · SciVal</span>
+        <b>2020–2025 · citas al 2026-08-30</b></p>
+      <nav class="nav" aria-label="Secciones"><div class="nav-grupo">
+    <p class="nav-grupo-nombre">Informe</p>
+    <a href="index.html" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z"/></svg><span>Portada</span></a><a href="produccion.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20v-9M12 20V4M19 20v-6M3 20h18"/></svg><span>Producción</span></a><a href="impacto.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg><span>Impacto</span></a><a href="colaboracion.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 6.5M18 14a6.5 6.5 0 0 1 3.5 6"/></svg><span>Colaboración</span></a><a href="tematica.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5zM2 13l10 5 10-5M2 18l10 5 10-5"/></svg><span>Áreas temáticas</span></a>
+  </div><div class="nav-grupo">
+    <p class="nav-grupo-nombre">Datos</p>
+    <a href="autores.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0"/></svg><span>Autores</span></a><a href="publicaciones.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3M9 7h6"/></svg><span>Publicaciones</span></a><a href="fuentes-externas.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span>Fuentes externas</span></a><a href="datos.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><span>Descarga de datos</span></a>
+  </div><div class="nav-grupo">
+    <p class="nav-grupo-nombre">Sobre este informe</p>
+    <a href="indicadores.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6h10M10 12h10M10 18h10M4 6l1.2 1.2L7.5 5M4 12l1.2 1.2 2.3-2.2M4 18l1.2 1.2 2.3-2.2"/></svg><span>Indicadores</span></a><a href="metodologia.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4"/></svg><span>Metodología</span></a>
+  </div></nav>
+      <div class="lateral-pie">
+        <div class="lateral-filtros" id="lateral-filtros" hidden></div>
         <div class="tema" role="group" aria-label="Tema de color"><button type="button" data-tema="auto"
       aria-pressed="true" title="Tema auto">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.5-6.5-.7.7M6.2 17.8l-.7.7m12.6 0-.7-.7M6.2 6.2l-.7-.7M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -43,24 +67,34 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       aria-pressed="false" title="Tema oscuro">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span>Oscuro</span></button></div>
-        <button type="button" class="nav-toggle" aria-expanded="false"
-          aria-controls="menu-nav" aria-label="Abrir menú de secciones">
-          <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"
-            fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
-            <path d="M4 7h16M4 12h16M4 17h16"/></svg>
-          <span>Secciones</span>
-        </button>
+        <p class="lateral-doc"><a href="metodologia.html">Documentación</a>
+          <span>Build 2026-09-16</span></p>
       </div>
-      <nav class="nav" id="menu-nav" aria-label="Secciones"><div class="nav-grupo">
-    <span class="nav-grupo-nombre">Informe</span>
-    <span class="nav-grupo-enlaces"><a href="index.html" aria-current="page">Portada</a><a href="produccion.html">Producción</a><a href="impacto.html">Impacto</a><a href="colaboracion.html">Colaboración</a><a href="tematica.html">Áreas temáticas</a></span>
-  </div><div class="nav-grupo">
-    <span class="nav-grupo-nombre">Datos</span>
-    <span class="nav-grupo-enlaces"><a href="autores.html">Autores</a><a href="publicaciones.html">Publicaciones</a><a href="fuentes-externas.html">Fuentes externas</a></span>
-  </div><div class="nav-grupo">
-    <span class="nav-grupo-nombre">Sobre este informe</span>
-    <span class="nav-grupo-enlaces"><a href="indicadores.html">Indicadores</a><a href="metodologia.html">Metodología</a></span>
-  </div></nav>
+    </div>
+    <div class="barra-sup">
+      <button type="button" class="nav-toggle" aria-expanded="false"
+        aria-controls="menu-nav" aria-label="Abrir menú de secciones">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"
+          fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+          <path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span>Menú</span>
+      </button>
+      <a class="barra-marca" href="index.html">
+        <span class="marca-sigla" aria-hidden="true">UFT</span>UFT</a>
+      <form class="buscador" action="publicaciones.html" method="get" role="search">
+        <label class="solo-lectores" for="buscar-global">Buscar publicaciones por título, fuente o autor</label>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm9 2-4.3-4.3"/></svg>
+        <input type="search" id="buscar-global" name="q" autocomplete="off"
+          placeholder="Buscar por título, fuente o autor…">
+      </form>
+      <div class="anios" id="recorte-anio-env" role="group"
+        aria-label="Filtrar por año de publicación" hidden></div>
+      <button type="button" class="descargar" id="descargar-informe"
+        title="Abre el diálogo de impresión del navegador; elija «Guardar como PDF»">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
+          fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Descargar informe
+      </button>
     </div>
 </header>
 <div class="vigencia" id="vigencia" data-prerender="1">
@@ -95,16 +129,6 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </p>
       <p class="solo-papel recorte-impreso" id="recorte-impreso">Sin filtros: el informe completo, 1.342 publicaciones.</p>
       <p class="solo-papel recorte-impreso" id="seleccion-impresa"></p>
-      <label class="v-anio" id="recorte-anio-env" hidden>
-        <span class="solo-lectores">Filtrar por año</span>
-        <select id="recorte-anio" aria-label="Filtrar por año de publicación"></select>
-      </label>
-      <button type="button" class="descargar" id="descargar-informe"
-        title="Abre el diálogo de impresión del navegador; elija «Guardar como PDF»">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
-          fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Descargar informe
-      </button>
       <a class="vigencia-guia" href="metodologia.html">Cómo leer estos indicadores →</a>
     </div>
 </div>
@@ -118,14 +142,21 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
        gráficos. La interacción se añade encima. Los `details` de los filtros
        se abren y se leen sin guion, que es la razón de usarlos. -->
   <header class="portada-cabecera">
-    <div id="titular" data-prerender="1">
+    <div id="titular" class="cockpit banda-contraste" data-prerender="1">
 <div class="portada-id">
     <h1>Informe bibliométrico</h1>
-    <p class="portada-sub">Universidad Finis Terrae
-      · Scopus y SciVal · 2020–2025</p>
+    <p class="portada-sub">Universidad Finis Terrae</p>
     <p class="ventana-cierre">La ventana de este informe termina en
       <b>2025</b>: lo publicado después
       <b>no está aquí</b>. La fija la carga de datos, no la fecha en que usted lo lee.</p>
+  </div>
+  <div class="cockpit-lado">
+    <p class="cockpit-rotulo">No cambia con el recorte</p>
+    <dl class="cockpit-fijo">
+      <div><dt>Fuentes</dt><dd>Scopus · SciVal</dd></div>
+      <div><dt>Ventana</dt><dd>2020–2025</dd></div>
+      <div><dt>Citas al</dt><dd>2026-08-30</dd></div>
+    </dl>
   </div>
   <details class="metodo portada-metodo">
     <summary>Qué mide este informe y qué no</summary>
@@ -158,7 +189,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <aside class="explorador-panel" aria-label="Filtros">
       <h2 class="solo-lectores">Filtrar las publicaciones</h2>
       <div id="controles" data-prerender="1">
-<div class="filtros-explorador"><details class="dim" open>
+<div class="filtros-explorador"><details class="dim">
       <summary><span class="dim-nombre">Año</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
             data-dim="anio" data-valor="2020"
@@ -173,7 +204,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
             aria-pressed="false">2024<span class="chip-n">273</span></button><button type="button" class="chip"
             data-dim="anio" data-valor="2025"
             aria-pressed="false">2025<span class="chip-n">318</span></button></div>
-    </details><details class="dim" >
+    </details><details class="dim">
       <summary><span class="dim-nombre">Autor</span></summary>
       <div class="dim-ops">
     <label class="solo-lectores" for="q-autor">Buscar una persona por su firma</label>
@@ -184,7 +215,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <p class="nota" id="q-autor-ayuda">829 firmas en este recorte.
       Son formas de firma, no personas: las que una revisión humana declaró la misma
       persona ya están fusionadas; el resto puede incluir variantes.</p></div>
-    </details><details class="dim" >
+    </details><details class="dim">
       <summary><span class="dim-nombre">Área QS</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
             data-dim="qs_area" data-valor="Life Sciences &amp; Medicine"
@@ -197,7 +228,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
             aria-pressed="false">Arts &amp; Humanities<span class="chip-n">153</span></button><button type="button" class="chip"
             data-dim="qs_area" data-valor="Natural Sciences"
             aria-pressed="false">Natural Sciences<span class="chip-n">109</span></button></div>
-    </details><details class="dim" >
+    </details><details class="dim">
       <summary><span class="dim-nombre">Unidad académica</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
             data-dim="unidad" data-valor="Facultad de Medicina y Salud"
@@ -252,7 +283,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
             aria-pressed="false">School of Family Studies<span class="chip-n">1</span></button><button type="button" class="chip"
             data-dim="unidad" data-valor="Escuela de Ingeniería Civil Industrial"
             aria-pressed="false">Escuela de Ingeniería Civil Industrial<span class="chip-n">1</span></button></div>
-    </details><details class="dim" >
+    </details><details class="dim">
       <summary><span class="dim-nombre">Tipo documental</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
             data-dim="tipo" data-valor="Article"
@@ -275,7 +306,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
             aria-pressed="false">Short survey<span class="chip-n">4</span></button><button type="button" class="chip"
             data-dim="tipo" data-valor="Book"
             aria-pressed="false">Book<span class="chip-n">3</span></button></div>
-    </details><details class="dim" >
+    </details><details class="dim">
       <summary><span class="dim-nombre">Acceso abierto</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
             data-dim="open_access" data-valor="Gold"
@@ -288,7 +319,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
             aria-pressed="false">Hybrid gold<span class="chip-n">87</span></button><button type="button" class="chip"
             data-dim="open_access" data-valor="Bronze"
             aria-pressed="false">Bronze<span class="chip-n">46</span></button></div>
-    </details><details class="dim" >
+    </details><details class="dim">
       <summary><span class="dim-nombre">Colaboración</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
             data-dim="colaboracion" data-valor="Nacional"
@@ -302,7 +333,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <div class="explorador-resultado">
       <h2 class="solo-lectores">Indicadores del recorte</h2>
       <div id="cifras" data-prerender="1">
-<div class="tablero"><article class="ficha" data-k="publicaciones">
+<div class="tablero tablero-bento"><article class="ficha" data-k="publicaciones">
       <p class="ficha-valor" data-valor="publicaciones">1.342</p>
       <h3 class="ficha-etq">Publicaciones</h3>
       <p class="ficha-base"><b data-base="publicaciones">1.342</b> publicaciones en el recorte</p>
@@ -323,7 +354,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <h3 class="ficha-etq">FWCI mediano<button class="ayuda" type="button" data-ayuda="FWCI"
     aria-label="Qué significa FWCI">?</button></h3>
       <p class="ficha-base"><b data-base="fwci_mediano">1.342</b> 1,00 = promedio mundial</p>
-      <p class="ficha-lectura">El FWCI compara las citas de cada publicación con las esperadas para su campo, su año y su tipo, y 1,00 es el promedio mundial. Se muestra la mediana del recorte y no el promedio, porque el promedio de los FWCI de un conjunto no es el FWCI del conjunto.</p>
+      <p class="ficha-lectura">El FWCI compara las citas de cada publicación con las esperadas para su campo, su año y su tipo, y 1,00 es el promedio mundial. Se muestra la mediana del recorte y no el promedio porque la distribución es muy asimétrica: unas pocas publicaciones muy citadas mueven el promedio y no la mediana, que describe la publicación típica.</p>
     </article><article class="ficha" data-k="internacional">
       <p class="ficha-valor" data-valor="internacional">49,8<span class="ficha-sufijo">%</span></p>
       <h3 class="ficha-etq">Colaboración internacional<button class="ayuda" type="button" data-ayuda="Colaboración internacional"
@@ -340,10 +371,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
 </div>
 
       <h2 class="titulo-seccion">Cómo se reparte</h2>
-      <div class="cortes" id="cortes" data-prerender="1">
+      <div class="cortes cortes-bento" id="cortes" data-prerender="1">
 
     <section class="corte" data-corte="anio">
-      <h3>Producción por año</h3>
+      <header class="corte-cab"><h3>Producción por año</h3>
+        <span class="corte-cod">P-02</span></header>
       <div class="grafico"><div class="grafico" style="max-width:680px"><svg class="chart" viewBox="0 0 680 260"
     data-cifras="completas" role="list" aria-label="Producción por año — gráfico de barras por año, 6 años">
     
@@ -411,7 +443,8 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     </p>
     </section>
     <section class="corte" data-corte="qs_area">
-      <h3>Áreas QS</h3>
+      <header class="corte-cab"><h3>Áreas QS</h3>
+        <span class="corte-cod">T-05</span></header>
       <div class="grafico"><div class="grafico"><svg class="chart" id="g6" viewBox="0 0 680 140"
     data-cifras="completas"
     role="list" aria-label="Áreas QS — gráfico de barras, 5 categorías"><defs>
@@ -479,7 +512,8 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     </p>
     </section>
     <section class="corte" data-corte="unidad">
-      <h3>Unidades académicas</h3>
+      <header class="corte-cab"><h3>Unidades académicas</h3>
+        <span class="corte-cod">P-07</span></header>
       <div class="grafico"><div class="grafico"><svg class="chart" id="g7" viewBox="0 0 680 556"
     data-cifras="parciales"
     role="list" aria-label="Unidades académicas — gráfico de barras, 21 categorías"><defs>
@@ -682,15 +716,16 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="lectura-grafico"><b>Qué muestra</b>
       Cada barra cuenta publicaciones distintas atribuidas a una facultad. Una publicación firmada desde dos facultades cuenta en las dos, así que las barras suman más que el total del recorte.</p>
     
-      <p class="sello">
+      <p class="sello sello-aviso">
     <span><b>Fuente</b> Scopus</span>
     <span><b>Corte</b> 2026-08-30</span>
-    <span><b>N</b> 1.342 pares autor × publicación</span>
-    <span><b>Cobertura</b> 99,6 % · 1.337 con dato</span>
-    </p>
+    <span><b>N</b> 1.342 publicaciones</span>
+    <span><b>Cobertura</b> 64,9 % · 871 con dato</span>
+    <span class="sello-alerta">cobertura baja</span></p>
     </section>
     <section class="corte" data-corte="tipo">
-      <h3>Tipos documentales</h3>
+      <header class="corte-cab"><h3>Tipos documentales</h3>
+        <span class="corte-cod">P-03</span></header>
       <div class="grafico"><div class="grafico"><svg class="chart" id="g8" viewBox="0 0 680 270"
     data-cifras="completas"
     role="list" aria-label="Tipos documentales — gráfico de barras, 10 categorías"><g class="marca" data-k="Article" tabindex="0" role="listitem"
@@ -788,21 +823,140 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     </section>
 </div>
 
-      <details class="metodo" id="lectura" data-prerender="1">
+      <div id="dinamica" data-prerender="1">
+<section class="corte tabla-portada" data-corte="dinamica">
+    <header class="corte-cab"><h3>Dinámica anual</h3>
+      <span class="corte-cod">P-02 · I-01</span></header>
+    <div class="tabla-envoltura tabla-datos"><table>
+      <caption class="solo-lectores">Publicaciones y citas por año de publicación, sobre el recorte</caption>
+      <thead><tr><th scope="col">Año</th><th scope="col" class="num">Publicaciones</th>
+        <th scope="col" class="num">% del recorte</th><th scope="col" class="num">Citas</th></tr></thead>
+      <tbody><tr><td>2020</td>
+        <td class="num">131</td>
+        <td class="num">9,8 %</td>
+        <td class="num">1.645</td></tr><tr><td>2021</td>
+        <td class="num">199</td>
+        <td class="num">14,8 %</td>
+        <td class="num">2.675</td></tr><tr><td>2022</td>
+        <td class="num">194</td>
+        <td class="num">14,5 %</td>
+        <td class="num">5.652</td></tr><tr><td>2023</td>
+        <td class="num">227</td>
+        <td class="num">16,9 %</td>
+        <td class="num">1.579</td></tr><tr><td>2024</td>
+        <td class="num">273</td>
+        <td class="num">20,3 %</td>
+        <td class="num">1.778</td></tr><tr><td>2025</td>
+        <td class="num">318</td>
+        <td class="num">23,7 %</td>
+        <td class="num">916</td></tr></tbody>
+    </table></div>
+    <p class="nota">Las citas se cuentan por año de publicación, no por año de citación: lo publicado en un año reciente tuvo menos tiempo para acumularlas.</p>
+    <p class="lectura-grafico"><b>Qué muestra</b>
+      Cuántas publicaciones del recorte salieron cada año, qué parte del recorte representan y cuántas citas han recibido hasta la fecha de corte.</p>
+    
+    <p class="sello">
+    <span><b>Fuente</b> Scopus</span>
+    <span><b>Corte</b> 2026-08-30</span>
+    <span><b>N</b> 1.342 publicaciones</span>
+    <span><b>Cobertura</b> 100,0 % · 1.342 con dato</span>
+    </p>
+    <p class="sello">
+    <span><b>Fuente</b> SciVal</span>
+    <span><b>Corte</b> 2026-08-30</span>
+    <span><b>N</b> 1.342 publicaciones</span>
+    <span><b>Cobertura</b> 100,0 % · 1.342 con dato</span>
+    </p>
+  </section>
+</div>
+      <div id="mas-citadas" data-prerender="1">
+<section class="corte tabla-portada" data-corte="mas_citadas"><header class="corte-cab"><h3>Publicaciones más citadas</h3>
+      <span class="corte-cod">I-07</span></header>
+    <p class="nota-destacada"><b>Cómo leer esta tabla</b> Ordena por citas totales al corte, sin normalizar: favorece lo publicado en los primeros años de la ventana y las áreas y tipos documentales que citan más. Describe publicaciones: no evalúa la calidad de los trabajos ni a sus autores (DORA, Manifiesto de Leiden).</p>
+    <p class="nota">Las 10 con más citas entre las
+      1.342 publicaciones del recorte que tienen métricas.</p>
+    <div class="tabla-envoltura tabla-datos"><table>
+      <caption class="solo-lectores">Publicaciones del recorte ordenadas por citas totales</caption>
+      <thead><tr><th scope="col" class="num">#</th><th scope="col">Título</th>
+        <th scope="col">Fuente</th><th scope="col">Tipo</th><th scope="col" class="num">Año</th>
+        <th scope="col" class="num">Citas</th><th scope="col" class="num">FWCI de la publicación</th></tr></thead>
+      <tbody><tr><td class="num">1</td>
+        <td><a href="https://doi.org/10.1123/ijspp.2021-0451" rel="noopener">Defining Training and Performance Caliber: A Participant Classification Framework</a></td>
+        <td>International Journal of Sports Physiology and Performance</td><td>Article</td>
+        <td class="num">2022</td><td class="num">2.726</td>
+        <td class="num">250,06</td></tr><tr><td class="num">2</td>
+        <td><a href="https://doi.org/10.1093/eurjpc/zwac187" rel="noopener">Obesity and cardiovascular disease: mechanistic insights and management strategies. A joint position paper by the World Heart Federation and World Obesity Federation</a></td>
+        <td>European Journal of Preventive Cardiology</td><td>Article</td>
+        <td class="num">2022</td><td class="num">319</td>
+        <td class="num">23,62</td></tr><tr><td class="num">3</td>
+        <td><a href="https://doi.org/10.1056/NEJMoa2102968" rel="noopener">Treatment of Multisystem Inflammatory Syndrome in Children</a></td>
+        <td>New England Journal of Medicine</td><td>Article</td>
+        <td class="num">2021</td><td class="num">296</td>
+        <td class="num">31,11</td></tr><tr><td class="num">4</td>
+        <td><a href="https://doi.org/10.3390/antiox11010133" rel="noopener">Revisiting the Oxidation of Flavonoids: Loss, Conservation or Enhancement of Their Antioxidant Properties</a></td>
+        <td>Antioxidants</td><td>Review</td>
+        <td class="num">2022</td><td class="num">276</td>
+        <td class="num">6,42</td></tr><tr><td class="num">5</td>
+        <td><a href="https://doi.org/10.1108/OIR-06-2020-0258" rel="noopener">The “so-called” UGC: an updated definition of user-generated content in the age of social media</a></td>
+        <td>Online Information Review</td><td>Review</td>
+        <td class="num">2022</td><td class="num">170</td>
+        <td class="num">5,79</td></tr><tr><td class="num">6</td>
+        <td><a href="https://doi.org/10.1111/epi.17350" rel="noopener">Timing of referral to evaluate for epilepsy surgery: Expert Consensus Recommendations from the Surgical Therapies Commission of the International League Against Epilepsy</a></td>
+        <td>Epilepsia</td><td>Article</td>
+        <td class="num">2022</td><td class="num">163</td>
+        <td class="num">11,91</td></tr><tr><td class="num">7</td>
+        <td><a href="https://doi.org/10.1007/s40279-020-01297-6" rel="noopener">Impact of Potential Physiological Changes due to COVID-19 Home Confinement on Athlete Health Protection in Elite Sports: a Call for Awareness in Sports Programming</a></td>
+        <td>Sports Medicine</td><td>Note</td>
+        <td class="num">2020</td><td class="num">153</td>
+        <td class="num">31,70</td></tr><tr><td class="num">8</td>
+        <td><a href="https://doi.org/10.1002/oby.22849" rel="noopener">Does High Cardiorespiratory Fitness Confer Some Protection Against Proinflammatory Responses After Infection by SARS-CoV-2?</a></td>
+        <td>Obesity</td><td>Review</td>
+        <td class="num">2020</td><td class="num">137</td>
+        <td class="num">4,73</td></tr><tr><td class="num">9</td>
+        <td><a href="https://doi.org/10.1007/s40279-021-01573-z" rel="noopener">Training During the COVID-19 Lockdown: Knowledge, Beliefs, and Practices of 12,526 Athletes from 142 Countries and Six Continents</a></td>
+        <td>Sports Medicine</td><td>Article</td>
+        <td class="num">2022</td><td class="num">128</td>
+        <td class="num">15,63</td></tr><tr><td class="num">10</td>
+        <td><a href="https://doi.org/10.1136/bmj.n740" rel="noopener">E-health StandingTall balance exercise for fall prevention in older people: Results of a two year randomised controlled trial</a></td>
+        <td>The BMJ</td><td>Article</td>
+        <td class="num">2021</td><td class="num">125</td>
+        <td class="num">8,25</td></tr></tbody>
+    </table></div>
+    <p class="nota enlace-autoria"><a href="publicaciones.html">Ver la autoría en el listado de publicaciones →</a></p>
+    <p class="lectura-grafico"><b>Qué muestra</b>
+      Las publicaciones del recorte con más citas totales hasta la fecha de corte, de mayor a menor. Cada fila es una publicación, y su FWCI es el que SciVal le asigna a ella sola.</p>
+    
+    <p class="sello">
+    <span><b>Fuente</b> Scopus</span>
+    <span><b>Corte</b> 2026-08-30</span>
+    <span><b>N</b> 1.342 publicaciones</span>
+    <span><b>Cobertura</b> 100,0 % · 1.342 con dato</span>
+    </p>
+    <p class="sello">
+    <span><b>Fuente</b> SciVal</span>
+    <span><b>Corte</b> 2026-08-30</span>
+    <span><b>N</b> 1.342 publicaciones</span>
+    <span><b>Cobertura</b> 100,0 % · 1.342 con dato</span>
+    </p>
+  </section>
+</div>
+
+      <!-- Antes un <details> sin <summary>: el navegador lo rotulaba «Detalles». -->
+      <div id="lectura" data-prerender="1">
 <div class="modulo modulo-lectura">
     <h2>Cómo leer estas cifras</h2>
     <p>El FWCI compara las citas recibidas con las esperadas para
     publicaciones del mismo campo, año y tipo: <strong>1,0 es el promedio
-    mundial</strong>. Aquí la media es 1,14 y la mediana
-    0,48. La diferencia entre ambas indica una
-    distribución asimétrica: unas pocas publicaciones muy citadas elevan el
-    promedio.</p>
-    <p class="nota">1,0 es el promedio mundial. Se calcula sobre el conjunto, no promediando valores individuales.</p>
+    mundial</strong>. Aquí el promedio de los FWCI de cada publicación es
+    1,14 y la mediana 0,48. La
+    diferencia entre ambas indica una distribución asimétrica: unas pocas
+    publicaciones muy citadas elevan el promedio.</p>
+    <p class="nota">1,0 es el promedio mundial. Es el promedio de los FWCI que SciVal asigna a cada publicación: unas pocas muy citadas lo elevan, y por eso se publica junto a la mediana.</p>
     <p class="nota">Cada indicador declara sobre cuántas publicaciones se
     calcula. No todas las publicaciones tienen métricas: el denominador
     cambia según el indicador.</p>
   </div>
-</details>
+</div>
     </div>
   </div>
 
@@ -853,7 +1007,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p>Universo: 1.342 publicaciones ·
       1.342 con métricas ·
       1.342 con autoría detallada.
-      Build 2026-09-10.</p>
+      Build 2026-09-16.</p>
     </div>
 </footer>
 <script type="module" src="assets/js/paginas.js"></script>

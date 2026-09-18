@@ -381,8 +381,16 @@ export const CAMPOS = {
     const t = TRAMOS_AUTORES.find(([a, b]) => n >= a && n <= b);
     return t ? [t[2]] : [];
   },
-  // El cuartil sale del percentil SJR de la revista. Q1 es el mejor, y el
-  // percentil alto es el mejor, así que el corte va de mayor a menor.
+  // El cuartil sale del percentil SJR de la revista, y en este export el
+  // percentil MENOR es la mejor posición: Q1 es percentil ≤ 25. Es el mismo
+  // corte con que 02_indicators.py calcula R-01 para series.json, verificado
+  // allí contra el propio SJR y contra CiteScore (docs/INDICATORS.md).
+  //
+  // Hasta el 2026-09-15 este corte iba al revés —«el percentil alto es el
+  // mejor»— y la figura de Impacto publicaba Q1 = 194 donde la serie dice 578.
+  // Dos implementaciones del mismo cálculo en direcciones opuestas, y ninguna
+  // comprobación que las comparara: ahora la hace src/verify/coherencia.mjs.
+  //
   // Sin percentil declarado, cuenta como 'Sin dato declarado' — el mismo
   // quinto valor que ya trae `cuartiles` en 02_indicators.py (R-01). Antes
   // esta rama devolvía [] y la publicación simplemente desaparecía del
@@ -394,7 +402,7 @@ export const CAMPOS = {
   cuartil: p => {
     const q = p.sjr_percentil;
     if (typeof q !== 'number') return ['Sin dato declarado'];
-    return [q >= 75 ? 'Q1' : q >= 50 ? 'Q2' : q >= 25 ? 'Q3' : 'Q4'];
+    return [q <= 25 ? 'Q1' : q <= 50 ? 'Q2' : q <= 75 ? 'Q3' : 'Q4'];
   },
 };
 
@@ -457,9 +465,13 @@ export function cobertura(pubs_sel, clave) {
   // criterio que `02_indicators.py` (R-01: la lista de barras SÍ trae el
   // bucket, la cobertura publicada NO lo cuenta). Por eso el sello, que mide
   // cobertura y no reparto, sigue excluyéndolo aquí.
+  // «No determinada» tampoco es dato: es la unidad académica que la afiliación
+  // no permitió identificar. Se dibuja como categoría (D-09), pero cubierta
+  // cuenta sólo la publicación con alguna unidad determinada, como la cobertura
+  // de P-07 en 02_indicators.py. Contándola, el sello de P-07 decía 99,6 %.
+  const SIN_DATO = new Set(['Sin dato declarado', 'No determinada']);
   for (const p of pubs_sel) {
-    const v = saca(p);
-    if (v.length && !(v.length === 1 && v[0] === 'Sin dato declarado')) cub++;
+    if (saca(p).some(v => !SIN_DATO.has(v))) cub++;
   }
   return { n, cubiertas: cub, pct: pct(cub) };
 }
@@ -495,6 +507,37 @@ export function medianaPorAnio(pubs_sel, campo) {
 /** Umbrales de percentil de citación. Son ANIDADOS: lo que está en el top 1 %
     está también en el top 5, el 10 y el 25. Se devuelven como tales para que
     el gráfico no invite a sumarlos. */
+/** Publicaciones y citas por año, sobre el recorte: la tabla «Dinámica anual»
+    de la portada. Los años los decide quien llama —sin filtro de año, los de
+    la ventana—, así que un año sin publicaciones sale con 0 en vez de
+    desaparecer. Las citas se suman sobre las publicaciones con métricas, y
+    `base` dice cuántas son, para distinguir «0 citas» de «sin dato».
+    `coherencia.mjs` la compara con P-02 e I-01 de series.json. */
+export function dinamicaAnual(pubs_sel, anios) {
+  const total = pubs_sel.length;
+  return anios.map(anio => {
+    const suyas = pubs_sel.filter(p => String(p.anio) === String(anio));
+    const conMetricas = suyas.filter(p => p.tiene_metricas && typeof p.citas === 'number');
+    return {
+      anio: String(anio), n: suyas.length,
+      pct: total ? 100 * suyas.length / total : null,
+      base: conMetricas.length,
+      citas: conMetricas.reduce((a, p) => a + p.citas, 0),
+    };
+  });
+}
+
+/** Las publicaciones del recorte con más citas totales al corte (I-07). Sin
+    normalizar, por decisión del usuario: la tabla lleva su advertencia. El
+    empate se resuelve por EID para que el orden no dependa del archivo. */
+export function masCitadas(pubs_sel, tope = 10) {
+  const base = pubs_sel.filter(p => p.tiene_metricas && typeof p.citas === 'number');
+  const filas = base.filter(p => p.citas > 0)
+    .sort((a, b) => b.citas - a.citas || a.eid.localeCompare(b.eid))
+    .slice(0, tope);
+  return { base: base.length, filas };
+}
+
 export function umbralesPercentil(pubs_sel) {
   const v = pubs_sel.map(p => p.percentil_citacion).filter(x => typeof x === 'number');
   return {

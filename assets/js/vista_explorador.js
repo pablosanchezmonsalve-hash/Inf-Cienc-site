@@ -11,23 +11,30 @@ import * as G from './grafo.js';
 
 /* ────────────────────────────────────────────────────────────── cabecera */
 
-/** Cabecera compacta. La anterior ocupaba media pantalla con el título en tres
-    líneas, un párrafo de cuatro y TRES cifras que el tablero repite justo
-    debajo. En un explorador eso es ruido dos veces: gasta la pantalla que le
-    toca al dato y enseña una cifra del total mientras el lector mira un
-    recorte, que es la manera de que se lea la que no es.
+/** Cabecera de portada en banda, con la estructura del «Cockpit» del diseño de
+    Stitch: la identidad a un lado y, al otro, lo que NO cambia con el recorte.
 
-    Queda el nombre, la procedencia —que no es decorativa: dice de dónde salen
-    las cifras— y la explicación detrás de un control. */
+    Sigue sin cifras, y a propósito. La cabecera anterior a ésta tenía tres que
+    el tablero repetía justo debajo, y una cifra del total en la banda se lee
+    como la del recorte que se está mirando. El Cockpit ponía ahí el universo y
+    un crecimiento: el universo ya lo dice la línea de estado, y el crecimiento
+    es un indicador que el catálogo declara no calculable (X-04). */
 export function cabecera(meta) {
   const v = meta.ventana || {};
   return `<div class="portada-id">
     <h1>Informe bibliométrico</h1>
-    <p class="portada-sub">${c.escapar(meta.institucion || 'Universidad Finis Terrae')}
-      · Scopus y SciVal · ${c.escapar(String(v.inicio ?? ''))}–${c.escapar(String(v.fin ?? ''))}</p>
+    <p class="portada-sub">${c.escapar(meta.institucion || 'Universidad Finis Terrae')}</p>
     <p class="ventana-cierre">La ventana de este informe termina en
       <b>${c.escapar(String(v.fin ?? ''))}</b>: lo publicado después
       <b>no está aquí</b>. La fija la carga de datos, no la fecha en que usted lo lee.</p>
+  </div>
+  <div class="cockpit-lado">
+    <p class="cockpit-rotulo">No cambia con el recorte</p>
+    <dl class="cockpit-fijo">
+      <div><dt>Fuentes</dt><dd>${c.escapar((meta.fuentes || []).join(' · '))}</dd></div>
+      <div><dt>Ventana</dt><dd>${c.escapar(String(v.inicio ?? ''))}–${c.escapar(String(v.fin ?? ''))}</dd></div>
+      <div><dt>Citas al</dt><dd>${c.escapar(meta.fecha_corte_citas || '')}</dd></div>
+    </dl>
   </div>
   <details class="metodo portada-metodo">
     <summary>Qué mide este informe y qué no</summary>
@@ -80,9 +87,10 @@ function fmt(f) {
     «Citas por publicación 4,82» es el caso que lo justifica: sin una frase al
     lado, un promedio que unas pocas publicaciones muy citadas levantan para
     todas se lee como la publicación típica. */
-export function cifras(res, textos) {
+export function cifras(res, textos, { bento = false } = {}) {
   const lecturas = (textos || {}).lecturas || {};
-  return `<div class="tablero">${FICHAS.map(([k, etq, base, termino]) => {
+  // En la portada van en rejilla bento; en las secciones, como estaban.
+  return `<div class="tablero${bento ? ' tablero-bento' : ''}">${FICHAS.map(([k, etq, base, termino]) => {
     const f = res[k];
     const l = lecturas[k];
     return `<article class="ficha" data-k="${k}">
@@ -256,12 +264,14 @@ export function controles(pubs, sel, { buscador = false } = {}) {
     <input type="search" id="q" name="q" value="${c.escapar(sel.q || '')}"
       placeholder="Escriba para filtrar…" autocomplete="off">
   </div>` : '';
-  return busca + `<div class="filtros-explorador">${X.DIMENSIONES.map(([clave, etiqueta], i) => {
+  // Las píldoras nacen cerradas: son listas desplegables sobre el resultado, y
+  // una abierta de partida taparía las cifras que se vienen a ver.
+  return busca + `<div class="filtros-explorador">${X.DIMENSIONES.map(([clave, etiqueta]) => {
     const cuenta = X.facetas(pubs, sel, clave);
     const elegidos = sel[clave] || [];
     const opciones = [...cuenta.entries()]
       .sort(clave === 'anio' ? (a, b) => a[0].localeCompare(b[0]) : (a, b) => b[1] - a[1]);
-    return `<details class="dim" ${i === 0 || elegidos.length ? 'open' : ''}>
+    return `<details class="dim">
       <summary><span class="dim-nombre">${c.escapar(etiqueta)}</span>${
         elegidos.length ? `<span class="dim-n">${elegidos.length}</span>` : ''}</summary>
       <div class="dim-ops">${clave === 'autor'
@@ -376,8 +386,12 @@ function selloCorte(sub, campo, cod, proc) {
   const p = proc && proc[cod];
   if (!p) return '';
   const { n, cubiertas, pct } = X.cobertura(sub, campo);
+  // La unidad es SIEMPRE publicaciones, porque `X.cobertura` cuenta
+  // publicaciones del recorte. La de `series.json` es la del cálculo del build
+  // —pares autor × publicación en P-07, personas en C-05—, y puesta junto a este
+  // N el sello publicaba «1.342 pares» y «1.342 personas», que no existen.
   return c.sello({
-    fuente: p.fuente, corte: p.corte, unidad: p.unidad || 'publicaciones',
+    fuente: p.fuente, corte: p.corte, unidad: 'publicaciones',
     n, cubiertas, cobertura: pct,
     insuficiente: pct !== null && p.umbral != null && pct < p.umbral * 100,
   });
@@ -396,7 +410,8 @@ export function cortes(pubs_sel, proc, jerarquia, textos, sel = {}) {
   if (!elegidos.length) return sinGraficos();
   return elegidos.map(([clave, titulo, forma]) => `
     <section class="corte" data-corte="${clave}">
-      <h3>${c.escapar(titulo)}</h3>
+      <header class="corte-cab"><h3>${c.escapar(titulo)}</h3>
+        <span class="corte-cod">${COD_PORTADA[clave]}</span></header>
       <div class="grafico">${grafico(pubs_sel, clave, titulo, forma, jerarquia)}</div>
       ${MULTIVALUADO.has(clave)
         ? '<p class="leyenda-trama">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
@@ -421,8 +436,10 @@ export function explorador(pubs, sel, proc, jerarquia, meta, umbral, textos) {
     // Las salvaguardas van pegadas a las cifras que califican, y por delante:
     // una advertencia debajo del número al que corrige llega tarde.
     cifras: salvaguardasPersona(pubs, sel, meta, umbral)
-      + salvaguardasUnidad(pubs, sel, meta) + cifras(X.resumen(sub), textos),
+      + salvaguardasUnidad(pubs, sel, meta) + cifras(X.resumen(sub), textos, { bento: true }),
     cortes: cortes(sub, proc, jerarquia, textos, sel),
+    dinamica: tablaDinamica(sub, sel, meta, proc, textos),
+    masCitadas: tablaMasCitadas(sub, sel, proc, textos),
   };
 }
 
@@ -440,6 +457,106 @@ export function explorador(pubs, sel, proc, jerarquia, meta, umbral, textos) {
    lado). `cabeceraSeccion()` lee `ejes.json` —el mismo artefacto que
    `04_glossary.py` genera y verifica contra los denominadores reales de
    cada indicador— en vez de repetir el texto. */
+/* ═════════════════════════════════════ las dos tablas de la portada ════ */
+
+/* Las citas se cuentan por el año en que salió lo citado. Una sola redacción
+   para la figura de Impacto y la tabla de la portada, y sin nombrar la forma:
+   la anterior hablaba de «barras», y la tabla no tiene. */
+const AVISO_CITAS_POR_ANIO = 'Las citas se cuentan por año de publicación, no por '
+  + 'año de citación: lo publicado en un año reciente tuvo menos tiempo para acumularlas.';
+
+const DINAMICA = { campo: 'dinamica', titulo: 'Dinámica anual' };
+const MAS_CITADAS = { cod: 'I-07', titulo: 'Publicaciones más citadas', tope: 10 };
+
+/* Cómo se lee la tabla de más citadas. Vive aquí y no en indicators.yml porque
+   describe un sesgo de LECTURA de esta tabla, no el cálculo (D-51). */
+const LECTURA_MAS_CITADAS = 'Ordena por citas totales al corte, sin normalizar: '
+  + 'favorece lo publicado en los primeros años de la ventana y las áreas y tipos '
+  + 'documentales que citan más. Describe publicaciones: no evalúa la calidad de los '
+  + 'trabajos ni a sus autores (DORA, Manifiesto de Leiden).';
+
+/** Publicaciones y citas por año, sobre el recorte («Dossier» de Stitch).
+
+    Sin «citas por publicación»: por año es una media que mueve una sola
+    publicación muy citada, y el usuario decidió quitarla. Sin fila de total:
+    repetiría las fichas de arriba. Un año sin publicaciones sale con 0, no
+    como «sin dato», y «sin dato» queda para años con publicaciones y sin
+    métricas (D-24). Va ligada a P-02: si la selección de gráficos lo deja
+    fuera, la tabla tampoco aparece. */
+function tablaDinamica(sub, sel, meta, proc, textos) {
+  if (!X.graficoElegido(sel || {}, 'P-02')) return '';
+  const v = (meta && meta.ventana) || {};
+  const anios = (sel && sel.anio && sel.anio.length) ? [...sel.anio].sort()
+    : (Number.isInteger(v.inicio) && Number.isInteger(v.fin))
+      ? Array.from({ length: v.fin - v.inicio + 1 }, (_, i) => String(v.inicio + i))
+      : X.porCampo(sub, 'anio').map(d => d.valor);
+  const citas = f => f.n === 0 ? '0'
+    : f.base ? c.nf.format(f.citas) : '<span class="sin-dato-txt">Sin dato declarado</span>';
+  return `<section class="corte tabla-portada" data-corte="${DINAMICA.campo}">
+    <header class="corte-cab"><h3>${c.escapar(DINAMICA.titulo)}</h3>
+      <span class="corte-cod">P-02 · I-01</span></header>
+    <div class="tabla-envoltura tabla-datos"><table>
+      <caption class="solo-lectores">Publicaciones y citas por año de publicación, sobre el recorte</caption>
+      <thead><tr><th scope="col">Año</th><th scope="col" class="num">Publicaciones</th>
+        <th scope="col" class="num">% del recorte</th><th scope="col" class="num">Citas</th></tr></thead>
+      <tbody>${X.dinamicaAnual(sub, anios).map(f => `<tr><td>${c.escapar(f.anio)}</td>
+        <td class="num">${c.nf.format(f.n)}</td>
+        <td class="num">${f.pct === null ? '—' : `${c.num(f.pct, 1)} %`}</td>
+        <td class="num">${citas(f)}</td></tr>`).join('')}</tbody>
+    </table></div>
+    <p class="nota">${c.escapar(AVISO_CITAS_POR_ANIO)}</p>
+    ${bloqueLectura(DINAMICA.campo, { aviso: true }, textos)}
+    ${selloCorte(sub, 'anio', 'P-02', proc)}
+    ${selloCorte(sub, 'citas', 'I-01', proc)}
+  </section>`;
+}
+
+/** Las publicaciones del recorte con más citas («Inicio» de Stitch).
+
+    Columnas decididas por el usuario: sin autores —siete de las firmas del top
+    no llegan a cinco publicaciones y una afiliación está en revisión— y sin
+    cuartil, que es de la revista y no del artículo. El FWCI que se muestra es
+    el de cada publicación, que no se promedia. Recortada a una persona no se
+    dibuja: sería un ranking de sus trabajos. Dos sellos, porque el listado sale
+    de Scopus y las citas de SciVal. */
+function tablaMasCitadas(sub, sel, proc, textos) {
+  if (X.graficosDe(sel || {})) return '';
+  const cab = `<header class="corte-cab"><h3>${c.escapar(MAS_CITADAS.titulo)}</h3>
+      <span class="corte-cod">${MAS_CITADAS.cod}</span></header>`;
+  const persona = X.personaDelRecorte(sel || {});
+  if (persona) {
+    return `<section class="corte tabla-portada" data-corte="mas_citadas">${cab}
+      <p class="vacio">No se muestra en un informe recortado a una persona: sobre
+        ${c.escapar(persona)} sería un ranking de sus trabajos por citas, el uso
+        individual que DORA y el Manifiesto de Leiden desaconsejan.</p>
+    </section>`;
+  }
+  const { base, filas } = X.masCitadas(sub, MAS_CITADAS.tope);
+  const q = X.consulta(sel || {});
+  return `<section class="corte tabla-portada" data-corte="mas_citadas">${cab}
+    <p class="nota-destacada"><b>Cómo leer esta tabla</b> ${c.escapar(LECTURA_MAS_CITADAS)}</p>
+    ${filas.length ? `<p class="nota">Las ${c.nf.format(filas.length)} con más citas entre las
+      ${c.nf.format(base)} publicaciones del recorte que tienen métricas.</p>
+    <div class="tabla-envoltura tabla-datos"><table>
+      <caption class="solo-lectores">Publicaciones del recorte ordenadas por citas totales</caption>
+      <thead><tr><th scope="col" class="num">#</th><th scope="col">Título</th>
+        <th scope="col">Fuente</th><th scope="col">Tipo</th><th scope="col" class="num">Año</th>
+        <th scope="col" class="num">Citas</th><th scope="col" class="num">FWCI de la publicación</th></tr></thead>
+      <tbody>${filas.map((p, i) => `<tr><td class="num">${i + 1}</td>
+        <td>${p.doi ? `<a href="https://doi.org/${c.escapar(p.doi)}" rel="noopener">${c.escapar(p.titulo)}</a>`
+          : c.escapar(p.titulo)}</td>
+        <td>${c.celda(p.fuente)}</td><td>${c.celda(p.tipo)}</td>
+        <td class="num">${c.anio(p.anio)}</td><td class="num">${c.nf.format(p.citas)}</td>
+        <td class="num">${c.celda(p.fwci, 2)}</td></tr>`).join('')}</tbody>
+    </table></div>
+    <p class="nota enlace-autoria"><a href="publicaciones.html${q ? '?' + q : ''}">Ver la autoría en el listado de publicaciones →</a></p>`
+    : '<p class="vacio">Ninguna publicación con citas en este recorte.</p>'}
+    ${bloqueLectura(MAS_CITADAS.cod, { aviso: true }, textos)}
+    ${selloCorte(sub, 'anio', 'P-02', proc)}
+    ${selloCorte(sub, 'citas', 'I-01', proc)}
+  </section>`;
+}
+
 export const SECCIONES = {
   produccion: {
     cortes: [
@@ -464,7 +581,7 @@ export const SECCIONES = {
   impacto: {
     cortes: [
       { cod: 'I-01', campo: 'citas',  titulo: 'Citas por año de publicación', forma: 'suma-anio',
-        aviso: 'Las barras cuentan las citas recibidas por lo publicado en cada año, no la actividad de ese año. Un año reciente tuvo menos tiempo para acumular citas.' },
+        aviso: AVISO_CITAS_POR_ANIO },
       { cod: 'I-04', campo: 'fwci',   titulo: 'FWCI mediano por año',         forma: 'mediana-anio' },
       { cod: 'I-05', campo: 'percentil', titulo: 'Umbrales de percentil',     forma: 'acumulada' },
       { cod: 'R-01', campo: 'cuartil', titulo: 'Cuartil de la revista',       forma: 'proporcional' },
@@ -499,7 +616,11 @@ const MULTIVALUADO = new Set(['paises', 'instituciones', 'asjc', 'ods', 'qs_area
    mismos números para que no pueda decir otra cosa.
    `jerarquia` (Map/objeto escuela -> facultad, desde meta.json) sólo lo usan
    los campos 'unidad' y 'escuela'; el resto de los cortes lo ignora. */
-function dibujar(sub, corte, jerarquia) {
+/** La FIGURA de un corte, con sus datos: `{svg, datos}`, o null si no hay nada
+    que dibujar. Exportada para que `src/design/build_kit.mjs` enseñe en sus
+    fichas de gráfico la misma figura que sirve el sitio, en vez de rearmarla
+    con los primitivos de `core.js` por su cuenta. */
+export function dibujar(sub, corte, jerarquia) {
   const { campo, titulo, forma, tope } = corte;
   // 'unidad' y 'escuela' no pasan por `X.porCampo()` con el extractor
   // genérico: ese extractor da la unidad tal como la afiliación la nombró
@@ -788,8 +909,22 @@ export function cortesSeccion(sub, clave, proc, unidadPorPersona, jerarquia, sel
   const elegidos = s.cortes.filter(corte =>
     X.graficoElegido(sel || {}, corte.seleccionCon || corte.cod || corte.campo));
   if (!elegidos.length) return sinGraficos();
-  return elegidos.map(corte => {
-    if (persona) {
+  return elegidos.map(corte =>
+    corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos, persona })).join('');
+}
+
+/** UN corte, con todo lo que lo hace legible: título, conmutador, las dos
+    vistas, la trama si no suman, la advertencia, el bloque de lectura y el
+    sello.
+
+    Se extrajo del cuerpo de `cortesSeccion()` sin tocar una línea del marcado,
+    para que `src/design/build_kit.mjs` pueda enseñar el componente REAL en su
+    ficha en vez de rearmarlo. El generador del sistema de diseño tenía su
+    propia vía —`v.modulo()`, `v.RENDER[...]`— que murió con el explorador y se
+    quedó tres semanas publicando una paleta retirada sin que nadie lo viera
+    (`D-602`). Una segunda forma de dibujar lo mismo es la que diverge. */
+export function corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos, persona } = {}) {
+  if (persona) {
       const personal = cortePersonal(corte, persona);
       if (personal) return personal;
     }
@@ -808,6 +943,7 @@ export function cortesSeccion(sub, clave, proc, unidadPorPersona, jerarquia, sel
       data-corte="${corte.campo}" tabindex="-1">
       <header class="corte-cab">
         <h3>${c.escapar(corte.titulo)}</h3>
+        ${corte.cod ? `<span class="corte-cod">${c.escapar(corte.cod)}</span>` : ''}
         ${r ? conmutador(id) : ''}
       </header>
       ${r ? `<div class="vista" id="${id}-grafico" data-vista="grafico" data-activa="true">
@@ -828,7 +964,6 @@ export function cortesSeccion(sub, clave, proc, unidadPorPersona, jerarquia, sel
         : ''}
       ${selloCorte(sub, campoSello, codSello, proc)}
     </section>`;
-  }).join('');
 }
 
 /** Índice de los cortes de la sección.
@@ -850,20 +985,30 @@ export function indice(clave) {
 
 /** La cabecera de una sección: qué responde y qué NO responde.
 
+    Estructura editorial del «Dossier» de Stitch: el título y lo que responde a
+    un lado, y al otro, A LA VISTA, lo que no responde. Iba plegado detrás de un
+    control, y es justo la parte que justifica el panel (`docs/EJES.md`): una
+    advertencia detrás de un clic es una advertencia que casi nadie lee. Del
+    Dossier se toma la forma de su tarjeta lateral, no su texto, que afirmaba
+    compromisos que el sitio no cumple.
+
     `eje` es la entrada de `ejes.json` para esta clave (`{titulo, responde,
     no_responde, sobre_que}`) — la misma fuente que `docs/EJES.md` declara y
     que `04_glossary.py` verifica contra los denominadores reales de cada
     indicador antes de publicarla. Sin `ejes.json` cargado (o sin panel para
     esta clave) se omite el bloque en vez de inventar un texto. */
 export function cabeceraSeccion(clave, titulo, eje) {
-  return `<div class="portada-id">
-    <h1>${c.escapar(titulo)}</h1>
-    <p class="portada-sub">${c.escapar(eje ? eje.responde : '')}</p>
-  </div>
-  ${eje ? `<details class="metodo portada-metodo">
-    <summary>Qué NO dice esta sección</summary>
-    <div class="metodo-cuerpo"><p>${c.escapar(eje.no_responde)}</p></div>
-  </details>` : ''}`;
+  const id = `limite-${c.escapar(clave)}`;
+  return `<div class="seccion-cab">
+    <div class="portada-id">
+      <h1>${c.escapar(titulo)}</h1>
+      <p class="portada-sub">${c.escapar(eje ? eje.responde : '')}</p>
+    </div>
+    ${eje ? `<aside class="seccion-limite" aria-labelledby="${id}">
+      <p class="seccion-limite-tit" id="${id}">Qué NO dice esta sección</p>
+      <p>${c.escapar(eje.no_responde)}</p>
+    </aside>` : ''}
+  </div>`;
 }
 
 /** Todo el cuerpo de una sección. `unidadPorPersona` (Map, opcional) sólo lo
@@ -888,9 +1033,16 @@ export function seccion(pubs, sel, clave, proc, unidadPorPersona, jerarquia, met
     informe, y un hueco se leería como que el fenómeno no existe. Van sobre el
     suelo de contraste porque NO responden al recorte —no se calculan aquí— y
     mezclarlos con lo que sí responde haría creer que el filtro los cambia. */
+/* La clave de la página no es la categoría del catálogo en dos secciones:
+   producción es «descriptivo» y temática es «tematico». Comparándolas tal cual,
+   la banda nunca aparecía en esas dos páginas, y P-08, X-03, X-04, T-02 y T-03
+   no se declaraban en ninguna. */
+const CATEGORIA_DE_SECCION = { produccion: 'descriptivo', tematica: 'tematico' };
+
 export function diferidos(catalogo, clave) {
+  const categoria = CATEGORIA_DE_SECCION[clave] || clave;
   const filas = (catalogo.indicadores || []).filter(
-    r => r.categoria === clave && r.estado !== 'publicado');
+    r => r.categoria === categoria && r.estado !== 'publicado');
   if (!filas.length) return '';
   return `<section class="banda banda-contraste no-publicados">
     <div class="banda-titulo">

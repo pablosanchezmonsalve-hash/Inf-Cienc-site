@@ -306,6 +306,7 @@
 
   --max: 1240px;
   --rail: 224px;
+  --lateral: 18rem;
 }
 
 /* El conmutador gana sobre el ajuste del sistema, en ambos sentidos. Reducir
@@ -368,149 +369,209 @@ p:last-child { margin-bottom: 0; }
 
 /* ═══════════════════════════════════════════════════════ 3. ESTRUCTURA */
 
-/* Cabecera: rojo profundo de marca con un descenso sutil hacia el fondo. Sin
-   resplandores: el énfasis lo aporta el filete inferior.
+/* ═══════════════════════════ Barra lateral y barra superior ════════════
+   Estructura tomada de la pantalla «Inicio» del proyecto de Stitch
+   (2026-09-14, decisión del usuario): la navegación en una barra lateral fija
+   y, arriba, una barra con el buscador, los años y la acción principal. La
+   identidad NO viene de ahí: todo color es un token ya medido de esta hoja
+   (docs/DESIGN_SYNC_GUIDE.md §7).
 
-   Va FIJA. En una página de cinco indicadores largos, perder de vista a qué
-   institución y a qué sección pertenece lo que se está mirando es fácil, y una
-   captura de pantalla a media página deja de ser interpretable. Es la razón por
-   la que la fila de marca se comprimió: fija y alta estorbaría. */
-.cabecera {
-  background: linear-gradient(176deg, var(--marca) 0%, var(--marca-honda) 100%);
-  color: #fff;
-  padding: var(--e3) 0 0;
-  border-bottom: 2px solid var(--accion-viva);
-}
-/* Fija SÓLO donde cabe en una banda. En un teléfono la marca, el conmutador de
-   tema y la navegación ocupan tres filas: fijarla se comía un tercio de la
-   pantalla en cada scroll, que es peor que perder la referencia. */
-@media (min-width: 900px) {
-  .cabecera { position: sticky; top: 0; z-index: 40; }
-}
-.cabecera a { color: #fff; text-decoration-color: color-mix(in srgb, #fff 45%, transparent); }
-.cabecera a:hover { color: #fff; text-decoration-color: #fff; }
+   De la barra superior del diseño quedan fuera la campana, el acceso SSO y el
+   avatar: el sitio es estático y público, y un control que no hace nada es una
+   promesa falsa (el mismo criterio de D-121).
 
-.marca-fila {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--e4); flex-wrap: wrap;
+   `.cabecera` no pinta nada: es el contenedor que el pre-renderizado rellena.
+   La barra lateral es `position: fixed` y sale del flujo, así que la altura de
+   la cabecera es la de la barra superior. Fija sólo desde 900 px, por D-125. */
+.cabecera { position: relative; z-index: 40; }
+@media screen and (min-width: 900px) {
+  .cabecera { position: sticky; top: 0; }
 }
-/* Escudo tipográfico: da un ancla visual fija a la izquierda y sostiene la
-   identidad cuando el nombre largo se envuelve. No sustituye al nombre. */
+
+.lateral {
+  position: fixed; inset: 0 auto 0 0; z-index: 50;
+  width: min(var(--lateral), 86vw);
+  display: flex; flex-direction: column; gap: var(--e4);
+  padding: var(--e3) var(--e3) var(--e4);
+  background: var(--superficie); border-right: 1px solid var(--linea);
+  overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin;
+  /* Por debajo de 1040 px es un cajón: fuera de la pantalla y fuera del orden
+     de tabulación (`visibility`), hasta que el botón «Menú» lo abre. */
+  transform: translateX(-100%); visibility: hidden;
+  transition: transform .2s ease, visibility 0s linear .2s;
+}
+.lateral.abierto {
+  transform: none; visibility: visible; box-shadow: var(--sombra-3);
+  transition: transform .2s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lateral, .lateral.abierto { transition: none; }
+}
+@media screen and (min-width: 1040px) {
+  body { padding-left: var(--lateral); }
+  .lateral { width: var(--lateral); transform: none; visibility: visible; transition: none; }
+}
+
 .marca {
   display: flex; align-items: center; gap: var(--e3);
-  min-width: 0; text-decoration: none;
+  padding: var(--e2) var(--e2) var(--e4); border-bottom: 1px solid var(--linea);
+  color: var(--tinta); text-decoration: none;
 }
-.marca:hover { text-decoration: none; }
-/* Escudo institucional. El acento champán en borde y ángulo le da el toque de
-   marca; la sombra afina con el fondo de la cabecera (nunca negro puro). */
+.marca:hover { color: var(--tinta); text-decoration: none; }
 .marca-sigla {
   flex: none; display: grid; place-items: center;
   width: 2.35rem; height: 2.35rem; border-radius: var(--radio-s);
-  background: color-mix(in srgb, var(--marca-tinta) 16%, transparent);
-  border: 1px solid color-mix(in srgb, var(--marca-tinta) 55%, transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, #fff 10%, transparent);
+  background: var(--marca); color: var(--marca-tinta);
+  border: 1px solid var(--linea-fuerte);
   font: 800 var(--t-xs)/1 var(--f-ui); letter-spacing: .04em;
 }
-.marca-txt { display: flex; flex-direction: column; min-width: 0; gap: 1px; }
-.marca-txt strong { font-size: 1rem; font-weight: 700; letter-spacing: -.01em; }
+.marca-txt { display: flex; flex-direction: column; min-width: 0; gap: 2px; }
+.marca-txt strong { font-size: var(--t-m); font-weight: 700; letter-spacing: -.01em; line-height: 1.25; }
 .marca-txt > span {
-  color: var(--marca-tinta); font-size: var(--t-xs); font-weight: 550;
-  letter-spacing: .04em; text-transform: uppercase;
+  color: var(--tinta-3); font-size: var(--t-xs); font-weight: 600;
+  letter-spacing: .04em; text-transform: uppercase; line-height: 1.3;
 }
-/* Hover de la marca: el escudo «respira» y la barra de acento aparece. Pequeña
-   micro-interacción que afirma que toda la cabecera es navegable de una vez. */
-.marca { transition: gap .15s; }
-.marca:hover .marca-sigla { border-color: var(--marca-tinta); }
-.marca:hover { gap: calc(var(--e3) + 2px); }
 
-/* Selector de tema: tres estados explícitos, el primero sigue al sistema. El
-   estado activo vuelca al champán de marca (color de la identidad) en lugar de
-   al blanco neutro, para que el gesto se lea como parte de la marca. */
+/* La ventana en la barra lateral, como en el diseño. No sustituye a la barra
+   de vigencia: ésa sigue en todas las páginas porque la lateral no se ve en un
+   teléfono, y una captura tomada ahí también tiene que decir de cuándo son los
+   datos. */
+.lateral-ventana {
+  margin: 0; padding: var(--e2) var(--e3); border-radius: var(--radio-s);
+  background: var(--superficie-2); display: flex; flex-direction: column; gap: 2px;
+  font-size: var(--t-xs); color: var(--tinta-3);
+}
+.lateral-ventana b { color: var(--tinta); font-size: var(--t-s); font-weight: 700; }
+
+.nav { display: flex; flex-direction: column; gap: var(--e4); }
+.nav-grupo { display: flex; flex-direction: column; gap: 2px; }
+.nav-grupo-nombre {
+  margin: 0 0 var(--e1); padding: 0 var(--e3);
+  font: 700 var(--t-xs)/1.4 var(--f-ui); letter-spacing: .08em;
+  text-transform: uppercase; color: var(--tinta-3);
+}
+.nav a {
+  display: flex; align-items: center; gap: var(--e3);
+  padding: .5rem var(--e3); border-radius: var(--radio-s);
+  color: var(--tinta-2); font-size: var(--t-m); font-weight: 550; line-height: 1.25;
+  text-decoration: none; transition: background .14s, color .14s;
+}
+.nav a svg {
+  flex: none; width: 18px; height: 18px; fill: none; stroke: currentColor;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.nav a:hover { background: var(--superficie-2); color: var(--tinta); }
+/* La página actual va rellena, como en el diseño, con el par del botón
+   primario: ya medido en los dos temas (7,67:1 y 7,88:1). */
+.nav a[aria-current="page"] { background: var(--accion); color: var(--boton-tinta); font-weight: 700; }
+
+.lateral-pie {
+  margin-top: auto; display: flex; flex-direction: column; gap: var(--e3);
+  padding-top: var(--e4); border-top: 1px solid var(--linea);
+}
+/* Los filtros activos, que el diseño pone al pie de la barra lateral. Sólo los
+   rellena el explorador; en el resto de las páginas quedan ocultos. */
+.lateral-filtros {
+  padding: var(--e2) var(--e3); border-radius: var(--radio-s);
+  background: var(--superficie-2); font-size: var(--t-xs); color: var(--tinta-2);
+}
+.lateral-filtros[hidden] { display: none; }
+.lateral-filtros-cab {
+  display: flex; justify-content: space-between; gap: var(--e2);
+  margin: 0 0 var(--e1); font-weight: 700; color: var(--tinta);
+}
+.lateral-filtros-cab b { color: var(--accion); }
+.lateral-filtros-que { margin: 0; line-height: 1.45; overflow-wrap: anywhere; }
+.lateral-filtros-n { margin: var(--e1) 0 0; color: var(--tinta-3); font-variant-numeric: tabular-nums; }
+
+/* Selector de tema: tres estados explícitos, el primero sigue al sistema. */
 .tema {
-  display: inline-flex; gap: 2px; padding: 3px;
-  background: color-mix(in srgb, #fff 9%, transparent);
-  border: 1px solid color-mix(in srgb, var(--marca-tinta) 22%, transparent);
+  align-self: flex-start; display: inline-flex; gap: 2px; padding: 3px;
+  background: var(--superficie-2); border: 1px solid var(--linea);
   border-radius: var(--radio-pastilla);
 }
 .tema button {
-  border: 0; background: none; color: var(--marca-tinta); cursor: pointer;
+  border: 0; background: none; color: var(--tinta-2); cursor: pointer;
   font: 600 var(--t-xs)/1 var(--f-ui); letter-spacing: .01em;
-  padding: .34rem .62rem; border-radius: var(--radio-pastilla);
+  padding: .34rem .6rem; border-radius: var(--radio-pastilla);
   display: inline-flex; align-items: center; gap: .3rem;
-  transition: background .14s, color .14s, box-shadow .14s;
+  transition: background .14s, color .14s;
 }
-.tema button:hover { color: #fff; background: color-mix(in srgb, #fff 14%, transparent); }
-.tema button[aria-pressed="true"] {
-  background: var(--marca-tinta); color: var(--marca);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--marca-tinta) 70%, transparent);
-}
+.tema button:hover { color: var(--tinta); background: var(--superficie); }
+.tema button[aria-pressed="true"] { background: var(--accion); color: var(--boton-tinta); }
 .tema svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.9; }
 
-/* Navegación: subrayado activo en vez de pestaña rellena. La pestaña rellena
-   dependía de que el fondo de la página fuera el mismo color; con la cabecera
-   fija ese truco deja de funcionar en cuanto la página se desplaza. */
+.lateral-doc {
+  margin: 0; display: flex; justify-content: space-between; align-items: center;
+  gap: var(--e2); font-size: var(--t-xs); color: var(--tinta-3);
+}
+.lateral-doc a { font-weight: 650; }
 
-/* Conmutador del menú. Sólo se muestra en los anchos donde el nav se pliega;
-   en banda ancha queda oculto (ver media query abajo). */
+/* ---- barra superior ---- */
+.barra-sup {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--e2) var(--e3);
+  min-height: 4rem; padding: var(--e2) clamp(var(--e4), 3vw, var(--e6));
+  background: color-mix(in srgb, var(--superficie) 94%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--linea); box-shadow: var(--sombra-1);
+}
+@media screen and (min-width: 900px) {
+  .barra-sup { flex-wrap: nowrap; }
+}
+
 .nav-toggle {
   display: inline-flex; align-items: center; gap: .35rem;
-  border: 1px solid color-mix(in srgb, #fff 30%, transparent);
-  background: color-mix(in srgb, #fff 10%, transparent);
-  color: #fff; font: 600 var(--t-s)/1 var(--f-ui);
-  padding: .45rem .7rem; border-radius: var(--radio-s); cursor: pointer;
+  border: 1px solid var(--linea-fuerte); background: var(--superficie);
+  color: var(--tinta); font: 600 var(--t-s)/1 var(--f-ui);
+  padding: .5rem .7rem; border-radius: var(--radio-s); cursor: pointer;
 }
-.nav-toggle:hover { background: color-mix(in srgb, #fff 18%, transparent); }
+.nav-toggle:hover { background: var(--superficie-2); }
+.barra-marca {
+  display: inline-flex; align-items: center; gap: var(--e2);
+  color: var(--tinta); font-weight: 700; text-decoration: none;
+}
+.barra-marca:hover { color: var(--tinta); }
+@media screen and (min-width: 1040px) {
+  .nav-toggle, .barra-marca { display: none; }
+}
 
-.nav {
-  display: none; /* colapsado por defecto; se abre con .abierto o en banda ancha */
-  flex-direction: column; gap: calc(var(--e1) * 0.75); margin-top: var(--e3);
-  padding-bottom: var(--e2);
+/* Buscador global. Es un formulario GET a publicaciones.html: funciona sin
+   JavaScript y aterriza en el listado con `?q=`, el parámetro que el motor del
+   explorador ya lee.
+   Los selectores llevan `[type="search"]` porque la regla general de campos
+   de búsqueda va más abajo con la misma especificidad y le quitaba el relleno
+   izquierdo: la lupa quedaba encima del texto. */
+.buscador {
+  position: relative; flex: 1 1 16rem; max-width: 36rem; min-width: 0;
+  display: flex; align-items: center;
 }
-.nav.abierto { display: flex; }
-.nav-grupo-nombre {
-  display: block; font-size: var(--t-xs); font-weight: 700;
-  letter-spacing: .08em; text-transform: uppercase; color: var(--marca-tinta);
-  padding: .15rem .2rem .3rem;
+.buscador svg {
+  position: absolute; left: .75rem; width: 17px; height: 17px; pointer-events: none;
+  fill: none; stroke: var(--tinta-3); stroke-width: 2; stroke-linecap: round;
 }
-.nav-grupo-enlaces {
-  display: flex; flex-wrap: wrap; gap: 0 var(--e2);
-  border-top: 1px solid color-mix(in srgb, #fff 12%, transparent);
-  padding-top: .25rem;
+.buscador input[type="search"] {
+  width: 100%; min-width: 0; font: 400 var(--t-m)/1.3 var(--f-ui); color: var(--tinta);
+  padding: .55rem .8rem .55rem 2.3rem; border-radius: var(--radio);
+  border: 1px solid var(--linea); background: var(--superficie-2);
 }
-.nav a {
-  position: relative; padding: .5rem .4rem .5rem; text-decoration: none;
-  white-space: nowrap; font-size: var(--t-m); font-weight: 550;
-  letter-spacing: -.004em; color: var(--marca-tinta); border-radius: var(--radio-s);
-  transition: color .14s, background .14s;
-}
-/* Subrayado de acento que crece desde el centro: el enlace «se carga» al pasar
-   por encima. Es el mismo gesto del producto, en el navegador. */
-.nav a::after {
-  content: ""; position: absolute; left: 50%; bottom: 2px;
-  width: 0; height: 3px; border-radius: 2px; transform: translateX(-50%);
-  background: var(--marca-tinta);
-  transition: width .16s ease;
-}
-.nav a:hover { background: color-mix(in srgb, #fff 12%, transparent); color: #fff; }
-.nav a:hover::after { width: calc(100% - .7rem); }
-.nav a[aria-current="page"] { color: #fff; font-weight: 700; }
-.nav a[aria-current="page"]::after { width: calc(100% - .7rem); background: var(--marca-tinta); }
+.buscador input::placeholder { color: var(--tinta-3); opacity: 1; }
+.buscador input[type="search"]:focus { background: var(--superficie); border-color: var(--accion-viva); }
 
-/* En banda ancha la navegación va en una sola fila y el conmutador desaparece. */
-@media (min-width: 900px) {
-  .nav-toggle { display: none; }
-  .nav { display: flex; flex-direction: row; align-items: flex-start; overflow-x: auto; }
-  .nav::-webkit-scrollbar { display: none; }
-  .nav-grupo { display: flex; }
-  .nav-grupo-nombre { display: none; }
-  .nav-grupo-enlaces {
-    display: flex; gap: var(--e1); border-top: 0; padding-top: 0;
-  }
-  .nav a {
-    padding: .5rem .7rem .62rem; background: none;
-    border-radius: var(--radio-s) var(--radio-s) 0 0;
-  }
+/* Años segmentados: los tres más recientes y «Todos», como la barra del
+   diseño. Filtran el explorador de la página; donde no hay explorador quedan
+   ocultos. */
+.anios {
+  display: inline-flex; gap: 2px; padding: 3px; flex: none;
+  background: var(--superficie-2); border: 1px solid var(--linea); border-radius: var(--radio);
 }
+.anios[hidden] { display: none; }
+.anios button {
+  border: 0; background: none; cursor: pointer; color: var(--tinta-2);
+  font: 600 var(--t-s)/1 var(--f-ui); font-variant-numeric: tabular-nums;
+  padding: .45rem .7rem; border-radius: var(--radio-s);
+}
+.anios button:hover { background: var(--superficie); color: var(--tinta); }
+.anios button[aria-pressed="true"] { background: var(--superficie); color: var(--accion); box-shadow: var(--sombra-1); }
 
 /* Barra de vigencia: persistente en todas las páginas, para que una captura de
    pantalla siga siendo interpretable fuera de contexto. */
@@ -584,17 +645,6 @@ p:last-child { margin-bottom: 0; }
    dónde se enseña —eso lo hace la hoja de impresión, más abajo—; aquí sólo se
    retira de la pantalla. */
 .solo-papel { display: none; }
-
-/* Selector de año en la barra. Sólo se enseña en las páginas explorador, que
-   es quienes lo rellenan con los años reales del corpus; en el resto queda
-   oculto por el atributo hidden y por esta regla (`hidden` ya lo esconde, esto
-   es red de seguridad por si `hidden` se ignora). */
-.v-anio[hidden] { display: none; }
-.v-anio select {
-  font: 600 var(--t-s)/1 var(--f-ui); color: var(--tinta-2);
-  background: var(--superficie); border: 1px solid var(--linea-fuerte);
-  border-radius: var(--radio-s); padding: .2rem .4rem; cursor: pointer;
-}
 
 /* Mini-foco de la portada: una fila de atajos de un toque para entrar al
    explorador con un recorte aplicado. Va justo bajo el titular, antes del
@@ -1574,11 +1624,6 @@ svg.chart .trama { pointer-events: none; }
 
 /* ══════════════════════════════════════════════════════ 7. RESPONSIVE */
 
-@media (max-width: 900px) {
-  .nav { gap: 0; margin-top: var(--e3); overflow-x: auto; flex-wrap: nowrap; scrollbar-width: thin; }
-  .nav a { white-space: nowrap; }
-}
-
 @media (max-width: 640px) {
   :root { --t-base: .9375rem; }
   .modulo { padding: var(--e4) var(--e3) var(--e4); }
@@ -1587,7 +1632,6 @@ svg.chart .trama { pointer-events: none; }
   .kpis { gap: var(--e2); }
   th, td { padding: var(--e2); }
   .identificadores { gap: var(--e3); }
-  .marca-fila { gap: var(--e2); }
   .encabezado-seccion { padding-left: var(--e3); margin-bottom: var(--e5); }
   /* El nombre del icono de tema se cae antes que el icono: tres pastillas con
      texto ocupan la fila entera y empujan la navegación a una cuarta. */
@@ -1600,27 +1644,19 @@ svg.chart .trama { pointer-events: none; }
   .cifra-etq { margin-top: var(--e2); }
 }
 
-/* Descargar el informe. Vive en la barra de vigencia porque es donde ya está
-   la procedencia: quien mira de qué fecha son los datos es quien va a querer
-   llevárselos. */
+/* Descargar el informe. Es la acción principal de la barra superior y va
+   rellena, como el botón del diseño, con el par del botón primario: medido en
+   los dos temas. `--marca` NO serviría: en oscuro es un color de SUPERFICIE y
+   el botón quedaría a 1,05:1, que es lo que cazó la batería la primera vez. */
 .descargar {
-  display: inline-flex; align-items: center; gap: var(--e2);
+  display: inline-flex; align-items: center; gap: var(--e2); flex: none;
   font: 650 var(--t-s)/1 var(--f-ui);
-  /* `--marca` NO sirve aquí: en oscuro vale #2a1016, que es un color de
-     SUPERFICIE, no de tinta — sobre el fondo oscuro daba 1,05:1 y el botón era
-     invisible. Lo cazó la batería de contraste, no una revisión visual. La
-     tinta de marca es `--marca-alta`, la misma que usa `a:hover`. */
-  color: var(--marca-alta); background: var(--superficie);
-  border: 1px solid var(--linea-fuerte); border-radius: var(--radio-pastilla);
-  padding: .34em .8em; cursor: pointer; margin-left: auto;
+  color: var(--boton-tinta); background: var(--accion);
+  border: 1px solid var(--accion); border-radius: var(--radio);
+  padding: .6em .95em; cursor: pointer; margin-left: auto;
 }
 .descargar svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2; }
-.descargar:hover { background: var(--superficie-2); border-color: var(--marca-alta); }
-.descargar:focus-visible { outline: 2px solid var(--marca-alta); outline-offset: 2px; }
-/* El enlace de la guía perdía su empuje a la derecha en cuanto el botón tomó
-   el `margin-left:auto`. Se lo devuelve un hueco fijo, no otro `auto`: dos
-   `auto` en la misma fila reparten el sobrante y descolocan a los dos. */
-.vigencia-guia { margin-left: var(--e4); }
+.descargar:hover { background: var(--accion-viva); border-color: var(--accion-viva); }
 
 /* Impresión: el informe se imprime y se archiva, así que el papel no puede
    perder ni el dato ni su procedencia. Las dos vistas de cada módulo se
@@ -1656,7 +1692,7 @@ svg.chart .trama { pointer-events: none; }
   .banda-salidas,
   .cabecera, .tema, .filtros, .paginacion, .salto-contenido,
   .rail, .vigencia-guia, .descargar, .ayuda, .tooltip, .nav-toggle,
-  .v-migas, .v-chip, .recorte-vivo, .v-anio, .minifoco,
+  .v-migas, .v-chip, .recorte-vivo, .minifoco,
   .explorador-panel, .filtros-explorador, #estado-recorte,
   #controles, .treemap-migas, .treemap-leyenda, .migas { display: none; }
   /* El conmutador Gráfico ⇄ Tabla. `.vistas { display: none }` de arriba NO
@@ -1680,10 +1716,11 @@ svg.chart .trama { pointer-events: none; }
   .modulo, .kpi, .tabla-envoltura { box-shadow: none; border-color: #999; break-inside: avoid; }
   /* Las tarjetas de cifra no se parten por la mitad.
 
-     Medido en el PDF: la portada cortaba la tercera fila y la hoja siguiente
-     abría con «Citas por publicación · 816 sobre las que tienen métricas» sin
-     el número, que se había quedado en la anterior. Un rótulo sin su cifra no
-     es media tarjeta: es una afirmación sin sujeto.
+     Medido en el PDF sobre la carga de 823 publicaciones: la portada cortaba
+     la tercera fila y la hoja siguiente abría con «Citas por publicación · 816
+     sobre las que tienen métricas» sin el número, que se había quedado en la
+     anterior. Las dos cifras son de esa corrida y se citan como tal. Un rótulo
+     sin su cifra no es media tarjeta: es una afirmación sin sujeto.
 
      La regla `.kpi` que ya estaba nunca se aplicó: las cifras de la portada y
      de cada sección no son `.kpi` sino `.ficha` dentro de `.tablero` —`.kpi`
@@ -1947,6 +1984,42 @@ svg.chart .trama { pointer-events: none; }
 }
 .tabla-catalogo tr.cat-motivo strong { color: var(--tinta); }
 
+/* Glosario y ficha técnica, la última banda de metodologia.html: el colofón
+   del Dossier. El glosario ancho a la izquierda y la ficha a su lado. No es
+   fija: mide más que la pantalla, y fija dejaba su final fuera de alcance
+   hasta terminar el glosario. */
+.glosario-ficha { display: grid; gap: var(--e5); }
+@media screen and (min-width: 1040px) {
+  .glosario-ficha { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; }
+}
+.glosario { margin: 0; }
+.glosario-entrada { padding: var(--e4) 0; border-top: 1px solid var(--linea); }
+@media (min-width: 900px) { .glosario-entrada { scroll-margin-top: 7.5rem; } }
+.glosario-entrada:first-child { border-top: 0; padding-top: 0; }
+.glosario-entrada dt { font: 700 var(--t-l)/1.3 var(--f-ui); color: var(--tinta); }
+.glosario-entrada dd { margin: var(--e2) 0 0; }
+.glosario-entrada dd p { margin: 0; max-width: 68ch; }
+.glosario-entrada dd .nota { margin-top: var(--e2); }
+.glosario-entrada:target {
+  outline: 2px solid var(--accion-viva); outline-offset: var(--e2); border-radius: var(--radio-s);
+}
+.ficha-tecnica h3 { margin: 0 0 var(--e3); }
+.ficha-tecnica h4 {
+  margin: var(--e4) 0 var(--e2); font: 700 var(--t-xs)/1.3 var(--f-ui);
+  letter-spacing: .07em; text-transform: uppercase; color: var(--tinta-2);
+}
+.ficha-datos { margin: 0; font-size: var(--t-s); }
+.ficha-datos > div {
+  display: grid; grid-template-columns: minmax(0, 10rem) minmax(0, 1fr); gap: var(--e3);
+  padding: var(--e2) 0; border-top: 1px solid var(--linea);
+}
+.ficha-datos > div:first-child { border-top: 0; }
+.ficha-datos dt { color: var(--tinta-2); }
+.ficha-datos dd { margin: 0; overflow-wrap: anywhere; }
+.ficha-datos dd .nota { display: block; margin-top: var(--e1); }
+.ficha-datos .mono { font-family: var(--f-mono); font-size: .92em; white-space: nowrap; }
+@media print { .ficha-tecnica { break-inside: avoid; } }
+
 /* Auditoría de datos, en metodologia.html (V2-27). */
 .val-resumen { font-size: var(--t-m); margin: 0 0 var(--e3); }
 .tabla-validacion { font-size: var(--t-s); }
@@ -2000,14 +2073,16 @@ svg.chart .trama { pointer-events: none; }
    ancho de contenido (717px) aunque el viewport fuera de 430px: desborde
    horizontal medido, no de estilo. El `.chip` en sí ya envuelve su texto (no
    lleva `white-space: nowrap`); lo que faltaba era dejarlo encogerse primero. */
+/* El explorador va en UNA columna, con los filtros como barra de píldoras
+   sobre el resultado. La columna de filtros de la izquierda dejó de caber
+   cuando la navegación pasó a la barra lateral: dos columnas de interfaz a la
+   izquierda dejaban al dato unos 740 px. Cada píldora sigue siendo un
+   `<details>`, así que se abre y se lee sin JavaScript. */
 .explorador { display: grid; gap: var(--e5); min-width: 0; }
-.explorador-panel { min-width: 0; }
-@media (min-width: 62rem) {
-  /* Los controles a un lado y el resultado al otro: se ve la causa y el
-     efecto a la vez. Apilados, cambiar un filtro movía el resultado fuera de
-     la pantalla y había que buscarlo. */
-  .explorador { grid-template-columns: 17rem minmax(0, 1fr); gap: var(--e6); align-items: start; }
-  .explorador-panel { position: sticky; top: 5.5rem; max-height: calc(100vh - 7rem); overflow-y: auto; }
+.explorador-panel {
+  min-width: 0; padding: var(--e3) var(--e4);
+  background: var(--superficie); border: 1px solid var(--linea);
+  border-radius: var(--radio); box-shadow: var(--bento-sombra);
 }
 
 /* ---- estado del recorte: qué se está mirando ---- */
@@ -2088,22 +2163,63 @@ svg.chart .trama { pointer-events: none; }
   }
 }
 
-/* ---- los controles ---- */
-.filtros-explorador { display: grid; gap: var(--e2); }
-.dim { border: 1px solid var(--linea); border-radius: var(--radio); background: var(--superficie); }
+/* ---- los controles: una píldora por dimensión ----
+   La lista de valores se despliega a lo ancho de la barra y no bajo su
+   píldora: bajo la última de la fila se salía por la derecha de la pantalla. */
+.filtros-explorador { position: relative; display: flex; flex-wrap: wrap; gap: var(--e2); }
+.dim { border: 1px solid var(--linea-fuerte); border-radius: var(--radio-pastilla); background: var(--plano); }
+.dim[open] { border-color: var(--accion-viva); }
+.dim.dim-busca { border-radius: var(--radio); }
 .dim > summary {
-  cursor: pointer; padding: var(--e3) var(--e4); font: 700 var(--t-m)/1 var(--f-ui);
-  display: flex; align-items: center; gap: var(--e2); min-height: 44px;
-  border-radius: var(--radio);
+  cursor: pointer; list-style: none; padding: .5rem .85rem;
+  font: 650 var(--t-s)/1 var(--f-ui);
+  display: flex; align-items: center; gap: var(--e2); min-height: 40px;
+  border-radius: var(--radio-pastilla);
 }
-.dim > summary::marker { color: var(--tinta-3); }
-.dim[open] > summary { border-bottom: 1px solid var(--linea); border-radius: var(--radio) var(--radio) 0 0; }
+.dim > summary::-webkit-details-marker { display: none; }
+.dim > summary::after {
+  content: ""; width: .45rem; height: .45rem; flex: none; box-sizing: border-box;
+  border: solid currentColor; border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg); margin-top: -.2rem; opacity: .6;
+}
+.dim[open] > summary::after { transform: rotate(-135deg); margin-top: .2rem; }
 .dim-n {
-  margin-left: auto; background: var(--accion); color: var(--boton-tinta);
+  background: var(--accion); color: var(--boton-tinta);
   border-radius: 999px; min-width: 1.5rem; text-align: center;
   font-size: var(--t-xs); padding: .15rem .45rem;
 }
-.dim-ops { display: flex; flex-wrap: wrap; gap: var(--e2); padding: var(--e3) var(--e4) var(--e4); }
+.dim-ops {
+  position: absolute; z-index: 35; left: 0; right: 0; top: calc(100% + var(--e2));
+  max-height: 22rem; overflow-y: auto;
+  display: flex; flex-wrap: wrap; gap: var(--e2); padding: var(--e3) var(--e4) var(--e4);
+  background: var(--superficie); border: 1px solid var(--linea);
+  border-radius: var(--radio); box-shadow: var(--sombra-3);
+}
+/* En un teléfono la lista se abre en su sitio: una capa flotante sobre una
+   pantalla de 400 px tapa justo el resultado que el filtro está cambiando. */
+@media (max-width: 640px) {
+  .dim { flex: 1 1 100%; border-radius: var(--radio); }
+  .dim > summary { border-radius: var(--radio); }
+  .dim-ops {
+    position: static; max-height: none; box-shadow: none; border: 0;
+    border-top: 1px solid var(--linea); border-radius: 0 0 var(--radio) var(--radio);
+  }
+}
+
+/* El índice de la sección va en la misma tarjeta que los filtros, en fila. */
+.explorador-panel .rail {
+  position: static; display: flex; flex-wrap: wrap; align-items: center; gap: var(--e2);
+  margin: var(--e3) 0 0; padding-top: var(--e3); border-top: 1px solid var(--linea);
+}
+.explorador-panel .rail-titulo { margin: 0 var(--e2) 0 0; }
+.explorador-panel .rail a {
+  display: inline-flex; align-items: baseline; gap: var(--e2);
+  padding: .35rem .75rem; white-space: nowrap;
+  border: 1px solid var(--linea); border-radius: var(--radio-pastilla); background: var(--plano);
+}
+.explorador-panel .rail-cod { margin: 0; }
+.explorador-panel .rail a.activo { border-color: var(--accion-viva); }
+
 .chip {
   display: inline-flex; align-items: center; gap: var(--e2);
   border: 1px solid var(--linea-fuerte); border-radius: 999px;
@@ -2228,6 +2344,88 @@ svg.chart .trama { pointer-events: none; }
 .portada-metodo { margin-top: var(--e3); border-top: 0; padding-top: 0; }
 .portada-metodo .metodo-cuerpo { max-width: 68ch; }
 
+/* ── Portada: la banda «Cockpit» ──────────────────────────────────────────
+   Estructura de la «Propuesta 1» del diseño de Stitch con la paleta invertida
+   de `.banda-contraste`, ya medida: la identidad a un lado y, al otro, lo que
+   NO cambia con el recorte. Ninguna cifra (ver `cabecera()`). */
+.cockpit {
+  display: grid; gap: var(--e4) var(--e6); align-items: start;
+  padding: var(--e6) clamp(var(--e4), 3vw, var(--e6));
+  border-radius: var(--bento-radio); box-shadow: var(--bento-sombra);
+}
+@media (min-width: 60rem) {
+  .cockpit { grid-template-columns: minmax(0, 1fr) minmax(15rem, 20rem); }
+  .cockpit .portada-metodo { grid-column: 1 / -1; }
+}
+.cockpit-lado {
+  border: 1px solid var(--linea-fuerte); border-radius: var(--radio);
+  background: var(--superficie); padding: var(--e3) var(--e4);
+}
+.cockpit-rotulo {
+  margin: 0 0 var(--e2); font: 700 var(--t-xs)/1.3 var(--f-ui);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--tinta-3);
+}
+.cockpit-fijo { margin: 0; display: grid; gap: var(--e2); }
+.cockpit-fijo div { display: flex; justify-content: space-between; gap: var(--e3); }
+.cockpit-fijo dt { color: var(--tinta-2); font-size: var(--t-s); }
+.cockpit-fijo dd {
+  margin: 0; font-size: var(--t-s); font-weight: 700; text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Las seis cifras en rejilla bento: las dos primeras, grandes. El orden del
+   marcado no cambia; la jerarquía la da el tamaño. En las celdas de tres
+   columnas la cifra baja un escalón para que «14.245» no desborde. */
+@media (min-width: 64rem) {
+  .tablero-bento { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .tablero-bento > .ficha { grid-column: span 3; }
+  .tablero-bento > .ficha:nth-child(-n+2) { grid-column: span 6; }
+  .tablero-bento > .ficha:nth-child(n+3) .ficha-valor { font-size: var(--t-2xl); }
+}
+
+/* Los cortes de la portada como tarjetas de dos en dos, y las dos tablas
+   debajo con el mismo trato. */
+@media (min-width: 60rem) {
+  .cortes-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.cortes-bento > .corte, .tabla-portada { border-radius: var(--bento-radio); box-shadow: var(--bento-sombra); }
+.tabla-portada { margin-top: var(--e5); }
+
+/* ── Secciones: cabecera editorial (estructura del «Dossier» de Stitch) ──
+   El «qué NO dice» deja de ir plegado: va a la vista, en la familia de la
+   advertencia metodológica —tokens ya medidos—, al lado del título en
+   pantalla ancha y debajo en un teléfono. */
+.seccion-cab { display: grid; gap: var(--e4) var(--e6); align-items: start; }
+@media (min-width: 60rem) {
+  .seccion-cab { grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem); }
+}
+.seccion-limite {
+  margin: 0; padding: var(--e3) var(--e4);
+  background: var(--aviso-fondo); color: var(--aviso-tinta);
+  border: 1px solid var(--aviso-borde); border-left-width: 3px; border-radius: var(--radio);
+  font-size: var(--t-s); line-height: 1.55;
+}
+.seccion-limite p { margin: 0; }
+.seccion-limite .seccion-limite-tit { margin: 0 0 var(--e1); font-weight: 700; }
+
+/* ── Descarga de datos (estructura del «Data Hub» de Stitch) ──────────── */
+.datos-disposicion { display: grid; gap: var(--e5); margin-bottom: var(--e6); }
+@media (min-width: 60rem) {
+  .datos-disposicion { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; }
+}
+.datos-disposicion > section {
+  border: 1px solid var(--linea); border-radius: var(--bento-radio);
+  background: var(--superficie); box-shadow: var(--bento-sombra);
+  padding: var(--e4) var(--e5);
+}
+.datos-disposicion h2 { font-size: var(--t-l); }
+.datos-condiciones { margin: 0; padding-left: 1.1rem; display: grid; gap: var(--e2); font-size: var(--t-s); }
+.corte-cod {
+  flex: none; font: 600 var(--t-xs)/1 var(--f-mono); letter-spacing: .04em;
+  color: var(--tinta-3); background: var(--superficie-2);
+  border: 1px solid var(--linea); border-radius: var(--radio-s); padding: .3em .5em;
+}
+
 /* El símbolo no compite con la cifra: va menor y en la misma línea. */
 .ficha-sufijo { font-size: .5em; margin-left: .12em; font-weight: 700; }
 
@@ -2350,11 +2548,12 @@ svg.chart .trama { pointer-events: none; }
     color: #333; border-top: .5pt solid #999;
   }
 
-  /* Las tarjetas de cifra no se parten por la mitad. Medido en el PDF: la
-     portada cortaba la tercera fila y la hoja siguiente abría con «Citas por
-     publicación · 816 sobre las que tienen métricas» sin el número, que se
-     había quedado en la anterior. Un rótulo sin su cifra no es media tarjeta:
-     es una afirmación sin sujeto.
+  /* Las tarjetas de cifra no se parten por la mitad. Medido en el PDF sobre
+     la carga de 823 publicaciones: la portada cortaba la tercera fila y la
+     hoja siguiente abría con «Citas por publicación · 816 sobre las que tienen
+     métricas» sin el número, que se había quedado en la anterior. Las dos
+     cifras son de esa corrida y se citan como tal. Un rótulo sin su cifra no es
+     media tarjeta: es una afirmación sin sujeto.
 
      `break-inside: avoid` no lo cumple Chromium ni sobre una rejilla ni sobre
      sus hijos, así que en papel las fichas dejan de ser hijas de rejilla y
@@ -2462,4 +2661,21 @@ svg.chart .trama { pointer-events: none; }
      banda, porque una hoja suelta tiene que seguir diciendo de qué informe
      salió. */
   body:has(.portada-informe) .vigencia { display: none; }
+}
+
+/* ── Portada en papel ───────────────────────────────────────────────────
+   El recuadro de invariantes repite lo que ya dice la línea de crédito del
+   informe. Y la banda se imprime en tinta sobre blanco, pero su reinicio de
+   papel no tocaba los tokens de aviso: la advertencia de ventana, que ahora
+   vive dentro de la banda, saldría verde claro sobre blanco. */
+@media print {
+  /* Un enlace en papel no lleva a ninguna parte: la batería de impresión lo
+     caza como control. */
+  .cockpit-lado, .enlace-autoria { display: none; }
+  .cockpit, .cortes-bento > .corte, .tabla-portada { box-shadow: none; }
+  .banda-contraste {
+    --aviso-fondo: #e9f1e0; --aviso-borde: #2e7d32; --aviso-tinta: #1d4a1e;
+    --aviso-tinta-grafico: #1f5d24;
+    --accion: #8a2430; --accion-viva: #a84455; --cifra: #7a2028;
+  }
 }
