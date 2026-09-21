@@ -61,6 +61,10 @@ export function agregarMatriz(publicaciones, { campo = 'asjc', topN = 8 } = {}) 
 
 const MARGEN_IZQ = 210;  // ancho reservado para el nombre de categoría
 const MARGEN_SUP = 28;   // alto reservado para el año
+// Lo que mide un año de cuatro cifras a 12 px —`.heatmap-anio`— más aire.
+// Por debajo de esto las cabeceras se tocan y se giran.
+const ANCHO_ANIO = 34;
+const ALTO_ANIO_GIRADO = 18;  // el alto extra que piden los años girados
 
 // Rama de intensidad → relleno. Igual que las celdas del treemap, el mapa NO
 // usa la rampa ordinal oscura (se ve apelmazado y el texto no se lee): usa la
@@ -115,8 +119,15 @@ function renderLegend(maximo, baseY) {
 }
 
 export function renderHeatmap({ anios, categorias, matriz, maximo }, { ancho, altoFila = 34 } = {}) {
-  const alto = MARGEN_SUP + categorias.length * altoFila + LEGEND_GUTTER + LEGEND_H + 18;
   const anchoCol = Math.max(28, (ancho - MARGEN_IZQ) / Math.max(1, anios.length));
+  /* Un año a 12 px mide unos 28, justo lo que mide la columna más estrecha: en
+     una tarjeta de teléfono las cabeceras se tocaban entre sí. Cuando no caben
+     con aire se giran 45°, que conserva el año completo —«2020», no «'20»— sin
+     recortar más el nombre de la temática ni ensanchar el lienzo (decisión del
+     usuario). Girados piden más alto, y el margen superior crece con ellos. */
+  const girar = anchoCol < ANCHO_ANIO;
+  const mSup = MARGEN_SUP + (girar ? ALTO_ANIO_GIRADO : 0);
+  const alto = mSup + categorias.length * altoFila + LEGEND_GUTTER + LEGEND_H + 18;
   /* La columna tiene un mínimo y el nombre de la categoría un ancho fijo, así
      que en una tarjeta angosta la matriz mide más que el ancho pedido. El
      lienzo se estira a lo que la matriz ocupa de verdad: con el ancho pedido a
@@ -125,11 +136,18 @@ export function renderHeatmap({ anios, categorias, matriz, maximo }, { ancho, al
 
   const cabeceraAnios = anios.map((a, i) => {
     const x = MARGEN_IZQ + i * anchoCol + anchoCol / 2;
-    return `<text x="${x}" y="${MARGEN_SUP - 8}" class="heatmap-anio" text-anchor="middle">${a}</text>`;
+    const y = mSup - 8;
+    // Girado, el año sube hacia la izquierda desde el centro de su columna: a
+    // la derecha se saldría del lienzo en la última, y a la izquierda tiene el
+    // margen del nombre de la temática, que en la cabecera está libre.
+    return girar
+      ? `<text x="${x}" y="${y}" class="heatmap-anio" text-anchor="end"
+          transform="rotate(45 ${x} ${y})">${a}</text>`
+      : `<text x="${x}" y="${y}" class="heatmap-anio" text-anchor="middle">${a}</text>`;
   }).join('');
 
   const filas = categorias.map((cat, fi) => {
-    const y = MARGEN_SUP + fi * altoFila;
+    const y = mSup + fi * altoFila;
     const etiqueta = `<text x="${MARGEN_IZQ - 12}" y="${y + altoFila / 2 + 4}" class="heatmap-etq"
         text-anchor="end">${escapar(cat.length > 28 ? cat.slice(0, 27) + '…' : cat)}</text>`;
 
@@ -162,7 +180,7 @@ export function renderHeatmap({ anios, categorias, matriz, maximo }, { ancho, al
 
   return `<svg class="chart heatmap-svg" viewBox="0 0 ${ancho} ${alto}" role="img"
       aria-label="Frecuencia de temática ASJC por año">
-    ${cabeceraAnios}${filas}${renderLegend(maximo, MARGEN_SUP + categorias.length * altoFila + LEGEND_GUTTER)}
+    ${cabeceraAnios}${filas}${renderLegend(maximo, mSup + categorias.length * altoFila + LEGEND_GUTTER)}
   </svg>`;
 }
 
