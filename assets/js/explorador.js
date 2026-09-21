@@ -19,12 +19,12 @@
      se puede interrogar. Mejora progresiva, no dependencia.
 
    LO QUE NO HACE
-     No recalcula el FWCI ni los percentiles: son métricas NORMALIZADAS que
-     SciVal computa contra el mundo, y promediarlas sobre un subconjunto
-     arbitrario daría un número con aspecto de FWCI que no lo es. Sobre un
-     recorte se informa la MEDIANA de los valores que la fuente ya asignó a
-     cada publicación, y se dice que es eso. Confundir «promedio de FWCI» con
-     «FWCI del conjunto» es el error que el Leiden Manifesto pide no cometer. */
+     No publica el promedio del FWCI del recorte, aunque ese promedio ES el
+     FWCI del conjunto según SciVal (docs/UX_UI.md §4.2): con pocas
+     publicaciones una o dos muy citadas lo inflan. Se informa la MEDIANA de
+     los valores que la fuente ya asignó a cada publicación, y se dice que es
+     eso. Los percentiles tampoco se promedian: SciVal los agrega contando
+     publicaciones por umbral. */
 
 /* ─────────────────────────────────────────────────── el estado del recorte */
 

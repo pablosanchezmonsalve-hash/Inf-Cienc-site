@@ -96,9 +96,9 @@ export function escapar(s) {
    el de partida. La elección se recuerda; sin elección, no se escribe nada y el
    sitio respeta la preferencia del sistema. */
 const TEMAS = [
-  ['auto', 'Auto', 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.5-6.5-.7.7M6.2 17.8l-.7.7m12.6 0-.7-.7M6.2 6.2l-.7-.7M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z'],
-  ['claro', 'Claro', 'M12 4v1m0 14v1m8-8h-1M5 12H4m13.7-5.7-.7.7M6.9 17.1l-.7.7m11.5 0-.7-.7M6.9 6.9l-.7-.7M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z'],
-  ['oscuro', 'Oscuro', 'M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z'],
+  ['auto', 'Auto', 'brightness_auto'],
+  ['claro', 'Claro', 'light_mode'],
+  ['oscuro', 'Oscuro', 'dark_mode'],
 ];
 
 function aplicarTema(t) {
@@ -153,22 +153,34 @@ export const NAV_GRUPOS = [
   },
 ];
 
-/* Iconos de la barra lateral: trazos de 24 px escritos aquí. El diseño usa
-   Material Symbols, que se sirve desde un CDN, y el sitio no carga nada de
-   fuera (D-30). */
+/* Iconos: Material Symbols Outlined, los mismos símbolos que usa el diseño de
+   Stitch para cada destino (D-678). Son los trazos de sus SVG oficiales
+   (google/material-design-icons, licencia Apache 2.0) copiados aquí: la fuente
+   de iconos se sirve desde un CDN, y el sitio no carga nada de fuera (D-30).
+   Rejilla de 960 unidades con el origen arriba: viewBox="0 -960 960 960". */
+const VIEWBOX_ICONO = '0 -960 960 960';
+const ICONO = {
+  search: 'M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z',
+  menu: 'M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z',
+  picture_as_pdf: 'M360-460h40v-80h40q17 0 28.5-11.5T480-580v-40q0-17-11.5-28.5T440-660h-80v200Zm40-120v-40h40v40h-40Zm120 120h80q17 0 28.5-11.5T640-500v-120q0-17-11.5-28.5T600-660h-80v200Zm40-40v-120h40v120h-40Zm120 40h40v-80h40v-40h-40v-40h40v-40h-80v200ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z',
+  brightness_auto: 'M312-320h64l32-92h146l32 92h62L512-680h-64L312-320Zm114-144 52-150h4l52 150H426Zm54 436L346-160H160v-186L28-480l132-134v-186h186l134-132 134 132h186v186l132 134-132 134v186H614L480-28Zm0-112 100-100h140v-140l100-100-100-100v-140H580L480-820 380-720H240v140L140-480l100 100v140h140l100 100Zm0-340Z',
+  light_mode: 'M480-360q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Zm0 80q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Zm326-268Z',
+  dark_mode: 'M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z',
+  date_range: 'M320-400q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm160 0q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm160 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z',
+};
 const ICONOS = {
-  'index.html': 'M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z',
-  'produccion.html': 'M5 20v-9M12 20V4M19 20v-6M3 20h18',
-  'impacto.html': 'M3 17l6-6 4 4 8-8M15 7h6v6',
-  'colaboracion.html': 'M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 6.5M18 14a6.5 6.5 0 0 1 3.5 6',
-  'tematica.html': 'M12 3 2 8l10 5 10-5-10-5zM2 13l10 5 10-5M2 18l10 5 10-5',
-  'autores.html': 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0',
-  'publicaciones.html': 'M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3M9 7h6',
-  'fuentes-externas.html': 'M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5',
-  'datos.html': 'M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2',
-  'indicadores.html':'M10 6h10M10 12h10M10 18h10M4 6l1.2 1.2L7.5 5M4 12l1.2 1.2 2.3-2.2M4 18l1.2 1.2 2.3-2.2',
-  'produccion-ampliada.html': 'M4 4h16v16H4zM12 8v8M8 12h8',
-  'metodologia.html': 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4',
+  'index.html': 'M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z',  // dashboard
+  'produccion.html': 'M640-160v-280h160v280H640Zm-240 0v-640h160v640H400Zm-240 0v-440h160v440H160Z',  // bar_chart
+  'impacto.html': 'm136-240-56-56 296-298 160 160 208-206H640v-80h240v240h-80v-104L536-320 376-480 136-240Z',  // trending_up
+  'colaboracion.html': 'M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-40-82v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm276-102q20-22 36-47.5t26.5-53q10.5-27.5 16-56.5t5.5-59q0-98-54.5-179T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5Z',  // public
+  'tematica.html': 'm260-520 220-360 220 360H260ZM700-80q-75 0-127.5-52.5T520-260q0-75 52.5-127.5T700-440q75 0 127.5 52.5T880-260q0 75-52.5 127.5T700-80Zm-580-20v-320h320v320H120Zm580-60q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm-500-20h160v-160H200v160Zm202-420h156l-78-126-78 126Zm78 0ZM360-340Zm340 80Z',  // category
+  'autores.html': 'M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM360-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm400-160q0 66-47 113t-113 47q-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0 320Zm0-400Z',  // group
+  'publicaciones.html': 'M560-564v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-600q-38 0-73 9.5T560-564Zm0 220v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-380q-38 0-73 9t-67 27Zm0-110v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-490q-38 0-73 9.5T560-454ZM260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q46-24 96-36t102-12q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 102 12t96 36q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-494Z',  // menu_book
+  'fuentes-externas.html': 'M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q146 0 255.5 91.5T872-559h-82q-19-73-68.5-130.5T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h80v120h-40L168-552q-3 18-5.5 36t-2.5 36q0 131 92 225t228 95v80Zm364-20L716-228q-21 12-45 20t-51 8q-75 0-127.5-52.5T440-380q0-75 52.5-127.5T620-560q75 0 127.5 52.5T800-380q0 27-8 51t-20 45l128 128-56 56ZM620-280q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Z',  // travel_explore
+  'datos.html': 'M260-160q-91 0-155.5-63T40-377q0-78 47-139t123-78q17-72 85-137t145-65q33 0 56.5 23.5T520-716v242l64-62 56 56-160 160-160-160 56-56 64 62v-242q-76 14-118 73.5T280-520h-20q-58 0-99 41t-41 99q0 58 41 99t99 41h480q42 0 71-29t29-71q0-42-29-71t-71-29h-60v-80q0-48-22-89.5T600-680v-93q74 35 117 103.5T760-520q69 8 114.5 59.5T920-340q0 75-52.5 127.5T740-160H260Zm220-358Z',  // cloud_download
+  'indicadores.html': 'M222-200 80-342l56-56 85 85 170-170 56 57-225 226Zm0-320L80-662l56-56 85 85 170-170 56 57-225 226Zm298 240v-80h360v80H520Zm0-320v-80h360v80H520Z',  // checklist
+  'produccion-ampliada.html': 'M280-280h80v-200h-80v200Zm320 0h80v-400h-80v400Zm-160 0h80v-120h-80v120Zm0-200h80v-80h-80v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z',  // analytics
+  'metodologia.html': 'm344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm34-102 102-44 104 44 56-96 110-26-10-112 74-84-74-86 10-112-110-24-58-96-102 44-104-44-56 96-110 24 10 112-74 86 74 84-10 114 110 24 58 96Zm102-318Zm-42 142 226-226-56-58-170 170-86-84-56 56 142 142Z',  // verified
 };
 
 /** La navegación de la barra lateral, por grupo y con icono. `paginaActual`
@@ -179,7 +191,7 @@ export function navHtml(paginaActual) {
     ${g.paginas.map(href => {
       const [, txt] = PAGINAS.find(([h]) => h === href) || [];
       return `<a href="${href}"${href === paginaActual ? ' aria-current="page"' : ''}>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="${ICONOS[href] || ''}"/></svg><span>${txt}</span></a>`;
+        <svg viewBox="${VIEWBOX_ICONO}" aria-hidden="true"><path d="${ICONOS[href] || ''}"/></svg><span>${txt}</span></a>`;
     }).join('')}
   </div>`).join('');
 }
@@ -204,7 +216,7 @@ export function cromo(meta, paginaActual, tema = 'auto') {
   const selectorTema = `<div class="tema" role="group" aria-label="Tema de color">${
     TEMAS.map(([id, txt, d]) => `<button type="button" data-tema="${id}"
       aria-pressed="${String(id === tema)}" title="Tema ${txt.toLowerCase()}">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="${VIEWBOX_ICONO}" aria-hidden="true"><path d="${ICONO[d]}"/></svg>
       <span>${txt}</span></button>`).join('')}</div>`;
 
   return {
@@ -223,7 +235,8 @@ export function cromo(meta, paginaActual, tema = 'auto') {
         </span>
       </a>
       <p class="lateral-ventana"><span>Ventana ${escapar(meta.fuentes.join(' · '))}</span>
-        <b>${meta.ventana.inicio}–${meta.ventana.fin} · citas al ${escapar(meta.fecha_corte_citas)}</b></p>
+        <b>${meta.ventana.inicio}–${meta.ventana.fin} · citas al ${escapar(meta.fecha_corte_citas)}</b>
+        <svg viewBox="${VIEWBOX_ICONO}" aria-hidden="true"><path d="${ICONO.date_range}"/></svg></p>
       <nav class="nav" aria-label="Secciones">${nav}</nav>
       <div class="lateral-pie">
         <div class="lateral-filtros" id="lateral-filtros" hidden></div>
@@ -235,16 +248,15 @@ export function cromo(meta, paginaActual, tema = 'auto') {
     <div class="barra-sup">
       <button type="button" class="nav-toggle" aria-expanded="false"
         aria-controls="menu-nav" aria-label="Abrir menú de secciones">
-        <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"
-          fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
-          <path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg viewBox="${VIEWBOX_ICONO}" aria-hidden="true" width="20" height="20"
+          fill="currentColor"><path d="${ICONO.menu}"/></svg>
         <span>Menú</span>
       </button>
       <a class="barra-marca" href="index.html">
         <span class="marca-sigla" aria-hidden="true">UFT</span>${escapar(meta.institucion_corta)}</a>
       <form class="buscador" action="publicaciones.html" method="get" role="search">
         <label class="solo-lectores" for="buscar-global">Buscar publicaciones por título, fuente o autor</label>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm9 2-4.3-4.3"/></svg>
+        <svg viewBox="${VIEWBOX_ICONO}" aria-hidden="true"><path d="${ICONO.search}"/></svg>
         <input type="search" id="buscar-global" name="q" autocomplete="off"
           placeholder="Buscar por título, fuente o autor…">
       </form>
@@ -252,8 +264,7 @@ export function cromo(meta, paginaActual, tema = 'auto') {
         aria-label="Filtrar por año de publicación" hidden></div>
       <button type="button" class="descargar" id="descargar-informe"
         title="Abre el diálogo de impresión del navegador; elija «Guardar como PDF»">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
-          fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="${VIEWBOX_ICONO}" aria-hidden="true"><path d="${ICONO.picture_as_pdf}"/></svg>
         Descargar informe
       </button>
     </div>`,
@@ -480,9 +491,14 @@ export function sello(p) {
   const clase = p.insuficiente ? 'sello sello-aviso' : 'sello';
   const aviso = p.insuficiente
     ? `<span class="sello-alerta">cobertura baja</span>` : '';
+  // La fecha es la que declara la fuente. El export de Scopus no declara corte
+  // (T-06): su sello da la fecha del export y la rotula como tal. Con el corte
+  // de SciVal ahí, se le atribuía a Scopus una fecha que no es suya (D-669).
+  const fecha = p.corte ? `<span><b>Corte</b> ${escapar(p.corte)}</span>`
+    : p.export ? `<span><b>Export</b> ${escapar(p.export)}</span>` : '';
   return `<p class="${clase}">
     <span><b>Fuente</b> ${escapar(p.fuente)}</span>
-    <span><b>Corte</b> ${escapar(p.corte)}</span>
+    ${fecha}
     <span><b>N</b> ${nf.format(p.n)} ${escapar(p.unidad || 'publicaciones')}</span>
     ${hayCob ? `<span><b>Cobertura</b> ${cob} · ${nf.format(p.cubiertas)} con dato</span>` : ''}
     ${aviso}</p>`;

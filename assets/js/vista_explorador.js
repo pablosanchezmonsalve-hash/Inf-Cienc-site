@@ -328,7 +328,7 @@ export const CORTES = [
   ['tipo',        'Tipos documentales',    'barrasH'],
 ];
 
-export function grafico(pubs_sel, clave, titulo, forma, jerarquia) {
+export function grafico(pubs_sel, clave, titulo, forma, jerarquia, ancho) {
   // Mismo criterio que en `dibujar()`: 'unidad' se agrega a facultad, nunca
   // se mezcla con escuelas sueltas.
   const datos = clave === 'unidad'
@@ -345,8 +345,8 @@ export function grafico(pubs_sel, clave, titulo, forma, jerarquia) {
   // vía paralela para la portada se había quedado atrás.
   return forma === 'barrasV'
     ? c.barrasV(datos.map(d => ({ anio: d.valor, n: d.n })),
-        { titulo, etiquetaX: 'anio', etiquetaY: 'n' })
-    : c.barrasH(datos, { titulo, trama: MULTIVALUADO.has(clave) });
+        { titulo, etiquetaX: 'anio', etiquetaY: 'n', ancho })
+    : c.barrasH(datos, { titulo, trama: MULTIVALUADO.has(clave), ancho });
 }
 
 /* Qué indicador dibuja cada corte de la portada. Los cortes de sección ya
@@ -363,7 +363,7 @@ export function procedencias(series, meta) {
   const m = {};
   for (const [cod, bloque] of Object.entries(series || {})) {
     const p = bloque && bloque.procedencia;
-    if (p) m[cod] = { fuente: p.fuente, corte: p.corte, unidad: p.unidad, umbral };
+    if (p) m[cod] = { fuente: p.fuente, corte: p.corte, export: p.export, unidad: p.unidad, umbral };
   }
   return m;
 }
@@ -371,9 +371,9 @@ export function procedencias(series, meta) {
 /** Sello de procedencia de un corte, medido sobre el recorte que se mira.
 
     QUÉ ES INVARIANTE Y QUÉ NO
-    `fuente` y `corte` son propiedades de la fuente y no cambian al filtrar:
-    vienen de `series.json`, que las calcula el build. `N` y la cobertura SÍ
-    cambian, y por eso se recalculan aquí sobre el subconjunto.
+    `fuente`, `corte` y `export` son propiedades de la fuente y no cambian al
+    filtrar: vienen de `series.json`, que las calcula el build. `N` y la
+    cobertura SÍ cambian, y por eso se recalculan aquí sobre el subconjunto.
 
     Repetir el N del total mientras el lector mira un recorte es exactamente el
     error que la cabecera de este archivo describe: enseñar «una cifra del
@@ -391,7 +391,7 @@ function selloCorte(sub, campo, cod, proc) {
   // —pares autor × publicación en P-07, personas en C-05—, y puesta junto a este
   // N el sello publicaba «1.342 pares» y «1.342 personas», que no existen.
   return c.sello({
-    fuente: p.fuente, corte: p.corte, unidad: 'publicaciones',
+    fuente: p.fuente, corte: p.corte, export: p.export, unidad: 'publicaciones',
     n, cubiertas, cobertura: pct,
     insuficiente: pct !== null && p.umbral != null && pct < p.umbral * 100,
   });
@@ -412,7 +412,7 @@ export function cortes(pubs_sel, proc, jerarquia, textos, sel = {}) {
     <section class="corte" data-corte="${clave}">
       <header class="corte-cab"><h3>${c.escapar(titulo)}</h3>
         <span class="corte-cod">${COD_PORTADA[clave]}</span></header>
-      <div class="grafico">${grafico(pubs_sel, clave, titulo, forma, jerarquia)}</div>
+      <div class="grafico" data-lienzo="${clave}">${grafico(pubs_sel, clave, titulo, forma, jerarquia)}</div>
       ${MULTIVALUADO.has(clave)
         ? '<p class="leyenda-trama">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
       ${clave === 'unidad' && avisoUnidad ? `<p class="nota">${c.escapar(avisoUnidad)}</p>` : ''}
@@ -611,6 +611,80 @@ export const SECCIONES = {
    el código visual que el sitio ya enseña. */
 const MULTIVALUADO = new Set(['paises', 'instituciones', 'asjc', 'ods', 'qs_area', 'unidad', 'escuela', 'open_access']);
 
+/* Un corte con tope dibuja los N primeros valores. Sin decir de cuántos, «las
+   15 fuentes con más publicaciones» se lee como si fueran todas: el recorte se
+   declara con el total de valores distintos del recorte, recalculado con él.
+   En P-05 ese total es P-04, «Fuentes distintas», que así se publica donde se
+   lee (D-688). Sustantivo y concordancia por campo. */
+const DISTINTOS = {
+  fuente: ['fuentes', 'distintas', 'las', 'primeras'],
+  paises: ['países', 'distintos', 'los', 'primeros'],
+  instituciones: ['instituciones', 'distintas', 'las', 'primeras'],
+  asjc: ['áreas ASJC', 'distintas', 'las', 'primeras'],
+  ods: ['ODS', 'distintos', 'los', 'primeros'],
+};
+function notaRecorte(r, campo) {
+  const d = DISTINTOS[campo];
+  if (!r || !d || !(r.distintos > r.datos.length)) return '';
+  const [nombre, distinto, art, primero] = d;
+  return `<p class="nota nota-recorte">Se muestran ${art} ${c.nf.format(r.datos.length)} ${primero}
+    de ${c.nf.format(r.distintos)} ${nombre} ${distinto}.</p>`;
+}
+
+/* ─────────────────────────────────────────────── el lienzo de cada gráfico
+
+   El SVG se estira al ancho de su tarjeta (`svg.chart { width: 100% }`) y con
+   él se estira el texto: un lienzo de 680 unidades dentro de una tarjeta de
+   364 px dibuja los rótulos a 7 px. Medido sobre el sitio construido, el texto
+   de los gráficos salía entre 6 y 9,5 px según la tarjeta y el ancho de
+   pantalla, cuando la hoja lo declara a 13.
+
+   No sirve agrandar la fuente para compensar la escala: se mide en unidades
+   del lienzo, y crecerla saca los rótulos de la banda que `anchoTexto()` les
+   reservó, encima de las barras. Lo que se ajusta es el LIENZO: cada gráfico se
+   vuelve a dibujar al ancho medido de SU tarjeta, así que la escala queda 1:1 y
+   el texto sale al tamaño declarado (`D-691`).
+
+   Es el mismo trato que ya recibían el mapa de calor y el treemap —el
+   pre-renderizado los dibuja a un ancho estimado y el navegador los redibuja
+   con el medido—, extendido a las barras. En Node nadie mide nada y se dibuja
+   a 680, como antes. */
+
+// Holgura antes de rehacer un gráfico: por debajo de esto el texto se desvía
+// menos de medio punto y rehacerlo en cada `resize` no compensa.
+const HOLGURA_LIENZO = 8;
+
+/** El corte al que corresponde una tarjeta, por su clave de lienzo. Devuelve
+    el corte de la sección, o la tupla de `CORTES` si es la portada. */
+function corteDeLienzo(llave, clave) {
+  if (clave) return (SECCIONES[clave]?.cortes || []).find(x => (x.cod || x.campo) === llave) || null;
+  const t = CORTES.find(([k]) => k === llave);
+  return t ? { portada: t } : null;
+}
+
+/** Redibuja al ancho de su tarjeta los gráficos que no estén a escala 1:1.
+    La llama la página tras pintar, al cargar sobre el marcado pre-renderizado
+    y al cambiar el tamaño de la ventana. Devuelve cuántos rehizo.
+
+    Rehace el SVG y nada más: la tabla equivalente, la nota de recorte y el
+    sello no dependen del ancho, y volver a pintar la tarjeta entera perdería
+    la vista elegida en el conmutador. */
+export function ajustarGraficos(zona, sub, { jerarquia, clave } = {}) {
+  let hechos = 0;
+  for (const caja of zona?.querySelectorAll('.grafico[data-lienzo]') || []) {
+    const ancho = caja.clientWidth;
+    const vb = caja.querySelector('svg.chart')?.viewBox.baseVal.width;
+    if (!ancho || !vb || Math.abs(vb - ancho) <= HOLGURA_LIENZO) continue;
+    const corte = corteDeLienzo(caja.dataset.lienzo, clave);
+    if (!corte) continue;
+    const svg = corte.portada
+      ? grafico(sub, ...corte.portada, jerarquia, ancho)
+      : dibujar(sub, corte, jerarquia, ancho)?.svg;
+    if (svg) { caja.innerHTML = svg; hechos++; }
+  }
+  return hechos;
+}
+
 /* Devuelve el gráfico Y sus datos. La TABLA equivalente no es un extra: es la
    vía alternativa al gráfico para quien no puede leerlo, y se construye de los
    mismos números para que no pueda decir otra cosa.
@@ -620,7 +694,7 @@ const MULTIVALUADO = new Set(['paises', 'instituciones', 'asjc', 'ods', 'qs_area
     que dibujar. Exportada para que `src/design/build_kit.mjs` enseñe en sus
     fichas de gráfico la misma figura que sirve el sitio, en vez de rearmarla
     con los primitivos de `core.js` por su cuenta. */
-export function dibujar(sub, corte, jerarquia) {
+export function dibujar(sub, corte, jerarquia, ancho) {
   const { campo, titulo, forma, tope } = corte;
   // 'unidad' y 'escuela' no pasan por `X.porCampo()` con el extractor
   // genérico: ese extractor da la unidad tal como la afiliación la nombró
@@ -628,40 +702,41 @@ export function dibujar(sub, corte, jerarquia) {
   // lista de barras es justo lo que hacía ilegible el gráfico.
   if (campo === 'unidad') {
     const datos = X.porFacultad(sub, jerarquia);
-    return datos.length ? { svg: c.barrasH(datos, { titulo, trama: true }), datos } : null;
+    return datos.length ? { svg: c.barrasH(datos, { titulo, trama: true, ancho }), datos } : null;
   }
   if (campo === 'escuela') {
     const datos = X.porEscuela(sub, jerarquia);
-    return datos.length ? { svg: c.barrasH(datos, { titulo, trama: true }), datos } : null;
+    return datos.length ? { svg: c.barrasH(datos, { titulo, trama: true, ancho }), datos } : null;
   }
   if (forma === 'suma-anio') {
     const d = X.sumaPorAnio(sub, campo);
     return d.length
-      ? { svg: c.barrasV(d, { titulo, etiquetaX: 'anio', etiquetaY: 'n' }),
+      ? { svg: c.barrasV(d, { titulo, etiquetaX: 'anio', etiquetaY: 'n', ancho }),
           datos: d.map(x => ({ valor: x.anio, n: x.n })) } : null;
   }
   if (forma === 'mediana-anio') {
     const d = X.medianaPorAnio(sub, campo).filter(x => x.valor !== null);
     return d.length
       ? { svg: c.desviacion(d, { titulo, etiquetaX: 'anio', etiquetaY: 'valor',
-            decimales: 2, referencia: 1, refEtiqueta: '1,00 — promedio mundial' }),
+            decimales: 2, referencia: 1, refEtiqueta: '1,00 — promedio mundial', ancho }),
           datos: d.map(x => ({ valor: x.anio, n: x.valor })) } : null;
   }
   if (forma === 'acumulada') {
     const { datos, base } = X.umbralesPercentil(sub);
-    return base ? { svg: c.acumulada(datos, { titulo, total: base }), datos } : null;
+    return base ? { svg: c.acumulada(datos, { titulo, total: base, ancho }), datos } : null;
   }
   const datos = X.porCampo(sub, campo, { tope: tope || 0 });
   if (!datos.length) return null;
-  if (forma === 'proporcional') return { svg: c.proporcional(datos, { titulo }), datos };
+  const distintos = tope ? X.porCampo(sub, campo).length : datos.length;
+  if (forma === 'proporcional') return { svg: c.proporcional(datos, { titulo, ancho }), datos };
   if (forma === 'distribucion') {
-    return { svg: c.distribucion(datos, { titulo, etiquetaEje: 'autores por publicación' }), datos };
+    return { svg: c.distribucion(datos, { titulo, etiquetaEje: 'autores por publicación', ancho }), datos };
   }
   if (forma === 'barrasV') {
     return { svg: c.barrasV(datos.map(d => ({ anio: d.valor, n: d.n })),
-      { titulo, etiquetaX: 'anio', etiquetaY: 'n' }), datos };
+      { titulo, etiquetaX: 'anio', etiquetaY: 'n', ancho }), datos };
   }
-  return { svg: c.barrasH(datos, { titulo, trama: MULTIVALUADO.has(campo) }), datos };
+  return { svg: c.barrasH(datos, { titulo, trama: MULTIVALUADO.has(campo), ancho }), datos, distintos };
 }
 
 /** Gráfico y tabla, conmutables. Sin JavaScript se muestran los dos, que es lo
@@ -947,12 +1022,13 @@ export function corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos
         ${r ? conmutador(id) : ''}
       </header>
       ${r ? `<div class="vista" id="${id}-grafico" data-vista="grafico" data-activa="true">
-        <div class="grafico">${r.svg}</div>
+        <div class="grafico" data-lienzo="${c.escapar(id)}">${r.svg}</div>
       </div>
       <div class="vista" id="${id}-tabla" data-vista="tabla" data-activa="false">
         ${c.tablaEquivalente(r.datos)}
       </div>`
       : '<p class="vacio">Ninguna publicación con este dato en el recorte.</p>'}
+      ${notaRecorte(r, corte.campo)}
       ${MULTIVALUADO.has(corte.campo)
         ? '<p class="leyenda-trama">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
       ${corte.aviso ? `<p class="nota">${c.escapar(corte.aviso)}</p>` : ''}

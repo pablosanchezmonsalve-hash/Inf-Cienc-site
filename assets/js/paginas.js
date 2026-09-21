@@ -337,6 +337,13 @@ async function montarExplorador(claveSeccion) {
   // filtro.
   actualizarRecorteVivo(publicaciones, sel);
 
+  /* Los gráficos se dibujan al ancho de su tarjeta y no al del diseño: ver
+     `ajustarGraficos()` en vista_explorador.js. Va fuera de `pintar()` porque
+     también hay que ajustar los gráficos que llegan pre-renderizados, y esa
+     vía se salta el repintado. */
+  const ajustarLienzos = () => VX.ajustarGraficos(zonas.cortes,
+    X.recorte(publicaciones, sel), { jerarquia, clave: claveSeccion });
+
   function pintar({ nuevaEntrada = false } = {}) {
     const partes = claveSeccion
       ? VX.seccion(publicaciones, sel, claveSeccion, proc, unidadPorPersona, jerarquia,
@@ -356,7 +363,10 @@ async function montarExplorador(claveSeccion) {
     // Los cortes se repintan DENTRO de la transición: hay que medir la
     // geometría antes y después del cambio, y el orden sólo se garantiza si el
     // repintado ocurre en medio.
-    anim.transicion(zonas.cortes, () => { zonas.cortes.innerHTML = partes.cortes; });
+    anim.transicion(zonas.cortes, () => {
+      zonas.cortes.innerHTML = partes.cortes;
+      ajustarLienzos();
+    });
     // Las dos tablas de la portada. Las secciones no tienen estos contenedores.
     if (zonas.dinamica) zonas.dinamica.innerHTML = partes.dinamica || '';
     if (zonas.masCitadas) zonas.masCitadas.innerHTML = partes.masCitadas || '';
@@ -478,6 +488,10 @@ async function montarExplorador(claveSeccion) {
   ponerLectura('heatmap-lectura', textos, 'heatmap');
 
   if (!yaPintado(zonas.cifras) || X.hayRecorte(sel) || X.graficosDe(sel)) pintar();
+  else ajustarLienzos();
+  // Al cambiar el ancho de la ventana cambia el de las tarjetas, y con él la
+  // escala del SVG: los gráficos se rehacen a la medida nueva.
+  addEventListener('resize', c.debounce(ajustarLienzos, 250));
 }
 
 /* Conmutador Gráfico ⇄ Tabla. Un solo escucha delegado para toda la página:
@@ -936,14 +950,15 @@ async function fichaAutor() {
       ${kpi(i.publicaciones_top10, 'En el top 10 % de citación', 0, 'Percentil de citación')}
     </div>
 
-    <p class="nota">El FWCI no se muestra a nivel de autor: no es el promedio de los
-    FWCI de sus publicaciones y la fuente no lo entrega a nivel de persona.
+    <p class="nota">El FWCI no se muestra a nivel de autor: SciVal lo calcula sobre
+    todas las publicaciones de la persona, también las firmadas fuera de la UFT,
+    y la fuente no lo entrega a nivel de persona.
     En su lugar se reporta la presencia en el top 10 % de citación, que sí está
     normalizado por campo. Ver <a href="metodologia.html">metodología</a>.</p>
 
     <section class="modulo">
       <header><h2>Evolución temporal</h2><span class="codigo">AU-06</span></header>
-      ${c.barrasV(a.evolucion, { titulo: 'Publicaciones por año', etiquetaX: 'anio', etiquetaY: 'n' })}
+      <div id="AU-06-lienzo">${c.barrasV(a.evolucion, { titulo: 'Publicaciones por año', etiquetaX: 'anio', etiquetaY: 'n' })}</div>
       <p class="nota">Tres años de ventana: se presenta como barras, no como línea de tendencia.</p>
     </section>
 
@@ -978,6 +993,19 @@ async function fichaAutor() {
         misma publicación, dentro de esta ventana. <a href="colaboracion.html#C-05">Ver la
         red completa →</a></p>
     </section>`;
+
+  /* La evolución se dibuja al ancho de su tarjeta, por lo mismo que los cortes
+     del explorador: ver `ajustarGraficos()` en vista_explorador.js. Aquí es un
+     solo gráfico y no hace falta buscar su corte. */
+  const lienzo = document.getElementById('AU-06-lienzo');
+  const dibujarEvolucion = () => {
+    const ancho = lienzo?.clientWidth;
+    if (!ancho) return;
+    lienzo.innerHTML = c.barrasV(a.evolucion,
+      { titulo: 'Publicaciones por año', etiquetaX: 'anio', etiquetaY: 'n', ancho });
+  };
+  dibujarEvolucion();
+  addEventListener('resize', c.debounce(dibujarEvolucion, 250));
 }
 
 /* =========================================================== metodología */

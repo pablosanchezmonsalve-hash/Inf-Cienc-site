@@ -11,13 +11,10 @@
    una matriz (pura), `renderHeatmap()` dibuja esa matriz en SVG (pura),
    `montarHeatmap()` es la única parte que toca el DOM.
 
-   Escala de color: NO se introduce un tono nuevo. Se modula la opacidad de
-   `--serie-1` (el bordeaux del dato), no de `--accion-viva`: en la paleta H
-   `--accion-viva` es champagne (un acento claro), inadecuado como relleno de
-   magnitud sobre el fondo champán. La intensidad se lee entonces como
-   bordeaux sobre champán con el sistema cromático existente en los dos temas,
-   sin depender de una paleta secuencial nueva que alguien tendría que validar
-   aparte. */
+   Escala de color: NO se introduce un tono nuevo. Las celdas usan la rampa
+   clara `--mapa-1..5` y la franja de mayor intensidad el azul marino del dato
+   (`--mapa-dato`), todos tokens que valida `src/design/validar_paleta.py`: no
+   hay una paleta secuencial aparte que alguien tendría que validar. */
 
 import { esSinDato } from '../core.js';
 
@@ -66,15 +63,15 @@ const MARGEN_IZQ = 210;  // ancho reservado para el nombre de categoría
 const MARGEN_SUP = 28;   // alto reservado para el año
 
 // Rama de intensidad → relleno. Igual que las celdas del treemap, el mapa NO
-// usa la rampa ordinal bordeaux oscuro (se ve apelmazado y el texto no se
-// lee): usa la rampa de celdas clara `--mapa-1..5`, y reserva el bordeaux del
-// dato —`--mapa-dato`— para la franja de mayor intensidad (decisión del
-// usuario: "bordeaux solo en el dato"). El campo es claro en ambos temas, así
+// usa la rampa ordinal oscura (se ve apelmazado y el texto no se lee): usa la
+// rampa de celdas clara `--mapa-1..5`, y reserva el color del dato
+// —`--mapa-dato`— para la franja de mayor intensidad (decisión del usuario:
+// "el color del dato solo en el dato"). El campo es claro en ambos temas, así
 // que la etiqueta se dibuja con `--mapa-tinta` (oscura fija) y la del dato
-// (sobre bordeaux) con `--marca-tinta` (clara fija).
+// (sobre azul marino) con `--marca-tinta` (clara fija).
 const RAMPA_CELDA = ['var(--mapa-1)', 'var(--mapa-2)', 'var(--mapa-3)', 'var(--mapa-4)', 'var(--mapa-5)'];
 const CELDA_DATO = 'var(--mapa-dato)';
-const UMBRAL_DATO = 0.9;   // por encima de este piso de intensidad → bordeaux
+const UMBRAL_DATO = 0.9;   // por encima de este piso de intensidad → color del dato
 const PASO_RAMPA = 1 / RAMPA_CELDA.length;
 
 const LEGEND_X = MARGEN_IZQ;               // misma línea de salida que las celdas
@@ -91,7 +88,7 @@ function rellenoDeCelda(intensidad) {
 
 function renderLegend(maximo, baseY) {
   // Leyenda de escala sobre la misma rampa que las celdas: varias pastillas
-  // de --mapa-* + la pastilla bordeaux del dato, y marcas 0 / mitad / máximo.
+  // de --mapa-* + la pastilla del dato, y marcas 0 / mitad / máximo.
   const fila = n => n > 0 ? Math.sqrt(n / maximo) : 0;
   const puntos = [
     { t: '0',                f: 0 },
@@ -112,7 +109,7 @@ function renderLegend(maximo, baseY) {
   }).join('');
 
   return `<g class="heatmap-leyenda" role="img" aria-label="Escala de 0 a ${nf.format(maximo)} publicaciones">
-    <text x="${LEGEND_X + LEGEND_SW * 5 + 8}" y="${baseY + LEGEND_H - 1}" class="heatmap-ley-titulo">publicaciones</text>
+    <text x="${LEGEND_X + LEGEND_SW * (RAMPA_CELDA.length + 1) + 8}" y="${baseY + LEGEND_H - 1}" class="heatmap-ley-titulo">publicaciones</text>
     ${pastillas}${marcas}
   </g>`;
 }
@@ -120,6 +117,11 @@ function renderLegend(maximo, baseY) {
 export function renderHeatmap({ anios, categorias, matriz, maximo }, { ancho, altoFila = 34 } = {}) {
   const alto = MARGEN_SUP + categorias.length * altoFila + LEGEND_GUTTER + LEGEND_H + 18;
   const anchoCol = Math.max(28, (ancho - MARGEN_IZQ) / Math.max(1, anios.length));
+  /* La columna tiene un mínimo y el nombre de la categoría un ancho fijo, así
+     que en una tarjeta angosta la matriz mide más que el ancho pedido. El
+     lienzo se estira a lo que la matriz ocupa de verdad: con el ancho pedido a
+     secas, el último año quedaba fuera del `viewBox` y no se dibujaba. */
+  ancho = Math.max(ancho, MARGEN_IZQ + anios.length * anchoCol);
 
   const cabeceraAnios = anios.map((a, i) => {
     const x = MARGEN_IZQ + i * anchoCol + anchoCol / 2;

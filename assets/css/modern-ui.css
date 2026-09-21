@@ -146,11 +146,14 @@ svg.chart .treemap-cifra {
   stroke-linejoin: round;
   opacity: .9;
 }
+/* En claro la letra es clara con halo marino; en oscuro la letra es oscura
+   sobre celda clara, y el halo oscuro tapaba los huecos de los glifos. */
+svg.chart .treemap-etq, svg.chart .treemap-cifra { stroke: light-dark(var(--marca), transparent); }
 
-/* Separación entre celdas: la rampa ordinal es bordeaux y sus tonos vecinos
-   no se distinguen mucho entre sí; un resquicio de la superficie de la tarjeta
-   entre celda y celda hace que el treemap se lea como un MOSAICO y no como un
-   bloque bordeaux uniforme (apelmazado). */
+/* Separación entre celdas: la rampa ordinal es un solo tono y sus pasos
+   vecinos no se distinguen mucho entre sí; un resquicio de la superficie de la
+   tarjeta entre celda y celda hace que el treemap se lea como un MOSAICO y no
+   como un bloque uniforme (apelmazado). */
 svg.chart .treemap-celda { stroke: var(--superficie); stroke-width: 2px; }
 .treemap-leyenda {
   display: flex;
@@ -189,8 +192,8 @@ svg.chart .heatmap-cifra {
   pointer-events: none;
   text-anchor: middle;
 }
-/* Texto de la célula DATO (bordeaux --mapa-dato, oscuro fijo): necesita
-   tinta CLARA también en ambos temas. --marca-tinta es crema clara y fija
+/* Texto de la célula DATO (azul marino --mapa-dato, oscuro fijo): necesita
+   tinta CLARA también en ambos temas. --marca-tinta es blanca y fija
    (a diferencia de --tinta, que sí invierte), justo lo que pide una celda
    de dato oscura sobre el campo claro del mapa. */
 svg.chart .heatmap-cifra.es-clara { fill: var(--marca-tinta); }

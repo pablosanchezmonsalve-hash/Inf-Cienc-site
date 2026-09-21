@@ -115,12 +115,12 @@ const CABE_ETIQUETA = 46;
 
    La identidad de cada celda la lleva la ETIQUETA (igual que en cualquier
    treemap profesional); el color sólo ayuda a separar celdas vecinas. Tras la
-   revisión del usuario (2026-09-01), el treemap vuelve a la FAMILIA BORDEAUX
+   revisión del usuario (2026-09-01), el treemap vuelve a la FAMILIA DEL DATO
    del resto del informe (la detección anterior de celdas pastel fue un
    paréntesis: "la paleta es distinta a todo el resto"). Usa la rampa ordinal
    `--ord-1..4` (los mismos tonos de los gráficos de cuartiles). El texto va
-   en `--superficie` (claro sobre el bordeaux oscuro en claro, oscuro sobre el
-   bordeaux claro en oscuro) con un HALO `--marca` para que se lea hasta sobre
+   en `--superficie` (claro sobre el azul oscuro en claro, oscuro sobre el azul
+   claro en oscuro) con un HALO `--marca` en claro para que se lea hasta sobre
    la celda más clara (`--ord-4`), y cada celda lleva una separación de la
    superficie de la tarjeta para que el mosaico no se apelmace. Gris mantenido
    para "sin dato" (D-09). Validado por `src/design/validar_paleta.py` §1. */

@@ -87,7 +87,8 @@ export function datosCondiciones(meta, notaUniverso) {
     <li>Qué métricas derivadas de Elsevier permite publicar la licencia institucional
       <b>está pendiente de confirmar</b> con la unidad que administra la suscripción.</li>
     <li>Citas y métricas de SciVal al <b>${c.escapar(meta.fecha_corte_citas)}</b>. El export
-      de Scopus no declara fecha de corte.</li>
+      de Scopus no declara fecha de corte: los sellos de sus indicadores dan la de su
+      export, el <b>${c.escapar(meta.exports.Scopus.fecha_export)}</b>.</li>
     <li>Universo de ${c.nf.format(meta.denominadores.universo_total)} publicaciones, ventana
       ${meta.ventana.inicio}–${meta.ventana.fin}, build del ${c.escapar(meta.fecha_build)}.
       ${notaUniverso ? c.escapar(notaUniverso) : ''}</li>
@@ -131,8 +132,8 @@ export function cierrePortada() {
       <h2>Cada indicador declara su propio denominador.</h2>
       <p>Las cifras de este informe no se miden todas sobre el mismo conjunto,
       y por eso dos de ellas pueden diferir sin contradecirse. Cada gráfico
-      lleva pegada su fuente, su fecha de corte y sobre cuántos casos está
-      medido.</p>
+      lleva pegada su fuente, la fecha que esa fuente declara y sobre cuántos
+      casos está medido.</p>
     </div>
     <div class="banda-salidas">${salidas.map(([href, txt]) => `
       <a href="${href}"><strong>${c.escapar(txt)}</strong><span>Ver la sección →</span></a>`).join('')}
@@ -604,7 +605,7 @@ export function fichaTecnica(meta, val, notaUniverso) {
         ? `Scopus no suma las mismas citas que SciVal; la regla <span class="mono">X-04</span> falla: ${c.escapar(x04.observado)}.` : '')}
       ${scopus ? fila('Export de Scopus', c.escapar(scopus.fecha_export)) : ''}
       ${scopus ? fila('Corte de Scopus', scopus.fecha_corte ? c.escapar(scopus.fecha_corte) : 'El export no lo declara',
-        scopus.fecha_corte ? '' : 'Los sellos de los indicadores que salen de Scopus muestran el corte de SciVal.') : ''}
+        scopus.fecha_corte ? '' : 'Los sellos de los indicadores que salen de Scopus dan la fecha de su export.') : ''}
       ${fila('Build de los datos', c.escapar(meta.fecha_build))}
     </dl>
     <h4>Denominadores</h4>
