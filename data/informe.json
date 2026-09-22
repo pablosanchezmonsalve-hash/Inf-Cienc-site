@@ -1,6 +1,6 @@
 {
- "generado": "2026-09-21",
- "build": "2026-09-17",
+ "generado": "2026-09-22",
+ "build": "2026-09-21",
  "recorte": "",
  "hojas": 57,
  "archivos": [
@@ -9,14 +9,14 @@
    "nombre": "Portada",
    "archivo": "informe/informe-cienciometrico-index.pdf",
    "hojas": 9,
-   "kb": 781
+   "kb": 764
   },
   {
    "seccion": "produccion",
    "nombre": "Producción",
    "archivo": "informe/informe-cienciometrico-produccion.pdf",
    "hojas": 9,
-   "kb": 1125
+   "kb": 1105
   },
   {
    "seccion": "impacto",
