@@ -1298,7 +1298,9 @@ export function analisisResultados(pubs, sel, meta, pais) {
   const q = X.consulta(sel || {});
   const nf = x => c.nf.format(x);
   const pct = (k, base, d = 1) => (base ? `${c.num((100 * k) / base, d)} %` : '—');
-  const figura = (pagina, cod) => ` <a class="analisis-figura" href="${pagina}${q}#${cod}">Ver ${e(cod)} →</a>`;
+  /* En papel no hay enlace que seguir: se imprime el código de la figura, que
+     el índice del PDF lleva con su hoja. */
+  const figura = (pagina, cod) => ` <a class="analisis-figura" href="${pagina}${q}#${cod}"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>${e(cod)}<span class="af-pantalla"> →</span><span class="af-papel">)</span></a>`;
   const hallazgo = (titulo, texto, limite, enlace = '') => `<article class="hallazgo">
       <h3>${e(titulo)}</h3>
       <p>${texto}${enlace}</p>
@@ -1469,5 +1471,5 @@ export function analisisResultados(pubs, sel, meta, pais) {
       <p>El detalle de cada límite está en <a href="metodologia.html">Metodología y limitaciones</a>.</p>
     </section>
     <p class="nota">Texto escrito desde las cifras de este recorte con las mismas funciones que dibujan los gráficos:
-      cambia con los filtros. Cada hallazgo enlaza a la figura que interpreta.</p>`;
+      cambia con los filtros. Cada hallazgo remite a la figura que interpreta.</p>`;
 }

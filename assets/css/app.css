@@ -2935,6 +2935,7 @@ svg.chart .trama { pointer-events: none; }
 .hallazgo p { margin: 0; }
 .hallazgo-limite { margin-top: var(--e2) !important; color: var(--tinta-2); font-size: var(--t-s); }
 .analisis-figura { white-space: nowrap; font-size: var(--t-s); }
+.analisis-figura .af-papel { display: none; }
 .analisis-limites { padding-left: 1.2rem; }
 .analisis-limites > li + li { margin-top: var(--e2); }
 .aviso-recorte, .aviso-persona {
@@ -2942,7 +2943,35 @@ svg.chart .trama { pointer-events: none; }
   padding: var(--e3) var(--e4); border-radius: var(--radio-s);
 }
 @media print {
-  .hallazgo { break-inside: avoid; }
-  .analisis-eje > h2 { break-after: avoid; }
-  .analisis-figura { display: none; }
+  .hallazgo { break-inside: avoid; padding: 2mm 0; }
+  /* Los márgenes de pantalla (--e6 entre apartados) dejaban el crédito de
+     cierre solo en una quinta hoja con 135 caracteres. En papel el apartado ya
+     se separa por su título numerado. */
+  .analisis-eje { margin-top: 5mm; }
+  .analisis-eje > h2 { break-after: avoid; margin-bottom: 1.5mm; }
+  .hallazgo-limite { margin-top: 1mm !important; }
+  .analisis-figura { color: inherit; text-decoration: none; }
+  .analisis-figura .af-pantalla { display: none; }
+  .analisis-figura .af-papel { display: inline; }
+}
+
+/* ── Publicaciones más citadas en papel ───────────────────────────────────
+   La tabla es más alta que media hoja y heredaba el `break-inside: avoid` de
+   `.corte` y de `.tabla-envoltura`: saltaba entera a la hoja siguiente y
+   dejaba la 11 de la portada con el título y la nota solos. Se parte entre
+   filas, que siguen siendo indivisibles. Y con el ancho automático la columna
+   Fuente se quedaba en una palabra por renglón («International / Journal of /
+   Sports / …»), lo que hacía cada fila de seis líneas: anchos fijos. */
+@media print {
+  .corte[data-corte="mas_citadas"],
+  .corte[data-corte="mas_citadas"] .tabla-envoltura { break-inside: auto; }
+  .corte[data-corte="mas_citadas"] table { table-layout: fixed; width: 100%; }
+  .corte[data-corte="mas_citadas"] th:nth-child(1) { width: 5%; }
+  .corte[data-corte="mas_citadas"] th:nth-child(2) { width: 35%; }
+  .corte[data-corte="mas_citadas"] th:nth-child(3) { width: 19%; }
+  .corte[data-corte="mas_citadas"] th:nth-child(4) { width: 10%; }
+  .corte[data-corte="mas_citadas"] th:nth-child(5) { width: 7%; }
+  .corte[data-corte="mas_citadas"] th:nth-child(6) { width: 9%; }
+  .corte[data-corte="mas_citadas"] th:nth-child(7) { width: 15%; }
+  .corte[data-corte="mas_citadas"] td { overflow-wrap: anywhere; }
 }

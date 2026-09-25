@@ -2,16 +2,16 @@
  "generado": "2026-09-25",
  "build": "2026-09-21",
  "huella_publicaciones_sha256": "a86ca6f48cb0169fefc56bcb3e5d48086dc98f69b081ae6472742ecdef1b23d9",
- "codigo": "ab46736",
+ "codigo": "15ceb68",
  "recorte": "",
- "hojas": 86,
+ "hojas": 84,
  "archivos": [
   {
    "seccion": "index",
    "nombre": "Portada",
    "archivo": "informe/informe-cienciometrico-index.pdf",
-   "hojas": 13,
-   "kb": 897
+   "hojas": 12,
+   "kb": 899
   },
   {
    "seccion": "produccion",
@@ -45,8 +45,8 @@
    "seccion": "analisis",
    "nombre": "Análisis de resultados",
    "archivo": "informe/informe-cienciometrico-analisis.pdf",
-   "hojas": 5,
-   "kb": 180
+   "hojas": 4,
+   "kb": 195
   },
   {
    "seccion": "metodologia",
