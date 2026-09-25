@@ -597,8 +597,11 @@ export function barrasH(datos, {
      era a la vez Medicina y Salud (656) y otra facultad (1). Si alguna
      etiqueta no cabe, TODAS pasan a su propia línea sobre la barra, con el
      ancho entero del lienzo: mezclar las dos disposiciones en un gráfico haría
-     que las barras no arrancaran del mismo punto. */
-  const apilar = ancho < 420 && datos.some(d => anchoTexto(d.valor) > anchoEtiqueta - 14);
+     que las barras no arrancaran del mismo punto.
+     El umbral cubre toda tarjeta de dos columnas (418 a 542 px en escritorio),
+     no sólo el teléfono: con 420 las secciones apilaban a 1280 px y a 1440
+     volvían a recortar a unos 20 caracteres, con la misma ambigüedad. */
+  const apilar = ancho < 560 && datos.some(d => anchoTexto(d.valor) > anchoEtiqueta - 14);
   const x0 = apilar ? 0 : anchoEtiqueta;
   const altoEtq = apilar ? 16 : 0;
   const altoFila = alto + altoEtq;
@@ -665,7 +668,10 @@ export function barrasH(datos, {
         data-tip="${escapar(d.valor)}" data-tip-v="${nf.format(d.n)}${sufijo}"
         ${nota ? `data-tip-n="${escapar(nota)}"` : ''}>
       ${apilar
-        ? `<text x="0" y="${yf + 13}" text-anchor="start">${escapar(etq)}</text>`
+        /* La fila entera recibe el puntero: con la etiqueta encima, el hueco
+           entre texto y barra no era de nadie y el tooltip no salía. */
+        ? `<rect class="zona" x="0" y="${yf}" width="${ancho}" height="${altoFila}" fill="transparent"/>
+      <text x="0" y="${yf + 13}" text-anchor="start">${escapar(etq)}</text>`
         : `<text x="${anchoEtiqueta - 10}" y="${cy + 3.5}" text-anchor="end">${escapar(etq)}</text>`}
       <rect class="barra" fill="${colorDe(d, i, escala)}" x="${x0}" y="${y + 6}"
         width="${w}" height="${alto - 12}" rx="4"/>${rayado}${ref}

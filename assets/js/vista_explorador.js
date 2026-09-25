@@ -972,7 +972,7 @@ function corteRed(sub, corte, unidadPorPersona, proc, textos) {
       <strong>${c.nf.format(conectadas)}</strong> con al menos una coautoría interna ·
       <strong>${c.nf.format(nComp)}</strong> componentes · <strong>${c.nf.format(nComs)}</strong>
       comunidades Louvain. Sólo se dibujan las componentes de 5 personas o más; la tabla
-      cubre a todas.</p>
+      de pares cubre a las ${c.nf.format(conectadas)} personas con coautoría interna.</p>
     ${selloCorte(sub, corte.campo, corte.cod, proc)}
   </section>`;
 }

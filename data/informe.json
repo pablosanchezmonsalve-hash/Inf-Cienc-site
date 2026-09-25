@@ -2,7 +2,7 @@
  "generado": "2026-09-25",
  "build": "2026-09-21",
  "huella_publicaciones_sha256": "a86ca6f48cb0169fefc56bcb3e5d48086dc98f69b081ae6472742ecdef1b23d9",
- "codigo": "70ef5e0",
+ "codigo": "8ab3130",
  "recorte": "",
  "hojas": 80,
  "archivos": [
@@ -11,14 +11,14 @@
    "nombre": "Portada",
    "archivo": "informe/informe-cienciometrico-index.pdf",
    "hojas": 12,
-   "kb": 800
+   "kb": 801
   },
   {
    "seccion": "produccion",
    "nombre": "Producción",
    "archivo": "informe/informe-cienciometrico-produccion.pdf",
    "hojas": 8,
-   "kb": 1058
+   "kb": 1059
   },
   {
    "seccion": "impacto",
