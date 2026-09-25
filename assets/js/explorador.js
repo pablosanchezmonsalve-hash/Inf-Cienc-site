@@ -107,8 +107,16 @@ export function resumen(sel_pubs) {
   return {
     publicaciones: { valor: sel_pubs.length, base: sel_pubs.length },
     citas:         { valor: citas, base: conMetricas.length },
+    // El promedio se conserva —es I-02, lo que el catálogo publica— y viaja con
+    // su mediana: en este corpus el 1 % más citado reúne un tercio de las
+    // citas, y el promedio (10,61) triplica a la publicación típica (3) (D-710).
+    // El promedio sigue la definición del build (I-02: suma / publicaciones con
+    // métricas, una cita ausente cuenta 0); la mediana sólo mira citas
+    // declaradas. En esta carga no hay publicación con métricas y sin citas, así
+    // que coinciden en la base; si la hubiera, la mediana la dejaría fuera.
     citas_por_pub: { valor: conMetricas.length ? citas / conMetricas.length : null,
-                     base: conMetricas.length, decimales: 2 },
+                     base: conMetricas.length, decimales: 2,
+                     mediana: mediana(num(conMetricas.map(p => p.citas))) },
     // MEDIANA y no media: la distribución del FWCI es asimétrica —unas pocas
     // publicaciones muy citadas tiran del promedio— y sobre un recorte
     // pequeño la media miente más todavía.
@@ -368,6 +376,17 @@ const TRAMOS_AUTORES = [
   [11, 20, '11-20'], [21, Infinity, '21+'],
 ];
 
+/* I-08 · distribución de citas. El cero va solo porque «ninguna cita» es la
+   pregunta que el promedio esconde (el 23 % del universo); el último tramo
+   abierto porque por encima de 50 hay pocas publicaciones y cada una pesa
+   mucho: las 13 más citadas reúnen un tercio de todas las citas (D-710).
+   Tramos fijos y no cuantiles: un cuantil cambia de frontera con cada recorte
+   y dos recortes dejarían de poder compararse. */
+const TRAMOS_CITAS = [
+  [0, 0, '0'], [1, 2, '1-2'], [3, 5, '3-5'], [6, 10, '6-10'],
+  [11, 50, '11-50'], [51, Infinity, '51+'],
+];
+
 /** Campos que no son dimensiones de filtro pero sí ejes de un gráfico. */
 export const CAMPOS = {
   fuente:  p => (p.fuente ? [p.fuente] : []),
@@ -379,6 +398,13 @@ export const CAMPOS = {
     const n = p.n_autores;
     if (typeof n !== 'number') return [];
     const t = TRAMOS_AUTORES.find(([a, b]) => n >= a && n <= b);
+    return t ? [t[2]] : [];
+  },
+  // Sólo las publicaciones con métricas: sin ellas no hay citas que contar, y
+  // meterlas en el tramo «0» confundiría «sin dato» con «sin citas» (D-24).
+  citas_tramo: p => {
+    if (!p.tiene_metricas || typeof p.citas !== 'number') return [];
+    const t = TRAMOS_CITAS.find(([a, b]) => p.citas >= a && p.citas <= b);
     return t ? [t[2]] : [];
   },
   // El cuartil sale del percentil SJR de la revista, y en este export el
@@ -408,6 +434,7 @@ export const CAMPOS = {
 
 const ORDEN_FIJO = {
   autores_tramo: TRAMOS_AUTORES.map(t => t[2]),
+  citas_tramo: TRAMOS_CITAS.map(t => t[2]),
   cuartil: ['Q1', 'Q2', 'Q3', 'Q4', 'Sin dato declarado'],
 };
 
@@ -543,5 +570,128 @@ export function umbralesPercentil(pubs_sel) {
   return {
     base: v.length,
     datos: [1, 5, 10, 25].map(u => ({ valor: `Top ${u} %`, n: v.filter(x => x <= u).length })),
+  };
+}
+
+/* ═══════════════════════════════════════════ identidad, desde authors.json */
+
+/** Los ORCID que figuran en más de una ficha de autor: Map orcid → fichas.
+
+    Compartir ORCID NO fusiona fichas (D-44): dos formas de firma con el mismo
+    identificador son candidatas a ser una persona, y decidirlo es una revisión
+    humana. Lo que sí se hace es DECIRLO (D-711): la ficha se marca —sin
+    nombrar ni enlazar la otra, que publicaría la cola de revisión
+    (`enlazar_firmas_sospechosas: false`)— y la metodología da el recuento
+    agregado. Sin esto, «268 fichas con ORCID» se leía como 268 personas,
+    cuando son 250 identificadores distintos.
+
+    Se calcula sobre el artefacto público —el ORCID de cada ficha ya está a la
+    vista—, no sobre la cola interna de candidatos, que no sale del proyecto. */
+export function orcidCompartidos(autores) {
+  const por = new Map();
+  for (const a of autores || []) {
+    if (!a.orcid) continue;
+    if (!por.has(a.orcid)) por.set(a.orcid, []);
+    por.get(a.orcid).push(a);
+  }
+  return new Map([...por].filter(([, fichas]) => fichas.length > 1));
+}
+
+/* ═════════════════════════════════ productividad por forma de firma */
+
+/* Tramos de AU-07. El primero va solo porque es donde se concentra casi todo:
+   en una ventana de seis años, la mayoría de las firmas aparece una vez. */
+const TRAMOS_PRODUCTIVIDAD = [[1, 1, '1'], [2, 2, '2'], [3, 4, '3-4'], [5, 9, '5-9'], [10, Infinity, '10+']];
+
+/** AU-07 · cuántas formas de firma de la institución caen en cada tramo de
+    publicaciones dentro del recorte (D-717).
+
+    Es la distribución de productividad que la bibliometría describe desde
+    Lotka, y aquí sustituye al ranking nominal: dice cómo se reparte la
+    producción sin poner a nadie en una lista. Cuenta FORMAS DE FIRMA, no
+    personas —una persona con dos formas aún no consolidadas (`T-24`) aparece
+    dos veces, en tramos más bajos de los que le tocan— y conteo completo: una
+    publicación con tres firmas suma una a cada una. */
+export function productividad(pubs_sel) {
+  const por = new Map();
+  for (const p of pubs_sel) {
+    for (const a of new Set(p.autores_uft || [])) por.set(a, (por.get(a) || 0) + 1);
+  }
+  const ns = [...por.values()];
+  return {
+    firmas: ns.length,
+    datos: TRAMOS_PRODUCTIVIDAD.map(([a, b, e]) => ({ valor: e, n: ns.filter(k => k >= a && k <= b).length })),
+  };
+}
+
+/* ══════════════════════════════════════ anexo metodológico (D-712) */
+
+/** Los tipos documentales del universo, con sus citas.
+
+    El universo no filtra por tipo —el export de SciVal lo declara: «not
+    filtered; all publication types»—, así que erratas, editoriales, notas y
+    cartas cuentan en los denominadores de las cifras de cabecera. El anexo lo
+    muestra en vez de dejarlo implícito. Las citas son las de SciVal sobre las
+    publicaciones con métricas, las mismas que suma `I-01`. */
+export function tiposDocumentales(pubs) {
+  const por = new Map();
+  for (const p of pubs) {
+    const tipo = p.tipo || 'Sin dato declarado';
+    const e = por.get(tipo) || { tipo, n: 0, citas: 0 };
+    e.n += 1;
+    if (p.tiene_metricas && typeof p.citas === 'number') e.citas += p.citas;
+    por.set(tipo, e);
+  }
+  return [...por.values()].sort((a, b) => b.n - a.n || a.tipo.localeCompare(b.tipo, 'es'));
+}
+
+/* Prefijo de registro y sufijo no vacío: la forma que exige la norma del DOI
+   (ISO 26324), sin pretender validar que el identificador exista. */
+const DOI_BIEN_FORMADO = /^10\.\d{4,9}\/\S+$/;
+
+/** Completitud de cada campo del universo y las inconsistencias de la fuente
+    que el informe no corrige, contadas sobre la capa pública.
+
+    Son comprobaciones de lectura, no correcciones: nada de lo que se cuenta
+    aquí se arregla por su cuenta (D-08). Se cuentan sobre `publications.json`
+    y `authors.json`, los mismos archivos que se descargan, para que cualquiera
+    pueda repetirlas. Lo que ya comprueba la auditoría del build —DOI repetido,
+    duplicados por título, citas entre fuentes— no se recuenta: el anexo cita
+    su regla.
+
+    `pais` es el de la institución (`config/institution.yml`): una publicación
+    suya que no lo lista en sus países tiene la lista incompleta. */
+export function calidadDatos(pubs, autores, pais) {
+  const lleno = v => (Array.isArray(v) ? v.length > 0 : v !== null && v !== undefined && v !== '');
+  const cuenta = f => pubs.filter(f).length;
+  const sinPais = pais ? pubs.filter(p => lleno(p.paises) && !p.paises.includes(pais)) : [];
+  const compartidos = orcidCompartidos(autores);
+  const conOrcid = (autores || []).filter(a => a.orcid);
+  return {
+    n: pubs.length,
+    campos: {
+      doi: cuenta(p => lleno(p.doi)),
+      metricas: cuenta(p => p.tiene_metricas === true),
+      percentil_citacion: cuenta(p => typeof p.percentil_citacion === 'number'),
+      sjr_percentil: cuenta(p => typeof p.sjr_percentil === 'number'),
+      open_access: cuenta(p => lleno(p.open_access)),
+      asjc: cuenta(p => lleno(p.asjc)),
+      qs_area: cuenta(p => lleno(p.qs_area)),
+      ods: cuenta(p => lleno(p.ods)),
+      paises: cuenta(p => lleno(p.paises)),
+      instituciones: cuenta(p => lleno(p.instituciones)),
+      autores_uft: cuenta(p => lleno(p.autores_uft)),
+    },
+    doiMalFormados: cuenta(p => lleno(p.doi) && !DOI_BIEN_FORMADO.test(p.doi)),
+    sinPaisPropio: { n: sinPais.length, nacionales: sinPais.filter(p => p.es_internacional === false).length },
+    institucionesTruncadas: pubs.filter(p => Number.isInteger(p.n_instituciones)
+      && p.n_instituciones > (p.instituciones || []).length)
+      .map(p => ({ declaradas: p.n_instituciones, listadas: p.instituciones.length })),
+    orcid: {
+      fichas: conOrcid.length,
+      distintos: new Set(conOrcid.map(a => a.orcid)).size,
+      compartidos: compartidos.size,
+      fichasCompartidas: [...compartidos.values()].reduce((s, f) => s + f.length, 0),
+    },
   };
 }

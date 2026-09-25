@@ -18,6 +18,25 @@
    después manipula. */
 
 import * as c from './core.js';
+import * as X from './explorador.js';
+
+/** La cobertura de ORCID de «Advertencias principales», en metodologia.html.
+
+    Una sola redacción para el pre-renderizado y el navegador: eran dos copias
+    de la misma cuenta. Y dice fichas, no formas de firma —las 829 son fichas ya
+    consolidadas— y cuántos identificadores son de verdad distintos: 268 fichas
+    con ORCID son 250 ORCID, porque 17 figuran en más de una ficha a la espera
+    de revisión humana (D-44, D-711). */
+export function coberturaOrcid(autores) {
+  const con = autores.filter(a => a.orcid);
+  const distintos = new Set(con.map(a => a.orcid)).size;
+  const compartidos = X.orcidCompartidos(autores).size;
+  return `${c.nf.format(con.length)} de ${c.nf.format(autores.length)} fichas de autor con ORCID`
+    + (compartidos
+      ? ` —${c.nf.format(distintos)} identificadores distintos: ${c.nf.format(compartidos)}`
+        + ` figuran en más de una ficha y esperan revisión humana—`
+      : '');
+}
 
 /* La mediana del FWCI frente a su promedio es el dato que más fácilmente se
    malinterpreta: se explicita en portada, no sólo en el módulo. Las cifras
@@ -157,7 +176,7 @@ export function cierrePortada() {
 export function catalogo(cat, graficos = {}) {
   const { indicadores, resumen, categorias, etiquetas_estado: est } = cat;
   /* Los códigos que además se dibujan como gráfico en alguna sección. El
-     catálogo es la única página donde los dieciocho se ven juntos, así que es
+     catálogo es la única página donde los veintiuno se ven juntos, así que es
      donde se eligen: en una sección sólo están los suyos, y elegir «un gráfico
      independiente de la sección» exige verlos todos a la vez. */
   const esGrafico = (cod) => Object.prototype.hasOwnProperty.call(graficos, cod);
@@ -202,7 +221,8 @@ export function catalogo(cat, graficos = {}) {
         <td>${den}</td>
         <td>${r.cobertura ? c.escapar(r.cobertura) : '—'}</td>
         <td><span class="estado" data-e="${r.estado}">${c.escapar(r.estado_etiqueta)}</span>
-          ${r.confiabilidad ? `<br><span class="nota">confiabilidad ${c.escapar(r.confiabilidad)}</span>` : ''}
+          ${r.confiabilidad ? `<br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
+            ${c.escapar(r.confiabilidad)}</a></span>` : ''}
         </td>
       </tr>${extra}`;
   };
@@ -690,4 +710,288 @@ export function glosario(entradas) {
       <dt>${c.escapar(e.termino)}</dt>
       <dd><p>${c.escapar(e.corto)}</p>${e.extendido ? `<p class="nota">${c.escapar(e.extendido)}</p>` : ''}</dd>
     </div>`).join('')}</dl>`;
+}
+
+/* ══════════════════════════════════════ anexo metodológico (D-712)
+
+   Cuatro bloques de metodologia.html que el informe no llevaba: cómo se formó
+   el corpus, con qué calidad llegan sus datos, la fórmula de cada indicador
+   publicado y las referencias que lo sustentan. Ninguno trae cifras escritas a
+   mano: salen de metodologia.json —que el build lee de config/ y docs/—, de
+   validacion.json y de los mismos publications.json y authors.json que se
+   descargan. Metodología va entera al PDF, así que el anexo viaja solo. */
+
+const ETIQUETA_DENOMINADOR = {
+  universo_total: 'Universo',
+  con_metricas: 'Con métricas',
+  con_autoria_detallada: 'Con autoría detallada',
+  con_area_tematica: 'Con área temática',
+};
+
+/* Con un decimal; lo que no llega a una décima pero no es cero se dice así, y
+   no «0,0 %», que se lee como nada: cinco citas de catorce mil no son cero. */
+const pct1 = (n, total) => {
+  if (!total) return '—';
+  const p = (100 * n) / total;
+  return n > 0 && p < 0.05 ? '&lt;&nbsp;0,1 %' : `${c.num(p, 1)} %`;
+};
+
+/* Una regla de la auditoría dicha en una línea, con su texto y su resultado
+   tal como los publica validacion.json. Si la regla no se evaluó en esta
+   carga se dice, en vez de omitirla: la fila afirma que se comprobó algo. */
+function reglaEnLinea(val, cod) {
+  const r = (val.reglas || []).find(x => x.regla === cod);
+  if (!r) return `<li><span class="mono">${c.escapar(cod)}</span> no se evaluó en esta carga</li>`;
+  const falla = r.resultado === 'FALLA';
+  return `<li${falla ? ' class="val-falla"' : ''}><span class="mono">${c.escapar(cod)}</span> `
+    + `${c.escapar(r.descripcion)}: <strong>${falla ? 'falla' : 'pasa'}</strong>`
+    + ` <span class="nota">(${c.escapar(r.observado)})</span></li>`;
+}
+
+/* Las reglas que cita el anexo. prerender.mjs comprueba que todas existan en
+   validacion.json: una que se renombre en la auditoría no puede dejar la fila
+   diciendo «no se evaluó» sin que el build lo note. */
+export const REGLAS_ANEXO = ['E-04', 'E-08', 'E-02', 'X-01', 'I-01', 'I-04', 'I-05',
+  'D-01', 'D-02', 'D-03', 'P-01', 'V-01', 'V-03', 'V-07', 'X-04', 'E-09'];
+
+const ESTRATEGIA = {
+  union: 'El universo es la unión de las dos: una publicación que trae una sola fuente se conserva, marcada, en vez de excluirse.',
+  interseccion: 'El universo es la intersección de las dos: sólo entran las publicaciones que traen ambas fuentes.',
+  scopus: 'El universo es el de Scopus; SciVal aporta las métricas de las publicaciones que comparten.',
+  scival: 'El universo es el de SciVal; Scopus aporta la autoría de las publicaciones que comparten.',
+};
+
+/** «Cómo se formó el corpus»: los pasos, cada uno con las reglas de la
+    auditoría que lo comprueban en esta carga. Qué dice cada export de sí mismo
+    —ventana, filtros, registros— viene de config/sources.yml vía
+    metodologia.json; nada de eso se reescribe aquí. */
+export function corpusAnexo(corpus, val, meta) {
+  const e = c.escapar;
+  const fuente = f => `<li><strong>${e(f.nombre)}</strong>, en ${e(String(f.formato).toUpperCase())},
+      exportado el ${e(f.fecha_export)}${f.fecha_corte ? ` con datos al ${e(f.fecha_corte)}` : ', sin fecha de corte declarada'}.
+      Ventana declarada: «${e(f.ventana_declarada)}». Filtros: «${e(f.filtros_aplicados || 'ninguno declarado')}».
+      ${f.n_registros_declarado !== null && f.n_registros_declarado !== undefined
+        ? `${c.nf.format(f.n_registros_declarado)} registros declarados, ${c.nf.format(f.n_registros_leido)} leídos.`
+        : `${c.nf.format(f.n_registros_leido)} registros leídos; el export no declara cuántos trae.`}
+      ${(f.advertencias_del_export || []).length
+        ? `<span class="nota">El propio export advierte: ${f.advertencias_del_export.map(a => `«${e(a)}»`).join(' y ')}.</span>` : ''}</li>`;
+  const pasos = [
+    ['Exportar', `<ul class="lista-compacta">${corpus.fuentes.map(fuente).join('')}</ul>`, ['E-08', 'E-04']],
+    ['Unir', `Las dos fuentes se cruzan por el EID, el identificador que Scopus da a cada publicación.
+      ${e(ESTRATEGIA[corpus.estrategia_universo] || `Estrategia declarada: ${corpus.estrategia_universo}.`)}`,
+      ['E-02', 'X-01']],
+    ['Atribuir a la institución', `Dos métodos independientes: el identificador de afiliación de la
+      institución en Scopus (<span class="mono">${e(meta.scopus_affiliation_id)}</span>), que trae el export
+      de SciVal, y su nombre en la afiliación de cada autor, que trae el de Scopus. Toda publicación
+      necesita al menos uno, y un desacuerdo entre los dos lo revisa una persona.`,
+      ['I-01', 'I-04', 'I-05']],
+    ['Marcar duplicados', `Un duplicado probable se marca y espera revisión humana: no se fusiona
+      por su cuenta (D-08). Mientras no se decida, cada registro cuenta.`,
+      ['D-01', 'D-02', 'D-03', 'P-01']],
+    ['Contar', `Cada publicación cuenta una vez en las cifras de la institución. En los repartos por
+      unidad académica y por autor cuenta entera en cada uno —conteo completo—, así que esos repartos
+      no suman el total.`, ['V-01', 'V-03']],
+    ['Tomar las métricas', `Citas, FWCI y percentiles son los que SciVal asigna a cada publicación, al
+      ${e(meta.fecha_corte_citas)}, sin recalcularlos. Sobre ellos se agregan los indicadores.`,
+      ['V-07', 'X-04']],
+  ];
+  return `<div class="tabla-envoltura"><table class="tabla-anexo tabla-corpus">
+      <caption class="solo-lectores">Pasos con que se formó el corpus y reglas que los comprueban</caption>
+      <colgroup><col class="c-paso"><col><col class="c-comp"></colgroup>
+      <thead><tr><th scope="col">Paso</th><th scope="col">Qué se hace</th>
+        <th scope="col">Qué se comprueba en esta carga</th></tr></thead>
+      <tbody>${pasos.map(([paso, que, reglas], i) => `<tr>
+        <th scope="row">${i + 1}. ${e(paso)}</th>
+        <td>${que}</td>
+        <td><ul class="lista-reglas">${reglas.map(r => reglaEnLinea(val, r)).join('')}</ul></td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+    <p class="nota">Cada regla está, con las demás, en la <a href="#validacion-datos">auditoría de datos</a>.</p>`;
+}
+
+/** Los tipos documentales del universo, con su parte de las publicaciones y
+    de las citas. */
+export function tiposAnexo(tipos, corpus) {
+  const n = tipos.reduce((s, t) => s + t.n, 0);
+  const citas = tipos.reduce((s, t) => s + t.citas, 0);
+  const scival = corpus.fuentes.find(f => /scival/i.test(f.nombre));
+  return `<p>Entran todos los tipos documentales que traen los exports${scival && scival.filtros_aplicados
+      ? ` —el de SciVal lo declara: «${c.escapar(scival.filtros_aplicados)}»—` : ''}, y ninguno se excluye
+    después. Todos cuentan en los denominadores de las cifras de cabecera, incluidas las citas por
+    publicación. El FWCI, en cambio, compara cada publicación con las de su mismo tipo, año y campo.</p>
+    <div class="tabla-envoltura"><table class="tabla-anexo">
+      <caption class="solo-lectores">Publicaciones y citas por tipo documental</caption>
+      <thead><tr><th scope="col">Tipo documental</th><th scope="col" class="num">Publicaciones</th>
+        <th scope="col" class="num">% del universo</th><th scope="col" class="num">Citas</th>
+        <th scope="col" class="num">% de las citas</th></tr></thead>
+      <tbody>${tipos.map(t => `<tr><td>${c.escapar(t.tipo)}</td>
+        <td class="num">${c.nf.format(t.n)}</td><td class="num">${pct1(t.n, n)}</td>
+        <td class="num">${c.nf.format(t.citas)}</td><td class="num">${pct1(t.citas, citas)}</td></tr>`).join('')}
+      </tbody>
+      <tfoot><tr><th scope="row">Total</th><td class="num">${c.nf.format(n)}</td><td class="num">100 %</td>
+        <td class="num">${c.nf.format(citas)}</td><td class="num">100 %</td></tr></tfoot>
+    </table></div>
+    <p class="nota">El tipo es el que declara la fuente, con su nombre en inglés, como en el filtro
+    «Tipo documental» y en la figura P-03. Las citas son las de SciVal al corte, sin normalizar.</p>`;
+}
+
+/* Qué campo de cada publicación usa qué indicador. Sólo los que no están
+   completos en todas las cargas o que la lectura necesita; los que siempre
+   vienen —año, tipo, fuente— no aportan nada a esta tabla. */
+const CAMPOS_ANEXO = [
+  ['doi', 'DOI', 'I-07 (enlace a la publicación)'],
+  ['metricas', 'Citas y FWCI', 'I-01 a I-04, I-07 a I-09, AU-02, AU-03'],
+  ['percentil_citacion', 'Percentil de citación', 'I-05'],
+  ['sjr_percentil', 'Percentil SJR de la revista', 'R-01'],
+  ['open_access', 'Vía de acceso abierto', 'A-01',
+    'La ausencia no significa acceso cerrado: la fuente no declara vía.'],
+  ['asjc', 'Área ASJC', 'T-01'],
+  ['qs_area', 'Área QS', 'T-05'],
+  ['ods', 'Objetivo de Desarrollo Sostenible', 'T-04'],
+  ['paises', 'Países', 'C-01, C-03'],
+  ['instituciones', 'Instituciones', 'C-04'],
+  ['autores_uft', 'Firmas de la institución', 'P-06, P-07, C-05, AU-01, AU-02, AU-03, AU-05, AU-06'],
+];
+
+/** «Calidad y cobertura de los datos»: la completitud de cada campo y las
+    inconsistencias de la fuente que el informe no corrige. Las cuentas son de
+    X.calidadDatos(); lo que ya comprueba la auditoría se cita con su regla. */
+export function calidadAnexo(q, val, corpus, meta) {
+  const e = c.escapar;
+  const filas = CAMPOS_ANEXO.map(([k, campo, usan, nota]) => {
+    let aviso = nota || '';
+    if (k === 'autores_uft' && q.campos.autores_uft < q.n) {
+      const faltan = q.n - q.campos.autores_uft;
+      aviso = `${c.nf.format(faltan)} publicaci${faltan === 1 ? 'ón no nombra' : 'ones no nombran'} ninguna
+        firma de la institución con forma de persona. Siguen en el universo; la auditoría documenta por
+        qué (reglas E-09 e I-01).`;
+    }
+    return `<tr><td>${e(campo)}${aviso ? `<span class="nota">${aviso}</span>` : ''}</td>
+      <td class="num">${c.nf.format(q.campos[k])}</td><td class="num">${pct1(q.campos[k], q.n)}</td>
+      <td>${e(usan).replace(/[A-Z]{1,2}-\d{2}/g, m => `<span class="cod">${m}</span>`)}</td></tr>`;
+  }).join('');
+
+  const scival = corpus.fuentes.find(f => /scival/i.test(f.nombre)) || {};
+  const truncadoAviso = (scival.advertencias_del_export || []).find(a => /institution/i.test(a));
+  const items = [];
+  if (q.doiMalFormados) {
+    items.push(`<li><strong>DOI mal formado: ${c.nf.format(q.doiMalFormados)}.</strong> No tiene la forma
+      que fija la norma del DOI (prefijo <span class="mono">10.</span> y registro, una barra y un sufijo).
+      Se publica como lo trae la fuente, sin corregirlo a mano; ningún indicador lo usa para contar.</li>`);
+  }
+  if (q.sinPaisPropio.n) {
+    const pp = c.num((100 * q.sinPaisPropio.nacionales) / q.n, 1);
+    items.push(`<li><strong>Lista de países sin ${e(corpus.pais)}: ${c.nf.format(q.sinPaisPropio.n)}.</strong>
+      Son publicaciones de la institución, así que ${e(corpus.pais)} tendría que figurar.
+      ${q.sinPaisPropio.nacionales ? `La fuente marca ${q.sinPaisPropio.nacionales === q.sinPaisPropio.n ? 'todas' : c.nf.format(q.sinPaisPropio.nacionales)}
+      como nacionales —con un solo país— y así las cuenta C-01; si ${e(corpus.pais)} figurara serían
+      internacionales, y la colaboración internacional subiría como máximo ${pp} puntos.` : ''}</li>`);
+  }
+  if (q.institucionesTruncadas.length) {
+    const faltan = q.institucionesTruncadas.reduce((s, t) => s + t.declaradas - t.listadas, 0);
+    const k = q.institucionesTruncadas.length;
+    items.push(`<li><strong>Lista de instituciones truncada: ${c.nf.format(k)}.</strong>
+      ${k === 1 ? `Declara ${c.nf.format(q.institucionesTruncadas[0].declaradas)} instituciones y lista
+      ${c.nf.format(q.institucionesTruncadas[0].listadas)}` : `Declaran más instituciones de las que listan`}${
+      truncadoAviso ? `; el export de SciVal lo advierte («${e(truncadoAviso)}»)` : ''}.
+      C-04 no cuenta ${faltan === 1 ? 'la que falta' : `las ${c.nf.format(faltan)} que faltan`}.</li>`);
+  }
+  if (q.orcid.compartidos) {
+    items.push(`<li><strong>ORCID en más de una ficha de autor: ${c.nf.format(q.orcid.compartidos)}.</strong>
+      Los comparten ${c.nf.format(q.orcid.fichasCompartidas)} fichas, así que las
+      ${c.nf.format(q.orcid.fichas)} fichas con ORCID son ${c.nf.format(q.orcid.distintos)} identificadores
+      distintos. Compartirlo no fusiona fichas: el caso espera revisión humana y cada ficha lo advierte.</li>`);
+  }
+  return `<div class="tabla-envoltura"><table class="tabla-anexo">
+      <caption class="solo-lectores">Publicaciones con dato en cada campo</caption>
+      <thead><tr><th scope="col">Campo</th><th scope="col" class="num">Con dato</th>
+        <th scope="col" class="num">% de ${c.nf.format(q.n)}</th><th scope="col">Lo usan</th></tr></thead>
+      <tbody>${filas}</tbody>
+    </table></div>
+    <p class="nota">La unidad académica no está en la tabla porque no se mide sobre publicaciones sino
+    sobre pares autor × publicación: su cobertura está en las advertencias principales y en la regla
+    <span class="mono">V-10</span>. Cuando el campo de una figura cubre menos del
+    ${c.num(meta.cobertura_minima_sin_advertencia * 100)} % de las publicaciones que se miran, su sello
+    lo advierte.</p>
+    <h4>Inconsistencias de la fuente que el informe no corrige</h4>
+    <p>Se cuentan y se declaran; ninguna se corrige a mano (D-08).</p>
+    <ul class="lista-calidad">${items.join('')}
+      ${['D-02', 'P-01', 'X-04'].map(r => reglaEnLinea(val, r)).join('')}
+    </ul>
+    <p class="nota">Las cuentas de arriba se hacen al construir el sitio sobre
+    <code>publications.json</code> y <code>authors.json</code>, los archivos de
+    <a href="datos.html">Descarga de datos</a>: cualquiera puede repetirlas.</p>`;
+}
+
+/** El catálogo de los indicadores publicados, con su fórmula. La definición y
+    el cálculo salen de docs/INDICATORS.md; nombre, base y cautela, de
+    config/indicators.yml (04_glossary.py los junta en metodologia.json). */
+export function indicadoresAnexo(indicadores, categorias, meta) {
+  const e = c.escapar;
+  const orden = Object.keys(categorias || {});
+  const grupos = new Map();
+  for (const i of indicadores) {
+    if (!grupos.has(i.categoria)) grupos.set(i.categoria, []);
+    grupos.get(i.categoria).push(i);
+  }
+  const claves = [...grupos.keys()].sort((a, b) =>
+    (orden.indexOf(a) + 1 || 99) - (orden.indexOf(b) + 1 || 99));
+  const base = (d) => (d ? `${e(ETIQUETA_DENOMINADOR[d] || d)}${meta.denominadores && meta.denominadores[d] !== undefined
+    ? ` · ${c.nf.format(meta.denominadores[d])}` : ''}` : '—');
+  return claves.map(k => `<section class="modulo anexo-grupo" aria-labelledby="anexo-${e(k)}">
+      <h3 id="anexo-${e(k)}">${e((categorias || {})[k] || k)}</h3>
+      <div class="tabla-envoltura"><table class="tabla-anexo tabla-indicadores">
+        <colgroup><col class="c-cod"><col><col class="c-calc"><col class="c-base"><col class="c-fuente"></colgroup>
+        <thead><tr><th scope="col">Código</th><th scope="col">Indicador</th>
+          <th scope="col">Cálculo</th><th scope="col">Base</th><th scope="col">Fuente</th></tr></thead>
+        <tbody>${grupos.get(k).map(i => `<tr id="ind-${e(i.codigo)}">
+          <td class="mono">${e(i.codigo)}</td>
+          <td><strong>${e(i.nombre)}</strong><br>${e(i.definicion)}${i.advertencia
+            ? `<span class="nota">${e(i.advertencia)}</span>` : ''}</td>
+          <td><code>${e(i.logica)}</code></td>
+          <td>${base(i.denominador)}</td>
+          <td>${e(i.fuente)}${i.confiabilidad ? `<span class="nota">Confiabilidad
+            <a href="#confiabilidad">${e(i.confiabilidad)}</a>${i.nota_confiabilidad
+              ? `. ${e(i.nota_confiabilidad)}` : ''}</span>` : ''}</td>
+        </tr>`).join('')}</tbody>
+      </table></div>
+    </section>`).join('');
+}
+
+/** La definición de la confiabilidad alta/media/baja (D-721), leída de
+    docs/INDICATORS.md §2 bis por el build. Va encima del catálogo de
+    indicadores: la etiqueta de cada fila remite a esta tabla. */
+export function confiabilidadAnexo(niveles) {
+  const e = c.escapar;
+  return `<div class="tabla-envoltura"><table class="tabla-anexo tabla-confiabilidad">
+      <caption class="solo-lectores">Qué significa cada nivel de confiabilidad</caption>
+      <thead><tr><th scope="col">Nivel</th><th scope="col">Cobertura del dato</th>
+        <th scope="col">Cómo se calcula</th><th scope="col">Qué lo desestabiliza</th></tr></thead>
+      <tbody>${niveles.map(n => `<tr><th scope="row">${e(n.nivel.charAt(0).toUpperCase() + n.nivel.slice(1))}</th>
+        <td>${e(n.cobertura)}</td><td>${e(n.calculo)}</td><td>${e(n.desestabiliza)}</td></tr>`).join('')}</tbody>
+    </table></div>
+    <p class="nota">Cada indicador toma el nivel del más débil de los tres rasgos. Describe cuánto
+    se puede apoyar una lectura en la cifra, no la calidad de lo que mide.</p>`;
+}
+
+/** Las referencias en APA 7, agrupadas por lo que sustentan y en orden
+    alfabético dentro de cada grupo, como pide la norma. La cursiva llega en
+    tramos desde el build (REFERENCIAS.md no se interpreta como Markdown). */
+export function referenciasAnexo(referencias) {
+  const e = c.escapar;
+  const plano = r => r.cita.map(t => t.texto).join('');
+  const grupos = new Map();
+  for (const r of referencias) {
+    if (!grupos.has(r.categoria)) grupos.set(r.categoria, []);
+    grupos.get(r.categoria).push(r);
+  }
+  return [...grupos].map(([cat, refs]) => `<section class="modulo referencias-grupo">
+      <h3>${e(cat)}</h3>
+      <ul class="referencias">${[...refs].sort((a, b) => plano(a).localeCompare(plano(b), 'es')).map(r => `
+        <li id="ref-${e(r.clave)}"><p class="referencia">${r.cita.map(t =>
+          (t.cursiva ? `<i>${e(t.texto)}</i>` : e(t.texto))).join('')}${r.enlace
+          ? ` <a href="${e(r.enlace)}" target="_blank" rel="noopener">${e(r.enlace)}</a>` : ''}</p>
+          <p class="nota"><strong>Sustenta:</strong> ${e(r.sustenta)}</p></li>`).join('')}
+      </ul>
+    </section>`).join('');
 }

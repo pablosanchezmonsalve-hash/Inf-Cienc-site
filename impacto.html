@@ -307,7 +307,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <p class="rail-titulo">En esta sección</p>
     <a href="#I-01">
       <span class="rail-cod">I-01</span>
-      <span class="rail-nom">Citas por año de publicación</span></a><a href="#I-04">
+      <span class="rail-nom">Citas por año de publicación</span></a><a href="#I-09">
+      <span class="rail-cod">I-09</span>
+      <span class="rail-nom">Mediana de citas por año de publicación</span></a><a href="#I-08">
+      <span class="rail-cod">I-08</span>
+      <span class="rail-nom">Distribución de citas</span></a><a href="#I-04">
       <span class="rail-cod">I-04</span>
       <span class="rail-nom">FWCI mediano por año</span></a><a href="#I-05">
       <span class="rail-cod">I-05</span>
@@ -327,40 +331,52 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="ficha-valor" data-valor="publicaciones">1.342</p>
       <h3 class="ficha-etq">Publicaciones</h3>
       <p class="ficha-base"><b data-base="publicaciones">1.342</b> publicaciones en el recorte</p>
+      
       <p class="ficha-lectura">Cuántas publicaciones distintas caen en el recorte. Una publicación cuenta una sola vez aunque la firmen varias personas de la institución.</p>
     </article><article class="ficha" data-k="citas">
       <p class="ficha-valor" data-valor="citas">14.245</p>
       <h3 class="ficha-etq">Citas recibidas<button class="ayuda" type="button" data-ayuda="Fecha de corte"
     aria-label="Qué significa Fecha de corte">?</button></h3>
       <p class="ficha-base"><b data-base="citas">1.342</b> sobre las que tienen métricas</p>
+      
       <p class="ficha-lectura">El total de citas que han recibido esas publicaciones hasta la fecha de corte que declara el pie. Es una suma acumulada, así que lo publicado antes lleva más tiempo reuniéndolas.</p>
     </article><article class="ficha" data-k="citas_por_pub">
       <p class="ficha-valor" data-valor="citas_por_pub">10,61</p>
       <h3 class="ficha-etq">Citas por publicación</h3>
       <p class="ficha-base"><b data-base="citas_por_pub">1.342</b> sobre las que tienen métricas</p>
-      <p class="ficha-lectura">Las citas totales divididas por las publicaciones que tienen métricas. Es un promedio: unas pocas publicaciones muy citadas lo levantan para todas, y no describe a la publicación típica.</p>
+      <p class="ficha-base ficha-mediana">Mediana <b data-mediana="citas_por_pub">3</b></p>
+      <p class="ficha-lectura">Las citas totales divididas por las publicaciones que tienen métricas. Es un promedio: unas pocas publicaciones muy citadas lo levantan para todas, y no describe a la publicación típica. La mediana, debajo, sí: la mitad de las publicaciones tiene esa cantidad de citas o menos.</p>
     </article><article class="ficha" data-k="fwci_mediano">
       <p class="ficha-valor" data-valor="fwci_mediano">0,48</p>
       <h3 class="ficha-etq">FWCI mediano<button class="ayuda" type="button" data-ayuda="FWCI"
     aria-label="Qué significa FWCI">?</button></h3>
-      <p class="ficha-base"><b data-base="fwci_mediano">1.342</b> 1,00 = promedio mundial</p>
+      <p class="ficha-base"><b data-base="fwci_mediano">1.342</b> sobre las que tienen FWCI · 1,00 = promedio mundial</p>
+      
       <p class="ficha-lectura">El FWCI compara las citas de cada publicación con las esperadas para su campo, su año y su tipo, y 1,00 es el promedio mundial. Se muestra la mediana del recorte y no el promedio porque la distribución es muy asimétrica: unas pocas publicaciones muy citadas mueven el promedio y no la mediana, que describe la publicación típica.</p>
     </article><article class="ficha" data-k="internacional">
       <p class="ficha-valor" data-valor="internacional">49,8<span class="ficha-sufijo">%</span></p>
       <h3 class="ficha-etq">Colaboración internacional<button class="ayuda" type="button" data-ayuda="Colaboración internacional"
     aria-label="Qué significa Colaboración internacional">?</button></h3>
       <p class="ficha-base"><b data-base="internacional">1.342</b> sobre las que declaran país</p>
+      
       <p class="ficha-lectura">El porcentaje de publicaciones firmadas con al menos una institución de otro país, sobre las que declaran país. Mide con quién se publica, no la calidad de lo publicado.</p>
     </article><article class="ficha" data-k="autores">
       <p class="ficha-valor" data-valor="autores">829</p>
       <h3 class="ficha-etq">Autores UFT<button class="ayuda" type="button" data-ayuda="Formas de firma"
     aria-label="Qué significa Formas de firma">?</button></h3>
-      <p class="ficha-base"><b data-base="autores">1.342</b> formas de firma, no personas</p>
+      <p class="ficha-base"><b data-base="autores">1.342</b> sobre las que tienen autoría detallada</p>
+      
       <p class="ficha-lectura">Cuántas firmas distintas de la institución aparecen en el recorte. Son formas de firma ya consolidadas por revisión humana, no necesariamente personas distintas: una persona que firma de dos maneras sin consolidar cuenta dos veces.</p>
     </article></div>
 </div>
 
       <h2 class="titulo-seccion">Impacto</h2>
+      <!-- `data-indicadores` lista los códigos que la página pide a series.json,
+           y la compuerta de higiene exige que estén ahí. I-08 e I-09 no
+           figuran a propósito: como I-07, se calculan en el explorador desde
+           publications.json y no tienen serie en el build (D-710). Se dibujan
+           igual —los cortes salen de `SECCIONES` en vista_explorador.js— y su
+           lectura la exige 04_glossary.py como la de cualquier figura. -->
       <div class="cortes cortes-bento" id="cortes" data-indicadores="I-01,I-04,I-05,R-01,A-01" data-prerender="1">
 <section class="corte" id="I-01"
       data-corte="citas" tabindex="-1">
@@ -450,6 +466,198 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="nota">Las citas se cuentan por año de publicación, no por año de citación: lo publicado en un año reciente tuvo menos tiempo para acumularlas.</p>
       <p class="lectura-grafico"><b>Qué muestra</b>
       Cada barra suma las citas que han recibido las publicaciones de ese año, contadas hasta la fecha de corte. No son las citas emitidas ese año.</p>
+    
+      
+      <p class="sello">
+    <span><b>Fuente</b> SciVal</span>
+    <span><b>Corte</b> 2026-08-30</span>
+    <span><b>N</b> 1.342 publicaciones</span>
+    <span><b>Cobertura</b> 100,0 % · 1.342 con dato</span>
+    </p>
+    </section><section class="corte" id="I-09"
+      data-corte="citas" tabindex="-1">
+      <header class="corte-cab">
+        <h3>Mediana de citas por año de publicación</h3>
+        <span class="corte-cod">I-09</span>
+        <div class="vistas" role="group" aria-label="Forma de presentación">
+    <button type="button" data-vista="grafico" aria-pressed="true"
+      aria-controls="I-09-grafico">Gráfico</button>
+    <button type="button" data-vista="tabla" aria-pressed="false"
+      aria-controls="I-09-tabla">Tabla</button>
+  </div>
+      </header>
+      <div class="vista" id="I-09-grafico" data-vista="grafico" data-activa="true">
+        <div class="grafico" data-lienzo="I-09"><div class="grafico" style="max-width:680px"><svg class="chart" viewBox="0 0 680 260"
+    data-cifras="completas" role="list" aria-label="Mediana de citas por año de publicación — gráfico de barras por año, 6 años">
+    
+    <line class="red" x1="52" x2="664" y1="222" y2="222"/>
+    <text class="tick" x="44" y="225.5" text-anchor="end">0</text>
+    <line class="red" x1="52" x2="664" y1="124" y2="124"/>
+    <text class="tick" x="44" y="127.5" text-anchor="end">4,1</text>
+    <line class="red" x1="52" x2="664" y1="26" y2="26"/>
+    <text class="tick" x="44" y="29.5" text-anchor="end">8,3</text><g class="marca" data-k="2020" tabindex="0" role="listitem"
+        aria-label="2020: 5"
+        data-tip="2020" data-tip-v="5"
+        >
+      <rect class="barra" x="77.5" y="103.35593220338983" width="51" height="118.64406779661017" rx="4"/>
+      <text class="valor" x="103" y="96.35593220338983" text-anchor="middle">5</text>
+      <text x="103" y="240" text-anchor="middle">2020</text>
+    </g><g class="marca" data-k="2021" tabindex="-1" role="listitem"
+        aria-label="2021: 7"
+        data-tip="2021" data-tip-v="7"
+        >
+      <rect class="barra" x="179.5" y="55.89830508474574" width="51" height="166.10169491525426" rx="4"/>
+      <text class="valor" x="205" y="48.89830508474574" text-anchor="middle">7</text>
+      <text x="205" y="240" text-anchor="middle">2021</text>
+    </g><g class="marca" data-k="2022" tabindex="-1" role="listitem"
+        aria-label="2022: 5"
+        data-tip="2022" data-tip-v="5"
+        >
+      <rect class="barra" x="281.5" y="103.35593220338983" width="51" height="118.64406779661017" rx="4"/>
+      <text class="valor" x="307" y="96.35593220338983" text-anchor="middle">5</text>
+      <text x="307" y="240" text-anchor="middle">2022</text>
+    </g><g class="marca" data-k="2023" tabindex="-1" role="listitem"
+        aria-label="2023: 4"
+        data-tip="2023" data-tip-v="4"
+        >
+      <rect class="barra" x="383.5" y="127.08474576271188" width="51" height="94.91525423728812" rx="4"/>
+      <text class="valor" x="409" y="120.08474576271188" text-anchor="middle">4</text>
+      <text x="409" y="240" text-anchor="middle">2023</text>
+    </g><g class="marca" data-k="2024" tabindex="-1" role="listitem"
+        aria-label="2024: 3"
+        data-tip="2024" data-tip-v="3"
+        >
+      <rect class="barra" x="485.5" y="150.81355932203388" width="51" height="71.18644067796612" rx="4"/>
+      <text class="valor" x="511" y="143.81355932203388" text-anchor="middle">3</text>
+      <text x="511" y="240" text-anchor="middle">2024</text>
+    </g><g class="marca" data-k="2025" tabindex="-1" role="listitem"
+        aria-label="2025: 1"
+        data-tip="2025" data-tip-v="1"
+        >
+      <rect class="barra" x="587.5" y="198.27118644067795" width="51" height="23.72881355932205" rx="4"/>
+      <text class="valor" x="613" y="191.27118644067795" text-anchor="middle">1</text>
+      <text x="613" y="240" text-anchor="middle">2025</text>
+    </g>
+    <line class="eje" x1="52" x2="664" y1="222" y2="222"/>
+  </svg></div></div>
+      </div>
+      <div class="vista" id="I-09-tabla" data-vista="tabla" data-activa="false">
+        <div class="tabla-envoltura tabla-datos"><table>
+    <thead><tr><th scope="col">Categoría</th><th scope="col" class="num">n</th></tr></thead><tbody><tr><td>2020</td>
+      <td class="num">5</td>
+      </tr><tr><td>2021</td>
+      <td class="num">7</td>
+      </tr><tr><td>2022</td>
+      <td class="num">5</td>
+      </tr><tr><td>2023</td>
+      <td class="num">4</td>
+      </tr><tr><td>2024</td>
+      <td class="num">3</td>
+      </tr><tr><td>2025</td>
+      <td class="num">1</td>
+      </tr></tbody></table></div>
+      </div>
+      
+      
+      <p class="nota">Las citas se cuentan por año de publicación, no por año de citación: lo publicado en un año reciente tuvo menos tiempo para acumularlas.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b>
+      Cada barra es la mediana de las citas de las publicaciones de ese año: la mitad tiene esa cantidad o menos. Describe la publicación típica de cada año, que la suma de al lado no describe, y baja en los años recientes porque esas publicaciones han tenido menos tiempo para ser citadas.</p>
+    
+      
+      <p class="sello">
+    <span><b>Fuente</b> SciVal</span>
+    <span><b>Corte</b> 2026-08-30</span>
+    <span><b>N</b> 1.342 publicaciones</span>
+    <span><b>Cobertura</b> 100,0 % · 1.342 con dato</span>
+    </p>
+    </section><section class="corte" id="I-08"
+      data-corte="citas_tramo" tabindex="-1">
+      <header class="corte-cab">
+        <h3>Distribución de citas</h3>
+        <span class="corte-cod">I-08</span>
+        <div class="vistas" role="group" aria-label="Forma de presentación">
+    <button type="button" data-vista="grafico" aria-pressed="true"
+      aria-controls="I-08-grafico">Gráfico</button>
+    <button type="button" data-vista="tabla" aria-pressed="false"
+      aria-controls="I-08-tabla">Tabla</button>
+  </div>
+      </header>
+      <div class="vista" id="I-08-grafico" data-vista="grafico" data-activa="true">
+        <div class="grafico" data-lienzo="I-08"><div class="grafico"><svg class="chart" viewBox="0 0 680 250"
+    data-cifras="completas" role="list" aria-label="Distribución de citas — distribución en 6 tramos">
+    
+    <line class="red" x1="52" x2="664" y1="198" y2="198"/>
+    <text class="tick" x="44" y="201.5" text-anchor="end">0</text>
+    <line class="red" x1="52" x2="664" y1="112" y2="112"/>
+    <text class="tick" x="44" y="115.5" text-anchor="end">183</text>
+    <line class="red" x1="52" x2="664" y1="26" y2="26"/>
+    <text class="tick" x="44" y="29.5" text-anchor="end">367</text><g class="marca" data-k="0" tabindex="0" role="listitem"
+        aria-label="0: 311 publicaciones, 23,2 %"
+        data-tip="0" data-tip-v="311"
+        data-tip-n="23,2 % de 1.342">
+      <rect class="barra" x="52.5" y="52.237288135593204" width="101" height="145.7627118644068"/>
+      <text class="valor" x="103" y="45.237288135593204" text-anchor="middle">311</text>
+      <text x="103" y="216" text-anchor="middle">0</text>
+    </g><g class="marca" data-k="1-2" tabindex="-1" role="listitem"
+        aria-label="1-2: 304 publicaciones, 22,7 %"
+        data-tip="1-2" data-tip-v="304"
+        data-tip-n="22,7 % de 1.342">
+      <rect class="barra" x="154.5" y="55.51812087852197" width="101" height="142.48187912147802"/>
+      <text class="valor" x="205" y="48.51812087852197" text-anchor="middle">304</text>
+      <text x="205" y="216" text-anchor="middle">1-2</text>
+    </g><g class="marca" data-k="3-5" tabindex="-1" role="listitem"
+        aria-label="3-5: 229 publicaciones, 17,1 %"
+        data-tip="3-5" data-tip-v="229"
+        data-tip-n="17,1 % de 1.342">
+      <rect class="barra" x="256.5" y="90.66990026704451" width="101" height="107.33009973295549"/>
+      <text class="valor" x="307" y="83.66990026704451" text-anchor="middle">229</text>
+      <text x="307" y="216" text-anchor="middle">3-5</text>
+    </g><g class="marca" data-k="6-10" tabindex="-1" role="listitem"
+        aria-label="6-10: 197 publicaciones, 14,7 %"
+        data-tip="6-10" data-tip-v="197"
+        data-tip-n="14,7 % de 1.342">
+      <rect class="barra" x="358.5" y="105.66799280614747" width="101" height="92.33200719385253"/>
+      <text class="valor" x="409" y="98.66799280614747" text-anchor="middle">197</text>
+      <text x="409" y="216" text-anchor="middle">6-10</text>
+    </g><g class="marca" data-k="11-50" tabindex="-1" role="listitem"
+        aria-label="11-50: 273 publicaciones, 20,3 %"
+        data-tip="11-50" data-tip-v="273"
+        data-tip-n="20,3 % de 1.342">
+      <rect class="barra" x="460.5" y="70.04752302577796" width="101" height="127.95247697422204"/>
+      <text class="valor" x="511" y="63.04752302577796" text-anchor="middle">273</text>
+      <text x="511" y="216" text-anchor="middle">11-50</text>
+    </g><g class="marca" data-k="51+" tabindex="-1" role="listitem"
+        aria-label="51+: 28 publicaciones, 2,1 %"
+        data-tip="51+" data-tip-v="28"
+        data-tip-n="2,1 % de 1.342">
+      <rect class="barra" x="562.5" y="184.8766690282849" width="101" height="13.123330971715092"/>
+      <text class="valor" x="613" y="177.8766690282849" text-anchor="middle">28</text>
+      <text x="613" y="216" text-anchor="middle">51+</text>
+    </g><text class="tick" x="358" y="240" text-anchor="middle">citas por publicación</text>
+    <line class="eje" x1="52" x2="664" y1="198" y2="198"/>
+  </svg></div></div>
+      </div>
+      <div class="vista" id="I-08-tabla" data-vista="tabla" data-activa="false">
+        <div class="tabla-envoltura tabla-datos"><table>
+    <thead><tr><th scope="col">Categoría</th><th scope="col" class="num">n</th></tr></thead><tbody><tr><td>0</td>
+      <td class="num">311</td>
+      </tr><tr><td>1-2</td>
+      <td class="num">304</td>
+      </tr><tr><td>3-5</td>
+      <td class="num">229</td>
+      </tr><tr><td>6-10</td>
+      <td class="num">197</td>
+      </tr><tr><td>11-50</td>
+      <td class="num">273</td>
+      </tr><tr><td>51+</td>
+      <td class="num">28</td>
+      </tr></tbody></table></div>
+      </div>
+      
+      
+      <p class="nota">Cuenta citas totales al corte, sin normalizar por campo ni por año: una publicación de 2025 sin citas y una de 2020 sin citas no están en la misma situación. Para comparar con lo esperable en su campo está el FWCI.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b>
+      Cuántas publicaciones del recorte tienen 0 citas, de 1 a 2, de 3 a 5, y así por tramos, hasta 51 o más. Enseña cómo se reparten las citas que el promedio resume en un solo número. Cada publicación con métricas cae en un solo tramo.</p>
     
       
       <p class="sello">
@@ -707,7 +915,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       
       
       <p class="lectura-grafico"><b>Qué muestra</b>
-      Reparte las publicaciones del recorte según el cuartil de la revista en que salieron, medido por su percentil SJR. Cada publicación cae en un solo cuartil.</p>
+      Reparte las publicaciones del recorte según el cuartil de la revista en que salieron, medido por el percentil SJR que SciVal le asigna en el año de publicación del artículo (el SJR lo calcula SCImago sobre datos de Scopus). Cada publicación cae en un solo cuartil. Describe la revista, no el artículo.</p>
     <p class="lectura-cuidado"><b>Cuidado</b>
       Métrica de la revista, no del artículo. Cobertura 1.223 de 1.342.</p>
       

@@ -335,7 +335,11 @@ body[data-pagina="metodologia"] main .glosario-entrada dt {
 
 p { margin: 0 0 var(--e3); }
 p:last-child { margin-bottom: 0; }
-code, kbd, samp { font-family: var(--f-mono); font-size: .875em; }
+/* Sin ligaduras de código. JetBrains Mono dibuja «==» y «<=» como un solo
+   glifo, y el PDF lo extrae como otro texto: «resolucion == X» se copiaba del
+   informe como «resolucion <= X», otra fórmula (lo detectó impresion.mjs). Lo
+   que se lee y lo que se copia tienen que ser lo mismo. */
+code, kbd, samp { font-family: var(--f-mono); font-size: .875em; font-variant-ligatures: none; }
 
 .contenedor { max-width: var(--max); margin: 0 auto; padding: 0 clamp(var(--e4), 3vw, var(--e6)); }
 
@@ -2602,7 +2606,7 @@ svg.chart .trama { pointer-events: none; }
      La altura se pide en `min-height` y no en `height` para que un recorte de
      nombre largo la estire en vez de desbordarla. */
   .portada-informe {
-    min-height: 232mm; padding: 42mm 0 0; break-after: page; break-inside: avoid;
+    min-height: 232mm; padding: 16mm 0 0; break-after: page; break-inside: avoid;
   }
   .pi-institucion {
     font-size: 11pt; letter-spacing: .1em; text-transform: uppercase;
@@ -2617,12 +2621,19 @@ svg.chart .trama { pointer-events: none; }
      que se imprime más grande que la procedencia y antes que ella. */
   .pi-alcance { font-size: 13pt; line-height: 1.45; margin: 0 0 2mm; max-width: 140mm; }
   .pi-seleccion { font-size: 10.5pt; color: #333; margin: 0 0 2mm; max-width: 140mm; }
-  .pi-ventana { font-size: 11pt; color: #333; margin: 0 0 16mm; }
+  .pi-ventana { font-size: 11pt; color: #333; margin: 0 0 9mm; }
 
-  .pi-datos { margin: 0 0 14mm; max-width: 118mm; }
+  .pi-datos { margin: 0 0 3mm; max-width: 118mm; }
+  /* Qué es la huella y qué no (D-715), y el uso responsable: van con los datos
+     de procedencia, en letra de nota, antes de las bases. */
+  .pi-huella-nota { font-size: 8.5pt; line-height: 1.45; color: #444; margin: 0 0 6mm; max-width: 118mm; }
+  .pi-uso {
+    font-size: 9.5pt; line-height: 1.5; margin: 0 0 7mm; max-width: 140mm;
+    padding: 3mm 4mm; border-left: 2px solid #000; background: #f4f4f4;
+  }
   .pi-fila {
     display: flex; justify-content: space-between; gap: 8mm;
-    font-size: 10pt; margin: 0; padding: 2.2mm 0; border-bottom: .5pt solid #ddd;
+    font-size: 10pt; margin: 0; padding: 1.6mm 0; border-bottom: .5pt solid #ddd;
   }
   .pi-rotulo { color: #444; }
   .pi-valor { font-variant-numeric: tabular-nums; text-align: right; }
@@ -2761,3 +2772,112 @@ svg.chart .trama { pointer-events: none; }
 @media screen and (max-width: 640px) {
   .vigencia .sep { display: none; }
 }
+
+/* ── Tablas en papel: nada se corta sin decirlo (D-709) ───────────────────
+   `.tabla-envoltura` desplaza en horizontal en pantalla, y en papel no hay
+   barra: lo que no cabía en el ancho de la hoja se perdía en silencio. Dos
+   casos reales, medidos sobre el PDF: la tabla de auditoría imprimía
+   «rango observado=2020» por 2020-2025 y «scopus_affiliation_id=6» por
+   60105368, y la de publicaciones más citadas imprimía el FWCI 250,06 como
+   «250» y 23,62 como «23» —una cifra falsa con aspecto de cifra válida—.
+
+   La causa era la misma: celdas que no se parten (`th` y la columna
+   observada en `nowrap`) ensanchan la tabla por encima de la hoja. En papel
+   los encabezados y el texto mono se parten, y la envoltura deja de recortar.
+   Las cifras (`td.num`) siguen sin partirse: son cortas y partirlas las haría
+   ilegibles. Lo vigila `src/verify/impresion.mjs`, que exige cada celda
+   visible ENTERA en el texto del PDF. */
+@media print {
+  .tabla-envoltura { overflow: visible; }
+  th { white-space: normal; }
+  .tabla-validacion .mono, .ficha-datos .mono { white-space: normal; overflow-wrap: anywhere; }
+}
+
+/* ── Anexo metodológico: corpus, calidad, indicadores y referencias (D-712) ──
+   Tablas de lectura, no de consulta: los encabezados de fila son texto y no
+   rótulos mono en versalitas, y nada se ordena. La columna de cálculo lleva
+   pseudocódigo, que se parte en cualquier punto antes que desbordar. */
+.tabla-anexo tbody th, .tabla-anexo tfoot th {
+  position: static; background: none; white-space: normal;
+  font: 600 var(--t-s)/1.4 var(--f-ui); letter-spacing: 0; text-transform: none; color: var(--tinta);
+  border-bottom: 1px solid var(--linea);
+}
+.tabla-anexo tfoot td, .tabla-anexo tfoot th { border-top: 1px solid var(--linea-fuerte); font-weight: 650; }
+.tabla-anexo td .nota { display: block; margin-top: var(--e1); }
+.tabla-anexo code { overflow-wrap: anywhere; }
+.tabla-anexo .mono { font-family: var(--f-mono); font-size: .92em; }
+.tabla-anexo .cod { white-space: nowrap; }
+.tabla-anexo .mono { font-variant-ligatures: none; }
+/* Anchos fijos: en automático la columna de pseudocódigo se comía la del
+   indicador, y en A4 una fila de PD-04 pasaba de una hoja y se partía. */
+.tabla-anexo { table-layout: fixed; }
+.tabla-indicadores .c-cod { width: 4.75rem; }
+.tabla-indicadores .c-calc { width: 24%; }
+.tabla-indicadores .c-base { width: 15%; }
+.tabla-indicadores .c-fuente { width: 13%; }
+.tabla-corpus .c-paso { width: 17%; }
+.tabla-corpus .c-comp { width: 38%; }
+.tabla-indicadores td:first-child { white-space: nowrap; }
+.tabla-confiabilidad th[scope="row"] { width: 7rem; }
+/* En un teléfono la tabla conserva su forma y se desplaza, como las demás del
+   sitio: apretada al ancho de la pantalla dejaba columnas de una palabra. */
+@media screen and (max-width: 720px) { .tabla-anexo { min-width: 40rem; } }
+.lista-compacta, .lista-reglas, .lista-calidad { margin: 0; padding-left: 1.1rem; }
+.lista-compacta > li + li, .lista-reglas > li + li { margin-top: var(--e2); }
+.lista-reglas { list-style: none; padding-left: 0; }
+.tabla-anexo .lista-reglas .nota, .lista-calidad .nota { display: inline; margin: 0; }
+.lista-reglas .mono, .lista-calidad .mono { font-family: var(--f-mono); font-size: .92em; }
+.lista-reglas .val-falla, .lista-calidad .val-falla {
+  background: none; color: var(--aviso-tinta);
+}
+.lista-calidad > li + li { margin-top: var(--e3); }
+.lista-calidad > li { max-width: 80ch; }
+#calidad-datos h4 {
+  margin: var(--e5) 0 var(--e2); font: 700 var(--t-xs)/1.3 var(--f-ui);
+  letter-spacing: .07em; text-transform: uppercase; color: var(--tinta-2);
+}
+.anexo-grupo + .anexo-grupo, .referencias-grupo + .referencias-grupo { margin-top: var(--e5); }
+.referencias { list-style: none; margin: 0; padding: 0; }
+.referencias > li { padding: var(--e3) 0; border-top: 1px solid var(--linea); }
+.referencias > li:first-child { border-top: 0; padding-top: 0; }
+/* Sangría francesa, como la pide APA para la lista de referencias. */
+.referencia { margin: 0; padding-left: 2em; text-indent: -2em; max-width: 80ch; overflow-wrap: anywhere; }
+.referencias .nota { margin: var(--e1) 0 0 2em; max-width: 78ch; }
+@media print {
+  /* Un grupo de indicadores no se parte entre hojas si cabe en una; si no
+     cabe, las filas sí, pero cada fila entera. */
+  .tabla-anexo tr { break-inside: avoid; }
+  /* `.modulo` no se parte en papel, y estos son más largos que media hoja:
+     empujados enteros a la siguiente dejaban hojas a medio llenar (el anexo
+     llegó a 41). Se parten entre filas, que sí son indivisibles. */
+  #corpus-pasos, #tipos-documentales, #calidad-datos, .anexo-grupo, .referencias-grupo,
+  #corpus-pasos .tabla-envoltura, #calidad-datos .tabla-envoltura, .anexo-grupo .tabla-envoltura {
+    break-inside: auto;
+  }
+  /* Lo mismo para los cuatro módulos de Metodología que miden más de una hoja
+     (auditoría, fuentes, correcciones y ficha técnica, medidos en A4). Un
+     bloque indivisible más alto que la hoja no se puede cumplir, y Chromium lo
+     pagaba con hojas a medio llenar y una EN BLANCO entre la auditoría y las
+     fuentes. Se parten entre filas y párrafos; los encabezados no quedan
+     huérfanos al pie. */
+  #validacion-datos, #validacion-datos .tabla-envoltura, #fuentes, #correcciones, #ficha-tecnica {
+    break-inside: auto;
+  }
+  body[data-pagina="metodologia"] h2, body[data-pagina="metodologia"] h3,
+  body[data-pagina="metodologia"] h4 { break-after: avoid; }
+  .tabla-validacion tr, .ficha-datos > div { break-inside: avoid; }
+  .tabla-anexo th, .tabla-anexo td { padding: var(--e2) var(--e3); }
+  .referencias > li { break-inside: avoid; }
+}
+
+/* ── Síntesis de la portada (D-714) ──────────────────────────────────────
+   Va antes de las cifras y con el mismo suelo que un módulo: es un resumen de
+   ellas, no un titular. Sin énfasis de color: ninguna frase es una alerta. */
+.sintesis {
+  margin: 0 0 var(--e5); padding: var(--e4) var(--e5);
+  border: 1px solid var(--linea); border-radius: var(--radio); background: var(--superficie);
+}
+.sintesis h2 { margin: 0 0 var(--e2); font: 700 var(--t-l)/1.3 var(--f-ui); }
+.sintesis ul { margin: 0; padding-left: 1.1rem; max-width: 80ch; }
+.sintesis li + li { margin-top: var(--e1); }
+@media print { .sintesis { break-inside: avoid; } }

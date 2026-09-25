@@ -313,7 +313,9 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <span class="rail-cod">C-04</span>
       <span class="rail-nom">Instituciones colaboradoras</span></a><a href="#C-06">
       <span class="rail-cod">C-06</span>
-      <span class="rail-nom">Autores por publicación</span></a><a href="#C-05">
+      <span class="rail-nom">Autores por publicación</span></a><a href="#AU-07">
+      <span class="rail-cod">AU-07</span>
+      <span class="rail-nom">Productividad de las formas de firma</span></a><a href="#C-05">
       <span class="rail-cod">C-05</span>
       <span class="rail-nom">Red de coautoría</span></a>
   </nav>
@@ -327,40 +329,50 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="ficha-valor" data-valor="publicaciones">1.342</p>
       <h3 class="ficha-etq">Publicaciones</h3>
       <p class="ficha-base"><b data-base="publicaciones">1.342</b> publicaciones en el recorte</p>
+      
       <p class="ficha-lectura">Cuántas publicaciones distintas caen en el recorte. Una publicación cuenta una sola vez aunque la firmen varias personas de la institución.</p>
     </article><article class="ficha" data-k="citas">
       <p class="ficha-valor" data-valor="citas">14.245</p>
       <h3 class="ficha-etq">Citas recibidas<button class="ayuda" type="button" data-ayuda="Fecha de corte"
     aria-label="Qué significa Fecha de corte">?</button></h3>
       <p class="ficha-base"><b data-base="citas">1.342</b> sobre las que tienen métricas</p>
+      
       <p class="ficha-lectura">El total de citas que han recibido esas publicaciones hasta la fecha de corte que declara el pie. Es una suma acumulada, así que lo publicado antes lleva más tiempo reuniéndolas.</p>
     </article><article class="ficha" data-k="citas_por_pub">
       <p class="ficha-valor" data-valor="citas_por_pub">10,61</p>
       <h3 class="ficha-etq">Citas por publicación</h3>
       <p class="ficha-base"><b data-base="citas_por_pub">1.342</b> sobre las que tienen métricas</p>
-      <p class="ficha-lectura">Las citas totales divididas por las publicaciones que tienen métricas. Es un promedio: unas pocas publicaciones muy citadas lo levantan para todas, y no describe a la publicación típica.</p>
+      <p class="ficha-base ficha-mediana">Mediana <b data-mediana="citas_por_pub">3</b></p>
+      <p class="ficha-lectura">Las citas totales divididas por las publicaciones que tienen métricas. Es un promedio: unas pocas publicaciones muy citadas lo levantan para todas, y no describe a la publicación típica. La mediana, debajo, sí: la mitad de las publicaciones tiene esa cantidad de citas o menos.</p>
     </article><article class="ficha" data-k="fwci_mediano">
       <p class="ficha-valor" data-valor="fwci_mediano">0,48</p>
       <h3 class="ficha-etq">FWCI mediano<button class="ayuda" type="button" data-ayuda="FWCI"
     aria-label="Qué significa FWCI">?</button></h3>
-      <p class="ficha-base"><b data-base="fwci_mediano">1.342</b> 1,00 = promedio mundial</p>
+      <p class="ficha-base"><b data-base="fwci_mediano">1.342</b> sobre las que tienen FWCI · 1,00 = promedio mundial</p>
+      
       <p class="ficha-lectura">El FWCI compara las citas de cada publicación con las esperadas para su campo, su año y su tipo, y 1,00 es el promedio mundial. Se muestra la mediana del recorte y no el promedio porque la distribución es muy asimétrica: unas pocas publicaciones muy citadas mueven el promedio y no la mediana, que describe la publicación típica.</p>
     </article><article class="ficha" data-k="internacional">
       <p class="ficha-valor" data-valor="internacional">49,8<span class="ficha-sufijo">%</span></p>
       <h3 class="ficha-etq">Colaboración internacional<button class="ayuda" type="button" data-ayuda="Colaboración internacional"
     aria-label="Qué significa Colaboración internacional">?</button></h3>
       <p class="ficha-base"><b data-base="internacional">1.342</b> sobre las que declaran país</p>
+      
       <p class="ficha-lectura">El porcentaje de publicaciones firmadas con al menos una institución de otro país, sobre las que declaran país. Mide con quién se publica, no la calidad de lo publicado.</p>
     </article><article class="ficha" data-k="autores">
       <p class="ficha-valor" data-valor="autores">829</p>
       <h3 class="ficha-etq">Autores UFT<button class="ayuda" type="button" data-ayuda="Formas de firma"
     aria-label="Qué significa Formas de firma">?</button></h3>
-      <p class="ficha-base"><b data-base="autores">1.342</b> formas de firma, no personas</p>
+      <p class="ficha-base"><b data-base="autores">1.342</b> sobre las que tienen autoría detallada</p>
+      
       <p class="ficha-lectura">Cuántas firmas distintas de la institución aparecen en el recorte. Son formas de firma ya consolidadas por revisión humana, no necesariamente personas distintas: una persona que firma de dos maneras sin consolidar cuenta dos veces.</p>
     </article></div>
 </div>
 
       <h2 class="titulo-seccion">Colaboración</h2>
+      <!-- AU-07 no figura en `data-indicadores` a propósito, como I-08 en
+           impacto.html: se calcula en el explorador desde publications.json y
+           no tiene serie en el build (D-717). Se dibuja igual, desde
+           `SECCIONES`, y 04_glossary.py le exige su lectura. -->
       <div class="cortes cortes-bento" id="cortes" data-indicadores="C-01,C-03,C-04,C-06,C-05" data-prerender="1">
 <section class="corte" id="C-01"
       data-corte="colaboracion" tabindex="-1">
@@ -924,6 +936,93 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <span><b>Corte</b> 2026-08-30</span>
     <span><b>N</b> 1.342 publicaciones</span>
     <span><b>Cobertura</b> 100,0 % · 1.342 con dato</span>
+    </p>
+    </section><section class="corte" id="AU-07"
+      data-corte="autor" tabindex="-1">
+      <header class="corte-cab">
+        <h3>Productividad de las formas de firma</h3>
+        <span class="corte-cod">AU-07</span>
+        <div class="vistas" role="group" aria-label="Forma de presentación">
+    <button type="button" data-vista="grafico" aria-pressed="true"
+      aria-controls="AU-07-grafico">Gráfico</button>
+    <button type="button" data-vista="tabla" aria-pressed="false"
+      aria-controls="AU-07-tabla">Tabla</button>
+  </div>
+      </header>
+      <div class="vista" id="AU-07-grafico" data-vista="grafico" data-activa="true">
+        <div class="grafico" data-lienzo="AU-07"><div class="grafico"><svg class="chart" viewBox="0 0 680 250"
+    data-cifras="completas" role="list" aria-label="Productividad de las formas de firma — distribución en 5 tramos">
+    
+    <line class="red" x1="52" x2="664" y1="198" y2="198"/>
+    <text class="tick" x="44" y="201.5" text-anchor="end">0</text>
+    <line class="red" x1="52" x2="664" y1="112" y2="112"/>
+    <text class="tick" x="44" y="115.5" text-anchor="end">335</text>
+    <line class="red" x1="52" x2="664" y1="26" y2="26"/>
+    <text class="tick" x="44" y="29.5" text-anchor="end">669</text><g class="marca" data-k="1" tabindex="0" role="listitem"
+        aria-label="1: 567 publicaciones, 68,4 %"
+        data-tip="1" data-tip-v="567"
+        data-tip-n="68,4 % de 829">
+      <rect class="barra" x="52.5" y="52.237288135593204" width="121.4" height="145.7627118644068"/>
+      <text class="valor" x="113.2" y="45.237288135593204" text-anchor="middle">567</text>
+      <text x="113.2" y="216" text-anchor="middle">1</text>
+    </g><g class="marca" data-k="2" tabindex="-1" role="listitem"
+        aria-label="2: 119 publicaciones, 14,4 %"
+        data-tip="2" data-tip-v="119"
+        data-tip-n="14,4 % de 829">
+      <rect class="barra" x="174.9" y="167.40782590500103" width="121.4" height="30.592174094998967"/>
+      <text class="valor" x="235.60000000000002" y="160.40782590500103" text-anchor="middle">119</text>
+      <text x="235.60000000000002" y="216" text-anchor="middle">2</text>
+    </g><g class="marca" data-k="3-4" tabindex="-1" role="listitem"
+        aria-label="3-4: 75 publicaciones, 9,0 %"
+        data-tip="3-4" data-tip-v="75"
+        data-tip-n="9,0 % de 829">
+      <rect class="barra" x="297.3" y="178.7192180073536" width="121.4" height="19.28078199264641"/>
+      <text class="valor" x="358" y="171.7192180073536" text-anchor="middle">75</text>
+      <text x="358" y="216" text-anchor="middle">3-4</text>
+    </g><g class="marca" data-k="5-9" tabindex="-1" role="listitem"
+        aria-label="5-9: 41 publicaciones, 4,9 %"
+        data-tip="5-9" data-tip-v="41"
+        data-tip-n="4,9 % de 829">
+      <rect class="barra" x="419.70000000000005" y="187.4598391773533" width="121.4" height="10.540160822646698"/>
+      <text class="valor" x="480.40000000000003" y="180.4598391773533" text-anchor="middle">41</text>
+      <text x="480.40000000000003" y="216" text-anchor="middle">5-9</text>
+    </g><g class="marca" data-k="10+" tabindex="-1" role="listitem"
+        aria-label="10+: 27 publicaciones, 3,3 %"
+        data-tip="10+" data-tip-v="27"
+        data-tip-n="3,3 % de 829">
+      <rect class="barra" x="542.1" y="191.0589184826473" width="121.4" height="6.9410815173527"/>
+      <text class="valor" x="602.8000000000001" y="184.0589184826473" text-anchor="middle">27</text>
+      <text x="602.8000000000001" y="216" text-anchor="middle">10+</text>
+    </g><text class="tick" x="358" y="240" text-anchor="middle">publicaciones por forma de firma</text>
+    <line class="eje" x1="52" x2="664" y1="198" y2="198"/>
+  </svg></div></div>
+      </div>
+      <div class="vista" id="AU-07-tabla" data-vista="tabla" data-activa="false">
+        <div class="tabla-envoltura tabla-datos"><table>
+    <thead><tr><th scope="col">Categoría</th><th scope="col" class="num">n</th></tr></thead><tbody><tr><td>1</td>
+      <td class="num">567</td>
+      </tr><tr><td>2</td>
+      <td class="num">119</td>
+      </tr><tr><td>3-4</td>
+      <td class="num">75</td>
+      </tr><tr><td>5-9</td>
+      <td class="num">41</td>
+      </tr><tr><td>10+</td>
+      <td class="num">27</td>
+      </tr></tbody></table></div>
+      </div>
+      
+      
+      <p class="nota">Cuenta formas de firma, no personas: quien firma de dos maneras que aún no se han consolidado aparece dos veces, en tramos más bajos. Conteo completo: una publicación con tres firmas de la institución suma una a cada una. Describe cómo se reparte lo publicado; no mide el desempeño de nadie.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b>
+      Cuántas formas de firma de la institución tienen una publicación en el recorte, cuántas dos, de tres a cuatro, de cinco a nueve y diez o más. Cada forma de firma cae en un solo tramo. Enseña cómo se reparte lo publicado entre quienes firman, sin poner a nadie en una lista.</p>
+    
+      
+      <p class="sello">
+    <span><b>Fuente</b> Scopus</span>
+    <span><b>Export</b> 2026-09-08</span>
+    <span><b>N</b> 1.342 publicaciones</span>
+    <span><b>Cobertura</b> 99,6 % · 1.337 con dato</span>
     </p>
     </section><section class="corte corte-red" id="C-05" data-corte="coautoria" tabindex="-1">
     <header class="corte-cab">

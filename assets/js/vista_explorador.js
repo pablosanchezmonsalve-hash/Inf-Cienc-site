@@ -56,14 +56,20 @@ export function cabecera(meta) {
 /* El cuarto campo es el término del glosario. La ayuda contextual vivía en los
    KPI de la portada anterior y se habría perdido al sustituirlos: aquí es más
    necesaria todavía, porque una cifra recalculada sobre un recorte se
-   malinterpreta con más facilidad que una del total. */
+   malinterpreta con más facilidad que una del total.
+
+   El tercer campo rotula el NÚMERO que lo precede, que es la base: sobre
+   cuántas publicaciones se calcula la cifra. Dos rótulos decían otra cosa y el
+   papel los imprimía pegados a ese número: «1.342 formas de firma, no
+   personas» —1.342 son publicaciones, no firmas— y «1.342 1,00 = promedio
+   mundial» (D-709). Lo que la cifra ES lo dice la lectura, debajo. */
 const FICHAS = [
   ['publicaciones', 'Publicaciones',        'publicaciones en el recorte', null],
   ['citas',         'Citas recibidas',      'sobre las que tienen métricas', 'Fecha de corte'],
   ['citas_por_pub', 'Citas por publicación', 'sobre las que tienen métricas', null],
-  ['fwci_mediano',  'FWCI mediano',         '1,00 = promedio mundial', 'FWCI'],
+  ['fwci_mediano',  'FWCI mediano',         'sobre las que tienen FWCI · 1,00 = promedio mundial', 'FWCI'],
   ['internacional', 'Colaboración internacional', 'sobre las que declaran país', 'Colaboración internacional'],
-  ['autores',       'Autores UFT',          'formas de firma, no personas', 'Formas de firma'],
+  ['autores',       'Autores UFT',          'sobre las que tienen autoría detallada', 'Formas de firma'],
 ];
 
 function fmt(f) {
@@ -93,10 +99,17 @@ export function cifras(res, textos, { bento = false } = {}) {
   return `<div class="tablero${bento ? ' tablero-bento' : ''}">${FICHAS.map(([k, etq, base, termino]) => {
     const f = res[k];
     const l = lecturas[k];
+    // La mediana acompaña a un promedio que unas pocas publicaciones levantan:
+    // sin ella, «10,61 citas por publicación» se lee como la publicación típica,
+    // que tiene 3 (D-710). Va con su propio rótulo, no en lugar del promedio.
+    const med = f.mediana === undefined ? ''
+      : `<p class="ficha-base ficha-mediana">Mediana <b data-mediana="${k}">${
+          f.mediana === null ? '—' : c.num(f.mediana, Number.isInteger(f.mediana) ? 0 : 1)}</b></p>`;
     return `<article class="ficha" data-k="${k}">
       <p class="ficha-valor" data-valor="${k}">${fmt(f)}</p>
       <h3 class="ficha-etq">${c.escapar(etq)}${termino ? c.botonAyuda(termino) : ''}</h3>
       <p class="ficha-base"><b data-base="${k}">${c.nf.format(f.base)}</b> ${c.escapar(base)}</p>
+      ${med}
       ${l ? `<p class="ficha-lectura">${c.escapar(l.muestra)}</p>` : ''}
     </article>`;
   }).join('')}</div>`;
@@ -428,6 +441,52 @@ export function cortes(pubs_sel, proc, jerarquia, textos, sel = {}) {
     completo y el navegador con el recorte vigente. `jerarquia` (opcional,
     de meta.json) agrega 'unidad' a facultad — sin ella se ve tal como la
     afiliación la nombró, escuela o facultad indistinto. */
+/** Síntesis de la portada: cinco frases escritas DESDE las cifras del recorte.
+
+    Descriptivas y nada más: ni adjetivos que evalúen («alta», «destacada») ni
+    comparaciones que el informe no puede sostener. Cada frase repite una cifra
+    que la página ya publica, con su base, para que quien lea sólo esto no se
+    lleve un número sin su condición: la mediana de citas va antes que el
+    promedio porque el 1 % más citado reúne un tercio de las citas (D-710).
+
+    No se escribe para una persona: resumir en cinco frases la producción de
+    alguien es la lectura individual que DORA y el Manifiesto de Leiden
+    desaconsejan, y su ficha ya dice lo que corresponde. Tampoco sin
+    publicaciones: no hay nada que resumir (D-714). */
+export function sintesis(sub, sel, meta) {
+  if (!sub.length || X.personaDelRecorte(sel || {})) return '';
+  const r = X.resumen(sub);
+  const n = sub.length;
+  const pct = (k, base) => `${c.num((100 * k) / base, 1)} %`;
+  const anios = sub.map(p => p.anio).filter(Number.isInteger);
+  const [desde, hasta] = [Math.min(...anios), Math.max(...anios)];
+  const tipos = X.tiposDocumentales(sub);
+  const areas = X.porDimension(sub, 'qs_area').filter(a => !c.esSinDato(a.valor));
+  const conArea = sub.filter(p => (p.qs_area || []).length).length;
+  const frases = [
+    `${c.nf.format(n)} ${n === 1 ? 'publicación indexada' : 'publicaciones indexadas'} en Scopus`
+      + `${desde === hasta ? ` en ${desde}` : ` entre ${desde} y ${hasta}`}`
+      + (tipos.length === 1 ? `, todas de tipo ${tipos[0].tipo}.`
+        : tipos.length ? `; el tipo más frecuente es ${tipos[0].tipo} (${pct(tipos[0].n, n)}).` : '.'),
+    r.citas_por_pub.base ? `Citas al ${meta.fecha_corte_citas}: la publicación típica —la mediana— tiene `
+      + `${c.num(r.citas_por_pub.mediana, Number.isInteger(r.citas_por_pub.mediana) ? 0 : 1)}, y el promedio es `
+      + `${c.num(r.citas_por_pub.valor, 2)}`
+      + (r.citas_por_pub.valor > r.citas_por_pub.mediana ? ': unas pocas muy citadas lo elevan.' : '.') : '',
+    r.fwci_mediano.base ? `FWCI mediano de ${c.num(r.fwci_mediano.valor, 2)}, sobre `
+      + `${c.nf.format(r.fwci_mediano.base)} publicaciones con FWCI; 1,00 es el promedio mundial de su campo, año y tipo.` : '',
+    r.internacional.base ? `${c.num(r.internacional.valor, 1)} % en colaboración internacional —con autores `
+      + 'de más de un país—.' : '',
+    areas.length ? `El área QS más frecuente es ${areas[0].valor}: ${c.nf.format(areas[0].n)} de las `
+      + `${c.nf.format(conArea)} publicaciones con área, que pueden tener más de una.` : '',
+  ].filter(Boolean);
+  return `<section class="sintesis" aria-labelledby="sintesis-titulo">
+    <h2 id="sintesis-titulo">En síntesis</h2>
+    <ul>${frases.map(f => `<li>${c.escapar(f)}</li>`).join('')}</ul>
+    <p class="nota">Frases escritas desde las cifras de este recorte, que cambian con los filtros. Describen: no
+      evalúan la calidad de lo publicado ni comparan con otras instituciones.</p>
+  </section>`;
+}
+
 export function explorador(pubs, sel, proc, jerarquia, meta, umbral, textos) {
   const sub = X.recorte(pubs, sel);
   return {
@@ -436,7 +495,8 @@ export function explorador(pubs, sel, proc, jerarquia, meta, umbral, textos) {
     // Las salvaguardas van pegadas a las cifras que califican, y por delante:
     // una advertencia debajo del número al que corrige llega tarde.
     cifras: salvaguardasPersona(pubs, sel, meta, umbral)
-      + salvaguardasUnidad(pubs, sel, meta) + cifras(X.resumen(sub), textos, { bento: true }),
+      + salvaguardasUnidad(pubs, sel, meta) + sintesis(sub, sel, meta)
+      + cifras(X.resumen(sub), textos, { bento: true }),
     cortes: cortes(sub, proc, jerarquia, textos, sel),
     dinamica: tablaDinamica(sub, sel, meta, proc, textos),
     masCitadas: tablaMasCitadas(sub, sel, proc, textos),
@@ -582,6 +642,19 @@ export const SECCIONES = {
     cortes: [
       { cod: 'I-01', campo: 'citas',  titulo: 'Citas por año de publicación', forma: 'suma-anio',
         aviso: AVISO_CITAS_POR_ANIO },
+      /* I-08 e I-09 salen del mismo campo que I-01 —las citas de SciVal al
+         corte—, así que llevan SU sello: misma fuente, mismo corte, y la
+         cobertura contada sobre el mismo campo. Se calculan aquí, desde
+         publications.json, como I-07; no tienen serie propia en el build
+         (D-710). Describen la forma de lo que el promedio resume: sin ellas,
+         «10,61 citas por publicación» se lee como la publicación típica. */
+      { cod: 'I-09', campo: 'citas',  titulo: 'Mediana de citas por año de publicación',
+        forma: 'mediana-barras', sello: ['citas', 'I-01'], aviso: AVISO_CITAS_POR_ANIO },
+      { cod: 'I-08', campo: 'citas_tramo', titulo: 'Distribución de citas', forma: 'distribucion',
+        eje: 'citas por publicación', sello: ['citas', 'I-01'],
+        aviso: 'Cuenta citas totales al corte, sin normalizar por campo ni por año: una '
+          + 'publicación de 2025 sin citas y una de 2020 sin citas no están en la misma '
+          + 'situación. Para comparar con lo esperable en su campo está el FWCI.' },
       { cod: 'I-04', campo: 'fwci',   titulo: 'FWCI mediano por año',         forma: 'mediana-anio' },
       { cod: 'I-05', campo: 'percentil', titulo: 'Umbrales de percentil',     forma: 'acumulada' },
       { cod: 'R-01', campo: 'cuartil', titulo: 'Cuartil de la revista',       forma: 'proporcional' },
@@ -593,7 +666,18 @@ export const SECCIONES = {
       { cod: 'C-01', campo: 'colaboracion',   titulo: 'Nacional o internacional', forma: 'barrasH' },
       { cod: 'C-03', campo: 'paises',         titulo: 'Países colaboradores',     forma: 'barrasH', tope: 15 },
       { cod: 'C-04', campo: 'instituciones',  titulo: 'Instituciones colaboradoras', forma: 'barrasH', tope: 15 },
-      { cod: 'C-06', campo: 'autores_tramo',  titulo: 'Autores por publicación',  forma: 'distribucion' },
+      { cod: 'C-06', campo: 'autores_tramo',  titulo: 'Autores por publicación',  forma: 'distribucion',
+        eje: 'autores por publicación' },
+      /* AU-07 (D-717): cómo se reparte la producción entre las formas de firma,
+         sin nombrar a nadie. Sale de la autoría de Scopus, como la red, así
+         que lleva el sello de C-05; la cobertura se cuenta sobre las
+         publicaciones que nombran alguna firma de la institución. */
+      { cod: 'AU-07', campo: 'autor', titulo: 'Productividad de las formas de firma', forma: 'productividad',
+        eje: 'publicaciones por forma de firma', sello: ['autor', 'C-05'],
+        aviso: 'Cuenta formas de firma, no personas: quien firma de dos maneras que aún no se han '
+          + 'consolidado aparece dos veces, en tramos más bajos. Conteo completo: una publicación con '
+          + 'tres firmas de la institución suma una a cada una. Describe cómo se reparte lo publicado; '
+          + 'no mide el desempeño de nadie.' },
       { cod: 'C-05', campo: 'coautoria',      titulo: 'Red de coautoría',         forma: 'red' },
     ],
   },
@@ -721,6 +805,22 @@ export function dibujar(sub, corte, jerarquia, ancho) {
             decimales: 2, referencia: 1, refEtiqueta: '1,00 — promedio mundial', ancho }),
           datos: d.map(x => ({ valor: x.anio, n: x.valor })) } : null;
   }
+  /* La mediana de un campo SIN referencia externa, en barras. La de arriba
+     dibuja la desviación respecto de 1,00 porque el FWCI tiene un promedio
+     mundial; las citas no lo tienen, y una línea de referencia inventada
+     sugeriría una comparación que no existe (I-09, D-710). */
+  if (forma === 'mediana-barras') {
+    const d = X.medianaPorAnio(sub, campo).filter(x => x.valor !== null);
+    const decimales = d.every(x => Number.isInteger(x.valor)) ? 0 : 1;
+    return d.length
+      ? { svg: c.barrasV(d.map(x => ({ anio: x.anio, n: x.valor })),
+            { titulo, etiquetaX: 'anio', etiquetaY: 'n', decimales, ancho }),
+          datos: d.map(x => ({ valor: x.anio, n: x.valor })) } : null;
+  }
+  if (forma === 'productividad') {
+    const { firmas, datos } = X.productividad(sub);
+    return firmas ? { svg: c.distribucion(datos, { titulo, etiquetaEje: corte.eje || '', ancho }), datos } : null;
+  }
   if (forma === 'acumulada') {
     const { datos, base } = X.umbralesPercentil(sub);
     return base ? { svg: c.acumulada(datos, { titulo, total: base, ancho }), datos } : null;
@@ -730,7 +830,7 @@ export function dibujar(sub, corte, jerarquia, ancho) {
   const distintos = tope ? X.porCampo(sub, campo).length : datos.length;
   if (forma === 'proporcional') return { svg: c.proporcional(datos, { titulo, ancho }), datos };
   if (forma === 'distribucion') {
-    return { svg: c.distribucion(datos, { titulo, etiquetaEje: 'autores por publicación', ancho }), datos };
+    return { svg: c.distribucion(datos, { titulo, etiquetaEje: corte.eje || '', ancho }), datos };
   }
   if (forma === 'barrasV') {
     return { svg: c.barrasV(datos.map(d => ({ anio: d.valor, n: d.n })),
@@ -882,8 +982,19 @@ function sinGraficos() {
 }
 
 /** En qué sección vive cada gráfico. Lo consume el selector del catálogo, que
-    es la única página donde se ven los dieciocho juntos: sin esto tendría que
+    es la única página donde se ven los veintiuno juntos: sin esto tendría que
     guardar su propia copia de la tabla `SECCIONES` y las dos divergirían. */
+/** Las figuras de la portada con el título que imprimen, para el índice del
+    PDF (D-714). Se derivan de CORTES y de las dos tablas, no de una lista
+    aparte: si un título cambia aquí, el índice lo sigue. */
+export function graficosPortada() {
+  return [
+    ...CORTES.map(([clave, titulo]) => [COD_PORTADA[clave], titulo]),
+    ['P-02 · I-01', DINAMICA.titulo],
+    [MAS_CITADAS.cod, MAS_CITADAS.titulo],
+  ];
+}
+
 export function seccionDeGrafico() {
   const m = {};
   for (const [clave, s] of Object.entries(SECCIONES)) {
@@ -958,6 +1069,14 @@ function bloqueLectura(clave, corte, textos) {
    lo que hace falta es decir sobre cuántos se calcula. Apagar de más también
    engaña. */
 function cortePersonal(corte, persona) {
+  if (corte.forma === 'productividad') {
+    return `<section class="corte" id="${c.escapar(corte.cod)}" data-corte="${c.escapar(corte.campo)}" tabindex="-1">
+    <header class="corte-cab"><h3>${c.escapar(corte.titulo)}</h3></header>
+    <p class="vacio">No se dibuja en un informe recortado a una persona: sería una sola barra, la
+      de ${c.escapar(persona)}, y leída así diría en qué tramo está, que es la comparación entre
+      personas que esta figura evita. Cuántas publicaciones tiene está en su ficha.</p>
+  </section>`;
+  }
   if (corte.forma !== 'red') return null;
   return `<section class="corte" id="${c.escapar(corte.cod || corte.campo)}"
     data-corte="${c.escapar(corte.campo)}" tabindex="-1">
@@ -1008,9 +1127,11 @@ export function corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos
     const id = corte.cod || corte.campo;
     // 'escuela' no tiene indicador propio — es P-07 visto por escuela—, así
     // que el sello (fuente, corte, cobertura) se pide con el campo y el
-    // código de 'unidad': misma procedencia, mismo denominador.
-    const campoSello = corte.campo === 'escuela' ? 'unidad' : corte.campo;
-    const codSello = corte.campo === 'escuela' ? 'P-07' : corte.cod;
+    // código de 'unidad': misma procedencia, mismo denominador. Un corte que
+    // sale del mismo campo que otro indicador lo declara en `sello`, como
+    // I-08 e I-09 con las citas de I-01: la tabla de más citadas ya lo hacía.
+    const [campoSello, codSello] = corte.sello
+      || (corte.campo === 'escuela' ? ['unidad', 'P-07'] : [corte.campo, corte.cod]);
     // El id es el CÓDIGO del indicador y no el campo: así la compuerta de
     // higiene puede comprobar que cada indicador declarado se dibuja de
     // verdad, y los enlaces del catálogo a #C-01 siguen llegando al gráfico.
@@ -1033,8 +1154,8 @@ export function corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos
         ? '<p class="leyenda-trama">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
       ${corte.aviso ? `<p class="nota">${c.escapar(corte.aviso)}</p>` : ''}
       ${bloqueLectura(corte.cod || corte.campo, corte, textos)}
-      ${persona && corte.forma === 'mediana-anio'
-        ? `<p class="nota">Recortado a una persona, cada punto es la mediana de
+      ${persona && corte.forma.startsWith('mediana-')
+        ? `<p class="nota">Recortado a una persona, cada valor es la mediana de
             las publicaciones de esa firma en ese año, que pueden ser una o dos.
             Una mediana sobre tan pocos valores no describe una tendencia.</p>`
         : ''}

@@ -1,50 +1,52 @@
 {
- "generado": "2026-09-22",
+ "generado": "2026-09-25",
  "build": "2026-09-21",
+ "huella_publicaciones_sha256": "a86ca6f48cb0169fefc56bcb3e5d48086dc98f69b081ae6472742ecdef1b23d9",
+ "codigo": "282822e",
  "recorte": "",
- "hojas": 57,
+ "hojas": 80,
  "archivos": [
   {
    "seccion": "index",
    "nombre": "Portada",
    "archivo": "informe/informe-cienciometrico-index.pdf",
-   "hojas": 9,
-   "kb": 764
+   "hojas": 11,
+   "kb": 814
   },
   {
    "seccion": "produccion",
    "nombre": "Producción",
    "archivo": "informe/informe-cienciometrico-produccion.pdf",
    "hojas": 9,
-   "kb": 1105
+   "kb": 1109
   },
   {
    "seccion": "impacto",
    "nombre": "Impacto",
    "archivo": "informe/informe-cienciometrico-impacto.pdf",
-   "hojas": 8,
-   "kb": 761
+   "hojas": 10,
+   "kb": 821
   },
   {
    "seccion": "colaboracion",
    "nombre": "Colaboración",
    "archivo": "informe/informe-cienciometrico-colaboracion.pdf",
-   "hojas": 7,
-   "kb": 1920
+   "hojas": 8,
+   "kb": 1946
   },
   {
    "seccion": "tematica",
    "nombre": "Áreas temáticas",
    "archivo": "informe/informe-cienciometrico-tematica.pdf",
    "hojas": 6,
-   "kb": 734
+   "kb": 739
   },
   {
    "seccion": "metodologia",
    "nombre": "Metodología y limitaciones",
    "archivo": "informe/informe-cienciometrico-metodologia.pdf",
-   "hojas": 18,
-   "kb": 505
+   "hojas": 36,
+   "kb": 929
   }
  ]
 }

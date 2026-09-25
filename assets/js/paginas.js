@@ -470,9 +470,9 @@ async function montarExplorador(claveSeccion) {
      de datos. `hayRecorte` mira sólo los filtros —y hace bien: una selección no
      restringe el conjunto—, pero el HTML pre-renderizado trae los gráficos de
      la sección entera, así que sin este repintado la página enseñaría los
-     dieciocho mientras la hoja declara que son dos. */
+     veintiuno mientras la hoja declara que son dos. */
   /* La lectura de las dos figuras bento sale del MISMO registro que la de los
-     dieciocho cortes, `docs/LECTURAS.md`. Antes no: el mapa de calor llevaba su
+     veintiún cortes, `docs/LECTURAS.md`. Antes no: el mapa de calor llevaba su
      explicación escrita a mano en el HTML y el treemap tenía un párrafo vacío
      que nadie rellenaba nunca —la figura más difícil de leer del sitio, sin una
      frase que dijera qué mide un rectángulo—. Dos mecanismos para lo mismo es
@@ -852,7 +852,15 @@ async function fichaAutor() {
   // publicaciones. No hace falta el grafo entero para una ficha individual,
   // sólo cruzar sus propios EID contra `autores_uft` de cada publicación.
   const { publicaciones: todasPubs } = await c.cargar('publications.json');
-  const idPorNombre = new Map((await c.cargar('authors.json')).autores.map(x => [x.nombre, x.id]));
+  const { autores: todasFichas } = await c.cargar('authors.json');
+  const idPorNombre = new Map(todasFichas.map(x => [x.nombre, x.id]));
+  // Otras fichas con el mismo ORCID (D-711). Se MARCA y no se enlaza: nombrar
+  // la otra ficha publicaría la cola interna de revisión
+  // (`enlazar_firmas_sospechosas: false` en config/publication.yml). Ni se
+  // fusiona (D-44).
+  const mismoOrcid = a.orcid
+    ? (X.orcidCompartidos(todasFichas).get(a.orcid) || []).filter(x => x.nombre !== a.nombre_en_fuente)
+    : [];
   const misEid = new Set(a.publicaciones.map(p => p.eid));
   const pesoCoautor = new Map();
   for (const p of todasPubs) {
@@ -935,6 +943,12 @@ async function fichaAutor() {
       Esta firma está asociada a más de un identificador de autor en la fuente. La
       consolidación de identidades requiere validación institucional u ORCID, pendientes.</div>` : ''}
 
+    ${mismoOrcid.length ? `<div class="nota-destacada"><b>ORCID en más de una ficha</b>
+      El ORCID de esta ficha figura también en ${mismoOrcid.length === 1
+        ? 'otra ficha' : `otras ${c.nf.format(mismoOrcid.length)} fichas`} del directorio.
+      Compartir identificador no fusiona fichas: el caso espera revisión humana y,
+      mientras no se decida, las cifras de cada ficha se calculan por separado.</div>` : ''}
+
     <!-- La entrada al informe recortado a esta persona. Va aquí y no en un panel
          de filtros: una lista de 829 firmas no es un filtro, y quien quiere el
          informe de alguien suele estar mirando a ese alguien. -->
@@ -1013,7 +1027,12 @@ async function metodologia() {
   const glosarioEl = document.getElementById('glosario');
   const fichaEl = document.getElementById('ficha-tecnica-datos');
   const validacionEl = document.getElementById('validacion');
-  if (yaPintado(glosarioEl) && yaPintado(fichaEl) && yaPintado(validacionEl)) return;
+  // El anexo metodológico (D-712): los mismos constructores que usa el
+  // pre-renderizado, para el caso en que la página se sirva sin él.
+  const anexoEls = ['corpus', 'corpus-tipos', 'calidad', 'anexo-indicadores', 'referencias', 'confiabilidad-niveles']
+    .map(id => document.getElementById(id));
+  if (yaPintado(glosarioEl) && yaPintado(fichaEl) && yaPintado(validacionEl)
+      && anexoEls.every(el => !el || yaPintado(el))) return;
   const [{ entradas }, meta, val, { kpis }] = await Promise.all([c.cargar('glossary.json'),
     c.cargar('meta.json'), c.cargar('validacion.json'), c.cargar('kpis.json')]);
   const notaP01 = (kpis.find(k => k.codigo === 'P-01') || {}).nota;
@@ -1026,12 +1045,20 @@ async function metodologia() {
   // "216 de 556" cuando ya eran 280 de 538. Se calcula aquí, sobre el mismo
   // authors.json que sirve autores.html, para que nunca vuelva a desactualizarse.
   const orcidEl = document.getElementById('orcid-cobertura');
-  if (orcidEl) {
-    const { autores } = await c.cargar('authors.json');
-    const total = autores.length;
-    const conOrcid = autores.filter(a => a.orcid).length;
-    orcidEl.textContent = `${c.nf.format(conOrcid)} de ${c.nf.format(total)} formas de firma con ORCID`;
-  }
+  const { autores } = await c.cargar('authors.json');
+  if (orcidEl) orcidEl.textContent = v.coberturaOrcid(autores);
+
+  const [corpusEl, tiposEl, calidadEl, indicadoresEl, referenciasEl, nivelesEl] = anexoEls;
+  if (!corpusEl) return;
+  const [anexo, { publicaciones }, catalogo] = await Promise.all([c.cargar('metodologia.json'),
+    c.cargar('publications.json'), c.cargar('catalogo.json')]);
+  corpusEl.innerHTML = v.corpusAnexo(anexo.corpus, val, meta);
+  if (tiposEl) tiposEl.innerHTML = v.tiposAnexo(X.tiposDocumentales(publicaciones), anexo.corpus);
+  if (calidadEl) calidadEl.innerHTML = v.calidadAnexo(
+    X.calidadDatos(publicaciones, autores, anexo.corpus.pais), val, anexo.corpus, meta);
+  if (indicadoresEl) indicadoresEl.innerHTML = v.indicadoresAnexo(anexo.indicadores, catalogo.categorias, meta);
+  if (referenciasEl) referenciasEl.innerHTML = v.referenciasAnexo(anexo.referencias);
+  if (nivelesEl) nivelesEl.innerHTML = v.confiabilidadAnexo(anexo.confiabilidad);
 }
 
 async function catalogo() {
@@ -1041,7 +1068,7 @@ async function catalogo() {
   // sería idéntico porque lo produce esta misma función.
   if (!yaPintado(cont)) cont.innerHTML = v.catalogo(await c.cargar('catalogo.json'), graficos);
 
-  /* El selector de gráficos. El catálogo es la única página donde los dieciocho
+  /* El selector de gráficos. El catálogo es la única página donde los veintiuno
      se ven juntos —en una sección sólo están los suyos—, así que es donde se
      eligen sin depender de en cuál viven.
 
