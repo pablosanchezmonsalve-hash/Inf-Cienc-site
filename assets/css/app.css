@@ -2218,7 +2218,12 @@ svg.chart .trama { pointer-events: none; }
   padding: .35rem .75rem; white-space: nowrap;
   border: 1px solid var(--linea); border-radius: var(--radio-pastilla); background: var(--plano);
 }
-.explorador-panel .rail-cod { margin: 0; }
+.explorador-panel .rail-cod { margin: 0; white-space: nowrap; }
+/* Una pastilla no puede ser más ancha que la tarjeta: «Mediana de citas por
+   año de publicación» en una línea mide más que un teléfono de 390 px, y la
+   página entera se desplazaba de lado. Sólo el nombre se parte. */
+.explorador-panel .rail a { max-width: 100%; }
+.explorador-panel .rail-nom { white-space: normal; }
 .explorador-panel .rail a.activo { border-color: var(--accion-viva); }
 
 .chip {
@@ -2292,7 +2297,9 @@ svg.chart .trama { pointer-events: none; }
 @media print { .informe-pdf { display: none; } }
 
 /* ---- los cortes que responden ---- */
-.cortes { display: grid; gap: var(--e5); grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); }
+/* `min(20rem, 100%)`: a 320 px el contenedor mide 288, y un mínimo fijo de
+   20rem sacaba cada tarjeta 32 px por el borde (WCAG 1.4.10, reflujo). */
+.cortes { display: grid; gap: var(--e5); grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr)); }
 .corte {
   border: 1px solid var(--linea); border-radius: var(--radio);
   padding: var(--e4); background: var(--superficie); min-width: 0;
@@ -2818,7 +2825,14 @@ svg.chart .trama { pointer-events: none; }
 .tabla-corpus .c-paso { width: 17%; }
 .tabla-corpus .c-comp { width: 38%; }
 .tabla-indicadores td:first-child { white-space: nowrap; }
-.tabla-confiabilidad th[scope="row"] { width: 7rem; }
+/* Con `table-layout: fixed` el ancho sale de la PRIMERA fila, que es la de
+   encabezados: fijado en las celdas del cuerpo no hacía nada, y «Alta» ocupaba
+   un cuarto de la tabla. */
+.tabla-confiabilidad thead th:first-child { width: 6.5rem; }
+/* Las dos cifras son cortas; el campo lleva su advertencia debajo, que en un
+   cuarto del ancho se apilaba en siete líneas. */
+.tabla-calidad thead th:nth-child(2), .tabla-calidad thead th:nth-child(3) { width: 7.5rem; }
+.tabla-calidad thead th:nth-child(4) { width: 24%; }
 /* En un teléfono la tabla conserva su forma y se desplaza, como las demás del
    sitio: apretada al ancho de la pantalla dejaba columnas de una palabra. */
 @media screen and (max-width: 720px) { .tabla-anexo { min-width: 40rem; } }

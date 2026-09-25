@@ -902,7 +902,7 @@ export function calidadAnexo(q, val, corpus, meta) {
       ${c.nf.format(q.orcid.fichas)} fichas con ORCID son ${c.nf.format(q.orcid.distintos)} identificadores
       distintos. Compartirlo no fusiona fichas: el caso espera revisión humana y cada ficha lo advierte.</li>`);
   }
-  return `<div class="tabla-envoltura"><table class="tabla-anexo">
+  return `<div class="tabla-envoltura"><table class="tabla-anexo tabla-calidad">
       <caption class="solo-lectores">Publicaciones con dato en cada campo</caption>
       <thead><tr><th scope="col">Campo</th><th scope="col" class="num">Con dato</th>
         <th scope="col" class="num">% de ${c.nf.format(q.n)}</th><th scope="col">Lo usan</th></tr></thead>
