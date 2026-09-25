@@ -931,6 +931,11 @@ function corteRed(sub, corte, unidadPorPersona, proc, textos) {
   // coautoría en absoluto, que sería falso si `conectadas` es mayor que 0.
   const sinDibujo = !nodos.length;
   const D = sinDibujo ? null : c.disponerRed(nodos, aristasIdx);
+  // Las firmas sin coautor interno quedan fuera del dibujo con el recorte de
+  // arriba —una firma aislada es una componente de 1—, así que `D.ais` sale
+  // vacío. El rótulo del lienzo tiene que contarlas igual: decir «0 firmas con
+  // cero coautores internos» con 308 en el recorte era una cifra falsa.
+  if (D) D.aisladasFuera = g.nodos.length - conectadas;
   const vacioDibujo = `<p class="vacio">Ninguna componente de 5 personas o más en este
     recorte. La tabla, abajo, cubre las ${c.nf.format(conectadas)} personas con
     coautoría interna que sí tiene.</p>`;

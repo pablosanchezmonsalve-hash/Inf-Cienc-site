@@ -1000,13 +1000,20 @@ function svgRedNodos(D, activa, foco) {
   }).join('');
   // Las firmas sin ningún coautor interno son un dato real, no una ausencia:
   // van separadas por una línea y rotuladas, nunca omitidas.
+  // Si el llamador recortó el dibujo, las aisladas no llegan a `D.ais` y se
+  // cuentan desde `D.aisladasFuera`: el rótulo dice cuántas son y que no se
+  // dibujan, en vez de afirmar que no hay ninguna.
+  const nAis = D.ais.length || D.aisladasFuera || 0;
+  const rotuloAis = D.ais.length || !nAis
+    ? `${nf.format(nAis)} firmas con cero coautores internos — dato real, no ausencia`
+    : `${nf.format(nAis)} firmas sin coautor interno: cuentan en las cifras, no se dibujan`;
   const sep = `<g>
     <line x1="0" y1="578" x2="${D.W}" y2="578" stroke="var(--linea)" stroke-width="1"/>
-    <text class="aislados-titulo" x="0" y="594">${D.ais.length} firmas con cero coautores internos — dato real, no ausencia</text>
+    <text class="aislados-titulo" x="0" y="594">${rotuloAis}</text>
   </g>`;
   return `<div class="grafico"><svg class="chart red-svg${hayFoco ? ' hay-foco' : ''}"
       viewBox="0 0 ${D.W} ${Math.round(D.altura)}" role="img" data-nav="${ordenNav.join(',')}"
-      aria-label="Red de coautoría interna: ${D.con.length} firmas conectadas en ${D.claves.length} grupos, ${D.ais.length} sin coautoría interna. Cada firma es un nodo enfocable con el tabulador y las flechas; Intro fija el foco en ella y sus coautores, Escape lo suelta. Tabla equivalente debajo.">
+      aria-label="Red de coautoría interna: ${D.con.length} firmas ${D.aisladasFuera == null ? 'conectadas' : 'dibujadas'} en ${D.claves.length} grupos, ${nAis} sin coautoría interna${D.ais.length ? '' : ' que no se dibujan'}. Cada firma es un nodo enfocable con el tabulador y las flechas; Intro fija el foco en ella y sus coautores, Escape lo suelta. Tabla equivalente debajo.">
     ${defsTramaRed()}${lineas}${nodos}${sep}${cuadros}${etiquetas}
   </svg></div>`;
 }
