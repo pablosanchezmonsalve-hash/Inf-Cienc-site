@@ -578,8 +578,18 @@ export function barrasH(datos, {
   const anchoEtiqueta = Math.min(
     Math.max(96, Math.ceil(Math.max(...datos.map(d => anchoTexto(d.valor)))) + 14),
     Math.round(ancho * (ancho < 420 ? 0.44 : 0.34)));
-  const anchoPista = ancho - anchoEtiqueta - anchoValor;
-  const total = datos.length * alto + 10;
+  /* En un lienzo de teléfono la columna de etiquetas deja unos 15 caracteres, y
+     el recorte volvía iguales dos categorías distintas: «Facultad de Medi…»
+     era a la vez Medicina y Salud (656) y otra facultad (1). Si alguna
+     etiqueta no cabe, TODAS pasan a su propia línea sobre la barra, con el
+     ancho entero del lienzo: mezclar las dos disposiciones en un gráfico haría
+     que las barras no arrancaran del mismo punto. */
+  const apilar = ancho < 420 && datos.some(d => anchoTexto(d.valor) > anchoEtiqueta - 14);
+  const x0 = apilar ? 0 : anchoEtiqueta;
+  const altoEtq = apilar ? 16 : 0;
+  const altoFila = alto + altoEtq;
+  const anchoPista = ancho - x0 - anchoValor;
+  const total = datos.length * altoFila + 10;
   const id = `g${++idGrafico}`;
 
   /* Cuota sobre el total mostrado. Se omite cuando las barras no son partes de
@@ -598,7 +608,8 @@ export function barrasH(datos, {
   let recortadas = false;
 
   const filas = datos.map((d, i) => {
-    const y = i * alto;
+    const yf = i * altoFila;
+    const y = yf + altoEtq;
     const w = Math.max(2, anchoPista * (d.n / max));
     // px=13: mismo tamaño que `anchoEtiqueta` asumió para dimensionar la
     // columna (svg.chart text, app.css). Con el valor por defecto de
@@ -607,7 +618,7 @@ export function barrasH(datos, {
     // por el extremo derecho (text-anchor="end")— se salía del lienzo por
     // la izquierda: exactamente el "lado equivocado" que el comentario de
     // más arriba decía resuelto.
-    const etq = recortar(d.valor, anchoEtiqueta - 14, 13);
+    const etq = recortar(d.valor, apilar ? ancho - 4 : anchoEtiqueta - 14, 13);
     if (etq !== String(d.valor)) recortadas = true;
     const cy = y + alto / 2;
     const nota = d.nota || cuota(d);
@@ -615,9 +626,9 @@ export function barrasH(datos, {
     // Marca del valor esperado. Una barra de recuento no dice si es mucho o
     // poco; con la referencia al lado, la comparación es inmediata y no exige
     // que el lector calcule un porcentaje de cabeza.
-    let ref = '', refAria = '', xValor = anchoEtiqueta + w + 7;
+    let ref = '', refAria = '', xValor = x0 + w + 7;
     if (d.esperado != null) {
-      const xr = anchoEtiqueta + anchoPista * (d.esperado / max);
+      const xr = x0 + anchoPista * (d.esperado / max);
       ref = `<line class="esperado" x1="${xr}" x2="${xr}" y1="${y + 2}" y2="${y + alto - 2}"/>`;
       const dif = d.n >= d.esperado ? 'por encima de' : 'por debajo de';
       refAria = `, ${dif} lo esperable (${nf.format(d.esperado)})`;
@@ -625,22 +636,24 @@ export function barrasH(datos, {
       // valor observado se queda corto— la marca cae justo donde iba la cifra y
       // ambas se pisan. La cifra se corre más allá de la marca: es el caso que
       // más importa leer, y taparlo lo volvería ilegible justo ahí.
-      if (xr > anchoEtiqueta + w) xValor = xr + 7;
+      if (xr > x0 + w) xValor = xr + 7;
     }
 
     // La trama va ENCIMA del relleno, no en lugar de él: así funciona con
     // cualquier color de barra, incluido el gris de «sin dato», sin necesitar
     // un patrón por color.
     const rayado = trama
-      ? `<rect class="trama" x="${anchoEtiqueta}" y="${y + 6}" width="${w}"
+      ? `<rect class="trama" x="${x0}" y="${y + 6}" width="${w}"
            height="${alto - 12}" rx="4" fill="url(#${id}-t)"/>` : '';
 
     return `<g class="marca" data-k="${escapar(String(d.valor))}" tabindex="${i ? -1 : 0}" role="listitem"
         aria-label="${escapar(d.valor)}: ${nf.format(d.n)}${sufijo}${refAria}"
         data-tip="${escapar(d.valor)}" data-tip-v="${nf.format(d.n)}${sufijo}"
         ${nota ? `data-tip-n="${escapar(nota)}"` : ''}>
-      <text x="${anchoEtiqueta - 10}" y="${cy + 3.5}" text-anchor="end">${escapar(etq)}</text>
-      <rect class="barra" fill="${colorDe(d, i, escala)}" x="${anchoEtiqueta}" y="${y + 6}"
+      ${apilar
+        ? `<text x="0" y="${yf + 13}" text-anchor="start">${escapar(etq)}</text>`
+        : `<text x="${anchoEtiqueta - 10}" y="${cy + 3.5}" text-anchor="end">${escapar(etq)}</text>`}
+      <rect class="barra" fill="${colorDe(d, i, escala)}" x="${x0}" y="${y + 6}"
         width="${w}" height="${alto - 12}" rx="4"/>${rayado}${ref}
       <text class="valor" x="${xValor}" y="${cy + 3.5}">${nf.format(d.n)}${sufijo}</text>
     </g>`;

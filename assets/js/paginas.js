@@ -759,7 +759,9 @@ async function autores() {
     const verificados = f.filter(a => a.orcid_veredicto_etiqueta === 'verificado').length;
     document.getElementById('resumen').innerHTML =
       `<strong>${c.nf.format(f.length)}</strong> de ${c.nf.format(parametros.total_firmas)} formas de firma` +
-      (soloInterpretables ? ` · mostrando sólo n ≥ ${parametros.n_minimo_interpretable}` : '') +
+      // Con las palabras de la casilla que lo activa: «n ≥ 5» era jerga, y en un
+      // teléfono la «n» quedaba sola al final de una línea.
+      (soloInterpretables ? ` · sólo las de ${parametros.n_minimo_interpretable}\u00a0o más publicaciones` : '') +
       ` · <strong>${c.nf.format(conOrcid)}</strong> con ORCID recuperado` +
       // Sólo si la verificación se ha ejecutado: sin ella el recuento sería 0
       // y un 0 aquí se leería como «ninguno se verificó», que es falso.
