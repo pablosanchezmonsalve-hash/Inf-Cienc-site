@@ -322,6 +322,8 @@ async function montarExplorador(claveSeccion) {
     if (lectura) lectura.innerHTML = v.lectura((await c.cargar('kpis.json')).kpis);
     const cierre = document.getElementById('cierre');
     if (cierre) cierre.innerHTML = v.cierrePortada();
+    const objetivos = document.getElementById('objetivos');
+    if (objetivos) objetivos.innerHTML = v.objetivos((await c.cargar('ejes.json')).objetivos);
 
     // Los indicadores DIFERIDOS siguen apareciendo. Que un indicador esté
     // verificado y no se publique es información del informe: un hueco se
@@ -1337,7 +1339,23 @@ async function datos() {
   });
 }
 
-const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada, datos };
+/** Análisis de resultados: el texto se escribe desde las cifras del recorte
+    (`VX.analisisResultados`). Sin filtros, el pre-renderizado ya trae el del
+    informe completo y no se toca; con filtros en la URL, se reescribe. */
+async function analisis() {
+  const cont = document.getElementById('analisis');
+  const lineaRecorte = document.getElementById('recorte-analisis');
+  const sel = X.leerURL();
+  const conFiltros = X.describir(sel).length > 0;
+  if (yaPintado(cont) && !conFiltros) return;
+  const [{ publicaciones }, meta, anexo] = await Promise.all([
+    c.cargar('publications.json'), c.cargar('meta.json'), c.cargar('metodologia.json')]);
+  const sub = X.recorte(publicaciones, sel);
+  if (lineaRecorte) lineaRecorte.textContent = c.fraseRecorte(sub.length, publicaciones.length, X.describir(sel));
+  cont.innerHTML = VX.analisisResultados(publicaciones, sel, meta, anexo.corpus?.pais);
+}
+
+const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada, datos, analisis };
 
 /** C-05: fija (o suelta, si ya estaba fijado) el nodo `g` y resalta sus
     coautores directos — mismo patrón visual que el filtro atenúa las barras

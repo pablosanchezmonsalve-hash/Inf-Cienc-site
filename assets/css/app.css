@@ -1828,6 +1828,16 @@ svg.chart .trama { pointer-events: none; }
     border-bottom: .5pt dotted #999; margin: 0 1.5mm;
   }
   .indice-hoja { font-size: 8.5pt; color: #333; white-space: nowrap; }
+  /* La numeración (2, 2.3) va en columna fija para que los títulos queden
+     alineados sea cual sea el largo del número. El apartado —un título de la
+     sección, no un gráfico— va sin código y en negrita: es el renglón que
+     agrupa a los que le siguen. */
+  .indice-n {
+    font-variant-numeric: tabular-nums; color: #333;
+    display: inline-block; min-width: 9mm;
+  }
+  .indice-sec .indice-n { min-width: 7mm; }
+  .indice-apartado .indice-tit { font-weight: 650; }
 
   /* ── La banda oscura se imprime en tinta sobre blanco ───────────────────
      `.banda-contraste` invierte la paleta: fondo azul marino y tinta clara
@@ -2895,3 +2905,44 @@ svg.chart .trama { pointer-events: none; }
 .sintesis ul { margin: 0; padding-left: 1.1rem; max-width: 80ch; }
 .sintesis li + li { margin-top: var(--e1); }
 @media print { .sintesis { break-inside: avoid; } }
+
+/* ── Objetivos del informe (docs/OBJETIVOS.md) ─────────────────────────────
+   Van al principio de la portada y del PDF. Texto de lectura, sin tarjetas:
+   es la declaración de qué se propone el informe, no un indicador. */
+.objetivos { margin: var(--e6) 0 var(--e5); }
+.objetivos h2 { margin-top: 0; }
+.objetivos h3 { margin: var(--e4) 0 var(--e2); font-size: var(--t-m); }
+.objetivos-general { max-width: 72ch; }
+.objetivos-lista { margin: 0; padding-left: 1.4rem; max-width: 72ch; }
+.objetivos-lista > li + li { margin-top: var(--e2); }
+.objetivos-fuera { max-width: 72ch; margin-top: var(--e4); color: var(--tinta-2); }
+/* En papel sigue a «Qué mide este informe» en la misma hoja si cabe entero;
+   si no cabe, pasa completo a la siguiente en vez de partirse. */
+@media print { .objetivos { break-inside: avoid; } }
+
+/* ── Análisis de resultados (analisis.html) ────────────────────────────────
+   Prosa de lectura: cada hallazgo es un bloque con su cifra y, aparte, su
+   límite, que no se lee como un apartado más sino como la condición del
+   hallazgo. */
+.recorte-analisis { color: var(--tinta-2); margin: 0 0 var(--e4); }
+/* En papel el recorte ya lo declara `.recorte-impreso` en la cabecera de cada hoja. */
+@media print { .recorte-analisis { display: none; } }
+.analisis { max-width: 78ch; }
+.analisis-eje { margin-top: var(--e6); }
+.analisis-eje > h2 { margin-bottom: var(--e3); }
+.hallazgo { padding: var(--e3) 0; border-top: 1px solid var(--linea); }
+.hallazgo h3 { margin: 0 0 var(--e1); font-size: var(--t-m); }
+.hallazgo p { margin: 0; }
+.hallazgo-limite { margin-top: var(--e2) !important; color: var(--tinta-2); font-size: var(--t-s); }
+.analisis-figura { white-space: nowrap; font-size: var(--t-s); }
+.analisis-limites { padding-left: 1.2rem; }
+.analisis-limites > li + li { margin-top: var(--e2); }
+.aviso-recorte, .aviso-persona {
+  border-left: 3px solid var(--aviso-borde); background: var(--aviso-fondo); color: var(--aviso-tinta);
+  padding: var(--e3) var(--e4); border-radius: var(--radio-s);
+}
+@media print {
+  .hallazgo { break-inside: avoid; }
+  .analisis-eje > h2 { break-after: avoid; }
+  .analisis-figura { display: none; }
+}

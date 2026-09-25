@@ -695,3 +695,75 @@ export function calidadDatos(pubs, autores, pais) {
     },
   };
 }
+
+/* ═══════════════════════════════════════════ análisis de resultados ═════ */
+
+/** Las cifras del análisis de resultados (`analisis.html`), sobre un recorte.
+
+    No calcula nada nuevo: cada cifra sale de la MISMA función que dibuja su
+    gráfico —`porCampo`, `porFacultad`, `cobertura`, `umbralesPercentil`,
+    `resumen`—, para que el texto no pueda contradecir a la figura que
+    interpreta. La única cifra propia es la concentración de citas (qué parte
+    de las citas reúne el 10 % más citado), derivada de las mismas citas que
+    dibuja I-08. `coherencia.mjs` contrasta estas cifras con `series.json` y
+    `kpis.json` sobre el universo completo.
+
+    `pais` es el de la institución (`config/institution.yml`): figura en casi
+    todas sus publicaciones y no es un país «con el que se colabora». */
+export function hallazgos(sub, { jerarquia = {}, pais = null } = {}) {
+  const n = sub.length;
+  if (!n) return null;
+  const serie = porCampo(sub, 'anio').map(d => ({ anio: Number(d.valor), n: d.n }));
+  const r = resumen(sub);
+
+  // Citas: concentración y ausencia, sobre las publicaciones con métricas.
+  const citas = sub.filter(p => p.tiene_metricas && typeof p.citas === 'number')
+    .map(p => p.citas).sort((a, b) => b - a);
+  const totalCitas = citas.reduce((a, x) => a + x, 0);
+  const k10 = Math.max(1, Math.round(citas.length * 0.10));
+  const fwci = num(sub.map(p => p.fwci));
+
+  const cuartiles = porCampo(sub, 'cuartil');
+  const cobCuartil = cobertura(sub, 'cuartil');
+  const oa = cobertura(sub, 'open_access');
+  const areas = porDimension(sub, 'qs_area').filter(a => a.valor && a.valor !== 'Sin dato declarado');
+  const ods = porCampo(sub, 'ods');
+
+  return {
+    n,
+    produccion: {
+      serie,
+      tipos: tiposDocumentales(sub),
+      facultades: porFacultad(sub, jerarquia)
+        .filter(f => !['No determinada', 'Sin dato declarado'].includes(f.valor)),
+      unidad: cobertura(sub, 'unidad'),
+    },
+    impacto: {
+      conMetricas: citas.length,
+      totalCitas,
+      top10pubs: k10,
+      concentracion: totalCitas ? citas.slice(0, k10).reduce((a, x) => a + x, 0) / totalCitas : null,
+      sinCitas: citas.filter(x => x === 0).length,
+      citasMediana: r.citas_por_pub.mediana,
+      citasPromedio: r.citas_por_pub.valor,
+      fwciMediano: r.fwci_mediano.valor,
+      fwciBase: fwci.length,
+      fwciSobre1: fwci.filter(x => x >= 1).length,
+      percentil: umbralesPercentil(sub),
+      q1: (cuartiles.find(q => q.valor === 'Q1') || { n: 0 }).n,
+      conCuartil: cobCuartil.cubiertas,
+      conOA: oa.cubiertas,
+    },
+    colaboracion: {
+      internacional: r.internacional,
+      socios: porCampo(sub, 'paises').filter(d => d.valor !== pais).slice(0, 3),
+      autoresMediana: mediana(sub.map(p => p.n_autores)),
+    },
+    tematica: {
+      areas,
+      conArea: sub.filter(p => (p.qs_area || []).length).length,
+      odsPrincipal: ods[0] || null,
+      conOds: cobertura(sub, 'ods').cubiertas,
+    },
+  };
+}

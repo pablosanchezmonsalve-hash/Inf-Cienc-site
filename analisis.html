@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Producción ampliada — Informe Bibliométrico</title>
-<meta name="description" content="Publicaciones que cada Facultad declara en su propio sitio, fuera del corpus indexado en Scopus.">
+<title>Análisis de resultados — Informe Bibliométrico</title>
+<meta name="description" content="Qué dicen en conjunto las cifras del informe: cada hallazgo con su cifra, su lectura y su límite.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/app.css">
 <!-- Las fuentes NO se precargan. Se probó: con Inter y JetBrains Mono en
@@ -25,7 +25,7 @@
 (function(){var e=document.documentElement;e.className+=' js';
 try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(x){}})();</script>
 </head>
-<body data-pagina="produccionAmpliada">
+<body data-pagina="analisis">
 <a class="salto-contenido" href="#contenido">Saltar al contenido</a>
 <header class="cabecera" id="cabecera" data-prerender="1">
 
@@ -47,7 +47,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M640-160v-280h160v280H640Zm-240 0v-640h160v640H400Zm-240 0v-440h160v440H160Z"/></svg><span>Producción</span></a><a href="impacto.html">
         <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="m136-240-56-56 296-298 160 160 208-206H640v-80h240v240h-80v-104L536-320 376-480 136-240Z"/></svg><span>Impacto</span></a><a href="colaboracion.html">
         <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-40-82v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm276-102q20-22 36-47.5t26.5-53q10.5-27.5 16-56.5t5.5-59q0-98-54.5-179T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5Z"/></svg><span>Colaboración</span></a><a href="tematica.html">
-        <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="m260-520 220-360 220 360H260ZM700-80q-75 0-127.5-52.5T520-260q0-75 52.5-127.5T700-440q75 0 127.5 52.5T880-260q0 75-52.5 127.5T700-80Zm-580-20v-320h320v320H120Zm580-60q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm-500-20h160v-160H200v160Zm202-420h156l-78-126-78 126Zm78 0ZM360-340Zm340 80Z"/></svg><span>Áreas temáticas</span></a><a href="analisis.html">
+        <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="m260-520 220-360 220 360H260ZM700-80q-75 0-127.5-52.5T520-260q0-75 52.5-127.5T700-440q75 0 127.5 52.5T880-260q0 75-52.5 127.5T700-80Zm-580-20v-320h320v320H120Zm580-60q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm-500-20h160v-160H200v160Zm202-420h156l-78-126-78 126Zm78 0ZM360-340Zm340 80Z"/></svg><span>Áreas temáticas</span></a><a href="analisis.html" aria-current="page">
         <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M280-280h280v-80H280v80Zm0-160h400v-80H280v80Zm0-160h400v-80H280v80Zm-80 480q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg><span>Análisis de resultados</span></a>
   </div><div class="nav-grupo">
     <p class="nav-grupo-nombre">Datos</p>
@@ -108,7 +108,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <nav class="v-migas" aria-label="Ruta de posición">
         <a href="index.html">Portada</a>
         <span class="migas-sep" aria-hidden="true">·</span>
-        <span class="migas-actual" aria-current="page">Producción ampliada</span>
+        <span class="migas-actual" aria-current="page">Análisis de resultados</span>
       </nav>
       <span class="sep" aria-hidden="true"></span>
       <details class="v-chip">
@@ -137,204 +137,114 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <a class="vigencia-guia" href="metodologia.html">Cómo leer estos indicadores →</a>
     </div>
 </div>
-<main id="contenido" class="contenedor">
-  <p class="migas"><a href="index.html">Portada</a> › Producción ampliada</p>
+<main id="contenido">
+  <!-- El análisis se ESCRIBE desde las cifras del recorte
+       (`VX.analisisResultados`, con `X.hallazgos`, que usa las mismas funciones
+       que dibujan los gráficos). No hay texto de resultados escrito a mano en
+       esta página: una cifra redactada aquí se quedaría vieja con la próxima
+       carga de datos y contradiría a su figura. El pre-renderizado deja
+       escrito el informe completo; con filtros en la URL, `paginas.js` lo
+       reescribe para el recorte. -->
+  <section class="banda banda-papel"><div class="contenedor">
+  <p class="migas"><a href="index.html">Portada</a> › Análisis de resultados</p>
   <header class="encabezado-seccion">
-    <h1>Producción ampliada</h1>
-    <p class="intro">Cada Facultad puede declarar, en su propio sitio,
-    publicaciones que no están indexadas en Scopus. Este recuento es un dato
-    distinto del resto del informe: no viene de Scopus ni de SciVal, no
-    tiene citas ni ningún otro indicador de impacto, y nunca se suma al
-    universo que construye las demás páginas de este sitio.</p>
+    <h1>Análisis de resultados</h1>
+    <p class="intro">Qué dicen, en conjunto, las cifras del informe. Cada hallazgo
+    trae su cifra, una lectura de lo que significa, el límite que la condiciona y
+    un enlace a la figura que interpreta. Describe la producción indexada: no juzga
+    la calidad de lo publicado, no ordena personas ni unidades y no compara con otras
+    instituciones.</p>
   </header>
-  <div id="produccion-declarada" data-prerender="1">
+  <p class="recorte-analisis" id="recorte-analisis" data-prerender="1">
+Sin filtros: el informe completo, 1.342 publicaciones.
+</p>
+  <div class="analisis" id="analisis" data-prerender="1">
 
-    <div class="kpis">
-    <div class="kpi">
-      <span class="valor">417</span>
-      <span class="etiqueta">Producción total fuera de Scopus, 2020-2025</span>
-      <span class="secundario">180 declaradas por las Facultades + 0 confirmadas por revisión de cobertura OpenAlex + 247 autoarchivadas en el repositorio institucional + 0 confirmadas en repositorios de datos y acceso abierto, menos 10 repetidas entre esas fuentes</span>
-    </div></div>
-    <p class="nota">Suma de las cuatro fuentes de abajo, sin contar dos veces la
-    misma obra: se unen por DOI y lo que aparece en más de una se resta las
-    veces que se repite.</p>
-      <h2>Declarada por las Facultades</h2>
-      <div class="kpis" data-n="4">
-    <div class="kpi">
-      <span class="valor">609</span>
-      <span class="etiqueta">Registros declarados</span>
-      <span class="secundario">por las Facultades participantes, 63 duplicados de la fuente ya colapsados</span>
-    </div>
-    <div class="kpi">
-      <span class="valor">221</span>
-      <span class="etiqueta">Ya en el universo Scopus</span>
-      <span class="secundario">divulgación: ya se cuentan en el resto del sitio, no se repiten aquí</span>
-    </div>
-    <div class="kpi">
-      <span class="valor">325</span>
-      <span class="etiqueta">Fuera del universo Scopus</span>
-      <span class="secundario">el conjunto que este corpus paralelo aporta de nuevo</span>
-    </div>
-    <div class="kpi">
-      <span class="valor">180</span>
-      <span class="etiqueta">En la ventana 2020-2025</span>
-      <span class="secundario">la cifra que entra al total combinado de arriba</span>
-    </div></div>
-      <p class="nota-destacada"><b>Advertencia metodológica</b>Recuento que cada Facultad declara en su propio sitio, no un índice bibliográfico: no aplica los criterios de cobertura de Scopus, y SciVal no lo mide — no tiene citas, FWCI ni ningún otro indicador de impacto. Nunca se suma al universo que construye el resto del sitio (D-206, D-398). Ver Producción ampliada.</p>
-      <h3>Por Facultad y año, dentro de la ventana 2020-2025</h3>
-      
-      <div class="tabla-envoltura tabla-datos">
-        <table>
-          <thead><tr><th scope="col">Facultad</th><th scope="col">Año</th>
-            <th scope="col">Publicaciones declaradas</th></tr></thead>
-          <tbody>
-    <tr><td>Facultad de Medicina y Salud</td><td>2020</td>
-      <td>29</td></tr>
-    <tr><td>Facultad de Medicina y Salud</td><td>2021</td>
-      <td>66</td></tr>
-    <tr><td>Facultad de Medicina y Salud</td><td>2022</td>
-      <td>2</td></tr>
-    <tr><td>Facultad de Medicina y Salud</td><td>2023</td>
-      <td>25</td></tr>
-    <tr><td>Facultad de Medicina y Salud</td><td>2024</td>
-      <td>27</td></tr>
-    <tr><td>Facultad de Medicina y Salud</td><td>2025</td>
-      <td>31</td></tr></tbody>
-        </table>
-      </div>
-      <p class="nota">Registros declarados adicionales que
-      quedan fuera de esta tabla, sin descartarse: Facultad de Medicina y Salud: 125 fuera de la ventana 2020-2025, 20 sin año declarado.</p>
-      <p class="sello sello-aviso">
-    <span><b>Fuente</b> Declarado por la Facultad (no Scopus)</span>
-    <span><b>Corte</b> 2026-09-01</span>
-    <span><b>N</b> 325 publicaciones declaradas</span>
-    <span><b>Cobertura</b> 55,4 % · 180 con dato</span>
-    <span class="sello-alerta">cobertura baja</span></p>
-      <p class="nota">En esta subsección, «Cobertura» es el porcentaje de lo
-      declarado que cae dentro de la ventana 2020-2025
-      — no el sentido habitual del sello en el resto del sitio (porcentaje de
-      publicaciones con un dato poblado).</p>
-    <h2>Confirmada por revisión de cobertura OpenAlex (V2-26)</h2>
-    <p class="nota">Falta <code>internal/openalex_cobertura.csv</code>: correr
-    <code>src/enrich/openalex_cobertura.py</code>.</p>
-      <h2>Autoarchivada en el repositorio institucional</h2>
-      <div class="kpis" data-n="4">
-    <div class="kpi">
-      <span class="valor">808</span>
-      <span class="etiqueta">Registros autoarchivados</span>
-      <span class="secundario">7 duplicados de la fuente ya colapsados</span>
-    </div>
-    <div class="kpi">
-      <span class="valor">498</span>
-      <span class="etiqueta">Fuera del universo Scopus</span>
-      <span class="secundario">el conjunto que este corpus paralelo aporta de nuevo</span>
-    </div>
-    <div class="kpi">
-      <span class="valor">247</span>
-      <span class="etiqueta">Con Facultad validada, en la ventana 2020-2025</span>
-      <span class="secundario">la cifra que entra al total combinado de arriba</span>
-    </div>
-    <div class="kpi">
-      <span class="valor">104</span>
-      <span class="etiqueta">Sin Facultad validada, misma ventana</span>
-      <span class="secundario">unidad declarada en bruto: NO se cuenta por Facultad, ver la lista abajo</span>
-    </div></div>
-      <p class="nota-destacada"><b>Advertencia metodológica</b>Obras que sus propios autores autoarchivaron en el repositorio institucional, con la Facultad o Escuela que biblioteca les asignó. Se agrega por Facultad sólo cuando esa relación está validada institucionalmente; el resto se cuenta por separado, por unidad declarada, nunca forzado a una Facultad que no está confirmada. No tiene citas, FWCI ni ningún otro indicador de impacto: SciVal no lo mide. Nunca se suma al universo que construye el resto del sitio (D-206, D-398). Ver Producción ampliada.</p>
-      <h3>Por Facultad y año, dentro de la ventana 2020-2025
-      — sólo unidades con relación escuela→Facultad validada</h3>
-      
-      <div class="tabla-envoltura tabla-datos">
-        <table>
-          <thead><tr><th scope="col">Facultad</th><th scope="col">Año</th>
-            <th scope="col">Publicaciones autoarchivadas</th></tr></thead>
-          <tbody>
-    <tr><td>Facultad de Arquitectura, Diseño y Estudios Creativos</td><td>2023</td>
-      <td>1</td></tr>
-    <tr><td>Facultad de Arquitectura, Diseño y Estudios Creativos</td><td>2025</td>
-      <td>9</td></tr>
-    <tr><td>Facultad de Derecho</td><td>2020</td>
-      <td>1</td></tr>
-    <tr><td>Facultad de Derecho</td><td>2021</td>
-      <td>1</td></tr>
-    <tr><td>Facultad de Derecho</td><td>2022</td>
-      <td>4</td></tr>
-    <tr><td>Facultad de Derecho</td><td>2023</td>
-      <td>3</td></tr>
-    <tr><td>Facultad de Derecho</td><td>2024</td>
-      <td>3</td></tr>
-    <tr><td>Facultad de Derecho</td><td>2025</td>
-      <td>3</td></tr>
-    <tr><td>Facultad de Educación y Ciencias Sociales</td><td>2020</td>
-      <td>3</td></tr>
-    <tr><td>Facultad de Educación y Ciencias Sociales</td><td>2021</td>
-      <td>17</td></tr>
-    <tr><td>Facultad de Educación y Ciencias Sociales</td><td>2022</td>
-      <td>15</td></tr>
-    <tr><td>Facultad de Educación y Ciencias Sociales</td><td>2023</td>
-      <td>5</td></tr>
-    <tr><td>Facultad de Educación y Ciencias Sociales</td><td>2024</td>
-      <td>8</td></tr>
-    <tr><td>Facultad de Educación y Ciencias Sociales</td><td>2025</td>
-      <td>20</td></tr>
-    <tr><td>Facultad de Humanidades y Comunicaciones</td><td>2023</td>
-      <td>1</td></tr>
-    <tr><td>Facultad de Humanidades y Comunicaciones</td><td>2025</td>
-      <td>1</td></tr>
-    <tr><td>Facultad de Ingeniería</td><td>2022</td>
-      <td>2</td></tr>
-    <tr><td>Facultad de Ingeniería</td><td>2023</td>
-      <td>1</td></tr>
-    <tr><td>Facultad de Ingeniería</td><td>2024</td>
-      <td>2</td></tr>
-    <tr><td>Facultad de Ingeniería</td><td>2025</td>
-      <td>7</td></tr>
-    <tr><td>Facultad de Medicina y Salud</td><td>2020</td>
-      <td>7</td></tr>
-    <tr><td>Facultad de Medicina y Salud</td><td>2021</td>
-      <td>38</td></tr>
-    <tr><td>Facultad de Medicina y Salud</td><td>2022</td>
-      <td>34</td></tr>
-    <tr><td>Facultad de Medicina y Salud</td><td>2023</td>
-      <td>14</td></tr>
-    <tr><td>Facultad de Medicina y Salud</td><td>2024</td>
-      <td>17</td></tr>
-    <tr><td>Facultad de Medicina y Salud</td><td>2025</td>
-      <td>30</td></tr></tbody>
-        </table>
-      </div>
-      
-      <p class="nota">Además, 147 fuera de la
-      ventana 2020-2025 y 0
-      sin año declarado, sin descartarse.</p>
-      <p class="sello sello-aviso">
-    <span><b>Fuente</b> Repositorio institucional, autoarchivo (no Scopus)</span>
-    <span><b>Corte</b> 2026-09-01</span>
-    <span><b>N</b> 341 publicaciones autoarchivadas</span>
-    <span><b>Cobertura</b> 72,4 % · 247 con dato</span>
-    <span class="sello-alerta">cobertura baja</span></p>
-      <h3>Por unidad declarada, sin Facultad validada institucionalmente</h3>
-      <p class="nota">Estas 104 publicaciones,
-      dentro de la misma ventana, están fuera de Scopus tanto como las de
-      arriba — pero la Facultad o Escuela que biblioteca les asignó no tiene
-      hoy una relación validada a nivel de Facultad
-      (<code>config/matching_rules.yml</code>). Se cuentan aquí, por su
-      propia unidad, en vez de adivinar a qué Facultad pertenecen.</p>
-      
-      <div class="tabla-envoltura tabla-datos">
-        <table>
-          <thead><tr><th scope="col">Unidad declarada (en bruto)</th>
-            <th scope="col">Publicaciones, en ventana</th></tr></thead>
-          <tbody><tr><td>Ingeniería comercial</td><td>25</td></tr><tr><td>Ingenieria civil informática</td><td>16</td></tr><tr><td>Formación General</td><td>13</td></tr><tr><td>Periodismo</td><td>11</td></tr><tr><td>CIPEF</td><td>9</td></tr><tr><td>Arte</td><td>8</td></tr><tr><td>CIDOC</td><td>8</td></tr><tr><td>Diseño</td><td>8</td></tr><tr><td>Literatura</td><td>3</td></tr><tr><td>Ingeniería Civil Biomédica</td><td>2</td></tr><tr><td>CEP-FINIS</td><td>1</td></tr></tbody>
-        </table>
-      </div>
-      <p class="nota">En esta subsección, «Cobertura» es el porcentaje de lo
-      autoarchivado con Facultad validada que cae dentro de la ventana
-      2020-2025 — no el sentido habitual del sello en
-      el resto del sitio.</p>
-    <h2>Confirmada en repositorios de datos y acceso abierto</h2>
-    <p class="nota">Falta <code>internal/obras_externas_cobertura.csv</code>:
-    correr <code>src/enrich/obras_externas.py</code>.</p>
+    
+    <section class="analisis-eje" aria-labelledby="analisis-1">
+      <h2 id="analisis-1">1. Producción</h2>
+      <article class="hallazgo">
+      <h3>Evolución del volumen</h3>
+      <p>La producción creció: pasó de 131 publicaciones en 2020 a 318 en 2025 (2,4 veces). <a class="analisis-figura" href="produccion.html#P-02">Ver P-02 →</a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> Es volumen indexado en Scopus: depende también de qué revistas indexa la base y de cómo declara cada autor su afiliación. Mide actividad, no calidad ni rendimiento.</p>
+    </article><article class="hallazgo">
+      <h3>Tipos documentales</h3>
+      <p>El tipo más frecuente es Article (75,3 %), seguido de Review (13,0 %). <a class="analisis-figura" href="produccion.html#P-03">Ver P-03 →</a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> El tipo lo asigna la fuente. Todos los tipos, también erratas, editoriales y cartas, cuentan en el universo del informe.</p>
+    </article><article class="hallazgo">
+      <h3>Unidades académicas</h3>
+      <p>Entre las 871 publicaciones con unidad académica identificada (64,9 % del recorte), la unidad más frecuente es Facultad de Medicina y Salud, con 656. <a class="analisis-figura" href="produccion.html#P-07">Ver P-07 →</a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> La unidad sale de la afiliación que declara cada firma y no se pudo determinar en el 35,1 % de las publicaciones, así que el reparto es parcial. Una publicación firmada desde dos unidades cuenta en ambas. No compara unidades de tamaño y disciplina distintos.</p>
+    </article>
+    </section><section class="analisis-eje" aria-labelledby="analisis-2">
+      <h2 id="analisis-2">2. Impacto</h2>
+      <article class="hallazgo">
+      <h3>Las citas se concentran</h3>
+      <p>El 10 % más citado (134 publicaciones) reúne el 63,0 % de las 14.245 citas, y 311 publicaciones (23,2 %) no tienen citas al 2026-08-30. Por eso la publicación típica —la mediana— tiene 3 citas y el promedio es 10,61. <a class="analisis-figura" href="impacto.html#I-08">Ver I-08 →</a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> Es la forma habitual de las distribuciones de citas: el promedio no describe a la publicación típica. Las citas son acumuladas al corte y lo publicado en los últimos años tuvo menos tiempo para recibirlas.</p>
+    </article><article class="hallazgo">
+      <h3>Impacto normalizado</h3>
+      <p>El FWCI mediano es 0,48, por debajo del promedio mundial (1,00): la publicación típica recibe el 48 % de las citas que recibe en promedio una publicación del mismo campo, año y tipo. 372 publicaciones (27,7 %) igualan o superan ese promedio. <a class="analisis-figura" href="impacto.html#I-04">Ver I-04 →</a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> El FWCI de lo publicado recientemente se calcula con pocas citas y cambia con cada actualización. Se usa la mediana porque unas pocas publicaciones muy citadas elevan la media.</p>
+    </article><article class="hallazgo">
+      <h3>Publicaciones entre las más citadas de su campo</h3>
+      <p>115 publicaciones (8,6 %) están en el 10 % más citado de su campo, año y tipo: menos de lo esperable si se citaran como el conjunto mundial, que sería 134 (10 %). <a class="analisis-figura" href="impacto.html#I-05">Ver I-05 →</a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> El percentil lo calcula SciVal y, en las publicaciones recientes, todavía puede moverse.</p>
+    </article><article class="hallazgo">
+      <h3>Revistas del primer cuartil</h3>
+      <p>578 de las 1.223 publicaciones con percentil SJR (47,3 %) salieron en revistas del primer cuartil de su categoría. <a class="analisis-figura" href="impacto.html#R-01">Ver R-01 →</a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> Describe la revista, no el artículo: una publicación en una revista Q1 puede no ser citada, y a la inversa.</p>
+    </article><article class="hallazgo">
+      <h3>Acceso abierto</h3>
+      <p>943 publicaciones (70,3 %) tienen al menos una vía de acceso abierto declarada. <a class="analisis-figura" href="impacto.html#A-01">Ver A-01 →</a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> En las demás la fuente no declara vía, lo que no significa que sean de acceso cerrado. Una publicación puede tener varias vías.</p>
+    </article>
+    </section><section class="analisis-eje" aria-labelledby="analisis-3">
+      <h2 id="analisis-3">3. Colaboración</h2>
+      <article class="hallazgo">
+      <h3>Colaboración internacional</h3>
+      <p>668 publicaciones (49,8 %) tienen coautores de otro país. Los países más frecuentes son Spain (253), United States (159), Brazil (83). <a class="analisis-figura" href="colaboracion.html#C-01">Ver C-01 →</a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> Describe con quién se publica, no la calidad ni la influencia de lo publicado.</p>
+    </article><article class="hallazgo">
+      <h3>Tamaño de los equipos</h3>
+      <p>La mediana es de 5 autores por publicación. <a class="analisis-figura" href="colaboracion.html#C-06">Ver C-06 →</a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> Se da la mediana porque unos pocos trabajos con muchos autores elevarían el promedio.</p>
+    </article>
+    </section><section class="analisis-eje" aria-labelledby="analisis-4">
+      <h2 id="analisis-4">4. Áreas temáticas</h2>
+      <article class="hallazgo">
+      <h3>Áreas de las revistas</h3>
+      <p>Life Sciences &amp; Medicine aparece en 862 de las 1.317 publicaciones con área QS (65,5 %), seguida de Social Sciences &amp; Management (344). <a class="analisis-figura" href="tematica.html#T-05">Ver T-05 →</a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> El área es la de la revista, no el tema del artículo, y una publicación puede tener varias: los porcentajes no suman 100.</p>
+    </article><article class="hallazgo">
+      <h3>Objetivos de Desarrollo Sostenible</h3>
+      <p>521 publicaciones (38,8 %) tienen al menos un ODS asignado por la fuente; el más frecuente es SDG 3 (322). <a class="analisis-figura" href="tematica.html#T-04">Ver T-04 →</a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> Sin ODS asignado no significa que una publicación no contribuya a alguno: la cobertura es baja y la cifra sólo se lee como publicaciones con ODS asignado.</p>
+    </article>
+    </section>
+    <section class="analisis-eje" aria-labelledby="analisis-conjunto">
+      <h2 id="analisis-conjunto">5. Lectura de conjunto</h2>
+      <p>En conjunto, entre 2020 y 2025 la producción creció (de 131 a 318 publicaciones al año); el impacto normalizado de la publicación típica está por debajo del promedio mundial (FWCI mediano 0,48), con las citas concentradas en pocos trabajos (el 10 % más citado reúne el 63 %); el 49,8 % de lo publicado es en colaboración internacional; las revistas se concentran en Life Sciences &amp; Medicine.</p>
+      <p>Son descripciones de la producción indexada, no juicios sobre su calidad: el único referente externo es el
+      promedio mundial que traen las propias métricas normalizadas, y el informe no se compara con otras
+      instituciones.</p>
+    </section>
+    <section class="analisis-eje" aria-labelledby="analisis-limites">
+      <h2 id="analisis-limites">6. Limitaciones de este análisis</h2>
+      <ul class="analisis-limites">
+        <li>Scopus no cubre por igual todas las disciplinas: las humanidades, parte de las ciencias sociales, los
+          libros y lo publicado en español quedan subrepresentados, y con ellos las unidades que publican ahí.</li>
+        <li>La ventana es de 6 años y las citas son
+          acumuladas al 2026-08-30: los años recientes no son comparables con los primeros.</li>
+        <li>La unidad académica sólo se identificó en el 64,9 % de las publicaciones.</li>
+        <li>Las cifras por autor cuentan formas de firma, no personas: parte de ellas sigue sin consolidar.</li>
+      </ul>
+      <p>El detalle de cada límite está en <a href="metodologia.html">Metodología y limitaciones</a>.</p>
+    </section>
+    <p class="nota">Texto escrito desde las cifras de este recorte con las mismas funciones que dibujan los gráficos:
+      cambia con los filtros. Cada hallazgo enlaza a la figura que interpreta.</p>
 </div>
+  </div></section>
 </main>
 <footer class="pie" id="pie" data-prerender="1">
 

@@ -138,6 +138,35 @@ export function datosInventario(filas, noListados) {
     ${noListados.map(n => `<code>data/${c.escapar(n.archivo)}</code> (${c.escapar(n.motivo)})`).join(', ')}.</p>`;
 }
 
+/** Los objetivos del informe (`docs/OBJETIVOS.md`, vía `ejes.json`).
+
+    Van al principio de la portada —y del PDF, tras la carátula y el índice—
+    porque un informe que no declara qué se propone medir deja que cada lector
+    lo decida. Cada objetivo específico enlaza a la sección que lo cumple, y
+    «Fuera de alcance» dice lo que el informe no hace, con el mismo peso. */
+const DESTINO_OBJETIVO = {
+  produccion: ['produccion.html', 'Producción'],
+  impacto: ['impacto.html', 'Impacto'],
+  colaboracion: ['colaboracion.html', 'Colaboración'],
+  tematica: ['tematica.html', 'Áreas temáticas'],
+  analisis: ['analisis.html', 'Análisis de resultados'],
+  metodologia: ['metodologia.html', 'Metodología y limitaciones'],
+};
+export function objetivos(o) {
+  if (!o) return '';
+  const e = c.escapar;
+  return `<section class="objetivos modulo" aria-labelledby="objetivos-titulo">
+    <h2 id="objetivos-titulo">Objetivos del informe</h2>
+    <p class="objetivos-general"><b>Objetivo general.</b> ${e(o.general)}</p>
+    <h3>Objetivos específicos</h3>
+    <ol class="objetivos-lista">${o.especificos.map(x => {
+      const [href, nombre] = DESTINO_OBJETIVO[x.eje] || ['#', x.eje];
+      return `<li><a href="${href}"><b>${e(nombre)}.</b></a> ${e(x.texto)}</li>`;
+    }).join('')}</ol>
+    <p class="objetivos-fuera"><b>Fuera de alcance.</b> ${e(o.fuera_de_alcance)}</p>
+  </section>`;
+}
+
 /** Banda de cierre de la portada: la salida a las secciones.
 
     Se genera en vez de escribirse en el HTML para que no pueda divergir de

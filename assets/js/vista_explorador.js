@@ -1267,3 +1267,207 @@ export function diferidos(catalogo, clave) {
     </article>`).join('')}
   </section>`;
 }
+
+/* ═════════════════════════════════════════ análisis de resultados ═══════ */
+
+/** El análisis de resultados (`analisis.html`): cada eje en hallazgos, y cada
+    hallazgo con su cifra, su lectura y el límite que la condiciona.
+
+    Se escribe desde las cifras del recorte —`X.hallazgos()`, que usa las
+    mismas funciones que dibujan los gráficos—, así que cambia con los filtros
+    y no puede contradecir a la figura que interpreta. Describe: no juzga la
+    calidad de lo publicado, no ordena personas ni unidades y no compara con
+    otras instituciones. El único referente externo es el que las propias
+    métricas traen: el promedio mundial del FWCI (1,00) y lo esperable en los
+    percentiles (10 % en el top 10 %).
+
+    Un recorte a una persona no se analiza (DORA, Manifiesto de Leiden), igual
+    que la síntesis de la portada. Uno pequeño se analiza con aviso: con pocas
+    publicaciones, una sola mueve medianas y porcentajes. */
+export function analisisResultados(pubs, sel, meta, pais) {
+  const e = c.escapar;
+  const sub = X.recorte(pubs, sel || {});
+  if (X.personaDelRecorte(sel || {})) {
+    return `<p class="aviso-persona">El análisis de resultados no se escribe para una persona: los
+      indicadores de este informe no sirven para evaluar desempeño individual (DORA, Manifiesto de
+      Leiden). Las cifras del recorte siguen en la <a href="index.html${X.consulta(sel)}">portada</a>.</p>`;
+  }
+  const h = X.hallazgos(sub, { jerarquia: meta.jerarquia || {}, pais });
+  if (!h) return '<p class="vacio">Ninguna publicación en este recorte: no hay resultados que analizar.</p>';
+
+  const q = X.consulta(sel || {});
+  const nf = x => c.nf.format(x);
+  const pct = (k, base, d = 1) => (base ? `${c.num((100 * k) / base, d)} %` : '—');
+  const figura = (pagina, cod) => ` <a class="analisis-figura" href="${pagina}${q}#${cod}">Ver ${e(cod)} →</a>`;
+  const hallazgo = (titulo, texto, limite, enlace = '') => `<article class="hallazgo">
+      <h3>${e(titulo)}</h3>
+      <p>${texto}${enlace}</p>
+      ${limite ? `<p class="hallazgo-limite"><b>Límite.</b> ${limite}</p>` : ''}
+    </article>`;
+
+  const { produccion: P, impacto: I, colaboracion: C, tematica: T } = h;
+  const serie = P.serie.filter(d => d.n > 0);
+  const [ini, fin] = [serie[0], serie[serie.length - 1]];
+  const pico = serie.reduce((a, d) => (d.n > a.n ? d : a), serie[0]);
+  const razon = ini && fin && ini.anio !== fin.anio && ini.n ? fin.n / ini.n : null;
+  const tendencia = razon == null ? null : razon > 1.1 ? 'creció' : razon < 0.9 ? 'disminuyó' : 'se mantuvo';
+
+  const secciones = [];
+
+  // 1. Producción
+  const prod = [];
+  if (razon != null) {
+    prod.push(hallazgo('Evolución del volumen',
+      `La producción ${tendencia}: pasó de ${nf(ini.n)} publicaciones en ${ini.anio} a ${nf(fin.n)} en ${fin.anio}`
+      + ` (${c.num(razon, 1)} veces).`
+      + (pico.anio !== fin.anio ? ` El año con más publicaciones fue ${pico.anio}, con ${nf(pico.n)}.` : ''),
+      'Es volumen indexado en Scopus: depende también de qué revistas indexa la base y de cómo declara '
+      + 'cada autor su afiliación. Mide actividad, no calidad ni rendimiento.', figura('produccion.html', 'P-02')));
+  }
+  if (P.tipos.length) {
+    const [t1, t2] = P.tipos;
+    prod.push(hallazgo('Tipos documentales',
+      `El tipo más frecuente es ${e(t1.tipo)} (${pct(t1.n, h.n)})`
+      + (t2 ? `, seguido de ${e(t2.tipo)} (${pct(t2.n, h.n)}).` : '.'),
+      'El tipo lo asigna la fuente. Todos los tipos, también erratas, editoriales y cartas, cuentan en el universo del informe.',
+      figura('produccion.html', 'P-03')));
+  }
+  if (P.facultades.length && P.unidad.cubiertas) {
+    const f1 = P.facultades[0];
+    prod.push(hallazgo('Unidades académicas',
+      `Entre las ${nf(P.unidad.cubiertas)} publicaciones con unidad académica identificada `
+      + `(${c.num(P.unidad.pct, 1)} % del recorte), la unidad más frecuente es ${e(f1.valor)}, con ${nf(f1.n)}.`,
+      `La unidad sale de la afiliación que declara cada firma y no se pudo determinar en el `
+      + `${c.num(100 - P.unidad.pct, 1)} % de las publicaciones, así que el reparto es parcial. Una publicación `
+      + 'firmada desde dos unidades cuenta en ambas. No compara unidades de tamaño y disciplina distintos.',
+      figura('produccion.html', 'P-07')));
+  }
+  if (prod.length) secciones.push(['Producción', prod]);
+
+  // 2. Impacto
+  const imp = [];
+  if (I.conMetricas && I.totalCitas) {
+    imp.push(hallazgo('Las citas se concentran',
+      `El 10 % más citado (${nf(I.top10pubs)} publicaciones) reúne el ${c.num(100 * I.concentracion, 1)} % de las `
+      + `${nf(I.totalCitas)} citas, y ${nf(I.sinCitas)} publicaciones (${pct(I.sinCitas, I.conMetricas)}) no tienen `
+      + `citas al ${e(meta.fecha_corte_citas)}. Por eso la publicación típica —la mediana— tiene `
+      + `${c.num(I.citasMediana, Number.isInteger(I.citasMediana) ? 0 : 1)} citas y el promedio es `
+      + `${c.num(I.citasPromedio, 2)}.`,
+      'Es la forma habitual de las distribuciones de citas: el promedio no describe a la publicación típica. '
+      + 'Las citas son acumuladas al corte y lo publicado en los últimos años tuvo menos tiempo para recibirlas.',
+      figura('impacto.html', 'I-08')));
+  }
+  if (I.fwciBase && I.fwciMediano != null) {
+    const pos = I.fwciMediano < 0.995 ? 'por debajo del' : I.fwciMediano > 1.005 ? 'por encima del' : 'en el';
+    imp.push(hallazgo('Impacto normalizado',
+      `El FWCI mediano es ${c.num(I.fwciMediano, 2)}, ${pos} promedio mundial (1,00): la publicación típica recibe el `
+      + `${c.num(100 * I.fwciMediano, 0)} % de las citas que recibe en promedio una publicación del mismo campo, año y `
+      + `tipo. ${nf(I.fwciSobre1)} publicaciones (${pct(I.fwciSobre1, I.fwciBase)}) igualan o superan ese promedio.`,
+      'El FWCI de lo publicado recientemente se calcula con pocas citas y cambia con cada actualización. Se '
+      + 'usa la mediana porque unas pocas publicaciones muy citadas elevan la media.',
+      figura('impacto.html', 'I-04')));
+  }
+  const top10 = I.percentil.datos.find(d => d.valor === 'Top 10 %');
+  if (I.percentil.base && top10) {
+    const esperado = Math.round(I.percentil.base * 0.10);
+    const rel = top10.n < esperado ? 'menos de lo' : top10.n > esperado ? 'más de lo' : 'lo';
+    imp.push(hallazgo('Publicaciones entre las más citadas de su campo',
+      `${nf(top10.n)} publicaciones (${pct(top10.n, I.percentil.base)}) están en el 10 % más citado de su campo, año `
+      + `y tipo: ${rel} esperable si se citaran como el conjunto mundial, que sería ${nf(esperado)} (10 %).`,
+      'El percentil lo calcula SciVal y, en las publicaciones recientes, todavía puede moverse.',
+      figura('impacto.html', 'I-05')));
+  }
+  if (I.conCuartil) {
+    imp.push(hallazgo('Revistas del primer cuartil',
+      `${nf(I.q1)} de las ${nf(I.conCuartil)} publicaciones con percentil SJR (${pct(I.q1, I.conCuartil)}) salieron `
+      + 'en revistas del primer cuartil de su categoría.',
+      'Describe la revista, no el artículo: una publicación en una revista Q1 puede no ser citada, y a la inversa.',
+      figura('impacto.html', 'R-01')));
+  }
+  imp.push(hallazgo('Acceso abierto',
+    `${nf(I.conOA)} publicaciones (${pct(I.conOA, h.n)}) tienen al menos una vía de acceso abierto declarada.`,
+    'En las demás la fuente no declara vía, lo que no significa que sean de acceso cerrado. Una publicación '
+    + 'puede tener varias vías.', figura('impacto.html', 'A-01')));
+  secciones.push(['Impacto', imp]);
+
+  // 3. Colaboración
+  const col = [];
+  if (C.internacional.base) {
+    const inter = Math.round(C.internacional.valor * C.internacional.base / 100);
+    col.push(hallazgo('Colaboración internacional',
+      `${nf(inter)} publicaciones (${c.num(C.internacional.valor, 1)} %) tienen coautores de otro país.`
+      + (C.socios.length ? ` Los países más frecuentes son ${C.socios.map(s => `${e(s.valor)} (${nf(s.n)})`).join(', ')}.` : ''),
+      'Describe con quién se publica, no la calidad ni la influencia de lo publicado.',
+      figura('colaboracion.html', 'C-01')));
+  }
+  if (C.autoresMediana != null) {
+    col.push(hallazgo('Tamaño de los equipos',
+      `La mediana es de ${c.num(C.autoresMediana, Number.isInteger(C.autoresMediana) ? 0 : 1)} autores por publicación.`,
+      'Se da la mediana porque unos pocos trabajos con muchos autores elevarían el promedio.',
+      figura('colaboracion.html', 'C-06')));
+  }
+  if (col.length) secciones.push(['Colaboración', col]);
+
+  // 4. Áreas temáticas
+  const tem = [];
+  if (T.areas.length && T.conArea) {
+    const [a1, a2] = T.areas;
+    tem.push(hallazgo('Áreas de las revistas',
+      `${e(a1.valor)} aparece en ${nf(a1.n)} de las ${nf(T.conArea)} publicaciones con área QS (${pct(a1.n, T.conArea)})`
+      + (a2 ? `, seguida de ${e(a2.valor)} (${nf(a2.n)}).` : '.'),
+      'El área es la de la revista, no el tema del artículo, y una publicación puede tener varias: los '
+      + 'porcentajes no suman 100.', figura('tematica.html', 'T-05')));
+  }
+  if (T.conOds) {
+    tem.push(hallazgo('Objetivos de Desarrollo Sostenible',
+      `${nf(T.conOds)} publicaciones (${pct(T.conOds, h.n)}) tienen al menos un ODS asignado por la fuente`
+      + (T.odsPrincipal ? `; el más frecuente es ${e(T.odsPrincipal.valor)} (${nf(T.odsPrincipal.n)}).` : '.'),
+      'Sin ODS asignado no significa que una publicación no contribuya a alguno: la cobertura es baja y la '
+      + 'cifra sólo se lee como publicaciones con ODS asignado.', figura('tematica.html', 'T-04')));
+  }
+  if (tem.length) secciones.push(['Áreas temáticas', tem]);
+
+  // 5. Lectura de conjunto
+  const partes = [];
+  if (tendencia) partes.push(`entre ${ini.anio} y ${fin.anio} la producción ${tendencia} (de ${nf(ini.n)} a ${nf(fin.n)} publicaciones al año)`);
+  if (I.fwciMediano != null) {
+    partes.push(`el impacto normalizado de la publicación típica está ${I.fwciMediano < 0.995 ? 'por debajo del'
+      : I.fwciMediano > 1.005 ? 'por encima del' : 'en el'} promedio mundial (FWCI mediano ${c.num(I.fwciMediano, 2)})`
+      + (I.concentracion != null ? `, con las citas concentradas en pocos trabajos (el 10 % más citado reúne el `
+        + `${c.num(100 * I.concentracion, 0)} %)` : ''));
+  }
+  if (C.internacional.base) partes.push(`el ${c.num(C.internacional.valor, 1)} % de lo publicado es en colaboración internacional`);
+  if (T.areas.length) partes.push(`las revistas se concentran en ${e(T.areas[0].valor)}`);
+  const conjunto = partes.length ? `<p>En conjunto, ${partes.join('; ')}.</p>` : '';
+
+  const pequeno = h.n < (meta.n_minimo_interpretable_unidad || 20);
+  return `
+    ${pequeno ? `<p class="aviso-recorte"><b>Recorte pequeño.</b> Con ${nf(h.n)} ${h.n === 1 ? 'publicación' : 'publicaciones'},
+      una sola cambia visiblemente medianas y porcentajes: las cifras describen el recorte y no sostienen
+      conclusiones.</p>` : ''}
+    ${secciones.map(([titulo, items], i) => `<section class="analisis-eje" aria-labelledby="analisis-${i + 1}">
+      <h2 id="analisis-${i + 1}">${i + 1}. ${e(titulo)}</h2>
+      ${items.join('')}
+    </section>`).join('')}
+    <section class="analisis-eje" aria-labelledby="analisis-conjunto">
+      <h2 id="analisis-conjunto">${secciones.length + 1}. Lectura de conjunto</h2>
+      ${conjunto}
+      <p>Son descripciones de la producción indexada, no juicios sobre su calidad: el único referente externo es el
+      promedio mundial que traen las propias métricas normalizadas, y el informe no se compara con otras
+      instituciones.</p>
+    </section>
+    <section class="analisis-eje" aria-labelledby="analisis-limites">
+      <h2 id="analisis-limites">${secciones.length + 2}. Limitaciones de este análisis</h2>
+      <ul class="analisis-limites">
+        <li>Scopus no cubre por igual todas las disciplinas: las humanidades, parte de las ciencias sociales, los
+          libros y lo publicado en español quedan subrepresentados, y con ellos las unidades que publican ahí.</li>
+        <li>La ventana es de ${nf((meta.ventana?.fin ?? 0) - (meta.ventana?.inicio ?? 0) + 1)} años y las citas son
+          acumuladas al ${e(meta.fecha_corte_citas)}: los años recientes no son comparables con los primeros.</li>
+        <li>La unidad académica sólo se identificó en el ${c.num(P.unidad.pct, 1)} % de las publicaciones.</li>
+        <li>Las cifras por autor cuentan formas de firma, no personas: parte de ellas sigue sin consolidar.</li>
+      </ul>
+      <p>El detalle de cada límite está en <a href="metodologia.html">Metodología y limitaciones</a>.</p>
+    </section>
+    <p class="nota">Texto escrito desde las cifras de este recorte con las mismas funciones que dibujan los gráficos:
+      cambia con los filtros. Cada hallazgo enlaza a la figura que interpreta.</p>`;
+}
