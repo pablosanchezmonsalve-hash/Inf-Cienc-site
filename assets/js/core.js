@@ -552,6 +552,20 @@ function recortar(txt, maxPx, px = 11) {
 
 let idGrafico = 0;
 
+/** Marcas de eje redondas. La rejilla tiene tres marcas —0, la mitad y el
+    techo— y el techo era el máximo por 1,18: «8,3» y «4,1» junto a medianas
+    enteras, «669» y «335» en una distribución de recuentos. Ahora la mitad se
+    redondea hacia arriba a 1, 1,5, 2, 2,5, 3, 4, 5, 6 u 8 por una potencia de
+    diez, y el techo es el doble. Nunca queda por debajo del holgado. */
+export function ejeRedondo(holgado) {
+  const bruto = holgado > 0 ? holgado / 2 : 0.5;
+  const e = 10 ** Math.floor(Math.log10(bruto));
+  const paso = +([1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10].find(m => m * e >= bruto - 1e-9 * e) * e).toPrecision(6);
+  const decimales = Number.isInteger(paso) ? 0 : Number.isInteger(+(paso * 10).toFixed(6)) ? 1 : 2;
+  const techo = +(2 * paso).toPrecision(6);
+  return { max: techo, pasos: [0, paso, techo], decimales };
+}
+
 /** Barras horizontales. Elegidas cuando las etiquetas son largas o muchas. */
 export function barrasH(datos, {
   alto = 26, escala = null, sufijo = '', ancho = 680, cuotaValida = false,
@@ -698,16 +712,17 @@ export function barrasV(datos, {
   ancho = Math.min(ancho, mIzq + mDer + datos.length * 150);
 
   const vals = datos.map(d => d[etiquetaY]).filter(v => v !== null && v !== undefined);
-  const max = Math.max(...vals, referencia || 0) * 1.18 || 1;
+  const eje = ejeRedondo(Math.max(...vals, referencia || 0) * 1.18);
+  const max = eje.max;
   const bw = (ancho - mIzq - mDer) / datos.length;
   const base = alto - mAb;
   const y = v => mArr + (base - mArr) * (1 - v / max);
 
   // Rejilla recesiva con tres marcas: da escala sin competir con las barras.
-  const pasos = [0, max / 2, max];
+  const pasos = eje.pasos;
   // El cero se rotula «0», no «0,0»: un decimal en el origen sugiere una
   // precisión que la marca de escala no tiene.
-  const tick = v => (v === 0 ? '0' : num(v, max < 10 ? 1 : 0));
+  const tick = v => (v === 0 ? '0' : num(v, eje.decimales));
   const red = pasos.map(v => `
     <line class="red" x1="${mIzq}" x2="${ancho - mDer}" y1="${y(v)}" y2="${y(v)}"/>
     <text class="tick" x="${mIzq - 8}" y="${y(v) + 3.5}" text-anchor="end">${tick(v)}</text>`
@@ -1121,7 +1136,9 @@ export function desviacion(datos, {
   const mIzq = 58, mDer = 20, mAb = 40, mArr = 30;
   const vals = datos.map(d => d[etiquetaY]).filter(v => v !== null && v !== undefined);
   const desv = vals.map(v => v - referencia);
-  const tope = Math.max(...desv.map(Math.abs), 0.01) * 1.25;
+  // Tope redondo por la misma regla que las demás rejillas (`ejeRedondo`): con
+  // el máximo por 1,25 el eje de FWCI marcaba «±0,83».
+  const tope = ejeRedondo(2 * Math.max(...desv.map(Math.abs), 0.01) * 1.25).pasos[1];
   const base = alto - mAb, arriba = mArr;
   const cero = arriba + (base - arriba) / 2;          // la referencia va al centro
   const y = d => cero - (d / tope) * ((base - arriba) / 2);
@@ -1177,12 +1194,18 @@ export function acumulada(datos, { titulo = '', total = null, ancho = 680, sufij
   if (!datos.length) return '<p class="vacio">Sin datos para mostrar.</p>';
   const orden = datos.slice().sort((a, b) => a.n - b.n);
   const max = total || Math.max(...orden.map(d => d.n));
-  const alto = 46 + orden.length * 44;
   const mIzq = 96, mDer = 78;
+  /* En un lienzo de teléfono el aviso, anclado sobre las barras, se salía por
+     la derecha y se leía «…a los de arriba —», sin el «no se suman» que es
+     justo la advertencia. Si no cabe, va en dos líneas desde el borde. */
+  const aviso = ['cada tramo CONTIENE a los de arriba', '— no se suman'];
+  const dosLineas = anchoTexto(aviso.join(' '), 12) > ancho - mIzq;
+  const y0 = dosLineas ? 46 : 30;
+  const alto = y0 + 16 + orden.length * 44;
   const pista = ancho - mIzq - mDer;
 
   const filas = orden.map((d, i) => {
-    const y = 30 + i * 44;
+    const y = y0 + i * 44;
     const w = Math.max(3, pista * (d.n / max));
     const cuota = total ? ` · ${num(100 * d.n / total, 1)} % de ${nf.format(total)}` : '';
     return `<g class="marca" tabindex="${i ? -1 : 0}" role="listitem"
@@ -1198,7 +1221,7 @@ export function acumulada(datos, { titulo = '', total = null, ancho = 680, sufij
 
   // Las llaves de anidamiento: cada tramo cabe dentro del siguiente.
   const llaves = orden.slice(0, -1).map((d, i) => {
-    const y = 30 + i * 44, w = Math.max(3, pista * (d.n / max));
+    const y = y0 + i * 44, w = Math.max(3, pista * (d.n / max));
     return `<path class="acum-nido" d="M ${mIzq + w} ${y + 32} L ${mIzq + w} ${y + 44}" />`;
   }).join('');
 
@@ -1206,7 +1229,9 @@ export function acumulada(datos, { titulo = '', total = null, ancho = 680, sufij
                      : `Gráfico de tramos acumulados, ${orden.length} umbrales`;
   return `<div class="grafico"><svg class="chart" viewBox="0 0 ${ancho} ${alto}"
     role="list" aria-label="${escapar(etq)}">
-    <text class="tick" x="${mIzq}" y="18">cada tramo CONTIENE a los de arriba — no se suman</text>
+    ${dosLineas
+      ? `<text class="tick" x="0" y="14">${aviso[0]}</text><text class="tick" x="0" y="31">${aviso[1]}</text>`
+      : `<text class="tick" x="${mIzq}" y="18">${aviso.join(' ')}</text>`}
     ${llaves}${filas}
   </svg></div>`;
 }
@@ -1220,15 +1245,16 @@ export function acumulada(datos, { titulo = '', total = null, ancho = 680, sufij
 export function distribucion(datos, { titulo = '', ancho = 680, alto = 250, etiquetaEje = '' } = {}) {
   if (!datos.length) return '<p class="vacio">Sin datos para mostrar.</p>';
   const mIzq = 52, mDer = 16, mAb = 52, mArr = 26;
-  const max = Math.max(...datos.map(d => d.n), 1) * 1.18;
+  const escala = ejeRedondo(Math.max(...datos.map(d => d.n), 1) * 1.18);
+  const max = escala.max;
   const base = alto - mAb;
   const bw = (ancho - mIzq - mDer) / datos.length;
   const y = v => mArr + (base - mArr) * (1 - v / max);
   const total = datos.reduce((s, d) => s + d.n, 0);
 
-  const red = [0, max / 2, max].map(v => `
+  const red = escala.pasos.map(v => `
     <line class="red" x1="${mIzq}" x2="${ancho - mDer}" y1="${y(v)}" y2="${y(v)}"/>
-    <text class="tick" x="${mIzq - 8}" y="${y(v) + 3.5}" text-anchor="end">${v === 0 ? '0' : num(v, 0)}</text>`).join('');
+    <text class="tick" x="${mIzq - 8}" y="${y(v) + 3.5}" text-anchor="end">${v === 0 ? '0' : num(v, escala.decimales)}</text>`).join('');
 
   // Sin hueco entre columnas: es una distribución sobre un continuo, y el
   // hueco de un gráfico de barras sugiere categorías sin relación entre sí.
