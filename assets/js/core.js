@@ -896,6 +896,31 @@ export function disponerRed(nodos, E) {
     porCom[c].forEach(e => { alto = Math.max(alto, ct.y - e.y); });
     ct.etq = Math.max(11, ct.y - alto - 8);
   });
+  /* Las etiquetas se colocaban cada una sobre su cúmulo sin mirar a las demás:
+     con 72 grupos, 25 pares se pisaban («GRUPO 60» sobre «GRUPO 61»). Se
+     colocan de una en una, de arriba abajo, y si una choca con las ya
+     puestas se prueba subirla, bajarla y correrla de lado, en pasos cada vez
+     mayores, y se queda con el primer hueco libre dentro del lienzo. Las
+     medidas son las que usa el dibujo (`etiquetas`, en red()). */
+  const cajaEtq = c => { const an = ('Grupo ' + (c + 1)).length * 5.9 + 12; return { an, al: 13 }; };
+  const puestas = [];
+  const choca = (x, y, an) => puestas.some(q =>
+    Math.abs(q.x - x) < (q.an + an) / 2 + 2 && Math.abs(q.y - y) < 13 + 2);
+  claves.slice().sort((a, b) => centros[a].etq - centros[b].etq).forEach(c => {
+    const ct = centros[c], { an } = cajaEtq(c);
+    const x0 = Math.max(an / 2, Math.min(W - an / 2, ct.x)), y0 = ct.etq;
+    let x = x0, y = y0;
+    if (choca(x, y, an)) {
+      busca: for (let k = 1; k <= 8; k++) {
+        for (const [dx, dy] of [[0, -15 * k], [0, 15 * k], [-(an / 2) * k, 0], [(an / 2) * k, 0]]) {
+          const nx = Math.max(an / 2, Math.min(W - an / 2, x0 + dx)), ny = Math.max(11, Math.min(HRED - 4, y0 + dy));
+          if (!choca(nx, ny, an)) { x = nx; y = ny; break busca; }
+        }
+      }
+    }
+    ct.etqX = x; ct.etq = y;
+    puestas.push({ x, y, an });
+  });
   const cols = 46, paso = (W - 24) / cols;
   ais.forEach((e, k) => { e.x = 12 + (k % cols) * paso + paso / 2; e.y = 604 + Math.floor(k / cols) * 15.5; });
   /* Para matriz y arcos no basta con el grado global: una firma de grado alto
@@ -1000,10 +1025,11 @@ function svgRedNodos(D, activa, foco) {
   }).join('');
   const etiquetas = D.claves.map(c => {
     const ct = D.centros[c], txt = 'Grupo ' + (c + 1), an = txt.length * 5.9 + 12, y = ct.etq || ct.y;
+    const x = ct.etqX ?? ct.x;
     return `<g opacity="${hayFoco ? .28 : 1}">
-      <rect x="${(ct.x - an / 2).toFixed(1)}" y="${(y - 9).toFixed(1)}" width="${an.toFixed(1)}"
+      <rect x="${(x - an / 2).toFixed(1)}" y="${(y - 9).toFixed(1)}" width="${an.toFixed(1)}"
         height="13" rx="2" fill="var(--superficie)" opacity=".82"/>
-      <text class="etiqueta-grupo" x="${ct.x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle">${escapar(txt)}</text>
+      <text class="etiqueta-grupo" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle">${escapar(txt)}</text>
     </g>`;
   }).join('');
   // Las firmas sin ningún coautor interno son un dato real, no una ausencia:
