@@ -90,6 +90,9 @@ function rellenoDeCelda(intensidad) {
   return RAMPA_CELDA[Math.max(0, ranura)];
 }
 
+/* El rótulo de la escala va a su IZQUIERDA, bajo la columna de nombres, que
+   ahí está libre. A la derecha empezaba en x≈350, y en un lienzo de teléfono
+   (≈324) se cortaba en «publ». */
 function renderLegend(maximo, baseY) {
   // Leyenda de escala sobre la misma rampa que las celdas: varias pastillas
   // de --mapa-* + la pastilla del dato, y marcas 0 / mitad / máximo.
@@ -113,7 +116,7 @@ function renderLegend(maximo, baseY) {
   }).join('');
 
   return `<g class="heatmap-leyenda" role="img" aria-label="Escala de 0 a ${nf.format(maximo)} publicaciones">
-    <text x="${LEGEND_X + LEGEND_SW * (RAMPA_CELDA.length + 1) + 8}" y="${baseY + LEGEND_H - 1}" class="heatmap-ley-titulo">publicaciones</text>
+    <text x="${LEGEND_X - 10}" y="${baseY + LEGEND_H - 1}" class="heatmap-ley-titulo" text-anchor="end">publicaciones</text>
     ${pastillas}${marcas}
   </g>`;
 }

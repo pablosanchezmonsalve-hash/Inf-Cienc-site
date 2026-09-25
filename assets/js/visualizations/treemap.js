@@ -105,6 +105,24 @@ const nf = new Intl.NumberFormat('es-CL');
     dentro de una cadena SVG que aún no está en el documento). */
 const CABE_ETIQUETA = 46;
 
+/** El nombre recortado al ancho de su celda, con puntos suspensivos. Sin esto
+    la etiqueta se escribía entera y la celda vecina la tapaba a mitad de
+    palabra («Facultad de I»). 12,5 px es `.treemap-etq` en `modern-ui.css`;
+    0,6 es el ancho medio por carácter, algo más holgado que `core.js` porque
+    la etiqueta va en negrita. El nombre entero sigue en el tooltip y en el
+    `aria-label`. */
+function nombreQueCabe(nombre, w) {
+  const s = String(nombre);
+  const cabe = Math.floor((w - 16) / (12.5 * 0.6));
+  if (s.length <= cabe) return s;
+  /* Recortado por el final, «Facultad de Ingeniería» y «Facultad de
+     Educación…» quedaban los dos en «Facultad de…»: lo que se pierde es justo
+     lo que las distingue. Si no cabe, se suelta primero el tipo de unidad. */
+  const propio = s.replace(/^(Facultad|Escuela|Instituto|Centro|Faculty|School) (de |of )?/i, '');
+  if (propio.length <= cabe) return propio;
+  return propio.slice(0, Math.max(1, cabe - 1)).trimEnd() + '…';
+}
+
 /* Un treemap con 10 facultades necesitaría 10 tonos distinguibles, y
    `app.css` sólo tiene DOS series validadas como par (`--serie-1`/`-2`); las
    otras cuatro, medidas aquí contra sí mismas (no sólo contra el fondo, que
@@ -148,7 +166,7 @@ export function renderTreemap(nodos, { ancho, alto, nivel = 'unidad', conHijos =
     const tab = primeraVisible ? 0 : -1;
     primeraVisible = false;
     const etiqueta = (w >= CABE_ETIQUETA && h >= 24)
-      ? `<text x="${x + 8}" y="${y + 18}" class="treemap-etq">${escapar(n.nombre)}</text>
+      ? `<text x="${x + 8}" y="${y + 18}" class="treemap-etq">${escapar(nombreQueCabe(n.nombre, w))}</text>
          ${h >= 42 ? `<text x="${x + 8}" y="${y + 34}" class="treemap-cifra">${nf.format(n.valor)}</text>` : ''}`
       : '';
     return `<g class="treemap-nodo${clicable ? ' es-clicable' : ''}" tabindex="${tab}"
@@ -302,7 +320,7 @@ export function montarTreemap(contenedor, arbolRaiz) {
     `<span class="treemap-ley-titulo">Tono</span>` +
     RAMPA.map(t => `<span class="treemap-ley-mostrar" style="background:${t}"></span>`).join('') +
     `<span class="treemap-ley-mostrar treemap-ley-sin" style="background:var(--sin-dato)"></span>` +
-    `<span class="treemap-ley-rotulo">identifica la celda · gris = sin datos</span>`;
+    `<span class="treemap-ley-rotulo">sólo separa celdas vecinas: se repite y no mide nada · gris = sin dato</span>`;
   const lienzo = document.createElement('div');
   lienzo.className = 'treemap-lienzo';
   contenedor.replaceChildren(migas, leyenda, lienzo);
