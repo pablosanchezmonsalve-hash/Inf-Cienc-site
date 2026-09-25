@@ -1433,23 +1433,28 @@ export function montarTooltip() {
     La columna `esperado` sólo aparece cuando el indicador la trae. Es la que
     convierte un recuento en un juicio: 75 publicaciones en el top 10 % no dice
     nada hasta que al lado está lo que cabría esperar. */
-export function tablaEquivalente(datos, col = 'valor') {
+export function tablaEquivalente(datos, col = 'valor', { categoria = 'Categoría', columna = 'n', decimales = null } = {}) {
+  /* `columna` y `decimales` los da el indicador cuando la cifra no es un
+     recuento: la mediana de FWCI de 2025 es 0,345 y el formato por defecto la
+     imprimía con tres decimales junto a otras con dos, bajo una columna «n»
+     que la hacía pasar por un recuento. */
+  const cifra = v => (decimales == null ? nf.format(v) : num(v, decimales));
   const hayEsperado = datos.some(d => d.esperado != null);
   const filas = datos.map(d => {
     const etiqueta = String(d[col] ?? d.anio);
     const v = d.n ?? d.valor;
     const esp = d.esperado == null ? ''
-      : `<td class="num">${nf.format(d.esperado)}</td>
+      : `<td class="num">${cifra(d.esperado)}</td>
          <td class="num ${d.n >= d.esperado ? 'sobre' : 'bajo'}">${
-           d.n >= d.esperado ? '+' : '−'}${nf.format(Math.abs(d.n - d.esperado))}</td>`;
+           d.n >= d.esperado ? '+' : '−'}${cifra(Math.abs(d.n - d.esperado))}</td>`;
     return `<tr><td${esSinDato(etiqueta) ? ' class="sin-dato-txt"' : ''}>${escapar(etiqueta)}</td>
-      <td class="num">${typeof v === 'number' ? nf.format(v) : escapar(String(v))}</td>
+      <td class="num">${typeof v === 'number' ? cifra(v) : escapar(String(v))}</td>
       ${hayEsperado && !esp ? '<td class="num">—</td><td class="num">—</td>' : esp}</tr>`;
   }).join('');
   const cab = hayEsperado
-    ? '<th scope="col">Categoría</th><th scope="col" class="num">Observado</th>'
+    ? `<th scope="col">${escapar(categoria)}</th><th scope="col" class="num">Observado</th>`
       + '<th scope="col" class="num">Esperado</th><th scope="col" class="num">Diferencia</th>'
-    : '<th scope="col">Categoría</th><th scope="col" class="num">n</th>';
+    : `<th scope="col">${escapar(categoria)}</th><th scope="col" class="num">${escapar(columna)}</th>`;
   return `<div class="tabla-envoltura tabla-datos"><table>
     <thead><tr>${cab}</tr></thead><tbody>${filas}</tbody></table></div>`;
 }

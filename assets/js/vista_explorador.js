@@ -796,14 +796,16 @@ export function dibujar(sub, corte, jerarquia, ancho) {
     const d = X.sumaPorAnio(sub, campo);
     return d.length
       ? { svg: c.barrasV(d, { titulo, etiquetaX: 'anio', etiquetaY: 'n', ancho }),
-          datos: d.map(x => ({ valor: x.anio, n: x.n })) } : null;
+          datos: d.map(x => ({ valor: x.anio, n: x.n })),
+          tabla: { categoria: 'Año', columna: campo === 'citas' ? 'Citas' : 'Suma' } } : null;
   }
   if (forma === 'mediana-anio') {
     const d = X.medianaPorAnio(sub, campo).filter(x => x.valor !== null);
     return d.length
       ? { svg: c.desviacion(d, { titulo, etiquetaX: 'anio', etiquetaY: 'valor',
             decimales: 2, referencia: 1, refEtiqueta: '1,00 — promedio mundial', ancho }),
-          datos: d.map(x => ({ valor: x.anio, n: x.valor })) } : null;
+          datos: d.map(x => ({ valor: x.anio, n: x.valor })),
+          tabla: { categoria: 'Año', columna: 'FWCI mediano', decimales: 2 } } : null;
   }
   /* La mediana de un campo SIN referencia externa, en barras. La de arriba
      dibuja la desviación respecto de 1,00 porque el FWCI tiene un promedio
@@ -815,7 +817,8 @@ export function dibujar(sub, corte, jerarquia, ancho) {
     return d.length
       ? { svg: c.barrasV(d.map(x => ({ anio: x.anio, n: x.valor })),
             { titulo, etiquetaX: 'anio', etiquetaY: 'n', decimales, ancho }),
-          datos: d.map(x => ({ valor: x.anio, n: x.valor })) } : null;
+          datos: d.map(x => ({ valor: x.anio, n: x.valor })),
+          tabla: { categoria: 'Año', columna: 'Mediana de citas', decimales } } : null;
   }
   if (forma === 'productividad') {
     const { firmas, datos } = X.productividad(sub);
@@ -834,7 +837,8 @@ export function dibujar(sub, corte, jerarquia, ancho) {
   }
   if (forma === 'barrasV') {
     return { svg: c.barrasV(datos.map(d => ({ anio: d.valor, n: d.n })),
-      { titulo, etiquetaX: 'anio', etiquetaY: 'n', ancho }), datos };
+      { titulo, etiquetaX: 'anio', etiquetaY: 'n', ancho }), datos,
+      tabla: campo === 'anio' ? { categoria: 'Año', columna: 'Publicaciones' } : {} };
   }
   return { svg: c.barrasH(datos, { titulo, trama: MULTIVALUADO.has(campo), ancho }), datos, distintos };
 }
@@ -1151,7 +1155,7 @@ export function corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos
         <div class="grafico" data-lienzo="${c.escapar(id)}">${r.svg}</div>
       </div>
       <div class="vista" id="${id}-tabla" data-vista="tabla" data-activa="false">
-        ${c.tablaEquivalente(r.datos)}
+        ${c.tablaEquivalente(r.datos, 'valor', r.tabla || {})}
       </div>`
       : '<p class="vacio">Ninguna publicación con este dato en el recorte.</p>'}
       ${notaRecorte(r, corte.campo)}
