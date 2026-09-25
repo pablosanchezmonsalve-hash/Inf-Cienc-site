@@ -1358,13 +1358,17 @@ export function analisisResultados(pubs, sel, meta, pais) {
 
   // 2. Impacto
   const imp = [];
+  /* Con menos de diez publicaciones, «el 10 % más citado» es una sola que pesa
+     más del 10 %: en un recorte de 3 era un tercio. Se dice lo que es. */
+  const pocas = I.conMetricas < 10;
+  const cabeza = pocas ? 'La publicación más citada' : `El 10 % más citado (${npub(I.top10pubs)})`;
   if (I.conMetricas && I.totalCitas) {
     /* Título y frase neutros: «se concentran» se afirmaba en cualquier recorte,
        también en uno donde el 10 % más citado reúne poco más del 10 %. La
        cifra dice cuánto; el «por eso» sólo vale si la mediana queda bajo el
        promedio, que es lo que la concentración explica. */
     imp.push(hallazgo('Cómo se reparten las citas',
-      `El 10 % más citado (${npub(I.top10pubs)}) reúne el ${c.num(100 * I.concentracion, 1)} % de las `
+      `${cabeza} reúne el ${c.num(100 * I.concentracion, 1)} % de las `
       + `${pl(I.totalCitas, 'cita', 'citas')}, y `
       + (I.sinCitas
         ? `${npub(I.sinCitas)} (${pct(I.sinCitas, I.conMetricas)}) ${I.sinCitas === 1 ? 'no tiene' : 'no tienen'} citas`
@@ -1472,7 +1476,8 @@ export function analisisResultados(pubs, sel, meta, pais) {
   if (I.fwciMediano != null) {
     partes.push(`el impacto normalizado de la publicación típica está ${I.fwciMediano < 0.995 ? 'por debajo del'
       : I.fwciMediano > 1.005 ? 'por encima del' : 'en el'} promedio mundial (FWCI mediano ${c.num(I.fwciMediano, 2)})`
-      + (I.concentracion != null ? `, y el 10 % más citado reúne el ${c.num(100 * I.concentracion, 0)} % de las citas` : ''));
+      + (I.concentracion != null ? `, y ${pocas ? 'la publicación más citada' : 'el 10 % más citado'} reúne el `
+        + `${c.num(100 * I.concentracion, 0)} % de las citas` : ''));
   }
   if (C.internacional.base) {
     partes.push(C.internacional.valor

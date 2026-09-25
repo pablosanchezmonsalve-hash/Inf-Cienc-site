@@ -158,8 +158,12 @@ export function porFacultad(sel_pubs, jerarquia) {
   const cuenta = new Map();
   for (const p of sel_pubs) {
     const unidades = p.unidades.length ? p.unidades : ['Sin dato declarado'];
-    for (const u of unidades) {
-      const f = j[u] || u;
+    /* Una publicación cuenta UNA vez por facultad. Firmada desde una escuela y
+       desde su propia facultad —«Escuela de Kinesiología» y «Facultad de
+       Medicina y Salud»—, las dos suben a la misma y se contaba dos veces: 4
+       publicaciones, 656 en vez de 652, contra la nota de P-07, que promete
+       «publicaciones distintas por unidad» (auditoría del 2026-09-25). */
+    for (const f of new Set(unidades.map(u => j[u] || u))) {
       cuenta.set(f, (cuenta.get(f) || 0) + 1);
     }
   }

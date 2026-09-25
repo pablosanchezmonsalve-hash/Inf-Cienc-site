@@ -2,7 +2,7 @@
  "generado": "2026-09-25",
  "build": "2026-09-21",
  "huella_publicaciones_sha256": "a86ca6f48cb0169fefc56bcb3e5d48086dc98f69b081ae6472742ecdef1b23d9",
- "codigo": "bca7df5",
+ "codigo": "1d43c5e",
  "recorte": "",
  "hojas": 84,
  "archivos": [
@@ -11,7 +11,7 @@
    "nombre": "Portada",
    "archivo": "informe/informe-cienciometrico-index.pdf",
    "hojas": 12,
-   "kb": 900
+   "kb": 899
   },
   {
    "seccion": "produccion",
