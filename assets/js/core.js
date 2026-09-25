@@ -1054,7 +1054,12 @@ function svgRedNodos(D, activa, foco) {
 
 function svgRedMatriz(D, activa) {
   const lista = D.topM, n = lista.length;
-  const M = 84, C = 15, W = M + n * C + 12;
+  /* El margen de los nombres se mide con el más largo: con 84 fijos,
+     «Zbinden-Foncea H.» (≈92 px en mono de 9 px) se cortaba por la IZQUIERDA
+     en las filas y por arriba en las columnas. 5,4 px por carácter es 9 px ×
+     0,6, el ancho de `.etiqueta-firma` (app.css). */
+  const largo = Math.max(0, ...lista.map(e => String(e.id).length + (sinUnidadRed(e) ? 2 : 0)));
+  const M = Math.max(84, Math.ceil(largo * 5.4) + 14), C = 15, W = M + n * C + 12;
   const idx = {}; lista.forEach((e, k) => idx[e.i] = k);
   const cel = [];
   D.E.forEach(a => {
@@ -1097,7 +1102,11 @@ function svgRedMatriz(D, activa) {
 
 function svgRedArcos(D, activa) {
   const lista = D.topA, n = lista.length;
-  const W = 1000, H = 340, base = 292, pad = 26;
+  /* Los nombres cuelgan girados bajo la línea base, y con un alto fijo de 340
+     quedaban unos 36 px: se leía «Zbinder», «Castro-». El lienzo crece lo que
+     mide el nombre más largo (5,4 px por carácter, como en la matriz). */
+  const largo = Math.max(0, ...lista.map(e => String(e.id).length));
+  const W = 1000, base = 292, pad = 26, H = Math.max(340, base + 12 + Math.ceil(largo * 5.4) + 8);
   const paso = (W - pad * 2) / Math.max(n - 1, 1);
   const idx = {}; lista.forEach((e, k) => idx[e.i] = k);
   const arcos = [];
