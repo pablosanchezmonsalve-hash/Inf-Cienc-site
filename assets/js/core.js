@@ -561,7 +561,9 @@ export function ejeRedondo(holgado) {
   const bruto = holgado > 0 ? holgado / 2 : 0.5;
   const e = 10 ** Math.floor(Math.log10(bruto));
   const paso = +([1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10].find(m => m * e >= bruto - 1e-9 * e) * e).toPrecision(6);
-  const decimales = Number.isInteger(paso) ? 0 : Number.isInteger(+(paso * 10).toFixed(6)) ? 1 : 2;
+  // Los decimales que el paso necesita para no rotularse redondeado: 0,005 con
+  // dos decimales se leía «0,00».
+  const decimales = [0, 1, 2, 3].find(d => Number.isInteger(+(paso * 10 ** d).toFixed(6))) ?? 3;
   const techo = +(2 * paso).toPrecision(6);
   return { max: techo, pasos: [0, paso, techo], decimales };
 }
@@ -1206,7 +1208,7 @@ export function desviacion(datos, {
 export function acumulada(datos, { titulo = '', total = null, ancho = 680, sufijo = '' } = {}) {
   if (!datos.length) return '<p class="vacio">Sin datos para mostrar.</p>';
   const orden = datos.slice().sort((a, b) => a.n - b.n);
-  const max = total || Math.max(...orden.map(d => d.n));
+  const max = total || Math.max(...orden.map(d => d.n)) || 1;
   const mIzq = 96, mDer = 78;
   /* En un lienzo de teléfono el aviso, anclado sobre las barras, se salía por
      la derecha y se leía «…a los de arriba —», sin el «no se suman» que es
@@ -1263,7 +1265,8 @@ export function distribucion(datos, { titulo = '', ancho = 680, alto = 250, etiq
   const base = alto - mAb;
   const bw = (ancho - mIzq - mDer) / datos.length;
   const y = v => mArr + (base - mArr) * (1 - v / max);
-  const total = datos.reduce((s, d) => s + d.n, 0);
+  // `|| 1`: un recorte sin casos daría 0/0 y «NaN %» en el tooltip; así da 0 %.
+  const total = datos.reduce((s, d) => s + d.n, 0) || 1;
 
   const red = escala.pasos.map(v => `
     <line class="red" x1="${mIzq}" x2="${ancho - mDer}" y1="${y(v)}" y2="${y(v)}"/>

@@ -624,7 +624,7 @@ export const SECCIONES = {
       { cod: 'P-03', campo: 'tipo',   titulo: 'Tipo documental',              forma: 'barrasH' },
       { cod: 'P-05', campo: 'fuente', titulo: 'Fuentes con más publicaciones', forma: 'barrasH', tope: 15 },
       { cod: 'P-07', campo: 'unidad', titulo: 'Unidad académica',             forma: 'barrasH',
-        aviso: 'Cuenta publicaciones distintas por unidad: una publicación con dos autores UFT de la misma unidad cuenta una sola vez. El treemap "Producción por facultad y escuela", en esta misma sección, cuenta pares autor×publicación —la misma publicación puede contar dos veces— y por eso sus totales no coinciden con estas barras. Ambos criterios están documentados; ninguno es un error.' },
+        aviso: 'Cuenta publicaciones distintas por unidad: una publicación con dos autores UFT de la misma unidad cuenta una sola vez. El treemap «Producción por facultad y escuela», en la sección Producción, cuenta pares autor×publicación —la misma publicación puede contar dos veces— y por eso sus totales no coinciden con estas barras. Ambos criterios están documentados; ninguno es un error.' },
       // Sin `cod` propio a propósito: no es un indicador nuevo, es la misma
       // P-07 vista a nivel de escuela. Con `cod: 'P-07'` el id chocaría con
       // el corte de arriba (dos secciones con el mismo id="P-07" en la
