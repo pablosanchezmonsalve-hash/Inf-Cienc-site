@@ -24,6 +24,23 @@ export async function cargar(nombre) {
 /* -------------------------------------------------------------- formato */
 export const nf = new Intl.NumberFormat('es-CL');
 
+/* Concordancia con el número. Los recortes de una sola publicación —una
+   escuela, una persona con un trabajo, dos filtros cruzados— imprimían
+   «1 publicaciones» en el sello, la ficha, el enlace al listado y la síntesis
+   de todas las secciones: se encontró barriendo cada página con recortes
+   extremos (2026-09-26). */
+const SINGULAR = {
+  publicaciones: 'publicación', citas: 'cita', firmas: 'firma', autores: 'autor',
+  'países': 'país', instituciones: 'institución', 'formas de firma': 'forma de firma',
+};
+export function singular(n, plural) {
+  return n === 1 ? SINGULAR[plural] || plural : plural;
+}
+/** «1 publicación», «2 publicaciones», con el número formateado. */
+export function cuenta(n, plural) {
+  return `${nf.format(n)} ${singular(n, plural)}`;
+}
+
 export function num(v, dec = 0) {
   if (v === null || v === undefined) return null;
   return new Intl.NumberFormat('es-CL', {
@@ -501,7 +518,7 @@ export function sello(p) {
   return `<p class="${clase}">
     <span><b>Fuente</b> ${escapar(p.fuente)}</span>
     ${fecha}
-    <span><b>N</b> ${nf.format(p.n)} ${escapar(p.unidad || 'publicaciones')}</span>
+    <span><b>N</b> ${escapar(cuenta(p.n, p.unidad || 'publicaciones'))}</span>
     ${hayCob ? `<span><b>Cobertura</b> ${cob} · ${nf.format(p.cubiertas)} con dato</span>` : ''}
     ${aviso}</p>`;
 }

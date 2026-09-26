@@ -108,7 +108,8 @@ export function cifras(res, textos, { bento = false } = {}) {
     return `<article class="ficha" data-k="${k}">
       <p class="ficha-valor" data-valor="${k}">${fmt(f)}</p>
       <h3 class="ficha-etq">${c.escapar(etq)}${termino ? c.botonAyuda(termino) : ''}</h3>
-      <p class="ficha-base"><b data-base="${k}">${c.nf.format(f.base)}</b> ${c.escapar(base)}</p>
+      <p class="ficha-base"><b data-base="${k}">${c.nf.format(f.base)}</b> ${
+        c.escapar(f.base === 1 ? base.replace(/^publicaciones\b/, 'publicación') : base)}</p>
       ${med}
       ${l ? `<p class="ficha-lectura">${c.escapar(l.muestra)}</p>` : ''}
     </article>`;
@@ -127,9 +128,10 @@ export function estado(n, total, sel, { enlaceLista = false } = {}) {
   // que se quiere es ver QUÉ publicaciones lo componen. Sin este enlace había
   // que rehacer el mismo filtro a mano en la otra página.
   const q = X.consulta(sel);
-  const aLista = enlaceLista
-    ? `<a class="enlace-lista" href="publicaciones.html${q ? '?' + q : ''}">Ver las ${
-        c.nf.format(n)} publicaciones →</a>` : '';
+  // Con el recorte vacío no hay nada que listar: «Ver las 0 publicaciones →» sobraba.
+  const aLista = enlaceLista && n
+    ? `<a class="enlace-lista" href="publicaciones.html${q ? '?' + q : ''}">${n === 1
+        ? 'Ver la publicación' : `Ver las ${c.nf.format(n)} publicaciones`} →</a>` : '';
   return `<p class="recorte-estado" role="status">
     <span class="recorte-n">${c.nf.format(n)}</span>
     <span class="recorte-de">de ${c.nf.format(total)} publicaciones</span>
@@ -453,6 +455,22 @@ export function cortes(pubs_sel, proc, jerarquia, textos, sel = {}) {
     alguien es la lectura individual que DORA y el Manifiesto de Leiden
     desaconsejan, y su ficha ya dice lo que corresponde. Tampoco sin
     publicaciones: no hay nada que resumir (D-714). */
+/* «El área QS más frecuente es X» cuando X está empatada con otra: recortado a
+   Natural Sciences y Bronze, la síntesis nombraba Engineering & Technology,
+   que el orden alfabético ponía primero con el mismo 1. Un empate se dice. */
+const unirY = l => (l.length > 1 ? `${l.slice(0, -1).join(', ')} y ${l[l.length - 1]}` : l[0]);
+function fraseAreas(areas, conArea) {
+  const tope = areas.filter(a => a.n === areas[0].n).map(a => a.valor);
+  if (conArea === 1) {
+    return tope.length > 1 ? `Las áreas QS de la única publicación con área son ${unirY(tope)}.`
+      : `El área QS de la única publicación con área es ${tope[0]}.`;
+  }
+  const de = `de las ${c.nf.format(conArea)} publicaciones con área, que pueden tener más de una`;
+  return tope.length > 1
+    ? `Las áreas QS más frecuentes, empatadas, son ${unirY(tope)}: ${c.cuenta(areas[0].n, 'publicaciones')} cada una ${de}.`
+    : `El área QS más frecuente es ${tope[0]}: ${c.nf.format(areas[0].n)} ${de}.`;
+}
+
 export function sintesis(sub, sel, meta) {
   if (!sub.length || X.personaDelRecorte(sel || {})) return '';
   const r = X.resumen(sub);
@@ -466,18 +484,19 @@ export function sintesis(sub, sel, meta) {
   const frases = [
     `${c.nf.format(n)} ${n === 1 ? 'publicación indexada' : 'publicaciones indexadas'} en Scopus`
       + `${desde === hasta ? ` en ${desde}` : ` entre ${desde} y ${hasta}`}`
-      + (tipos.length === 1 ? `, todas de tipo ${tipos[0].tipo}.`
+      + (tipos.length === 1 ? (n === 1 ? `, de tipo ${tipos[0].tipo}.` : `, todas de tipo ${tipos[0].tipo}.`)
+        : tipos.length && tipos[1].n === tipos[0].n
+          ? `; los tipos más frecuentes, empatados, son ${unirY(tipos.filter(t => t.n === tipos[0].n).map(t => t.tipo))} (${pct(tipos[0].n, n)} cada uno).`
         : tipos.length ? `; el tipo más frecuente es ${tipos[0].tipo} (${pct(tipos[0].n, n)}).` : '.'),
     r.citas_por_pub.base ? `Citas al ${meta.fecha_corte_citas}: la publicación típica —la mediana— tiene `
       + `${c.num(r.citas_por_pub.mediana, Number.isInteger(r.citas_por_pub.mediana) ? 0 : 1)}, y el promedio es `
       + `${c.num(r.citas_por_pub.valor, 2)}`
       + (r.citas_por_pub.valor > r.citas_por_pub.mediana ? ': unas pocas muy citadas lo elevan.' : '.') : '',
     r.fwci_mediano.base ? `FWCI mediano de ${c.num(r.fwci_mediano.valor, 2)}, sobre `
-      + `${c.nf.format(r.fwci_mediano.base)} publicaciones con FWCI; 1,00 es el promedio mundial de su campo, año y tipo.` : '',
+      + `${c.cuenta(r.fwci_mediano.base, 'publicaciones')} con FWCI; 1,00 es el promedio mundial de su campo, año y tipo.` : '',
     r.internacional.base ? `${c.num(r.internacional.valor, 1)} % en colaboración internacional —con autores `
       + 'de más de un país—.' : '',
-    areas.length ? `El área QS más frecuente es ${areas[0].valor}: ${c.nf.format(areas[0].n)} de las `
-      + `${c.nf.format(conArea)} publicaciones con área, que pueden tener más de una.` : '',
+    areas.length ? fraseAreas(areas, conArea) : '',
   ].filter(Boolean);
   return `<section class="sintesis" aria-labelledby="sintesis-titulo">
     <h2 id="sintesis-titulo">En síntesis</h2>
@@ -595,8 +614,8 @@ function tablaMasCitadas(sub, sel, proc, textos) {
   const q = X.consulta(sel || {});
   return `<section class="corte tabla-portada" data-corte="mas_citadas">${cab}
     <p class="nota-destacada"><b>Cómo leer esta tabla</b> ${c.escapar(LECTURA_MAS_CITADAS)}</p>
-    ${filas.length ? `<p class="nota">Las ${c.nf.format(filas.length)} con más citas entre las
-      ${c.nf.format(base)} publicaciones del recorte que tienen métricas.</p>
+    ${filas.length ? `<p class="nota">${base === 1 ? 'La única publicación del recorte que tiene métricas.' : `Las ${c.nf.format(filas.length)} con más citas entre las
+      ${c.nf.format(base)} publicaciones del recorte que tienen métricas.`}</p>
     <div class="tabla-envoltura tabla-datos"><table>
       <caption class="solo-lectores">Publicaciones del recorte ordenadas por citas totales</caption>
       <thead><tr><th scope="col" class="num">#</th><th scope="col">Título</th>
@@ -1339,19 +1358,31 @@ export function analisisResultados(pubs, sel, meta, pais) {
     const [t1, t2] = P.tipos;
     prod.push(hallazgo('Tipos documentales',
       // Con un solo tipo —p. ej. recortado por tipo— «el más frecuente (100 %)» es una obviedad.
-      t2 ? `El tipo más frecuente es ${e(t1.tipo)} (${pct(t1.n, h.n)}), seguido de ${e(t2.tipo)} (${pct(t2.n, h.n)}).`
+      t2 && t2.n === t1.n
+        ? `Los tipos más frecuentes, empatados, son ${unirY(P.tipos.filter(t => t.n === t1.n).map(t => e(t.tipo)))} (${pct(t1.n, h.n)} cada uno).`
+      : t2 ? `El tipo más frecuente es ${e(t1.tipo)} (${pct(t1.n, h.n)}), seguido de ${e(t2.tipo)} (${pct(t2.n, h.n)}).`
+        : h.n === 1 ? `La publicación del recorte es del tipo ${e(t1.tipo)}.`
         : `Todas las publicaciones del recorte son del tipo ${e(t1.tipo)}.`,
       'El tipo lo asigna la fuente. Todos los tipos, también erratas, editoriales y cartas, cuentan en el universo del informe.',
       figura('produccion.html', 'P-03')));
   }
   if (P.facultades.length && P.unidad.cubiertas) {
     const f1 = P.facultades[0];
+    const topeU = P.facultades.filter(f => f.n === f1.n).map(f => e(f.valor));
     prod.push(hallazgo('Unidades académicas',
-      `Entre las ${npub(P.unidad.cubiertas)} con unidad académica identificada `
-      + `(${c.num(P.unidad.pct, 1)} % del recorte), la unidad más frecuente es ${e(f1.valor)}, con ${nf(f1.n)}.`,
-      `La unidad sale de la afiliación que declara cada firma y no se pudo determinar en el `
-      + `${c.num(100 - P.unidad.pct, 1)} % de las publicaciones, así que el reparto es parcial. Una publicación `
-      + 'firmada desde dos unidades cuenta en ambas. No compara unidades de tamaño y disciplina distintos.',
+      (P.unidad.cubiertas === 1
+        ? `La única publicación con unidad académica identificada (${c.num(P.unidad.pct, 1)} % del recorte) `
+          + `es de ${unirY(topeU)}.`
+        : `Entre las ${nf(P.unidad.cubiertas)} publicaciones con unidad académica identificada `
+          + `(${c.num(P.unidad.pct, 1)} % del recorte), `
+          + (topeU.length > 1
+            ? `las unidades más frecuentes, empatadas, son ${unirY(topeU)}, con ${nf(f1.n)} cada una.`
+            : `la unidad más frecuente es ${topeU[0]}, con ${nf(f1.n)}.`)),
+      'La unidad sale de la afiliación que declara cada firma'
+      // «el reparto es parcial» con 0 % sin unidad era falso.
+      + (P.unidad.pct < 100 ? ` y no se pudo determinar en el ${c.num(100 - P.unidad.pct, 1)} % de las `
+        + 'publicaciones, así que el reparto es parcial.' : '.')
+      + ' Una publicación firmada desde dos unidades cuenta en ambas. No compara unidades de tamaño y disciplina distintos.',
       figura('produccion.html', 'P-07')));
   }
   if (prod.length) secciones.push(['Producción', prod]);
@@ -1368,7 +1399,10 @@ export function analisisResultados(pubs, sel, meta, pais) {
        cifra dice cuánto; el «por eso» sólo vale si la mediana queda bajo el
        promedio, que es lo que la concentración explica. */
     imp.push(hallazgo('Cómo se reparten las citas',
-      `${cabeza} reúne el ${c.num(100 * I.concentracion, 1)} % de las `
+      // Con una sola publicación no hay reparto que describir: se dice cuántas tiene.
+      I.conMetricas === 1
+        ? `La única publicación con métricas tiene ${pl(I.totalCitas, 'cita', 'citas')} al ${e(meta.fecha_corte_citas)}.`
+        : `${cabeza} reúne el ${c.num(100 * I.concentracion, 1)} % de las `
       + `${pl(I.totalCitas, 'cita', 'citas')}, y `
       + (I.sinCitas
         ? `${npub(I.sinCitas)} (${pct(I.sinCitas, I.conMetricas)}) ${I.sinCitas === 1 ? 'no tiene' : 'no tienen'} citas`
@@ -1409,8 +1443,10 @@ export function analisisResultados(pubs, sel, meta, pais) {
   }
   if (I.conCuartil) {
     imp.push(hallazgo('Revistas del primer cuartil',
-      `${nf(I.q1)} de ${I.conCuartil === 1 ? 'la publicación' : `las ${nf(I.conCuartil)} publicaciones`} con percentil `
-      + `SJR (${pct(I.q1, I.conCuartil)}) ${I.q1 === 1 ? 'salió' : 'salieron'} en revistas del primer cuartil de su categoría.`,
+      I.conCuartil === 1
+        ? `La publicación con percentil SJR ${I.q1 ? 'salió' : 'no salió'} en una revista del primer cuartil de su categoría.`
+        : `${nf(I.q1)} de las ${nf(I.conCuartil)} publicaciones con percentil `
+          + `SJR (${pct(I.q1, I.conCuartil)}) ${I.q1 === 1 ? 'salió' : 'salieron'} en revistas del primer cuartil de su categoría.`,
       'Describe la revista, no el artículo: una publicación en una revista Q1 puede no ser citada, y a la inversa.',
       figura('impacto.html', 'R-01')));
   }
@@ -1452,9 +1488,12 @@ export function analisisResultados(pubs, sel, meta, pais) {
   if (T.areas.length && T.conArea) {
     const [a1, a2] = T.areas;
     tem.push(hallazgo('Áreas de las revistas',
-      `${e(a1.valor)} aparece en ${nf(a1.n)} de ${T.conArea === 1 ? 'la publicación' : `las ${nf(T.conArea)} publicaciones`} `
+      (a2 && a2.n === a1.n
+        ? `${unirY(T.areas.filter(a => a.n === a1.n).map(a => e(a.valor)))} aparecen, empatadas, en ${nf(a1.n)} `
+        : `${e(a1.valor)} aparece en ${nf(a1.n)} `)
+      + `de ${T.conArea === 1 ? 'la publicación' : `las ${nf(T.conArea)} publicaciones`} `
       + `con área QS (${pct(a1.n, T.conArea)})`
-      + (a2 ? `, seguida de ${e(a2.valor)} (${nf(a2.n)}).` : '.'),
+      + (a2 && a2.n !== a1.n ? `, seguida de ${e(a2.valor)} (${nf(a2.n)}).` : '.'),
       'El área es la de la revista, no el tema del artículo, y una publicación puede tener varias: los '
       + 'porcentajes no suman 100.', figura('tematica.html', 'T-05')));
   }
@@ -1471,12 +1510,12 @@ export function analisisResultados(pubs, sel, meta, pais) {
   const partes = [];
   if (tendencia) {
     partes.push(`entre ${ini.anio} y ${fin.anio} la producción ${tendencia}`
-      + (ini.n === fin.n ? ` (${npub(ini.n)} al año en los dos extremos)` : ` (de ${nf(ini.n)} a ${nf(fin.n)} publicaciones al año)`));
+      + (ini.n === fin.n ? ` (${npub(ini.n)} al año en los dos extremos)` : ` (de ${nf(ini.n)} a ${npub(fin.n)} al año)`));
   }
   if (I.fwciMediano != null) {
     partes.push(`el impacto normalizado de la publicación típica está ${I.fwciMediano < 0.995 ? 'por debajo del'
       : I.fwciMediano > 1.005 ? 'por encima del' : 'en el'} promedio mundial (FWCI mediano ${c.num(I.fwciMediano, 2)})`
-      + (I.concentracion != null ? `, y ${pocas ? 'la publicación más citada' : 'el 10 % más citado'} reúne el `
+      + (I.concentracion != null && I.conMetricas > 1 ? `, y ${pocas ? 'la publicación más citada' : 'el 10 % más citado'} reúne el `
         + `${c.num(100 * I.concentracion, 0)} % de las citas` : ''));
   }
   if (C.internacional.base) {
@@ -1485,7 +1524,11 @@ export function analisisResultados(pubs, sel, meta, pais) {
       : 'ninguna publicación es en colaboración internacional');
   }
   // «Se concentran» afirmaba algo que la cifra no siempre sostiene: se dice cuál es la más frecuente.
-  if (T.areas.length) partes.push(`el área QS más frecuente de las revistas es ${e(T.areas[0].valor)}`);
+  if (T.areas.length) {
+    const tope = T.areas.filter(a => a.n === T.areas[0].n).map(a => e(a.valor));
+    partes.push(tope.length > 1 ? `las áreas QS más frecuentes de las revistas, empatadas, son ${unirY(tope)}`
+      : `el área QS más frecuente de las revistas es ${tope[0]}`);
+  }
   const conjunto = partes.length ? `<p>En conjunto, ${partes.join('; ')}.</p>` : '';
 
   const pequeno = h.n < (meta.n_minimo_interpretable_unidad || 20);
@@ -1511,7 +1554,7 @@ export function analisisResultados(pubs, sel, meta, pais) {
           libros y lo publicado en español quedan subrepresentados, y con ellos las unidades que publican ahí.</li>
         <li>La ventana es de ${nf((meta.ventana?.fin ?? 0) - (meta.ventana?.inicio ?? 0) + 1)} años y las citas son
           acumuladas al ${e(meta.fecha_corte_citas)}: los años recientes no son comparables con los primeros.</li>
-        <li>La unidad académica sólo se identificó en el ${c.num(P.unidad.pct, 1)} % de las publicaciones.</li>
+        ${P.unidad.pct < 100 ? `<li>La unidad académica sólo se identificó en el ${c.num(P.unidad.pct, 1)} % de las publicaciones.</li>` : ''}
         <li>Las cifras por autor cuentan formas de firma, no personas: parte de ellas sigue sin consolidar.</li>
       </ul>
       <p>El detalle de cada límite está en <a href="metodologia.html">Metodología y limitaciones</a>.</p>
