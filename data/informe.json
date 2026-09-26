@@ -2,9 +2,9 @@
  "generado": "2026-09-26",
  "build": "2026-09-21",
  "huella_publicaciones_sha256": "a86ca6f48cb0169fefc56bcb3e5d48086dc98f69b081ae6472742ecdef1b23d9",
- "codigo": "40c5eaa",
+ "codigo": "85a8eae",
  "recorte": "",
- "hojas": 83,
+ "hojas": 84,
  "archivos": [
   {
    "seccion": "index",
@@ -52,8 +52,8 @@
    "seccion": "metodologia",
    "nombre": "Metodología y limitaciones",
    "archivo": "informe/informe-cienciometrico-metodologia.pdf",
-   "hojas": 36,
-   "kb": 930
+   "hojas": 37,
+   "kb": 932
   }
  ]
 }
