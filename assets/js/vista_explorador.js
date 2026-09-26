@@ -1380,7 +1380,8 @@ export function analisisResultados(pubs, sel, meta, pais) {
             : `la unidad más frecuente es ${topeU[0]}, con ${nf(f1.n)}.`)),
       'La unidad sale de la afiliación que declara cada firma'
       // «el reparto es parcial» con 0 % sin unidad era falso.
-      + (P.unidad.pct < 100 ? ` y no se pudo determinar en el ${c.num(100 - P.unidad.pct, 1)} % de las `
+      // Se compara el recuento, no el porcentaje: redondeado, 1.999 de 2.000 da 100,0.
+      + (P.unidad.cubiertas < h.n ? ` y no se pudo determinar en el ${c.num(100 - P.unidad.pct, 1)} % de las `
         + 'publicaciones, así que el reparto es parcial.' : '.')
       + ' Una publicación firmada desde dos unidades cuenta en ambas. No compara unidades de tamaño y disciplina distintos.',
       figura('produccion.html', 'P-07')));
@@ -1554,7 +1555,7 @@ export function analisisResultados(pubs, sel, meta, pais) {
           libros y lo publicado en español quedan subrepresentados, y con ellos las unidades que publican ahí.</li>
         <li>La ventana es de ${nf((meta.ventana?.fin ?? 0) - (meta.ventana?.inicio ?? 0) + 1)} años y las citas son
           acumuladas al ${e(meta.fecha_corte_citas)}: los años recientes no son comparables con los primeros.</li>
-        ${P.unidad.pct < 100 ? `<li>La unidad académica sólo se identificó en el ${c.num(P.unidad.pct, 1)} % de las publicaciones.</li>` : ''}
+        ${P.unidad.cubiertas < h.n ? `<li>La unidad académica sólo se identificó en el ${c.num(P.unidad.pct, 1)} % de las publicaciones.</li>` : ''}
         <li>Las cifras por autor cuentan formas de firma, no personas: parte de ellas sigue sin consolidar.</li>
       </ul>
       <p>El detalle de cada límite está en <a href="metodologia.html">Metodología y limitaciones</a>.</p>

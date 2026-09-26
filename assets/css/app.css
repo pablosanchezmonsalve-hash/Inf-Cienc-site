@@ -1965,6 +1965,10 @@ svg.chart .trama { pointer-events: none; }
      hace interpretable cualquier cifra de la hoja anterior, y por D-16 no
      puede quedarse sólo en la pantalla. */
   .pie { border-top: 1.5px solid #000; padding-top: 6pt; }
+  /* Es el cierre de cada archivo: se ciñe para no partirse en dos hojas ni
+     quedar solo en una (avisa `informe_pdf.mjs`), y va entero. */
+  .pie { padding-bottom: 0; font-size: 8pt; line-height: 1.35; break-inside: avoid; }
+  .pie p { margin: 1pt 0; }
 }
 
 /* ------------------------------------------------------- catálogo de indicadores
@@ -2892,6 +2896,12 @@ svg.chart .trama { pointer-events: none; }
   .tabla-validacion tr, .ficha-datos > div { break-inside: avoid; }
   .tabla-anexo th, .tabla-anexo td { padding: var(--e2) var(--e3); }
   .referencias > li { break-inside: avoid; }
+  /* Doce referencias con enlace y lo que sustentan llenan justo tres hojas: con
+     el espaciado de pantalla, el pie de cierre (universo y denominadores, D-16)
+     caía solo en una hoja 37 de 375 caracteres. En papel se ciñen. */
+  .referencias > li { padding: 1.6mm 0; }
+  .referencias-grupo + .referencias-grupo { margin-top: 3mm; }
+  .referencias .nota { margin-top: .5mm; }
 }
 
 /* ── Síntesis de la portada (D-714) ──────────────────────────────────────
@@ -2980,4 +2990,18 @@ svg.chart .trama { pointer-events: none; }
   .corte[data-corte="mas_citadas"] th:nth-child(6) { width: 9%; }
   .corte[data-corte="mas_citadas"] th:nth-child(7) { width: 15%; }
   .corte[data-corte="mas_citadas"] td { overflow-wrap: anywhere; }
+}
+
+/* ── Indicadores no publicados, en papel ──────────────────────────────────
+   Son la cola de Impacto y de Áreas temáticas, y con el espaciado de pantalla
+   el último de la lista caía solo en una hoja con el pie de cierre (394 y 376
+   caracteres): lo avisa `informe_pdf.mjs`. En papel se ciñen; cada módulo
+   sigue sin partirse. */
+@media print {
+  .no-publicados { padding-block: 4mm; }
+  .no-publicados .banda-titulo { margin-bottom: 2mm; }
+  .no-publicados .modulo-diferido { padding: 2mm 3mm; margin-bottom: 2mm; }
+  .no-publicados .modulo-diferido > header { padding-bottom: 1mm; margin-bottom: 1mm; }
+  .no-publicados .modulo-diferido h3 { font-size: 10pt; }
+  .no-publicados .modulo-diferido .nota { margin: 0; }
 }
