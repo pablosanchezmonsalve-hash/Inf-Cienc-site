@@ -2,7 +2,7 @@
  "generado": "2026-09-26",
  "build": "2026-09-21",
  "huella_publicaciones_sha256": "a86ca6f48cb0169fefc56bcb3e5d48086dc98f69b081ae6472742ecdef1b23d9",
- "codigo": "e46674a",
+ "codigo": "40c5eaa",
  "recorte": "",
  "hojas": 83,
  "archivos": [
@@ -11,7 +11,7 @@
    "nombre": "Portada",
    "archivo": "informe/informe-cienciometrico-index.pdf",
    "hojas": 11,
-   "kb": 911
+   "kb": 905
   },
   {
    "seccion": "produccion",
@@ -53,7 +53,7 @@
    "nombre": "Metodología y limitaciones",
    "archivo": "informe/informe-cienciometrico-metodologia.pdf",
    "hojas": 36,
-   "kb": 929
+   "kb": 930
   }
  ]
 }
