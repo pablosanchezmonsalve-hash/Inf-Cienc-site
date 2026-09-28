@@ -95,12 +95,31 @@ export function datosCsv(meta) {
       <a href="publicaciones.html">Publicaciones</a> y use «Exportar CSV».</p>`;
 }
 
+/** Cómo hacer llegar una solicitud de corrección (D-744). Hasta el 2026-09-28
+    el canal era un hueco declarado (D-193): «la vía institucional no está
+    definida». El responsable y el correo salen de `institucion.json`. */
+export function canalCorrecciones(inst) {
+  if (!inst) return '';
+  const r = inst.responsable;
+  return `<p class="nota-destacada"><b>Cómo enviar una solicitud</b>Escriba a
+    <a href="mailto:${c.escapar(r.contacto)}">${c.escapar(r.contacto)}</a>, indicando la ficha
+    (su dirección en este sitio) y qué dato considera erróneo. Responde por el informe
+    ${c.escapar(r.persona)}, ${c.escapar(r.unidad)}, ${c.escapar(r.institucion)}. La solicitud
+    entra en la cola de revisión humana descrita arriba.</p>`;
+}
+
 /** Condiciones y procedencia. Sólo lo que se puede comprobar: ni una licencia
     que falta confirmar con Elsevier (docs/DATA_LICENSE.md §5) ni un sello de
     conformidad. `notaUniverso` es la nota de P-01, que declara los duplicados
     pendientes de revisión (D-593). */
-export function datosCondiciones(meta, notaUniverso) {
+export function datosCondiciones(meta, notaUniverso, inst = null) {
+  // Condición de uso de lo que se descarga (D-745): antes de ella, la CC BY 4.0
+  // aprobada en julio no se declaraba aquí porque dependía de Elsevier.
+  const uso = inst ? `<li><b>Uso exclusivo.</b> © ${c.escapar(inst.derechos.anio)} ${c.escapar(inst.derechos.titular)}.
+      ${c.escapar(inst.derechos.aviso)} Solicitudes de autorización:
+      <a href="mailto:${c.escapar(inst.responsable.contacto)}">${c.escapar(inst.responsable.contacto)}</a>.</li>` : '';
   return `<ul class="datos-condiciones">
+    ${uso}
     <li>Los exports originales de Scopus y SciVal <b>no se publican</b>: el sitio sirve
       datos derivados de ellos.</li>
     <li>Qué métricas derivadas de Elsevier permite publicar la licencia institucional

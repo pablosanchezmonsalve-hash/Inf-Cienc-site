@@ -224,7 +224,7 @@ function nombrePagina(href) {
   return href === 'autor.html' ? 'Ficha de autor' : '';
 }
 
-export function cromo(meta, paginaActual, tema = 'auto') {
+export function cromo(meta, paginaActual, tema = 'auto', inst = null) {
   const nav = navHtml(paginaActual);
   const actual = nombrePagina(paginaActual);
   // El universo, no el largo de `publications.json`: aquí no hay corpus
@@ -350,8 +350,35 @@ export function cromo(meta, paginaActual, tema = 'auto') {
       ${nf.format(meta.denominadores.con_metricas)} con métricas ·
       ${nf.format(meta.denominadores.con_autoria_detallada)} con autoría detallada.
       Build ${meta.fecha_build}.</p>
+      ${inst ? piePropiedad(inst) : ''}
     </div>`,
   };
+}
+
+/** Quién responde por el informe, a dónde escribir y en qué condiciones se usa
+    (D-744, D-745). Sale de `institucion.json`, que el build genera desde
+    `config/institution.yml`: otra institución cambia la configuración, no esto.
+    Va en el pie de todas las páginas y, por tanto, al pie del último folio de
+    cada PDF. */
+export function piePropiedad(inst) {
+  const r = inst.responsable, d = inst.derechos;
+  // En papel va el aviso corto: el pie se repite al cierre de cada archivo y el
+  // aviso completo, de tres renglones, empujaba el pie a una hoja propia. La
+  // carátula del PDF lleva el completo.
+  return `<p class="pie-propiedad">Responsable: ${escapar(r.persona)}, ${escapar(r.unidad)},
+      ${escapar(r.institucion)} · Contacto:
+      <a href="mailto:${escapar(r.contacto)}">${escapar(r.contacto)}</a></p>
+      <p class="pie-derechos">© ${escapar(d.anio)} ${escapar(d.titular)}.
+      <span class="pie-aviso">${escapar(d.aviso)}</span><span class="pie-aviso-corto">${
+        escapar(d.aviso_corto || d.aviso)}</span></p>`;
+}
+
+/** La línea de derechos de un CSV exportado (D-745): el archivo sale del sitio y
+    tiene que llevar consigo sus condiciones de uso, como lleva su procedencia. */
+export async function lineaDerechosCsv() {
+  const inst = await cargar('institucion.json').catch(() => null);
+  return inst ? `# © ${inst.derechos.anio} ${inst.derechos.titular}. ${inst.derechos.aviso} `
+    + `Contacto: ${inst.responsable.contacto}` : null;
 }
 
 /** Escribe el cromo en la página y engancha el conmutador de tema.
@@ -364,7 +391,9 @@ export async function montarCabecera(paginaActual) {
   const cab = document.getElementById('cabecera');
 
   if (!cab.dataset.prerender) {
-    const html = cromo(meta, paginaActual, temaInicial());
+    // Si falta, el pie sale sin el bloque de propiedad en vez de romper la página.
+    const inst = await cargar('institucion.json').catch(() => null);
+    const html = cromo(meta, paginaActual, temaInicial(), inst);
     cab.innerHTML = html.cabecera;
     document.getElementById('vigencia').innerHTML = html.vigencia;
     const pie = document.getElementById('pie');

@@ -703,7 +703,8 @@ async function exportar(filas, { esSeleccion = false } = {}) {
     esSeleccion
       ? `# Selección manual: ${filas.length} ${filas.length === 1 ? 'publicación marcada' : 'publicaciones marcadas'} una por una, de ${meta.denominadores.universo_total} en total.`
       : `# Subconjunto exportado: ${filas.length} de ${meta.denominadores.universo_total} publicaciones`,
-  ].join('\n');
+    await c.lineaDerechosCsv(),
+  ].filter(Boolean).join('\n');
   const cols = v.COLUMNAS_CSV;
   const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
   const csv = [cab, cols.join(','), ...filas.map(f => cols.map(k => esc(f[k])).join(','))].join('\n');
@@ -1048,6 +1049,11 @@ async function metodologia() {
   // escribirla a mano en el HTML es exactamente cómo terminó diciendo
   // "216 de 556" cuando ya eran 280 de 538. Se calcula aquí, sobre el mismo
   // authors.json que sirve autores.html, para que nunca vuelva a desactualizarse.
+  const canalEl = document.getElementById('canal-correcciones');
+  if (canalEl && !yaPintado(canalEl)) {
+    canalEl.innerHTML = v.canalCorrecciones(await c.cargar('institucion.json').catch(() => null));
+  }
+
   const orcidEl = document.getElementById('orcid-cobertura');
   const { autores } = await c.cargar('authors.json');
   if (orcidEl) orcidEl.textContent = v.coberturaOrcid(autores);
@@ -1284,7 +1290,7 @@ async function fuentesexternas() {
     if (sig) sig.onclick = () => { pagina++; pintar(); };
   }
 
-  document.addEventListener('click', e => {
+  document.addEventListener('click', async e => {
     const chip = e.target.closest('.chip[data-dim]');
     if (chip) {
       const { dim, valor } = chip.dataset;
@@ -1303,7 +1309,8 @@ async function fuentesexternas() {
       if (sel.fuente && sel.fuente.length) f = f.filter(p => (p.fuentes_id || []).some(x => sel.fuente.includes(x)));
       if (sel.anio && sel.anio.length) f = f.filter(p => sel.anio.includes(String(p.anio)));
       if (sel.q) { const nq = sel.q.toLowerCase(); f = f.filter(p => (p.titulo||'').toLowerCase().includes(nq)); }
-      const cab = [`# Producción fuera del corpus Scopus — UFT`, `# ${f.length} de ${pubs.length} publicaciones`, `# Generado el ${meta.fecha_generacion}`].join('\n');
+      const cab = [`# Producción fuera del corpus Scopus — UFT`, `# ${f.length} de ${pubs.length} publicaciones`, `# Generado el ${meta.fecha_generacion}`,
+        await c.lineaDerechosCsv()].filter(Boolean).join('\n');
       const cols = ['titulo', 'doi', 'anio', 'tipo', 'fuentes', 'escuela'];
       const esc = v => `"${String(Array.isArray(v) ? v.join(' · ') : (v ?? '')).replace(/"/g, '""')}"`;
       const csv = [cab, cols.join(','), ...f.map(r => cols.map(k => esc(r[k])).join(','))].join('\n');

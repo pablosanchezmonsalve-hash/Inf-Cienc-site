@@ -1969,6 +1969,16 @@ svg.chart .trama { pointer-events: none; }
      quedar solo en una (avisa `informe_pdf.mjs`), y va entero. */
   .pie { padding-bottom: 0; font-size: 8pt; line-height: 1.35; break-inside: avoid; }
   .pie p { margin: 1pt 0; }
+  .pie-propiedad, .pie-derechos { font-size: 7.5pt; }
+}
+/* Pantalla: el aviso completo. Papel: el corto. Van después del bloque de papel
+   de arriba y con la misma especificidad en los dos medios, para que el orden
+   no decida por ellos (con la regla de pantalla detrás, el corto no salía). */
+.pie-propiedad, .pie-derechos { font-size: var(--t-xs, .8rem); }
+.pie-derechos .pie-aviso-corto { display: none; }
+@media print {
+  .pie-derechos .pie-aviso { display: none; }
+  .pie-derechos .pie-aviso-corto { display: inline; }
 }
 
 /* ------------------------------------------------------- catálogo de indicadores
@@ -2627,7 +2637,7 @@ svg.chart .trama { pointer-events: none; }
      La altura se pide en `min-height` y no en `height` para que un recorte de
      nombre largo la estire en vez de desbordarla. */
   .portada-informe {
-    min-height: 232mm; padding: 16mm 0 0; break-after: page; break-inside: avoid;
+    min-height: 232mm; padding: 6mm 0 0; break-after: page; break-inside: avoid;
   }
   .pi-institucion {
     font-size: 11pt; letter-spacing: .1em; text-transform: uppercase;
@@ -2642,23 +2652,26 @@ svg.chart .trama { pointer-events: none; }
      que se imprime más grande que la procedencia y antes que ella. */
   .pi-alcance { font-size: 13pt; line-height: 1.45; margin: 0 0 2mm; max-width: 140mm; }
   .pi-seleccion { font-size: 10.5pt; color: #333; margin: 0 0 2mm; max-width: 140mm; }
-  .pi-ventana { font-size: 11pt; color: #333; margin: 0 0 9mm; }
+  .pi-ventana { font-size: 11pt; color: #333; margin: 0 0 6mm; }
 
   .pi-datos { margin: 0 0 3mm; max-width: 118mm; }
   /* Qué es la huella y qué no (D-715), y el uso responsable: van con los datos
      de procedencia, en letra de nota, antes de las bases. */
-  .pi-huella-nota { font-size: 8.5pt; line-height: 1.45; color: #444; margin: 0 0 6mm; max-width: 118mm; }
+  .pi-huella-nota { font-size: 8.5pt; line-height: 1.45; color: #444; margin: 0 0 4mm; max-width: 118mm; }
   .pi-uso {
-    font-size: 9.5pt; line-height: 1.5; margin: 0 0 7mm; max-width: 140mm;
+    font-size: 9.5pt; line-height: 1.5; margin: 0 0 4mm; max-width: 140mm;
     padding: 3mm 4mm; border-left: 2px solid #000; background: #f4f4f4;
   }
   .pi-fila {
     display: flex; justify-content: space-between; gap: 8mm;
-    font-size: 10pt; margin: 0; padding: 1.6mm 0; border-bottom: .5pt solid #ddd;
+    font-size: 10pt; margin: 0; padding: 1.1mm 0; border-bottom: .5pt solid #ddd;
   }
   .pi-rotulo { color: #444; }
   .pi-valor { font-variant-numeric: tabular-nums; text-align: right; }
 
+  /* Cómo citar y derechos (D-744, D-745): letra de nota, antes de las bases. */
+  .pi-cita, .pi-derechos { font-size: 8.5pt; line-height: 1.45; color: #333; margin: 4mm 0 0; max-width: 140mm; }
+  .pi-derechos { margin-top: 1.5mm; }
   .pi-bases { max-width: 140mm; }
   .pi-bases-tit {
     font-size: 8.5pt; letter-spacing: .08em; text-transform: uppercase;
