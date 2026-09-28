@@ -1423,8 +1423,13 @@ async function montarPortadaPapel(archivo) {
 
   const folio = document.createElement('style');
   folio.id = 'folio-papel';
-  folio.textContent = v.folioCSS(`${v.etiquetaInforme(meta)} · ${seccion}`);
+  folio.textContent = v.marcaCSS(inst) + v.folioCSS(`${v.etiquetaInforme(meta)} · ${seccion}`);
   document.head.appendChild(folio);
+  // La tipografía del papel (Arimo, D-752) sólo la usa la impresión: se pide
+  // ya, para que esté cuando alguien imprima y no salga la de reserva.
+  if (document.fonts) {
+    ['400 10pt Arimo', '700 10pt Arimo'].forEach((f) => document.fonts.load(f, 'Áá').catch(() => {}));
+  }
 
   window.addEventListener('beforeprint', () => {
     const portada = document.querySelector('[data-portada]');

@@ -2,71 +2,71 @@
  "generado": "2026-09-28",
  "build": "2026-09-21",
  "huella_publicaciones_sha256": "a86ca6f48cb0169fefc56bcb3e5d48086dc98f69b081ae6472742ecdef1b23d9",
- "codigo": "835d07b",
+ "codigo": "31d89a4",
  "recorte": "",
  "completo": {
   "archivo": "informe/informe-cienciometrico.pdf",
-  "hojas": 74,
-  "kb": 4858,
+  "hojas": 83,
+  "kb": 3805,
   "secciones": 8
  },
- "hojas": 96,
+ "hojas": 95,
  "archivos": [
   {
    "seccion": "introduccion",
    "nombre": "Introducción",
    "archivo": "informe/informe-cienciometrico-introduccion.pdf",
    "hojas": 8,
-   "kb": 409
+   "kb": 176
   },
   {
    "seccion": "panorama",
    "nombre": "Panorama general",
    "archivo": "informe/informe-cienciometrico-panorama.pdf",
-   "hojas": 10,
-   "kb": 766
+   "hojas": 9,
+   "kb": 409
   },
   {
    "seccion": "produccion",
    "nombre": "Producción",
    "archivo": "informe/informe-cienciometrico-produccion.pdf",
    "hojas": 9,
-   "kb": 1162
+   "kb": 642
   },
   {
    "seccion": "impacto",
    "nombre": "Impacto",
    "archivo": "informe/informe-cienciometrico-impacto.pdf",
    "hojas": 10,
-   "kb": 902
+   "kb": 485
   },
   {
    "seccion": "colaboracion",
    "nombre": "Colaboración",
    "archivo": "informe/informe-cienciometrico-colaboracion.pdf",
    "hojas": 9,
-   "kb": 2031
+   "kb": 1599
   },
   {
    "seccion": "tematica",
    "nombre": "Áreas temáticas",
    "archivo": "informe/informe-cienciometrico-tematica.pdf",
    "hojas": 6,
-   "kb": 805
+   "kb": 440
   },
   {
    "seccion": "analisis",
    "nombre": "Análisis de resultados",
    "archivo": "informe/informe-cienciometrico-analisis.pdf",
    "hojas": 6,
-   "kb": 286
+   "kb": 91
   },
   {
    "seccion": "metodologia",
    "nombre": "Metodología y limitaciones",
    "archivo": "informe/informe-cienciometrico-metodologia.pdf",
    "hojas": 38,
-   "kb": 1015
+   "kb": 599
   }
  ]
 }

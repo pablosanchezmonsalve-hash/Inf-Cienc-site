@@ -219,9 +219,23 @@ function contenidoInforme(seccion, seleccion) {
     : 'Informe completo: todas las secciones';
 }
 
-/** El rótulo que identifica el informe en el folio de cada hoja. */
+/** El rótulo que identifica el informe en el folio de cada hoja. Con el
+    nombre completo de la institución y no su sigla: el Manual de Marca reserva
+    «UFT» a los textos internos que la requieran (p. 38, D-752). */
 export function etiquetaInforme(meta) {
-  return [meta.titulo_plataforma, meta.institucion_corta].filter(Boolean).join(' · ');
+  return [meta.titulo_plataforma, meta.institucion].filter(Boolean).join(' · ');
+}
+
+/** Los colores de marca del informe como variables CSS (D-752), desde
+    `institucion.json` —es decir, desde `config/institution.yml`—. La hoja de
+    estilo de papel las usa con un valor de reserva, así que sin
+    configuración el informe sale en negro y gris. */
+export function marcaCSS(inst) {
+  const col = (inst && inst.marca && inst.marca.colores) || {};
+  const decl = Object.entries({ tinta: col.tinta, acento: col.acento, suave: col.suave })
+    .filter(([, v]) => /^#[0-9a-f]{6}$/i.test(v || ''))
+    .map(([k, v]) => `--marca-${k}: ${v};`);
+  return decl.length ? `:root { ${decl.join(' ')} }\n` : '';
 }
 
 /** La portada. `seccion` es el nombre de la sección que contiene el archivo,
@@ -234,12 +248,18 @@ export function portadaInforme({ meta, inst, intro, seccion = null, alcance = ''
   const v = meta.ventana || {};
   const r = inst && inst.responsable;
   const d = inst && inst.derechos;
+  /* El logo de la Dirección, cuando exista su archivo (D-752): el manual pide
+     el de la división y lo trae sólo como imagen, que no se redibuja. El logo
+     ya lleva el nombre de la institución y de la unidad, así que en su lugar
+     no se repiten en texto. */
+  const logo = inst && inst.marca && inst.marca.logo;
   const dato = (rotulo, valor, attr = '') =>
     `<div class="pi-dato"><dt>${e(rotulo)}</dt><dd${attr}>${valor}</dd></div>`;
   return `<section class="portada-informe solo-papel" data-portada aria-label="Portada del informe">
-    <header class="pi-cabeza">
+    <header class="pi-cabeza">${logo ? `
+      <img class="pi-logo" src="${e(logo)}" alt="${e(inst.marca.logo_alt || meta.institucion || '')}">` : `
       <p class="pi-institucion">${e(meta.institucion || '')}</p>
-      ${r ? `<p class="pi-unidad">${e(r.unidad)}</p>` : ''}
+      ${r ? `<p class="pi-unidad">${e(r.unidad)}</p>` : ''}`}
     </header>
     <div class="pi-centro">
       <h1 class="pi-titulo">${e(meta.titulo_plataforma || 'Informe bibliométrico')}</h1>

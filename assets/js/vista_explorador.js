@@ -540,7 +540,10 @@ export function explorador(pubs, sel, proc, jerarquia, meta, umbral, textos) {
 const AVISO_CITAS_POR_ANIO = 'Las citas se cuentan por año de publicación, no por '
   + 'año de citación: lo publicado en un año reciente tuvo menos tiempo para acumularlas.';
 
-const DINAMICA = { campo: 'dinamica', titulo: 'Dinámica anual' };
+// `rotulo` y no código: la compuerta de lecturas (04_glossary.py) toma cada
+// código declarado por una figura con lectura propia, y ésta la tiene por su
+// campo.
+const DINAMICA = { campo: 'dinamica', titulo: 'Dinámica anual', rotulo: 'P-02 · I-01' };
 const MAS_CITADAS = { cod: 'I-07', titulo: 'Publicaciones más citadas', tope: 10 };
 
 /* Cómo se lee la tabla de más citadas. Vive aquí y no en indicators.yml porque
@@ -1014,7 +1017,7 @@ function sinGraficos() {
 export function graficosPortada() {
   return [
     ...CORTES.map(([clave, titulo]) => [COD_PORTADA[clave], titulo]),
-    ['P-02 · I-01', DINAMICA.titulo],
+    [DINAMICA.rotulo, DINAMICA.titulo],
     [MAS_CITADAS.cod, MAS_CITADAS.titulo],
   ];
 }
@@ -1041,7 +1044,7 @@ export function guiaDeFiguras() {
       const cod = COD_PORTADA[campo];
       return { clave: cod, cod, titulo, fuentes: [cod] };
     }),
-    { clave: DINAMICA.campo, cod: 'P-02 · I-01', titulo: DINAMICA.titulo, fuentes: ['P-02', 'I-01'] },
+    { clave: DINAMICA.campo, cod: DINAMICA.rotulo, titulo: DINAMICA.titulo, fuentes: ['P-02', 'I-01'] },
     { clave: MAS_CITADAS.cod, cod: MAS_CITADAS.cod, titulo: MAS_CITADAS.titulo, fuentes: [MAS_CITADAS.cod] },
   ];
   return [
