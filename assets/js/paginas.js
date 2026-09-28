@@ -66,21 +66,32 @@ async function montarDescargaInforme() {
   if (!inf?.archivos?.length) return;
 
   const viejo = inf.build && meta.fecha_build && inf.build !== meta.fecha_build;
+  const kb = (n) => `${c.nf.format(n)} KB`;
+  const hojas = (n) => `${c.nf.format(n)} ${n === 1 ? 'hoja' : 'hojas'}`;
+  /* El documento único (D-750) y, debajo, cada sección por separado. Un
+     manifiesto anterior a D-750 no trae `completo`: se ofrece la lista, como
+     entonces, en vez de romper el bloque. */
+  const completo = inf.completo && inf.completo.archivo ? inf.completo : null;
   caja.innerHTML = `
     <h2>El informe completo, en PDF</h2>
-    <p class="informe-pdf-intro">Las seis secciones con sus gráficos explicados,
-      hojas numeradas e índice. ${c.nf.format(inf.hojas)} hojas en
-      ${inf.archivos.length} archivos, uno por sección.
+    <p class="informe-pdf-intro">${completo
+      ? 'Un solo documento con portada, ficha del informe, índice, introducción y todas las '
+        + 'secciones, con las hojas numeradas y marcadores para navegarlo. Cada sección se '
+        + 'ofrece también por separado, con su propia portada.'
+      : `Las secciones con sus gráficos explicados y hojas numeradas, en
+        ${inf.archivos.length} archivos, uno por sección.`}
       El botón «Descargar informe» de arriba hace otra cosa: da la página que
       está viendo, con los filtros que tenga puestos.</p>
     ${viejo ? `<p class="nota-destacada"><b>Informe de una carga anterior.</b>
       Se compuso con los datos del ${c.escapar(inf.build)} y el sitio sirve los
       del ${c.escapar(meta.fecha_build)}. Las cifras del PDF pueden no coincidir
       con las de esta página.</p>` : ''}
+    ${completo ? `<p class="informe-pdf-completo"><a href="${c.escapar(completo.archivo)}" download>Informe
+      completo</a> <span class="informe-pdf-dato">${completo.hojas ? `${hojas(completo.hojas)} · ` : ''}${kb(completo.kb)}</span></p>
+    <h3 class="informe-pdf-sub">Por sección</h3>` : ''}
     <ul class="informe-pdf-lista">${inf.archivos.map(a => `
       <li><a href="${c.escapar(a.archivo)}" download>${c.escapar(a.nombre)}</a>
-        <span class="informe-pdf-dato">${a.hojas} ${a.hojas === 1 ? 'hoja' : 'hojas'}
-          · ${c.nf.format(a.kb)} KB</span></li>`).join('')}
+        <span class="informe-pdf-dato">${hojas(a.hojas)} · ${kb(a.kb)}</span></li>`).join('')}
     </ul>`;
   caja.hidden = false;
 }
@@ -1346,6 +1357,85 @@ async function datos() {
   });
 }
 
+/** Introducción (D-748). El pre-renderizado la deja escrita entera; aquí sólo
+    se compone si faltó —un sitio ensamblado sin Node—, con la misma función. */
+async function introduccion() {
+  const cont = document.getElementById('introduccion');
+  if (!cont || yaPintado(cont)) return;
+  const [intro, ejes, meta, inst, anexo, lect] = await Promise.all([
+    c.cargar('introduccion.json'), c.cargar('ejes.json'), c.cargar('meta.json'),
+    c.cargar('institucion.json').catch(() => null), c.cargar('metodologia.json'),
+    c.cargar('lecturas.json')]);
+  cont.innerHTML = v.introduccion({
+    intro, objetivos: ejes.objetivos, meta, inst, corpus: anexo.corpus, lecturas: lect.lecturas,
+    guia: VX.guiaDeFiguras(), cifras: VX.cifrasDelTablero(),
+    fuentePorCodigo: Object.fromEntries(anexo.indicadores.map((i) => [i.codigo, i.fuente])),
+  });
+}
+
+/* ====================================================== portada en papel */
+/** El nombre con que la portada y el folio citan la página: el de la parte del
+    informe si lo es («Panorama general» para la primera página), y si no el de
+    la navegación. */
+function nombreDeParte(archivo) {
+  const parte = Object.values(c.PARTES_INFORME).find(([href]) => href === archivo);
+  if (parte) return parte[1];
+  const pagina = c.PAGINAS.find(([href]) => href === archivo);
+  if (pagina) return pagina[1];
+  return archivo === 'autor.html' ? 'Ficha de autor' : 'Informe';
+}
+
+/** La fecha de hoy en el reloj del lector, no en UTC: un informe impreso a las
+    22:00 en Santiago no puede decir que se emitió mañana. */
+function hoyLocal() {
+  const d = new Date();
+  const dos = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${dos(d.getMonth() + 1)}-${dos(d.getDate())}`;
+}
+
+/** Portada, ficha y folio en CADA página (D-749, D-750): lo que imprime el
+    botón «Descargar informe» abre, como el PDF generado, con su portada y su
+    ficha, y cada hoja lleva el folio del informe. En pantalla no se ven
+    (`.solo-papel`).
+
+    Se componen al cargar, porque `beforeprint` no espera a una petición, y se
+    vuelven a componer al imprimir con los datos ya en memoria: la fecha y el
+    recorte pueden haber cambiado desde la carga. El generador del PDF pone las
+    suyas —con la huella y la versión, que sólo él conoce— y las marca con
+    `data-generador`; ésas no se tocan.
+
+    Sin `institucion.json` o sin `introduccion.json` se imprime con lo que
+    haya: la portada no inventa un responsable. */
+async function montarPortadaPapel(archivo) {
+  const vigencia = document.getElementById('vigencia');
+  if (!vigencia || document.querySelector('[data-portada]')) return;
+  const [meta, inst, intro] = await Promise.all([
+    c.cargar('meta.json'), c.cargar('institucion.json').catch(() => null),
+    c.cargar('introduccion.json').catch(() => null)]);
+  const seccion = nombreDeParte(archivo);
+  const leer = (id) => (document.getElementById(id)?.textContent || '').trim();
+  const datos = () => ({
+    meta, inst, intro, seccion, emision: hoyLocal(),
+    alcance: leer('recorte-impreso'), seleccion: leer('seleccion-impresa'),
+    filtra: X.describir(X.leerURL()).length > 0,
+  });
+  vigencia.insertAdjacentHTML('beforebegin', v.portadaInforme(datos()) + v.fichaInforme(datos()));
+
+  const folio = document.createElement('style');
+  folio.id = 'folio-papel';
+  folio.textContent = v.folioCSS(`${v.etiquetaInforme(meta)} · ${seccion}`);
+  document.head.appendChild(folio);
+
+  window.addEventListener('beforeprint', () => {
+    const portada = document.querySelector('[data-portada]');
+    const ficha = document.querySelector('[data-ficha]');
+    if (!portada || portada.dataset.generador) return;
+    const d = datos();
+    portada.outerHTML = v.portadaInforme(d);
+    if (ficha) ficha.outerHTML = v.fichaInforme(d);
+  });
+}
+
 /** Análisis de resultados: el texto se escribe desde las cifras del recorte
     (`VX.analisisResultados`). Sin filtros, el pre-renderizado ya trae el del
     informe completo y no se toca; con filtros en la URL, se reescribe. */
@@ -1362,7 +1452,7 @@ async function analisis() {
   cont.innerHTML = VX.analisisResultados(publicaciones, sel, meta, anexo.corpus?.pais);
 }
 
-const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada, datos, analisis };
+const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada, datos, analisis, introduccion };
 
 /** C-05: fija (o suelta, si ya estaba fijado) el nodo `g` y resalta sus
     coautores directos — mismo patrón visual que el filtro atenúa las barras
@@ -1427,6 +1517,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         + 'gráficos del informe. '
         + 'Las cifras no cambian: lo que se acota es qué figuras se muestran.';
     }
+    // Después de escribir el recorte y la selección, que la portada lee. No se
+    // espera: son dos archivos pequeños y la página no depende de ellos.
+    montarPortadaPapel(archivo).catch(() => {});
     await c.montarAyuda();
     c.montarTooltip();
     if (PAGINAS[pagina]) await PAGINAS[pagina]();

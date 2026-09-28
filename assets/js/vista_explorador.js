@@ -18,15 +18,24 @@ import * as G from './grafo.js';
     el tablero repetía justo debajo, y una cifra del total en la banda se lee
     como la del recorte que se está mirando. El Cockpit ponía ahí el universo y
     un crecimiento: el universo ya lo dice la línea de estado, y el crecimiento
-    es un indicador que el catálogo declara no calculable (X-04). */
+    es un indicador que el catálogo declara no calculable (X-04).
+
+    Sin el aviso de cierre de ventana ni el desplegable «Qué mide este informe
+    y qué no», por decisión del usuario (D-747): se leían como texto suelto en
+    la primera hoja del informe descargado. Lo que decían no se pierde, se
+    ordena: el alcance, las fuentes y cómo leer las bases de cálculo van en la
+    Introducción (`introduccion.html`), y la ventana sigue declarada aquí al
+    lado, en «Ventana». */
 export function cabecera(meta) {
   const v = meta.ventana || {};
+  // En papel la página es una sección del informe, no su portada: se titula
+  // con su nombre de parte y el título de pantalla se apaga (app.css).
   return `<div class="portada-id">
+    <h1 class="titulo-papel solo-papel">${c.escapar(c.PARTES_INFORME.panorama[1])}</h1>
     <h1>Informe bibliométrico</h1>
     <p class="portada-sub">${c.escapar(meta.institucion || 'Universidad Finis Terrae')}</p>
-    <p class="ventana-cierre">La ventana de este informe termina en
-      <b>${c.escapar(String(v.fin ?? ''))}</b>: lo publicado después
-      <b>no está aquí</b>. La fija la carga de datos, no la fecha en que usted lo lee.</p>
+    <p class="portada-intro"><a href="introduccion.html">Introducción: objetivos,
+      fuentes de los datos y cómo leer cada gráfico&nbsp;→</a></p>
   </div>
   <div class="cockpit-lado">
     <p class="cockpit-rotulo">No cambia con el recorte</p>
@@ -35,20 +44,7 @@ export function cabecera(meta) {
       <div><dt>Ventana</dt><dd>${c.escapar(String(v.inicio ?? ''))}–${c.escapar(String(v.fin ?? ''))}</dd></div>
       <div><dt>Citas al</dt><dd>${c.escapar(meta.fecha_corte_citas || '')}</dd></div>
     </dl>
-  </div>
-  <details class="metodo portada-metodo">
-    <summary>Qué mide este informe y qué no</summary>
-    <div class="metodo-cuerpo">
-      <p>Producción, impacto, colaboración y estructura temática de la actividad
-      científica indexada en <b>Scopus</b>, con las métricas normalizadas de
-      <b>SciVal</b>. No mide la actividad académica total: sólo lo que esas dos
-      fuentes recogen.</p>
-      <p>Cada cifra declara <b>sobre cuántas publicaciones se calcula</b>, y esa
-      base cambia según el indicador: no todas las publicaciones tienen
-      métricas. Por eso dos cifras de esta página pueden no cuadrar entre sí sin
-      que ninguna esté mal.</p>
-    </div>
-  </details>`;
+  </div>`;
 }
 
 /* ───────────────────────────────────────────────────────── cifras grandes */
@@ -1021,6 +1017,54 @@ export function graficosPortada() {
     ['P-02 · I-01', DINAMICA.titulo],
     [MAS_CITADAS.cod, MAS_CITADAS.titulo],
   ];
+}
+
+/* ── La guía de figuras de la Introducción (D-748) ──────────────────────────
+   Qué figuras trae cada parte del informe, en el orden en que aparecen: la
+   clave de su lectura en `docs/LECTURAS.md`, el código que la rotula y los
+   indicadores cuya fuente declara. Sale de los mismos registros que dibujan
+   las figuras —CORTES, SECCIONES, DINAMICA, MAS_CITADAS—, así que una figura
+   nueva entra sola en la guía.
+
+   Las dos figuras bento de Producción no pasan por esos registros: las monta
+   `produccion.html` desde su propio marcado, sin código. Se declaran aquí con
+   el indicador cuyos datos dibujan —el treemap reparte la atribución de P-07
+   por facultad y escuela; el mapa de calor, la clasificación ASJC de T-01—, y
+   su título es el de su lectura, que es el de su tarjeta. */
+const FIGURAS_BENTO = {
+  produccion: [{ clave: 'treemap', fuentes: ['P-07'] }, { clave: 'heatmap', fuentes: ['T-01'] }],
+};
+
+export function guiaDeFiguras() {
+  const panorama = [
+    ...CORTES.map(([campo, titulo]) => {
+      const cod = COD_PORTADA[campo];
+      return { clave: cod, cod, titulo, fuentes: [cod] };
+    }),
+    { clave: DINAMICA.campo, cod: 'P-02 · I-01', titulo: DINAMICA.titulo, fuentes: ['P-02', 'I-01'] },
+    { clave: MAS_CITADAS.cod, cod: MAS_CITADAS.cod, titulo: MAS_CITADAS.titulo, fuentes: [MAS_CITADAS.cod] },
+  ];
+  return [
+    { parte: 'panorama', figuras: panorama },
+    ...Object.entries(SECCIONES).map(([parte, s]) => ({
+      parte,
+      figuras: [
+        // La escuela no tiene código propio: es P-07 vista un nivel más abajo,
+        // y su fuente es la de P-07 (`seleccionCon`). El sello de I-08, I-09 y
+        // AU-07 es el de otro indicador (`sello`), y su fuente también.
+        ...s.cortes.map((k) => ({
+          clave: k.cod || k.campo, cod: k.cod || '', titulo: k.titulo,
+          fuentes: [(k.sello && k.sello[1]) || k.cod || k.seleccionCon].filter(Boolean),
+        })),
+        ...(FIGURAS_BENTO[parte] || []).map((f) => ({ ...f, cod: '', titulo: null })),
+      ],
+    })),
+  ];
+}
+
+/** Las seis cifras del tablero, con el rótulo de su base, para la guía. */
+export function cifrasDelTablero() {
+  return FICHAS.map(([clave, etiqueta, base]) => ({ clave, etiqueta, base }));
 }
 
 export function seccionDeGrafico() {

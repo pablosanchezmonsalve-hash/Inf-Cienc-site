@@ -157,25 +157,22 @@ export function datosInventario(filas, noListados) {
     ${noListados.map(n => `<code>data/${c.escapar(n.archivo)}</code> (${c.escapar(n.motivo)})`).join(', ')}.</p>`;
 }
 
+/** Las partes del informe (`core.js`): las usan el índice, la portada, el
+    folio y los enlaces de los objetivos. */
+export const PARTES_INFORME = c.PARTES_INFORME;
+
 /** Los objetivos del informe (`docs/OBJETIVOS.md`, vía `ejes.json`).
 
-    Van al principio de la portada —y del PDF, tras la carátula y el índice—
-    porque un informe que no declara qué se propone medir deja que cada lector
-    lo decida. Cada objetivo específico enlaza a la sección que lo cumple, y
-    «Fuera de alcance» dice lo que el informe no hace, con el mismo peso. */
-const DESTINO_OBJETIVO = {
-  produccion: ['produccion.html', 'Producción'],
-  impacto: ['impacto.html', 'Impacto'],
-  colaboracion: ['colaboracion.html', 'Colaboración'],
-  tematica: ['tematica.html', 'Áreas temáticas'],
-  analisis: ['analisis.html', 'Análisis de resultados'],
-  metodologia: ['metodologia.html', 'Metodología y limitaciones'],
-};
-export function objetivos(o) {
+    Los presenta la Introducción, que abre el informe, porque un informe que no
+    declara qué se propone medir deja que cada lector lo decida. Cada objetivo
+    específico enlaza a la sección que lo cumple, y «Fuera de alcance» dice lo
+    que el informe no hace, con el mismo peso. */
+const DESTINO_OBJETIVO = PARTES_INFORME;
+export function objetivos(o, { titulo = 'Objetivos del informe' } = {}) {
   if (!o) return '';
   const e = c.escapar;
   return `<section class="objetivos modulo" aria-labelledby="objetivos-titulo">
-    <h2 id="objetivos-titulo">Objetivos del informe</h2>
+    <h2 id="objetivos-titulo">${e(titulo)}</h2>
     <p class="objetivos-general"><b>Objetivo general.</b> ${e(o.general)}</p>
     <h3>Objetivos específicos</h3>
     <ol class="objetivos-lista">${o.especificos.map(x => {
@@ -184,6 +181,276 @@ export function objetivos(o) {
     }).join('')}</ol>
     <p class="objetivos-fuera"><b>Fuera de alcance.</b> ${e(o.fuera_de_alcance)}</p>
   </section>`;
+}
+
+/* ═══════════════════ El informe descargado: portada, ficha e introducción ══
+   D-749. Todo archivo descargado —el PDF completo, el de cada sección y lo que
+   imprime el botón «Descargar informe»— abre con dos hojas:
+
+     · la PORTADA, sólo con lo que identifica el documento: institución, unidad,
+       título, periodo, qué contiene, quién lo elabora, fuentes y fecha;
+     · la FICHA DEL INFORME, con lo que hace falta para fecharlo, citarlo y
+       usarlo: fechas de los datos, bases de cálculo, versión, huella, cómo
+       citar, derechos y uso responsable.
+
+   Antes la hoja 1 del PDF lo traía todo junto y la impresión desde el
+   navegador no traía portada. Un solo marcado para las dos vías: el sitio lo
+   pinta en cada página, oculto en pantalla (`.solo-papel`), y el generador del
+   PDF lo vuelve a pintar con lo que sólo él sabe —la huella de los datos y la
+   versión del código—. La maqueta vive en app.css. */
+
+const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
+  'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+/** «2026-09-28» → «28 de septiembre de 2026». Escrita a mano y no con `Intl`
+    para que el build, el generador y el navegador escriban exactamente lo
+    mismo. */
+export function fechaLarga(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || '');
+  return m ? `${Number(m[3])} de ${MESES[Number(m[2]) - 1]} de ${m[1]}` : '';
+}
+
+/** Qué contiene el archivo: una sección, el informe entero o, con una
+    selección de gráficos, sólo las secciones que tienen alguno de los elegidos
+    —«todas las secciones» sería falso—. */
+function contenidoInforme(seccion, seleccion) {
+  if (seccion) return `Sección: ${seccion}`;
+  return seleccion ? 'Informe con una selección de gráficos'
+    : 'Informe completo: todas las secciones';
+}
+
+/** El rótulo que identifica el informe en el folio de cada hoja. */
+export function etiquetaInforme(meta) {
+  return [meta.titulo_plataforma, meta.institucion_corta].filter(Boolean).join(' · ');
+}
+
+/** La portada. `seccion` es el nombre de la sección que contiene el archivo,
+    o `null` en el informe completo; `alcance` y `seleccion` son las frases que
+    la propia página escribe con el recorte (`#recorte-impreso`,
+    `#seleccion-impresa`), para que la portada no redacte por segunda vez lo
+    que ya está escrito. */
+export function portadaInforme({ meta, inst, intro, seccion = null, alcance = '', seleccion = '', emision = '' }) {
+  const e = c.escapar;
+  const v = meta.ventana || {};
+  const r = inst && inst.responsable;
+  const d = inst && inst.derechos;
+  const dato = (rotulo, valor, attr = '') =>
+    `<div class="pi-dato"><dt>${e(rotulo)}</dt><dd${attr}>${valor}</dd></div>`;
+  return `<section class="portada-informe solo-papel" data-portada aria-label="Portada del informe">
+    <header class="pi-cabeza">
+      <p class="pi-institucion">${e(meta.institucion || '')}</p>
+      ${r ? `<p class="pi-unidad">${e(r.unidad)}</p>` : ''}
+    </header>
+    <div class="pi-centro">
+      <h1 class="pi-titulo">${e(meta.titulo_plataforma || 'Informe bibliométrico')}</h1>
+      ${intro && intro.subtitulo ? `<p class="pi-subtitulo">${e(intro.subtitulo)}</p>` : ''}
+      <p class="pi-periodo">${e(String(v.inicio ?? ''))}–${e(String(v.fin ?? ''))}</p>
+      <p class="pi-edicion">${e(contenidoInforme(seccion, seleccion))}</p>
+      <p class="pi-alcance" data-portada-alcance>${e(alcance)}</p>
+      <p class="pi-seleccion" data-portada-seleccion>${e(seleccion)}</p>
+    </div>
+    <footer class="pi-pie">
+      <dl class="pi-datos">
+        ${r ? dato('Elaborado por', `${e(r.persona)}<br>${e(r.unidad)}, ${e(r.institucion)}`) : ''}
+        ${r ? dato('Contacto', e(r.contacto)) : ''}
+        ${dato('Fuentes de los datos', e((meta.fuentes || []).join(' · ')))}
+        ${dato(SELLO_PORTADA, e(fechaLarga(emision)), ' data-portada-emision')}
+      </dl>
+      ${d ? `<p class="pi-derechos">© ${e(d.anio)} ${e(d.titular)} · ${e(d.aviso_corto || d.aviso)}</p>` : ''}
+    </footer>
+  </section>`;
+}
+
+/** El rótulo por el que el generador reconoce la portada en la hoja 1 de cada
+    PDF: se declara junto a la maqueta que lo imprime para que la comprobación
+    y lo comprobado no puedan separarse. */
+export const SELLO_PORTADA = 'Fecha de emisión';
+
+/** La ficha del informe, en la hoja que sigue a la portada. `huella` y
+    `codigo` sólo los conoce el generador del PDF; sin ellos, sus filas no se
+    imprimen en vez de inventarse. */
+export function fichaInforme({ meta, inst, intro, seccion = null, alcance = '', seleccion = '',
+                               emision = '', huella = null, codigo = null, filtra = false }) {
+  const e = c.escapar;
+  const v = meta.ventana || {};
+  const r = inst && inst.responsable;
+  const d = inst && inst.derechos;
+  const ci = inst && inst.cita;
+  const den = meta.denominadores || {};
+  const fila = (rotulo, valor, attr = '') =>
+    `<div class="fi-fila"><dt>${e(rotulo)}</dt><dd${attr}>${valor}</dd></div>`;
+  /* Las bases son del UNIVERSO institucional, y sobre un recorte engañan: bajo
+     «46 de 823 publicaciones» se leerían como el suelo del informe. El alcance
+     ya declara sobre cuántas descansa, y cada cifra declara la suya dentro. */
+  const bases = filtra ? [] : [
+    [den.universo_total, 'en el universo'],
+    [den.con_metricas, 'con métricas normalizadas'],
+    [den.con_autoria_detallada, 'con autoría detallada'],
+    [den.con_area_tematica, 'con área temática'],
+  ].filter(([n]) => n !== undefined && n !== null);
+  const grupo = (titulo, cuerpo) => `<div class="fi-grupo"><h3>${e(titulo)}</h3>${cuerpo}</div>`;
+  return `<section class="ficha-informe solo-papel" data-ficha aria-labelledby="ficha-informe-titulo">
+    <h2 id="ficha-informe-titulo">Ficha del informe</h2>
+    ${grupo('Identificación', `<dl class="fi-tabla">
+      ${fila('Título', e(meta.titulo_plataforma || ''))}
+      ${fila('Institución', e(meta.institucion || ''))}
+      ${r ? fila('Unidad responsable', e(r.unidad)) : ''}
+      ${r ? fila('Responsable', e(r.persona)) : ''}
+      ${r ? fila('Contacto', e(r.contacto)) : ''}
+      ${fila('Contenido', e(contenidoInforme(seccion, seleccion)))}
+      ${fila('Alcance', e(alcance), ' data-portada-alcance')}
+      ${seleccion ? fila('Selección', e(seleccion), ' data-portada-seleccion') : ''}
+    </dl>`)}
+    ${grupo('Datos', `<dl class="fi-tabla">
+      ${fila('Fuentes', e((meta.fuentes || []).join(' · ')))}
+      ${fila('Periodo', `Publicaciones de ${e(String(v.inicio ?? ''))} a ${e(String(v.fin ?? ''))}`)}
+      ${Object.entries(meta.exports || {}).map(([f, x]) =>
+        fila(`Exportación de ${f}`, e(x.fecha_export || '—'))).join('')}
+      ${fila('Citas actualizadas al', e(meta.fecha_corte_citas || '—'))}
+      ${bases.length ? fila('Bases de cálculo', bases.map(([n, q]) =>
+        `<b>${e(c.nf.format(n))}</b> ${e(q)}`).join(' · ')) : ''}
+    </dl>
+    ${bases.length ? '<p class="fi-nota">Cada indicador declara su propia base, y no es la misma para todos.</p>' : ''}`)}
+    ${grupo('Edición', `<dl class="fi-tabla">
+      ${fila('Emitido el', e(emision), ' data-ficha-emision')}
+      ${fila('Sitio construido el', e(meta.fecha_build || ''))}
+      ${codigo ? fila('Versión del código', e(codigo)) : ''}
+      ${huella ? fila('Huella de los datos', `SHA-256 ${e(huella.slice(0, 16))}`) : ''}
+    </dl>
+    ${huella && intro ? `<p class="fi-nota">${e(intro.huella)}</p>` : ''}`)}
+    ${ci ? grupo('Cómo citar', `<p class="fi-cita">${e(ci.autor)} (${e(ci.anio)}).
+      <i>${e(ci.titulo)}</i>${seccion ? ` [Sección: ${e(seccion)}]` : ''}${
+        filtra ? ` [${e(alcance.replace(/\.$/, ''))}]` : ''}.
+      ${e(ci.editor)}.</p>`) : ''}
+    ${d ? grupo('Derechos y condiciones de uso', `<p>© ${e(d.anio)} ${e(d.titular)}. ${e(d.aviso)}${
+      r ? ` Solicitudes de autorización o de corrección: ${e(r.contacto)}.` : ''}</p>`) : ''}
+    ${intro ? grupo('Uso responsable', `<p>${e(intro.uso_responsable)}</p>`) : ''}
+  </section>`;
+}
+
+/** El folio de cada hoja impresa (D-750): el informe y la sección a la
+    izquierda, «Hoja N de M» a la derecha. Es CSS de páginas —`@page` con
+    cajas de margen, que Chromium implementa desde la versión 131—, así que lo
+    imprimen igual el botón del navegador y el generador del PDF, y la portada
+    sale sin folio. La maqueta y el contador viven en app.css; aquí sólo va el
+    texto, que depende de la página.
+
+    Con `partes` escribe una página con nombre por sección: en el informe
+    completo, cada hoja dice de qué sección es. */
+export function folioCSS(etiqueta, partes = null) {
+  const cadena = (s) => `"${String(s).replace(/["\\]/g, '\\$&').replace(/\s+/g, ' ')}"`;
+  // La regla general cubre las hojas que no son de ninguna sección: la ficha y
+  // el índice del informe completo.
+  const reglas = [`@page { @bottom-left { content: ${cadena(etiqueta)}; } }`,
+    ...(partes || []).map(([clave, nombre]) =>
+      `[data-parte="${clave}"] { page: parte-${clave}; }\n`
+      + `@page parte-${clave} { @bottom-left { content: ${cadena(`${etiqueta} · ${nombre}`)}; } }`)];
+  /* La portada se vuelve a declarar sin folio DESPUÉS: Chromium no da más peso
+     a una página con nombre que a la regla general, así que la de esta hoja,
+     escrita tras app.css, le ponía folio a la portada. Medido en el PDF. */
+  return [...reglas, '@page portada { @bottom-left { content: none; } @bottom-right { content: none; } }']
+    .join('\n');
+}
+
+/** La Introducción del informe (D-748): por qué existe, qué se propone, sobre
+    qué datos, cómo está organizado y cómo se lee cada cifra y cada gráfico.
+
+    Casi nada de lo que dice se escribe aquí: los textos vienen de
+    `docs/INTRODUCCION.md`, los objetivos de `docs/OBJETIVOS.md`, las fuentes y
+    sus fechas de `config/sources.yml`, el universo de `meta.json`, la fuente
+    de cada indicador del anexo metodológico y «Qué muestra» cada figura de
+    `docs/LECTURAS.md`. La lista de figuras (`guia`) sale de los mismos
+    registros que las dibujan, así que una figura nueva entra sola. */
+export function introduccion({ intro, objetivos: obj, meta, inst, corpus, lecturas, guia, cifras, fuentePorCodigo }) {
+  if (!intro) return '';
+  const e = c.escapar;
+  const v = meta.ventana || {};
+  const den = meta.denominadores || {};
+  const ids = (inst && inst.identificadores) || {};
+  const lect = lecturas || {};
+  const fuenteDe = fuentePorCodigo || {};
+  let n = 0;
+  const bloque = (id, titulo, cuerpo, clase = '') => `<section class="intro-bloque${clase}" aria-labelledby="${id}">
+    <h2 id="${id}">${++n}. ${e(titulo)}</h2>${cuerpo}</section>`;
+
+  const identificadores = [
+    ids.scopus_af_id && `identificador de afiliación en Scopus ${e(ids.scopus_af_id)}`,
+    ids.ror && `ROR ${e(ids.ror)}`,
+  ].filter(Boolean).join(' · ');
+  const nombres = (meta.fuentes || []).join(' y ');
+  const union = {
+    union: `la unión de las exportaciones de ${e(nombres)}`,
+    interseccion: `las publicaciones presentes en las exportaciones de ${e(nombres)}`,
+  }[corpus && corpus.estrategia_universo] || `las exportaciones de ${e(nombres)}`;
+  const quienCorta = (intro.fuentes || []).find((f) => f.fecha_corte && f.fecha_corte === meta.fecha_corte_citas);
+
+  const presentacion = bloque('intro-presentacion', 'Presentación',
+    intro.presentacion.map((p) => `<p>${e(p)}</p>`).join(''));
+
+  const objetivosHtml = obj ? objetivos(obj, { titulo: `${++n}. Objetivos del informe` }) : '';
+
+  const alcance = bloque('intro-alcance', 'Alcance y fuentes de los datos', `
+    <dl class="intro-alcance">
+      <div><dt>Institución</dt><dd>${e(meta.institucion || '')}${identificadores ? ` (${identificadores})` : ''}.</dd></div>
+      <div><dt>Periodo</dt><dd>Publicaciones con año de publicación entre ${e(String(v.inicio ?? ''))}
+        y ${e(String(v.fin ?? ''))}. Lo publicado después de ${e(String(v.fin ?? ''))} no está incluido.</dd></div>
+      <div><dt>Universo</dt><dd>${e(c.nf.format(den.universo_total ?? 0))} publicaciones: ${union},
+        cruzadas por su identificador de Scopus (EID).</dd></div>
+      <div><dt>Citas</dt><dd>Contadas hasta el ${e(meta.fecha_corte_citas || '')}${
+        quienCorta ? `, fecha de corte que declara ${e(quienCorta.nombre)}` : ''}.</dd></div>
+    </dl>
+    <h3>Fuentes de los datos</h3>
+    <dl class="intro-fuentes">${(intro.fuentes || []).map((f) => `
+      <div><dt>${e(f.nombre)}</dt><dd>
+        <p class="intro-fuente-dato">${e(f.acceso)} · exportada el ${e(f.fecha_export || '—')} ·
+          ${e(c.nf.format(f.n_registros_leido ?? 0))} registros · ${f.fecha_corte
+            ? `citas al ${e(f.fecha_corte)}` : 'el export no declara fecha de corte'}</p>
+        <p>${e(f.aporta)}</p></dd></div>`).join('')}
+    </dl>
+    <p class="nota">${e(intro.fuentes_complementarias || '')}</p>`);
+
+  const estructura = bloque('intro-estructura', 'Estructura del informe', `
+    <ol class="intro-partes">${(intro.partes || []).map((p) => {
+      const [href, nombre] = PARTES_INFORME[p.clave] || ['#', p.clave];
+      return `<li><a href="${href}"><b>${e(nombre)}.</b></a> ${e(p.texto)}</li>`;
+    }).join('')}</ol>`);
+
+  /* La fuente de una figura es la del indicador cuyos datos dibuja, tal como la
+     declara el anexo metodológico: la misma tabla que usa el sello. */
+  const fuente = (cods) => [...new Set((cods || [])
+    .flatMap((k) => String(fuenteDe[k] || '').split(' · ')).filter(Boolean))].join(' · ') || '—';
+  const tablaFiguras = (figuras) => `<div class="tabla-envoltura"><table class="tabla-guia">
+    <thead><tr><th scope="col">Código</th><th scope="col">Gráfico</th>
+      <th scope="col">Qué muestra</th><th scope="col">Fuente</th></tr></thead>
+    <tbody>${figuras.map((f) => {
+      const l = lect[f.clave] || {};
+      return `<tr><td class="mono">${e(f.cod || '—')}</td><td>${e(f.titulo || l.titulo || f.clave)}</td>
+        <td>${e(l.muestra || '—')}</td><td>${e(fuente(f.fuentes))}</td></tr>`;
+    }).join('')}</tbody></table></div>`;
+  const guiaHtml = bloque('intro-guia', 'Guía de lectura de los gráficos', `
+    <p>Qué muestra cada cifra y cada gráfico del informe, sección por sección. La misma
+      frase acompaña a la figura en su sección, junto con la advertencia que corresponda
+      («Cuidado») y su sello de fuente, fecha y cobertura.</p>
+    <h3>Cifras del tablero</h3>
+    <p class="nota">Abren el panorama general y cada sección de resultados, calculadas sobre
+      el recorte del informe.</p>
+    <div class="tabla-envoltura"><table class="tabla-guia tabla-guia-cifras">
+      <thead><tr><th scope="col">Cifra</th><th scope="col">Qué muestra</th>
+        <th scope="col">Base de cálculo</th></tr></thead>
+      <tbody>${(cifras || []).map((f) => `<tr><td>${e(f.etiqueta)}</td>
+        <td>${e((lect[f.clave] || {}).muestra || '—')}</td><td>${e(f.base)}</td></tr>`).join('')}</tbody>
+    </table></div>
+    ${(guia || []).map((g) => `<h3>${e((PARTES_INFORME[g.parte] || [])[1] || g.parte)}</h3>
+      ${tablaFiguras(g.figuras)}`).join('')}`, ' intro-guia');
+
+  const claves = bloque('intro-lectura', 'Cómo leer las cifras', `
+    <ul class="intro-claves">${(intro.lectura_cifras || []).map((x) =>
+      `<li><b>${e(x.titulo)}</b> ${e(x.texto)}</li>`).join('')}</ul>`);
+
+  const uso = bloque('intro-uso', 'Uso responsable de los indicadores',
+    `<p>${e(intro.uso_responsable)}</p>`);
+
+  return presentacion + objetivosHtml + alcance + estructura + guiaHtml + claves + uso;
 }
 
 /** Banda de cierre de la portada: la salida a las secciones.

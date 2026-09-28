@@ -324,12 +324,17 @@ h3 { font-size: var(--t-l); font-weight: 640; letter-spacing: -.008em; }
 /* Serif editorial del Dossier de Stitch (D-678), sólo donde el sitio se LEE:
    las secciones y la metodología. La portada, los listados y la descarga de
    datos son superficies de consulta y siguen en Inter, como en Stitch. Los
-   títulos de cada corte también: son rótulos de figura, no de lectura. */
-body:is([data-pagina="seccion"], [data-pagina="metodologia"]) main :is(h1, .banda-titulo h2),
-body[data-pagina="metodologia"] main :is(.modulo > h3, .ficha-tecnica h3) {
+   títulos de cada corte también: son rótulos de figura, no de lectura.
+
+   `:is(body, div)` y no `body`: en el informe completo en PDF cada sección es
+   un `div.parte` que lleva el `data-pagina` de su página (D-750), y estas
+   reglas tienen que alcanzarla igual. La especificidad es la misma que con
+   `body`. */
+:is(body, div):is([data-pagina="seccion"], [data-pagina="metodologia"]) main :is(h1, .banda-titulo h2),
+:is(body, div)[data-pagina="metodologia"] main :is(.modulo > h3, .ficha-tecnica h3) {
   font-family: var(--f-editorial); font-weight: 500; letter-spacing: -.02em;
 }
-body[data-pagina="metodologia"] main .glosario-entrada dt {
+:is(body, div)[data-pagina="metodologia"] main .glosario-entrada dt {
   font-family: var(--f-editorial); font-weight: 600; letter-spacing: -.01em;
 }
 
@@ -1670,6 +1675,26 @@ svg.chart .trama { pointer-events: none; }
 @page {
   size: A4 portrait;
   margin: 16mm 14mm 18mm;
+  /* El folio (D-750): el informe y la sección a la izquierda, «Hoja N de M» a
+     la derecha, en cada hoja. Cajas de margen de CSS Paged Media, que Chromium
+     implementa desde la versión 131: así lo imprimen igual el botón del
+     navegador y el generador del PDF. El texto de la izquierda lo pone cada
+     página con su nombre (`vista.folioCSS`); éste es el de reserva. */
+  @bottom-left {
+    content: "Informe bibliométrico";
+    font: 8pt/1.3 -apple-system, "Segoe UI", Roboto, sans-serif; color: #444;
+    vertical-align: top; padding-top: 4mm;
+  }
+  @bottom-right {
+    content: "Hoja " counter(page) " de " counter(pages);
+    font: 8pt/1.3 -apple-system, "Segoe UI", Roboto, sans-serif; color: #444;
+    vertical-align: top; padding-top: 4mm;
+  }
+}
+/* La portada no lleva folio: es la hoja 1 del recuento, pero no se numera. */
+@page portada {
+  @bottom-left { content: none; }
+  @bottom-right { content: none; }
 }
 
 @media print {
@@ -1687,9 +1712,11 @@ svg.chart .trama { pointer-events: none; }
   /* `.banda-salidas` son cuatro tarjetas de navegación —«Producción · Ver la
      sección →»— que en papel no llevan a ninguna parte: cuatro promesas
      muertas ocupando la última hoja de la portada. La banda de texto que las
-     acompaña sí se queda: dice que cada indicador declara su denominador, y
-     eso vale igual impreso. */
-  .banda-salidas,
+     acompañaba se quedaba porque decía que cada indicador declara su
+     denominador; desde D-748 eso lo dicen, en la misma hoja, «Cómo leer estas
+     cifras» y, en la Introducción, «Cómo leer las cifras», y la banda repetida
+     quedaba sola en una hoja del informe completo. Sale todo el cierre. */
+  #cierre, .banda-salidas,
   .cabecera, .tema, .filtros, .paginacion, .salto-contenido,
   .rail, .vigencia-guia, .descargar, .ayuda, .tooltip, .nav-toggle,
   .v-migas, .v-chip, .recorte-vivo, .minifoco,
@@ -1792,7 +1819,7 @@ svg.chart .trama { pointer-events: none; }
     padding-top: 4mm;
   }
   .indice-informe h2 { font-size: 15pt; margin: 0 0 2mm; }
-  .indice-nota { font-size: 8.5pt; color: #444; margin: 0 0 6mm; max-width: 105mm; }
+  .indice-nota { font-size: 8.5pt; color: #444; margin: 0 0 6mm; max-width: 120mm; }
   .indice-informe > ol { list-style: none; margin: 0; padding: 0; }
   .indice-informe > ol > li { break-inside: avoid; margin: 0 0 6mm; }
   .indice-sec {
@@ -1801,10 +1828,6 @@ svg.chart .trama { pointer-events: none; }
     border-bottom: .5pt solid #999; padding-bottom: 1mm;
   }
   .indice-hojas { font-size: 8.5pt; color: #444; font-weight: 400; white-space: nowrap; }
-  .indice-archivo {
-    font-family: var(--f-mono, ui-monospace, monospace);
-    font-size: 7.5pt; color: #555; margin: 1mm 0 2mm;
-  }
   .indice-informe ul { list-style: none; margin: 0; padding: 0; }
   /* Cada gráfico en una línea: código, título y hoja. El puntillado une el
      título con su número sin obligar a seguir un renglón vacío con el dedo. */
@@ -2293,8 +2316,8 @@ svg.chart .trama { pointer-events: none; }
 /* ---- el informe completo en PDF ----
    Sólo aparece si la corrida que construyó el sitio también generó el informe
    (`data/informe.json`). No compite con el botón «Descargar informe» de la
-   barra: aquél da la página que se está viendo con sus filtros, éste da las
-   seis secciones con su índice y sus hojas numeradas. */
+   barra: aquél da la página que se está viendo con sus filtros, éste da el
+   informe entero en un documento —y cada sección aparte— (D-750). */
 .informe-pdf {
   border: 1px solid var(--linea); border-radius: var(--radio);
   background: var(--superficie); padding: var(--e4) var(--e5);
@@ -2312,6 +2335,13 @@ svg.chart .trama { pointer-events: none; }
   border-top: 1px solid var(--linea); padding-top: var(--e2);
 }
 .informe-pdf-lista a { font-weight: 600; }
+/* El documento único va primero y destacado: es lo que casi todos buscan. */
+.informe-pdf-completo {
+  display: flex; align-items: baseline; gap: var(--e3); flex-wrap: wrap;
+  margin: 0 0 var(--e4); font-size: var(--t-m);
+}
+.informe-pdf-completo a { font-weight: 700; }
+.informe-pdf-sub { font: 650 var(--t-s)/1.3 var(--f-ui); margin: 0 0 var(--e2); color: var(--tinta-2); }
 .informe-pdf-dato {
   color: var(--tinta-3); font-size: var(--t-xs);
   font-variant-numeric: tabular-nums; margin-left: auto; white-space: nowrap;
@@ -2357,24 +2387,12 @@ svg.chart .trama { pointer-events: none; }
   font: 700 var(--t-2xl)/1.1 var(--f-ui); letter-spacing: -.025em; margin: 0;
 }
 .portada-sub { color: var(--tinta-2); font-size: var(--t-m); margin: var(--e2) 0 0; }
-/* La ventana, declarada donde no se puede no verla.
-   El rango «2020–2025» ya estaba en la línea de arriba y en la barra de
-   vigencia, pero un rango no dice lo que un lector necesita saber: que lo
-   posterior NO está. Alguien que abra esto en 2026 puede leerlo como el estado
-   actual de la producción, y esa lectura no la corrige un rango.
-   Va en esmeralda, que es la familia de la advertencia metodológica y está
-   fuera de la del dato — y visible, no dentro del desplegable: una advertencia
-   detrás de un clic es una advertencia que nadie lee. */
-.ventana-cierre {
-  margin: var(--e3) 0 0; max-width: 62ch;
-  font-size: var(--t-s); line-height: 1.55; color: var(--aviso-tinta);
-  background: var(--aviso-fondo);
-  border: 1px solid var(--aviso-borde); border-left-width: 3px;
-  border-radius: var(--radio-s); padding: var(--e2) var(--e3);
-}
-.ventana-cierre b { color: var(--aviso-tinta); }
-.portada-metodo { margin-top: var(--e3); border-top: 0; padding-top: 0; }
-.portada-metodo .metodo-cuerpo { max-width: 68ch; }
+/* El aviso de cierre de ventana y el desplegable «Qué mide este informe y qué
+   no» vivían aquí hasta D-747: el usuario pidió quitarlos de la portada y del
+   informe. Su contenido se ordenó en la Introducción, a la que lleva este
+   enlace; la ventana sigue declarada en el recuadro de invariantes. */
+.portada-intro { margin: var(--e3) 0 0; font-size: var(--t-s); }
+.portada-intro a { font-weight: 650; }
 
 /* ── Portada: la banda «Cockpit» ──────────────────────────────────────────
    Estructura de la «Propuesta 1» del diseño de Stitch con la paleta invertida
@@ -2387,7 +2405,6 @@ svg.chart .trama { pointer-events: none; }
 }
 @media (min-width: 60rem) {
   .cockpit { grid-template-columns: minmax(0, 1fr) minmax(15rem, 20rem); }
-  .cockpit .portada-metodo { grid-column: 1 / -1; }
 }
 .cockpit-lado {
   border: 1px solid var(--linea-fuerte); border-radius: var(--radio);
@@ -2608,101 +2625,112 @@ svg.chart .trama { pointer-events: none; }
 
   .explorador { display: block; }
   .explorador-resultado { padding-bottom: 0; }
+  /* El aire que cierra la página en pantalla no separa nada en papel, y al
+     final de una sección empujaba una hoja en blanco: la Introducción
+     terminaba en la hoja 9 del documento único y la 10 salía sólo con el
+     folio. */
+  main { padding-bottom: 0; }
+  main > .banda:last-child { padding-bottom: 0; }
 
-  /* La primera página del PDF es la portada: el título del informe en papel
-     debe leerse como cabecera de documento, no como el borde superior de una
-     web. Se le da aire vertical, se centra el bloque y se cierra con un filete
-     que separa la página de portada del cuerpo que la sigue. */
-  .portada-cabecera { padding: 34mm 0 28mm; text-align: center; }
+  /* La cabecera de cada página, en papel: el título de la sección con su
+     filete. Hasta D-749 hacía de portada —34 mm de aire y el título centrado
+     a 30 pt— porque ninguna impresión traía una; ahora cada archivo abre con
+     la suya, y la cabecera vuelve a ser la de una sección. */
+  /* Con 3 mm de aire arriba: el acento de «Áreas temáticas», en la serif
+     editorial, sobresale de la caja del título, y sin margen Chromium lo
+     pintaba al pie de la hoja anterior y duplicaba el título en el marcador. */
+  .portada-cabecera { padding: 3mm 0 6mm; text-align: left; break-inside: avoid; }
   .portada-cabecera .portada-id h1 {
-    font-size: 30pt; line-height: 1.1; letter-spacing: -.02em; padding: 0 0 10pt;
-    border-bottom: 1.5px solid #000; margin-bottom: 10pt;
+    font-size: 22pt; line-height: 1.15; letter-spacing: -.01em;
+    padding: 0 0 3mm; margin: 0 0 3mm; border-bottom: 1.5px solid #000;
   }
-  .portada-sub { font-size: 11.5pt; max-width: none; margin-top: 4pt; }
-  /* La pasada en que la portada se corta a mitad de su bloque no debe vaciar
-     media página para romper el título a la mitad. */
-  .portada-cabecera { break-inside: avoid; }
+  .portada-sub { font-size: 11pt; max-width: none; margin-top: 2pt; }
+  /* La primera página del sitio se titula «Informe bibliométrico» en pantalla,
+     que en papel es el título de la portada del documento: se cambia por el de
+     su sección, «Panorama general». */
+  .cockpit .portada-id > h1:not(.titulo-papel), .cockpit .portada-sub { display: none; }
 
   /* Los tableros Bento (treemap y heatmap de producción) no deben cortarse a
      la mitad de la figura: un mapa de calor partido por un salto de página no
      se puede leer. Se les pide no partir, igual que a los módulos. */
   .bento-card { break-inside: avoid; }
 
-  /* ── La carátula del informe ───────────────────────────────────────────────
-     La escribe `informe_pdf.mjs`, que es quien sabe que hay un DOCUMENTO y no
-     una página suelta mandada a imprimir; aquí se decide, como todo lo demás
-     del papel, cómo se ve.
-
-     Ocupa la hoja entera: `break-after: page` empuja el índice a la hoja 2.
-     La altura se pide en `min-height` y no en `height` para que un recorte de
-     nombre largo la estire en vez de desbordarla. */
-  .portada-informe {
-    min-height: 232mm; padding: 6mm 0 0; break-after: page; break-inside: avoid;
+  /* ── La portada del informe (D-749) ───────────────────────────────────────
+     La escriben el sitio (`paginas.js`) y el generador del PDF con la misma
+     función (`vista.portadaInforme`); aquí se decide cómo se ve. Sólo lo que
+     identifica el documento, en tres bandas: quién lo emite arriba, qué es en
+     el centro y los datos de la edición abajo. Ocupa la hoja entera y sin
+     folio (la página con nombre `portada`). */
+  /* `.solo-papel:not(:empty)` la pondría en bloque: se gana con una clase más. */
+  .solo-papel.portada-informe:not(:empty) {
+    page: portada;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 255mm; break-after: page; break-inside: avoid;
   }
+  .pi-cabeza { border-bottom: 2px solid #000; padding: 0 0 4mm; }
   .pi-institucion {
-    font-size: 11pt; letter-spacing: .1em; text-transform: uppercase;
-    color: #333; margin: 0 0 6mm;
+    font-size: 13pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    margin: 0;
   }
+  .pi-unidad { font-size: 11pt; color: #333; margin: 1.5mm 0 0; }
+  .pi-centro { padding: 0 0 0 1mm; }
+  /* En una línea si cabe: Chromium escribe el marcador del PDF con el texto de
+     cada renglón pegado al siguiente, sin el espacio del corte, y un título en
+     dos renglones salía «Informe BibliométricoInstitucional» en el panel de
+     marcadores. A 30 pt el título de esta institución cabe entero. */
   .pi-titulo {
-    font-size: 32pt; line-height: 1.08; letter-spacing: -.02em;
-    margin: 0 0 8mm; padding: 0 0 6mm; border-bottom: 2px solid #000;
-    max-width: 150mm;
+    font-size: 30pt; line-height: 1.1; letter-spacing: -.02em; font-weight: 700;
+    margin: 0 0 5mm;
   }
-  /* El alcance es lo que distingue dos informes de esta misma plataforma, así
-     que se imprime más grande que la procedencia y antes que ella. */
-  .pi-alcance { font-size: 13pt; line-height: 1.45; margin: 0 0 2mm; max-width: 140mm; }
-  .pi-seleccion { font-size: 10.5pt; color: #333; margin: 0 0 2mm; max-width: 140mm; }
-  .pi-ventana { font-size: 11pt; color: #333; margin: 0 0 6mm; }
-
-  .pi-datos { margin: 0 0 3mm; max-width: 118mm; }
-  /* Qué es la huella y qué no (D-715), y el uso responsable: van con los datos
-     de procedencia, en letra de nota, antes de las bases. */
-  .pi-huella-nota { font-size: 8.5pt; line-height: 1.45; color: #444; margin: 0 0 4mm; max-width: 118mm; }
-  .pi-uso {
-    font-size: 9.5pt; line-height: 1.5; margin: 0 0 4mm; max-width: 140mm;
-    padding: 3mm 4mm; border-left: 2px solid #000; background: #f4f4f4;
+  .pi-subtitulo { font-size: 14pt; line-height: 1.35; color: #222; margin: 0 0 3mm; max-width: 150mm; }
+  .pi-periodo {
+    font-size: 20pt; font-weight: 300; font-variant-numeric: tabular-nums;
+    margin: 0 0 9mm; padding: 0 0 5mm; border-bottom: .75pt solid #999; max-width: 150mm;
   }
-  .pi-fila {
-    display: flex; justify-content: space-between; gap: 8mm;
-    font-size: 10pt; margin: 0; padding: 1.1mm 0; border-bottom: .5pt solid #ddd;
+  .pi-edicion { font-size: 12pt; font-weight: 700; margin: 0 0 1.5mm; }
+  .pi-alcance, .pi-seleccion { font-size: 10.5pt; line-height: 1.45; color: #333; margin: 0 0 1.5mm; max-width: 150mm; }
+  .pi-alcance:empty, .pi-seleccion:empty { display: none; }
+  .pi-datos {
+    display: grid; grid-template-columns: 42mm 1fr; margin: 0;
+    border-top: .75pt solid #999; padding-top: 3mm;
   }
-  .pi-rotulo { color: #444; }
-  .pi-valor { font-variant-numeric: tabular-nums; text-align: right; }
+  .pi-dato { display: contents; }
+  .pi-dato dt, .pi-dato dd { padding: 1.6mm 0; font-size: 10pt; line-height: 1.4; }
+  .pi-dato dt { color: #555; }
+  .pi-dato dd { margin: 0; }
+  .pi-derechos { font-size: 8.5pt; color: #444; margin: 4mm 0 0; }
+  /* El título de sección de la primera página del sitio, sólo en papel. */
+  .cockpit .titulo-papel { margin: 0; }
 
-  /* Cómo citar y derechos (D-744, D-745): letra de nota, antes de las bases. */
-  .pi-cita, .pi-derechos { font-size: 8.5pt; line-height: 1.45; color: #333; margin: 4mm 0 0; max-width: 140mm; }
-  .pi-derechos { margin-top: 1.5mm; }
-  .pi-bases { max-width: 140mm; }
-  .pi-bases-tit {
-    font-size: 8.5pt; letter-spacing: .08em; text-transform: uppercase;
-    color: #444; margin: 0 0 2mm;
+  /* ── La ficha del informe (hoja 2) ───────────────────────────────────────
+     Lo que hace falta para fecharlo, citarlo y usarlo. Grupos con su rótulo
+     y filas de dos columnas; entra en una hoja y abre la siguiente. */
+  .ficha-informe { break-after: page; font-size: 9.5pt; line-height: 1.45; }
+  .ficha-informe h2 { font-size: 16pt; margin: 0 0 4mm; padding: 0 0 2mm; border-bottom: 1.5px solid #000; }
+  .fi-grupo { break-inside: avoid; margin: 0 0 4.5mm; }
+  .fi-grupo h3 {
+    font-size: 8.5pt; letter-spacing: .08em; text-transform: uppercase; color: #333;
+    margin: 0 0 1.5mm;
   }
-  .pi-bases-cifras { font-size: 10.5pt; line-height: 1.5; margin: 0 0 2mm; }
-  .pi-bases-nota { font-size: 9pt; color: #444; margin: 0; }
+  .fi-grupo p { margin: 0 0 1.5mm; max-width: 170mm; }
+  .fi-tabla { display: grid; grid-template-columns: 46mm 1fr; margin: 0; }
+  .fi-fila { display: contents; }
+  .fi-fila dt, .fi-fila dd { padding: 1mm 0; border-bottom: .5pt solid #ddd; }
+  .fi-fila dt { color: #555; }
+  .fi-fila dd { margin: 0; font-variant-numeric: tabular-nums; }
+  .fi-nota { font-size: 8.5pt; color: #444; margin-top: 1.5mm; }
+  .fi-cita { padding-left: 4mm; text-indent: -4mm; }
 
-  /* Con carátula, el TÍTULO de la página sobra: la hoja 1 lo dice entero y en
-     grande. Se apagan el titular y su línea de procedencia, no el bloque
-     completo: `.ventana-cierre` avisa de lo que NO está en el informe —lo
-     publicado después de la ventana— y eso la carátula no lo dice.
-
-     Con `:has()` y no con el hermano adyacente: entre la carátula y el titular
-     va el índice, así que `+` dejó de casar en cuanto se ordenaron las tres
-     piezas como se leen. */
-  body:has(.portada-informe) .portada-cabecera h1,
-  body:has(.portada-informe) .portada-sub { display: none; }
-  body:has(.portada-informe) .portada-cabecera { padding: 0 0 10mm; text-align: left; }
-
-  /* La banda de crédito y la de recorte son la identidad del informe repetida
-     en letra chica, y la carátula ya las dice enteras y en grande. Se apaga la
-     BARRA ENTERA y no sus dos párrafos: `.vigencia` lleva un filete inferior,
-     así que vaciarla dejaba una raya suelta sobre la carátula. Es el mismo
-     defecto que el comentario de la barra (sección de impresión, ~1710) dejó
-     anotado, reaparecido por el otro lado.
-
-     Sólo en el archivo que lleva carátula: las demás secciones conservan su
-     banda, porque una hoja suelta tiene que seguir diciendo de qué informe
-     salió. */
+  /* Con portada, la barra de crédito y la del recorte sobran: la portada y la
+     ficha dicen lo mismo, enteras. Se apaga la BARRA ENTERA y no sus párrafos:
+     `.vigencia` lleva un filete inferior y vaciarla dejaba una raya suelta.
+     Cada hoja sigue diciendo de qué informe salió: lo dice su folio. */
   body:has(.portada-informe) .vigencia { display: none; }
+  /* Por lo mismo, el pie de cierre: su advertencia, el universo, el
+     responsable y los derechos están en la ficha, completos. Impreso al final
+     de cada archivo, además, solía quedar solo en una última hoja (D-742,
+     D-746). */
+  body:has(.portada-informe) .pie { display: none; }
 }
 
 /* ── Portada en papel ───────────────────────────────────────────────────
@@ -2712,8 +2740,9 @@ svg.chart .trama { pointer-events: none; }
    vive dentro de la banda, saldría verde claro sobre blanco. */
 @media print {
   /* Un enlace en papel no lleva a ninguna parte: la batería de impresión lo
-     caza como control. */
-  .cockpit-lado, .enlace-autoria { display: none; }
+     caza como control. El de la Introducción, además, sobra: en el informe
+     completo la Introducción va delante. */
+  .cockpit-lado, .enlace-autoria, .portada-intro { display: none; }
   /* Chrome no imprime fondos por defecto: tinta blanca sobre nada sale gris. El
      código va en tinta, y un botón no hace nada en papel. */
   .modulo .codigo { color: #000; background: none; border-color: #666; }
@@ -2758,22 +2787,6 @@ svg.chart .trama { pointer-events: none; }
   /* La banda de no publicados, dentro del contenedor como las demás tarjetas. */
   .banda.no-publicados { border-radius: var(--bento-radio); padding-inline: clamp(var(--e4), 3vw, var(--e6)); }
 
-  /* Sobre el marino del Cockpit, paneles de cristal y un botón para la guía. */
-  .cockpit .ventana-cierre {
-    background: rgb(255 255 255 / .08); color: var(--tinta-2);
-    border: 1px solid rgb(255 255 255 / .16); border-left: 3px solid var(--aviso-borde);
-    border-radius: var(--radio-m);
-  }
-  .cockpit .ventana-cierre b { color: var(--aviso-tinta); }
-  .cockpit .portada-metodo > summary {
-    width: fit-content; padding: .375rem .875rem; border-radius: var(--radio-m);
-    background: rgb(255 255 255 / .08); border: 1px solid rgb(255 255 255 / .18); color: var(--tinta);
-  }
-  .cockpit .portada-metodo > summary::after {
-    content: ""; width: .45rem; height: .45rem; border: solid currentColor;
-    border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); margin-top: -.2rem;
-  }
-  .cockpit .portada-metodo[open] > summary::after { transform: rotate(-135deg); margin-top: .2rem; }
 
   /* Seis fichas en dos filas de tres, y la lectura en caja al pie, como la KPI
      de Stitch. */
@@ -2904,8 +2917,7 @@ svg.chart .trama { pointer-events: none; }
   #validacion-datos, #validacion-datos .tabla-envoltura, #fuentes, #correcciones, #ficha-tecnica {
     break-inside: auto;
   }
-  body[data-pagina="metodologia"] h2, body[data-pagina="metodologia"] h3,
-  body[data-pagina="metodologia"] h4 { break-after: avoid; }
+  :is(body, div)[data-pagina="metodologia"] :is(h2, h3, h4) { break-after: avoid; }
   .tabla-validacion tr, .ficha-datos > div { break-inside: avoid; }
   .tabla-anexo th, .tabla-anexo td { padding: var(--e2) var(--e3); }
   .referencias > li { break-inside: avoid; }
@@ -2930,8 +2942,8 @@ svg.chart .trama { pointer-events: none; }
 @media print { .sintesis { break-inside: avoid; } }
 
 /* ── Objetivos del informe (docs/OBJETIVOS.md) ─────────────────────────────
-   Van al principio de la portada y del PDF. Texto de lectura, sin tarjetas:
-   es la declaración de qué se propone el informe, no un indicador. */
+   Los presenta la Introducción y, en pantalla, la portada del sitio. Texto de
+   lectura: es la declaración de qué se propone el informe, no un indicador. */
 .objetivos { margin: var(--e6) 0 var(--e5); }
 .objetivos h2 { margin-top: 0; }
 .objetivos h3 { margin: var(--e4) 0 var(--e2); font-size: var(--t-m); }
@@ -2939,14 +2951,70 @@ svg.chart .trama { pointer-events: none; }
 .objetivos-lista { margin: 0; padding-left: 1.4rem; max-width: 72ch; }
 .objetivos-lista > li + li { margin-top: var(--e2); }
 .objetivos-fuera { max-width: 72ch; margin-top: var(--e4); color: var(--tinta-2); }
-/* En papel sigue a «Qué mide este informe» en la misma hoja si cabe entero;
-   si no cabe, pasa completo a la siguiente en vez de partirse. */
+/* En papel no se parte: si no cabe entero en la hoja, pasa completo a la
+   siguiente. En la primera página del sitio no se imprime: en el informe los
+   presenta la Introducción, y repetirlos dos hojas después sería ruido. */
 @media print {
+  :is(body, div)[data-pagina="portada"] .objetivos { display: none; }
   .objetivos { break-inside: avoid; margin: 4mm 0 0; font-size: 9.5pt; line-height: 1.4; }
   .objetivos h2 { font-size: 13pt; margin-bottom: 1.5mm; }
   .objetivos h3 { font-size: 10.5pt; margin: 2.5mm 0 1mm; }
   .objetivos-lista > li + li { margin-top: 1mm; }
   .objetivos-fuera { margin-top: 2.5mm; }
+}
+
+/* ── Introducción (introduccion.html, D-748) ─────────────────────────────
+   Prosa de lectura con dos piezas de consulta: la ficha del alcance y las
+   fuentes, en filas de rótulo y valor, y la guía de gráficos, en tablas por
+   sección. */
+.intro-bloque { margin: 0 0 var(--e6); }
+.intro-bloque > h2 { margin: 0 0 var(--e3); }
+.intro-bloque > p, .intro-bloque > .nota { max-width: 72ch; }
+.intro-bloque h3 { margin: var(--e5) 0 var(--e2); font-size: var(--t-m); }
+.intro-alcance, .intro-fuentes { margin: 0 0 var(--e4); display: grid; gap: var(--e3); max-width: 84ch; }
+.intro-alcance > div, .intro-fuentes > div {
+  display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: var(--e3);
+  padding-bottom: var(--e2); border-bottom: 1px solid var(--linea);
+}
+.intro-alcance dt, .intro-fuentes dt { font-weight: 650; color: var(--tinta-2); }
+.intro-alcance dd, .intro-fuentes dd { margin: 0; }
+.intro-fuentes dd p { margin: 0 0 var(--e1); }
+.intro-fuente-dato { font-size: var(--t-s); color: var(--tinta-2); }
+.intro-partes { margin: 0; padding-left: 1.4rem; max-width: 72ch; }
+.intro-claves { margin: 0; padding-left: 1.1rem; max-width: 72ch; }
+:is(.intro-partes, .intro-claves) > li + li { margin-top: var(--e2); }
+.tabla-guia { width: 100%; }
+.tabla-guia td { vertical-align: top; }
+.tabla-guia td.mono { white-space: nowrap; font-family: var(--f-mono); font-size: var(--t-s); }
+@media (max-width: 40rem) {
+  .intro-alcance > div, .intro-fuentes > div { grid-template-columns: minmax(0, 1fr); gap: var(--e1); }
+}
+@media print {
+  /* Ceñido: con el espaciado de pantalla las dos últimas líneas de «Uso
+     responsable» caían solas en una hoja del documento único. */
+  .intro-bloque { margin: 0 0 4.5mm; font-size: 9.5pt; line-height: 1.42; }
+  .intro-bloque > h2 { font-size: 14pt; margin: 0 0 2mm; break-after: avoid; }
+  .intro-bloque h3 { font-size: 10.5pt; margin: 3mm 0 1.2mm; break-after: avoid; }
+  .intro-alcance > div, .intro-fuentes > div {
+    grid-template-columns: 28mm minmax(0, 1fr); gap: 3mm; padding-bottom: 1.5mm;
+    border-bottom-color: #ccc; break-inside: avoid;
+  }
+  .intro-alcance, .intro-fuentes { gap: 1.5mm; }
+  :is(.intro-partes, .intro-claves) > li + li { margin-top: 1mm; }
+  .tabla-guia { font-size: 8.5pt; line-height: 1.35; }
+  .tabla-guia th, .tabla-guia td { padding: .9mm 1.8mm; }
+  .tabla-guia tr { break-inside: avoid; }
+  .tabla-guia:not(.tabla-guia-cifras) td:nth-child(1) { width: 17mm; }
+  .tabla-guia:not(.tabla-guia-cifras) td:nth-child(2) { width: 36mm; }
+  .tabla-guia:not(.tabla-guia-cifras) td:nth-child(4) { width: 22mm; }
+  .tabla-guia-cifras td:nth-child(1) { width: 32mm; }
+  .tabla-guia-cifras td:nth-child(3) { width: 38mm; }
+  .tabla-guia td.mono { font-size: 8pt; }
+  .intro-bloque .nota, .intro-fuente-dato { font-size: 8.5pt; line-height: 1.4; }
+  /* Las tablas de la guía son largas: se parten entre filas. La regla general
+     de papel pide a `.tabla-envoltura` no partirse, y eso dejaba media hoja en
+     blanco antes de cada una. */
+  .intro-guia .tabla-envoltura { break-inside: auto; }
 }
 
 /* ── Análisis de resultados (analisis.html) ────────────────────────────────

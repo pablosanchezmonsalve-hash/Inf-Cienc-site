@@ -139,6 +139,7 @@ export function temaInicial() {
 
 export const PAGINAS = [
   ['index.html', 'Portada'],
+  ['introduccion.html', 'Introducción'],
   ['produccion.html', 'Producción'],
   ['impacto.html', 'Impacto'],
   ['colaboracion.html', 'Colaboración'],
@@ -153,13 +154,30 @@ export const PAGINAS = [
   ['metodologia.html', 'Metodología'],
 ];
 
+/** Las partes del informe, en el orden en que se leen: su página y el nombre
+    con que las citan el índice, la portada de cada archivo y el folio.
+
+    Una sola tabla para esos usos. La primera página del sitio es «Portada» en
+    la navegación, pero en el informe esa palabra es la carátula; como sección
+    se llama «Panorama general» (D-749). */
+export const PARTES_INFORME = {
+  introduccion: ['introduccion.html', 'Introducción'],
+  panorama: ['index.html', 'Panorama general'],
+  produccion: ['produccion.html', 'Producción'],
+  impacto: ['impacto.html', 'Impacto'],
+  colaboracion: ['colaboracion.html', 'Colaboración'],
+  tematica: ['tematica.html', 'Áreas temáticas'],
+  analisis: ['analisis.html', 'Análisis de resultados'],
+  metodologia: ['metodologia.html', 'Metodología y limitaciones'],
+};
+
 /* Navegación agrupada en secciones. Cada grupo lleva su rótulo corto en la
    barra lateral: once enlaces seguidos en una columna no se recorren, tres
    grupos rotulados sí. */
 export const NAV_GRUPOS = [
   {
     nombre: 'Informe',
-    paginas: ['index.html', 'produccion.html', 'impacto.html', 'colaboracion.html', 'tematica.html', 'analisis.html'],
+    paginas: ['index.html', 'introduccion.html', 'produccion.html', 'impacto.html', 'colaboracion.html', 'tematica.html', 'analisis.html'],
   },
   {
     nombre: 'Datos',
@@ -188,6 +206,7 @@ const ICONO = {
 };
 const ICONOS = {
   'index.html': 'M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z',  // dashboard
+  'introduccion.html': 'M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z',  // info
   'produccion.html': 'M640-160v-280h160v280H640Zm-240 0v-640h160v640H400Zm-240 0v-440h160v440H160Z',  // bar_chart
   'impacto.html': 'm136-240-56-56 296-298 160 160 208-206H640v-80h240v240h-80v-104L536-320 376-480 136-240Z',  // trending_up
   'colaboracion.html': 'M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-40-82v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm276-102q20-22 36-47.5t26.5-53q10.5-27.5 16-56.5t5.5-59q0-98-54.5-179T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5Z',  // public
