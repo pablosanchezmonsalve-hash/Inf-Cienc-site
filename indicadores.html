@@ -20,7 +20,7 @@
    1. El tema guardado: desde el módulo diferido, la página aparecería un
       instante con el tema equivocado.
    2. La clase `js`: marca que hay JavaScript. Las vistas conmutables se
-      contraen a una sola sólo bajo esa clase; sin JS se muestran las dos, que
+      contraen a una sola solo bajo esa clase; sin JS se muestran las dos, que
       es lo correcto —la tabla es la vía equivalente al gráfico, no un extra—. */
 (function(){var e=document.documentElement;e.className+=' js';
 try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(x){}})();</script>
@@ -322,6 +322,12 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
             alta</a></span>
         </td>
       </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> Su valor analítico inmediato es bajo: resulta más útil como diagnóstico de la cobertura de la base que como indicador de producción.
+          
+        </td>
+      </tr>
       <tr id="A-01">
         <td class="col-marca"><label class="solo-lectores" for="g-A-01">Incluir Acceso abierto en la selección</label>
              <input type="checkbox" class="chk-grafico" id="g-A-01" data-cod="A-01"></td>
@@ -589,6 +595,12 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
             media</a></span>
         </td>
       </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> Es una alternativa al SJR: se publica una sola métrica de revista para no duplicar lecturas del mismo fenómeno.
+          
+        </td>
+      </tr>
       <tr id="R-03">
         <td class="col-marca"></td>
         <td><span class="codigo">R-03</span></td>
@@ -602,6 +614,12 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="estado" data-e="diferido">Diferido a V2</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> Sería una tercera métrica de revista, redundante con el SJR en esta versión del informe.
+          
         </td>
       </tr>
       <tr id="AU-02">
@@ -650,8 +668,8 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </tr>
       <tr class="cat-motivo">
         <td colspan="7">
-          <strong>Por qué:</strong> SciVal calcula el FWCI de un investigador como el promedio de los FWCI de sus publicaciones, pero sobre todas las de su perfil de Scopus, también las firmadas fuera de la UFT. Este export trae sólo las afiliadas a la UFT, y en firmas sin consolidar en personas (D-08): su promedio sería otra cifra con el mismo nombre.
-          <br><strong>Qué falta:</strong> Export de SciVal a nivel investigador, sobre perfiles de autor confirmados por revisión humana.
+          <strong>Por qué:</strong> SciVal calcula el FWCI de un investigador como el promedio de los FWCI de sus publicaciones, pero sobre todas las de su perfil de Scopus, también las firmadas fuera de la UFT. Esta exportación contiene solo las afiliadas a la UFT, y en firmas sin consolidar en personas (D-08): su promedio sería otra cifra con el mismo nombre.
+          <br><strong>Qué falta:</strong> Exportación de SciVal a nivel de investigador, sobre perfiles de autor confirmados por revisión humana.
         </td>
       </tr>
       <tr id="X-01">
@@ -670,7 +688,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </tr>
       <tr class="cat-motivo">
         <td colspan="7">
-          <strong>Por qué:</strong> El export declara &#39;Self-citations: -&#39;.
+          <strong>Por qué:</strong> La exportación de SciVal no incluye autocitas: declara «Self-citations: -».
           <br><strong>Qué falta:</strong> Reexportar SciVal con autocitas activadas.
         </td>
       </tr>
@@ -690,7 +708,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </tr>
       <tr class="cat-motivo">
         <td colspan="7">
-          <strong>Por qué:</strong> Excluido por PROJECT_SPEC.md &lt;out_of_scope_for_v1&gt;.
+          <strong>Por qué:</strong> Queda fuera del alcance definido para esta versión: el informe no establece comparaciones con otras instituciones.
           
         </td>
       </tr></tbody>
@@ -741,7 +759,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </tr>
       <tr class="cat-motivo">
         <td colspan="7">
-          <strong>Por qué:</strong> SciVal lista sólo las instituciones que reconoce y cuenta los países sobre todas las afiliaciones: hay publicaciones con una sola institución y autores de otro país. Una sola institución en la lista no prueba que no participara otra, y el export no trae el tipo de colaboración que SciVal asigna a cada publicación.
+          <strong>Por qué:</strong> SciVal lista solo las instituciones que reconoce y cuenta los países sobre todas las afiliaciones: hay publicaciones con una sola institución y autores de otro país. Una sola institución en la lista no prueba que no participara otra, y la exportación no contiene el tipo de colaboración que SciVal asigna a cada publicación.
           <br><strong>Qué falta:</strong> Exportar de SciVal el indicador Collaboration (internacional, nacional, institucional, autoría única) para este universo, o que una persona revise las afiliaciones de Scopus distintas de la UFT en esas publicaciones (D-08).
         </td>
       </tr>
@@ -826,7 +844,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </tr>
       <tr class="cat-motivo">
         <td colspan="7">
-          <strong>Por qué:</strong> Diferido: depende de resolver los perfiles Scopus fragmentados (T-04).
+          <strong>Por qué:</strong> Diferido: depende de revisar los nombres con varios identificadores de autor de Scopus que incorporó la carga 2020-2025.
           
         </td>
       </tr></tbody>
@@ -894,7 +912,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </tr>
       <tr class="cat-motivo">
         <td colspan="7">
-          <strong>Por qué:</strong> 932 topics para 1.313 publicaciones: demasiado disperso para vista principal.
+          <strong>Por qué:</strong> 932 topics para 1.313 publicaciones: demasiado disperso para una representación principal.
           
         </td>
       </tr>

@@ -24,6 +24,17 @@ export async function cargar(nombre) {
 /* -------------------------------------------------------------- formato */
 export const nf = new Intl.NumberFormat('es-CL');
 
+const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
+  'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+/** «2026-09-28» → «28 de septiembre de 2026»: la forma en que el informe
+    escribe una fecha en el texto. Escrita a mano y no con `Intl` para que el
+    build, el generador y el navegador escriban exactamente lo mismo. */
+export function fechaLarga(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || '');
+  return m ? `${Number(m[3])} de ${MESES[Number(m[2]) - 1]} de ${m[1]}` : '';
+}
+
 /* Concordancia con el número. Los recortes de una sola publicación —una
    escuela, una persona con un trabajo, dos filtros cruzados— imprimían
    «1 publicaciones» en el sello, la ficha, el enlace al listado y la síntesis
@@ -50,7 +61,7 @@ export function num(v, dec = 0) {
 
 /** La frase que declara, en el papel, sobre qué conjunto está medido lo que se
     imprime. Una sola redacción para los dos caminos que la escriben —el
-    pre-renderizado, que sólo conoce el informe completo, y `paginas.js`, que
+    pre-renderizado, que solo conoce el informe completo, y `paginas.js`, que
     conoce el recorte vigente—: dos textos para la misma declaración divergen
     sin que nadie lo note.
 
@@ -97,7 +108,7 @@ export function anio(v) {
     Vive aquí porque lo necesitan dos consumidores —el pre-renderizador y el
     navegador— y ya se había escrito dos veces, mal las dos: ambas cortaban por
     «·» y el separador del título es «—», así que no cortaban nada. Se aceptan
-    los dos: el título los ha usado en distintos momentos, y una regla que sólo
+    los dos: el título los ha usado en distintos momentos, y una regla que solo
     contemple el de hoy se rompe en cuanto alguien cambie el otro. */
 export const tituloDeSeccion = (t, sino = '') =>
   String(t || '').split(/\s+[—·]\s+/)[0].trim() || sino;
@@ -402,7 +413,7 @@ export async function lineaDerechosCsv() {
 
 /** Escribe el cromo en la página y engancha el conmutador de tema.
 
-    Si el pre-renderizador ya dejó el HTML puesto, no se vuelve a pintar: sólo
+    Si el pre-renderizador ya dejó el HTML puesto, no se vuelve a pintar: solo
     se corrige el botón de tema y se enganchan los eventos. Repintar borraría
     un LCP que ya ocurrió. */
 export async function montarCabecera(paginaActual) {
@@ -504,7 +515,7 @@ export async function montarAyuda() {
   };
   const ocultar = () => { panel.hidden = true; };
 
-  // Accesible por foco y no sólo por hover: si sólo respondiera al puntero,
+  // Accesible por foco y no solo por hover: si solo respondiera al puntero,
   // la ayuda no existiría por teclado ni en móvil.
   document.addEventListener('mouseover', e => {
     const b = e.target.closest('[data-ayuda]'); if (b) mostrar(b);
@@ -526,7 +537,7 @@ export function botonAyuda(termino) {
 
 /* `data-k` en cada marca es la CLAVE de la categoría. La usa animar.js para
    reconocer una barra entre dos repintados: sin ella, al recortar el conjunto
-   toda figura sería nueva y no habría nada que mover, sólo un reemplazo.
+   toda figura sería nueva y no habría nada que mover, solo un reemplazo.
    Se emite aquí, junto al dato, y no se calcula fuera. */
 
 /* ------------------------------------------------------------ gráficos */
@@ -668,7 +679,7 @@ export function barrasH(datos, {
      ancho entero del lienzo: mezclar las dos disposiciones en un gráfico haría
      que las barras no arrancaran del mismo punto.
      El umbral cubre toda tarjeta de dos columnas (418 a 542 px en escritorio),
-     no sólo el teléfono: con 420 las secciones apilaban a 1280 px y a 1440
+     no solo el teléfono: con 420 las secciones apilaban a 1280 px y a 1440
      volvían a recortar a unos 20 caracteres, con la misma ambigüedad. */
   const apilar = ancho < 560 && datos.some(d => anchoTexto(d.valor) > anchoEtiqueta - 14);
   const x0 = apilar ? 0 : anchoEtiqueta;
@@ -855,7 +866,7 @@ export function barrasV(datos, {
    C-05: lo decide la misma función que en el resto del sitio (D-09).
 
    ESTADO: C-05 se publicó el 2026-08-26 (T-10), en `colaboracion.html`. Estas
-   funciones sólo dibujan, no calculan: el grafo lo construye
+   funciones solo dibujan, no calculan: el grafo lo construye
    `web/assets/js/grafo.js` en el navegador (recorte en vivo, puerto
    verificado línea a línea contra `src/build/grafo_coautoria.py`) o el mismo
    `grafo.js` bajo Node en el prerenderizado — nunca esta primitiva.
@@ -1449,7 +1460,7 @@ export function proporcional(datos, { titulo = '', ancho = 680, alto = 128 } = {
 
 /* ------------------------------------------------------ tooltip común */
 
-/* Un gráfico HTML es interactivo por naturaleza: `<title>` sólo aparece tras
+/* Un gráfico HTML es interactivo por naturaleza: `<title>` solo aparece tras
    una pausa larga del puntero y no existe por teclado. Este panel responde a
    ambos. Se instala una vez por página y sirve a todas las marcas. */
 export function montarTooltip() {
@@ -1462,7 +1473,7 @@ export function montarTooltip() {
   let activa = null;
 
   /* Resaltar es atenuar el resto. Señalar una barra sin apagar las demás no
-     dirige la mirada: sólo añade un borde que hay que buscar. La atenuación se
+     dirige la mirada: solo añade un borde que hay que buscar. La atenuación se
      aplica en el SVG que contiene la marca, no en la página, para que dos
      gráficos de la misma pantalla no se interfieran. */
   const resaltar = (m) => {
@@ -1532,7 +1543,7 @@ export function montarTooltip() {
     Aquí la tabla no está escondida detrás de un desplegable: es la segunda
     vista del módulo, al mismo nivel que el gráfico.
 
-    La columna `esperado` sólo aparece cuando el indicador la trae. Es la que
+    La columna `esperado` solo aparece cuando el indicador la trae. Es la que
     convierte un recuento en un juicio: 75 publicaciones en el top 10 % no dice
     nada hasta que al lado está lo que cabría esperar. */
 export function tablaEquivalente(datos, col = 'valor', { categoria = 'Categoría', columna = 'n', decimales = null } = {}) {

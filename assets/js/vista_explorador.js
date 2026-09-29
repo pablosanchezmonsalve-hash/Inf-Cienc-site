@@ -14,7 +14,7 @@ import * as G from './grafo.js';
 /** Cabecera de portada en banda, con la estructura del «Cockpit» del diseño de
     Stitch: la identidad a un lado y, al otro, lo que NO cambia con el recorte.
 
-    Sigue sin cifras, y a propósito. La cabecera anterior a ésta tenía tres que
+    Sigue sin cifras, y a propósito. La cabecera anterior a esta tenía tres que
     el tablero repetía justo debajo, y una cifra del total en la banda se lee
     como la del recorte que se está mirando. El Cockpit ponía ahí el universo y
     un crecimiento: el universo ya lo dice la línea de estado, y el crecimiento
@@ -144,7 +144,7 @@ export function estado(n, total, sel, { enlaceLista = false } = {}) {
 
 /* Las tres advertencias que acompañan a una persona. Viven aquí, en una sola
    redacción, porque las escriben dos superficies: la ficha (`fichaAutor` en
-   paginas.js) y el informe recortado a esa persona. Antes sólo existía la
+   paginas.js) y el informe recortado a esa persona. Antes solo existía la
    primera; copiar su texto habría creado la segunda versión de una advertencia
    metodológica, que es exactamente la clase de duplicado que ya divergió una
    vez en los paneles de eje. */
@@ -181,7 +181,7 @@ export function advertenciaMuestraReducida(umbral) {
     PDF descargado — que es donde hace falta, porque un PDF nominal circula sin
     el sitio al lado.
 
-    Se muestra para las 829 entidades, no sólo para las 68 que superan el
+    Se muestra para las 829 entidades, no solo para las 68 que superan el
     umbral: 761 quedan por debajo, y excluirlas de su propio informe sería
     decidir sobre esas personas en silencio en vez de declararles la
     limitación. Es la decisión del usuario del 2026-09-07. */
@@ -200,7 +200,7 @@ export function advertenciaMuestraReducida(umbral) {
         publicaciones sostienen el indicador y cuánto lo mueve una. Ese número
         es aritmética —`100/n`— y no depende del umbral, así que si mañana se
         discute el 20 la cifra que el lector ve sigue siendo correcta. El
-        umbral sólo decide cuándo aparece la banda.
+        umbral solo decide cuándo aparece la banda.
 
     QUÉ NO DICE
         No dice que el informe no sea interpretable. Una facultad con seis
@@ -361,7 +361,7 @@ export function grafico(pubs_sel, clave, titulo, forma, jerarquia, ancho) {
 }
 
 /* Qué indicador dibuja cada corte de la portada. Los cortes de sección ya
-   traen su `cod`; éstos no lo tenían porque nadie se lo había pedido, y el
+   traen su `cod`; estos no lo tenían porque nadie se lo había pedido, y el
    sello lo necesita para saber de qué fuente hablar. */
 const COD_PORTADA = { anio: 'P-02', qs_area: 'T-05', unidad: 'P-07', tipo: 'P-03' };
 
@@ -397,8 +397,7 @@ export function cortes(pubs_sel, proc, jerarquia, textos, sel = {}) {
   if (!elegidos.length) return sinGraficos();
   return elegidos.map(([clave, titulo, forma]) => `
     <section class="corte" data-corte="${clave}">
-      <header class="corte-cab"><h3>${c.escapar(titulo)}</h3>
-        <span class="corte-cod">${COD_PORTADA[clave]}</span></header>
+      <header class="corte-cab"><h3>${c.escapar(titulo)}</h3></header>
       <div class="grafico" data-lienzo="${clave}">${grafico(pubs_sel, clave, titulo, forma, jerarquia)}</div>
       ${MULTIVALUADO.has(clave)
         ? '<p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
@@ -417,7 +416,7 @@ export function cortes(pubs_sel, proc, jerarquia, textos, sel = {}) {
 
     Descriptivas y nada más: ni adjetivos que evalúen («alta», «destacada») ni
     comparaciones que el informe no puede sostener. Cada frase repite una cifra
-    que la página ya publica, con su base, para que quien lea sólo esto no se
+    que la página ya publica, con su base, para que quien lea solo esto no se
     lleve un número sin su condición: la mediana de citas va antes que el
     promedio porque el 1 % más citado reúne un tercio de las citas (D-710).
 
@@ -458,21 +457,21 @@ export function sintesis(sub, sel, meta) {
         : tipos.length && tipos[1].n === tipos[0].n
           ? `; los tipos más frecuentes, empatados, son ${unirY(tipos.filter(t => t.n === tipos[0].n).map(t => t.tipo))} (${pct(tipos[0].n, n)} cada uno).`
         : tipos.length ? `; el tipo más frecuente es ${tipos[0].tipo} (${pct(tipos[0].n, n)}).` : '.'),
-    r.citas_por_pub.base ? `Citas al ${meta.fecha_corte_citas}: la publicación típica —la mediana— tiene `
+    r.citas_por_pub.base ? `Citas al ${c.fechaLarga(meta.fecha_corte_citas)}: la publicación típica —la mediana— tiene `
       + `${c.num(r.citas_por_pub.mediana, Number.isInteger(r.citas_por_pub.mediana) ? 0 : 1)}, y el promedio es `
       + `${c.num(r.citas_por_pub.valor, 2)}`
-      + (r.citas_por_pub.valor > r.citas_por_pub.mediana ? ': unas pocas muy citadas lo elevan.' : '.') : '',
+      + (r.citas_por_pub.valor > r.citas_por_pub.mediana ? ': unas pocas publicaciones muy citadas lo elevan.' : '.') : '',
     r.fwci_mediano.base ? `FWCI mediano de ${c.num(r.fwci_mediano.valor, 2)}, sobre `
-      + `${c.cuenta(r.fwci_mediano.base, 'publicaciones')} con FWCI; 1,00 es el promedio mundial de su campo, año y tipo.` : '',
-    r.internacional.base ? `${c.num(r.internacional.valor, 1)} % en colaboración internacional —con autores `
-      + 'de más de un país—.' : '',
+      + `${c.cuenta(r.fwci_mediano.base, 'publicaciones')} con FWCI; el valor 1,00 corresponde al promedio mundial de su campo, año y tipo documental.` : '',
+    r.internacional.base ? `${c.num(r.internacional.valor, 1)} % de las publicaciones en colaboración internacional, `
+      + 'con autores de más de un país.' : '',
     areas.length ? fraseAreas(areas, conArea) : '',
   ].filter(Boolean);
   return `<section class="sintesis" aria-labelledby="sintesis-titulo">
     <h2 id="sintesis-titulo">En síntesis</h2>
     <ul>${frases.map(f => `<li>${c.escapar(f)}</li>`).join('')}</ul>
-    <p class="nota">Frases escritas desde las cifras de este recorte, que cambian con los filtros. Describen: no
-      evalúan la calidad de lo publicado ni comparan con otras instituciones.</p>
+    <p class="nota">Síntesis generada a partir de las cifras de este recorte; se actualiza al aplicar filtros. Es
+      descriptiva: no evalúa la calidad de lo publicado ni establece comparaciones con otras instituciones.</p>
   </section>`;
 }
 
@@ -515,7 +514,7 @@ const AVISO_CITAS_POR_ANIO = 'Las citas se cuentan por año de publicación, no 
   + 'año de citación: lo publicado en un año reciente tuvo menos tiempo para acumularlas.';
 
 // `rotulo` y no código: la compuerta de lecturas (04_glossary.py) toma cada
-// código declarado por una figura con lectura propia, y ésta la tiene por su
+// código declarado por una figura con lectura propia, y esta la tiene por su
 // campo.
 const DINAMICA = { campo: 'dinamica', titulo: 'Dinámica anual', rotulo: 'P-02 · I-01' };
 const MAS_CITADAS = { cod: 'I-07', titulo: 'Publicaciones más citadas', tope: 10 };
@@ -527,7 +526,7 @@ const MAS_CITADAS = { cod: 'I-07', titulo: 'Publicaciones más citadas', tope: 1
 const NOTA_RED = 'La posición agrupa por comunidad, detectada por un algoritmo (Louvain) que '
   + 'maximiza la densidad interna: una heurística razonable, no un veredicto sobre qué grupos de '
   + 'investigación existen. La componente —si hay un camino de coautoría entre dos personas— sí es '
-  + 'un hecho objetivo del grafo. En papel se dibuja sólo la vista de nodos; la matriz, los arcos y la '
+  + 'un hecho objetivo del grafo. En papel se dibuja solo la vista de nodos; la matriz, los arcos y la '
   + 'tabla de pares se consultan en el sitio.';
 const LECTURA_MAS_CITADAS = 'Ordena por citas totales al corte, sin normalizar: '
   + 'favorece lo publicado en los primeros años de la ventana y las áreas y tipos '
@@ -552,8 +551,7 @@ function tablaDinamica(sub, sel, meta, proc, textos) {
   const citas = f => f.n === 0 ? '0'
     : f.base ? c.nf.format(f.citas) : '<span class="sin-dato-txt">Sin dato declarado</span>';
   return `<section class="corte tabla-portada" data-corte="${DINAMICA.campo}">
-    <header class="corte-cab"><h3>${c.escapar(DINAMICA.titulo)}</h3>
-      <span class="corte-cod">P-02 · I-01</span></header>
+    <header class="corte-cab"><h3>${c.escapar(DINAMICA.titulo)}</h3></header>
     <div class="tabla-envoltura tabla-datos"><table>
       <caption class="solo-lectores">Publicaciones y citas por año de publicación, sobre el recorte</caption>
       <thead><tr><th scope="col">Año</th><th scope="col" class="num">Publicaciones</th>
@@ -577,8 +575,7 @@ function tablaDinamica(sub, sel, meta, proc, textos) {
     de Scopus y las citas de SciVal. */
 function tablaMasCitadas(sub, sel, proc, textos) {
   if (X.graficosDe(sel || {})) return '';
-  const cab = `<header class="corte-cab"><h3>${c.escapar(MAS_CITADAS.titulo)}</h3>
-      <span class="corte-cod">${MAS_CITADAS.cod}</span></header>`;
+  const cab = `<header class="corte-cab"><h3>${c.escapar(MAS_CITADAS.titulo)}</h3></header>`;
   const persona = X.personaDelRecorte(sel || {});
   if (persona) {
     return `<section class="corte tabla-portada" data-corte="mas_citadas">${cab}
@@ -771,7 +768,7 @@ export function ajustarGraficos(zona, sub, { jerarquia, clave, ancho: forzado } 
 /* Devuelve el gráfico Y sus datos. La TABLA equivalente no es un extra: es la
    vía alternativa al gráfico para quien no puede leerlo, y se construye de los
    mismos números para que no pueda decir otra cosa.
-   `jerarquia` (Map/objeto escuela -> facultad, desde meta.json) sólo lo usan
+   `jerarquia` (Map/objeto escuela -> facultad, desde meta.json) solo lo usan
    los campos 'unidad' y 'escuela'; el resto de los cortes lo ignora. */
 /** La FIGURA de un corte, con sus datos: `{svg, datos}`, o null si no hay nada
     que dibujar. Exportada para que `src/design/build_kit.mjs` enseñe en sus
@@ -888,7 +885,7 @@ function tablaRed(aristas) {
 
 /** El módulo completo de C-05. `unidadPorPersona`: Map nombre → unidad
     académica, de `authors.json` (no hay forma de derivarla de `sub` sola:
-    una publicación no lleva la unidad por autor individual, sólo el conjunto
+    una publicación no lleva la unidad por autor individual, solo el conjunto
     de unidades de TODOS sus firmantes). */
 function corteRed(sub, corte, unidadPorPersona, proc, textos) {
   const id = corte.cod;
@@ -1079,7 +1076,7 @@ export function seccionDeGrafico() {
 
     La consecuencia práctica era peor de lo que suena: el sitio, que es la
     superficie que casi todo el mundo usa, era la única donde el gráfico no se
-    explicaba. Sólo lo veía quien descargaba el PDF.
+    explicaba. Solo lo veía quien descargaba el PDF.
 
     El texto es el mismo en los dos medios —un origen, `docs/LECTURAS.md`— y lo
     que cambia es la presentación, que la hoja de estilo resuelve: pie de figura
@@ -1088,7 +1085,7 @@ function bloqueLectura(clave, corte, textos) {
   if (!textos) return '';
   const l = (textos.lecturas || {})[clave];
   const cod = corte.cod || corte.seleccionCon || (corte.sello && corte.sello[1]);
-  // La nota metodológica sólo donde es pertinente: el indicador trae una
+  // La nota metodológica solo donde es pertinente: el indicador trae una
   // advertencia del catálogo o la figura tiene notas propias (D-754).
   const pertinente = cod && (corte.aviso || corte.notaAnexo || (textos.advertencias || {})[cod]);
   return `${l ? `<p class="lectura-grafico"><b>Qué muestra</b> ${c.escapar(l.muestra)}</p>` : ''}
@@ -1157,7 +1154,7 @@ function cortePersonal(corte, persona) {
 }
 
 /** Los cortes de una sección, recalculados sobre el recorte vigente.
-    `unidadPorPersona` sólo lo usa C-05 (red de coautoría); `jerarquia` sólo
+    `unidadPorPersona` solo lo usa C-05 (red de coautoría); `jerarquia` solo
     'unidad' y 'escuela' (P-07). `persona` (opcional) es la firma a la que está
     recortado el informe, y cambia qué se dibuja: ver `cortePersonal`. */
 export function cortesSeccion(sub, clave, proc, unidadPorPersona, jerarquia, sel, textos) {
@@ -1199,7 +1196,6 @@ export function corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos
       data-corte="${corte.campo}" tabindex="-1">
       <header class="corte-cab">
         <h3>${c.escapar(corte.titulo)}</h3>
-        ${corte.cod ? `<span class="corte-cod">${c.escapar(corte.cod)}</span>` : ''}
         ${r ? conmutador(id) : ''}
       </header>
       ${r ? `<div class="vista" id="${id}-grafico" data-vista="grafico" data-activa="true">
@@ -1261,8 +1257,8 @@ export function cabeceraSeccion(clave, titulo, eje) {
   </div>`;
 }
 
-/** Todo el cuerpo de una sección. `unidadPorPersona` (Map, opcional) sólo lo
-    necesita C-05; `jerarquia` (objeto, opcional, de meta.json) sólo P-07.
+/** Todo el cuerpo de una sección. `unidadPorPersona` (Map, opcional) solo lo
+    necesita C-05; `jerarquia` (objeto, opcional, de meta.json) solo P-07.
     Las demás secciones los reciben y no los usan. */
 export function seccion(pubs, sel, clave, proc, unidadPorPersona, jerarquia, meta, umbral, textos) {
   const sub = X.recorte(pubs, sel);
@@ -1296,18 +1292,21 @@ export function diferidos(catalogo, clave) {
   if (!filas.length) return '';
   return `<section class="banda banda-contraste no-publicados">
     <div class="banda-titulo">
-      <p class="banda-gancho">Lo que esta sección todavía no puede mostrar</p>
+      <p class="banda-gancho">Indicadores no publicados en esta sección</p>
       <h2>${filas.length === 1 ? 'Un indicador' : `${filas.length} indicadores`}
         de esta sección está${filas.length === 1 ? '' : 'n'} verificado${
-        filas.length === 1 ? '' : 's'} pero no se publica${filas.length === 1 ? '' : 'n'}.</h2>
-      <p>No responden al recorte: no se calculan aquí. Se dice cuál y por qué.</p>
+        filas.length === 1 ? '' : 's'}, pero no se publica${filas.length === 1 ? '' : 'n'}.</h2>
+      <p>No dependen del recorte y no se calculan en este informe. Se indica cuáles son y el motivo.</p>
     </div>
     ${filas.map(r => `<article class="modulo modulo-diferido" id="${c.escapar(r.codigo)}">
       <header><div class="modulo-id">
-        <h3>${c.escapar(r.nombre)}</h3><span class="codigo">${c.escapar(r.codigo)}</span>
+        <h3>${c.escapar(r.nombre)}</h3>
       </div><span class="estado" data-e="${c.escapar(r.estado)}">${
         c.escapar(r.estado_etiqueta || r.estado)}</span></header>
-      <p class="nota">${c.escapar(r.advertencia || r.definicion || '')}</p>
+      ${/* El motivo declarado en config/indicators.yml (`razon`) antes que la nota
+           de viabilidad (`definicion`), que es de trabajo y traía referencias
+           internas («CLAUDE.md», tareas, «PROJECT_SPEC») al informe. */ ''}
+      <p class="nota">${c.escapar(r.razon || r.advertencia || r.definicion || '')}</p>
     </article>`).join('')}
   </section>`;
 }
@@ -1347,9 +1346,13 @@ export function analisisResultados(pubs, sel, meta, pais) {
   // «1 publicaciones», «1 citas»: los recortes chicos los producían.
   const pl = (x, uno, varios, d = 0) => `${d ? c.num(x, d) : nf(x)} ${x === 1 ? uno : varios}`;
   const npub = x => pl(x, 'publicación', 'publicaciones');
-  /* En papel no hay enlace que seguir: se imprime el código de la figura, que
-     el índice del PDF lleva con su hoja. */
-  const figura = (pagina, cod) => ` <a class="analisis-figura" href="${pagina}${q}#${cod}"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>${e(cod)}<span class="af-pantalla"> →</span><span class="af-papel">)</span></a>`;
+  /* Cada hallazgo remite a su figura por el TÍTULO, que es lo que el lector ve
+     sobre ella y lo que el índice del PDF lista con su página: desde que los
+     títulos no llevan código, «(figura P-02)» no se podía ubicar. El código
+     queda en el ancla del enlace. */
+  const titulos = Object.fromEntries(Object.values(SECCIONES)
+    .flatMap((s) => s.cortes).filter((k) => k.cod).map((k) => [k.cod, k.titulo]));
+  const figura = (pagina, cod) => ` <a class="analisis-figura" href="${pagina}${q}#${cod}"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«${e(titulos[cod] || cod)}»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a>`;
   const hallazgo = (titulo, texto, limite, enlace = '') => `<article class="hallazgo">
       <h3>${e(titulo)}</h3>
       <p>${texto}${enlace}</p>
@@ -1369,15 +1372,15 @@ export function analisisResultados(pubs, sel, meta, pais) {
   const prod = [];
   if (razon != null) {
     prod.push(hallazgo('Evolución del volumen',
-      // «(1,0 veces)» y «pasó de 2 a 2» no dicen nada: la razón sólo acompaña un cambio.
+      // «(1,0 veces)» y «pasó de 2 a 2» no dicen nada: la razón solo acompaña un cambio.
       (tendencia === 'se mantuvo'
         ? `La producción se mantuvo: ${npub(ini.n)} en ${ini.anio} y ${nf(fin.n)} en ${fin.anio}.`
         : `La producción ${tendencia}: pasó de ${npub(ini.n)} en ${ini.anio} a ${nf(fin.n)} en ${fin.anio} `
           + `(${c.num(razon, 1)} veces).`)
-      // El pico se nombra sólo si supera a los dos extremos: empatado, no es «el año con más».
+      // El pico se nombra solo si supera a los dos extremos: empatado, no es «el año con más».
       + (pico.n > Math.max(ini.n, fin.n) ? ` El año con más publicaciones fue ${pico.anio}, con ${nf(pico.n)}.` : ''),
-      'Es volumen indexado en Scopus: depende también de qué revistas indexa la base y de cómo declara '
-      + 'cada autor su afiliación. Mide actividad, no calidad ni rendimiento.', figura('produccion.html', 'P-02')));
+      'Corresponde al volumen indexado en Scopus: depende también de las revistas que indexa la base y de cómo '
+      + 'declara cada autor su afiliación. Refleja actividad, no calidad ni rendimiento.', figura('produccion.html', 'P-02')));
   }
   if (P.tipos.length) {
     const [t1, t2] = P.tipos;
@@ -1388,7 +1391,7 @@ export function analisisResultados(pubs, sel, meta, pais) {
       : t2 ? `El tipo más frecuente es ${e(t1.tipo)} (${pct(t1.n, h.n)}), seguido de ${e(t2.tipo)} (${pct(t2.n, h.n)}).`
         : h.n === 1 ? `La publicación del recorte es del tipo ${e(t1.tipo)}.`
         : `Todas las publicaciones del recorte son del tipo ${e(t1.tipo)}.`,
-      'El tipo lo asigna la fuente. Todos los tipos, también erratas, editoriales y cartas, cuentan en el universo del informe.',
+      'El tipo documental lo asigna la fuente. Todos los tipos, incluidas erratas, editoriales y cartas, se contabilizan en el universo del informe.',
       figura('produccion.html', 'P-03')));
   }
   if (P.facultades.length && P.unidad.cubiertas) {
@@ -1403,12 +1406,12 @@ export function analisisResultados(pubs, sel, meta, pais) {
           + (topeU.length > 1
             ? `las unidades más frecuentes, empatadas, son ${unirY(topeU)}, con ${nf(f1.n)} cada una.`
             : `la unidad más frecuente es ${topeU[0]}, con ${nf(f1.n)}.`)),
-      'La unidad sale de la afiliación que declara cada firma'
+      'La unidad se obtiene de la afiliación que declara cada firma'
       // «el reparto es parcial» con 0 % sin unidad era falso.
       // Se compara el recuento, no el porcentaje: redondeado, 1.999 de 2.000 da 100,0.
       + (P.unidad.cubiertas < h.n ? ` y no se pudo determinar en el ${c.num(100 - P.unidad.pct, 1)} % de las `
-        + 'publicaciones, así que el reparto es parcial.' : '.')
-      + ' Una publicación firmada desde dos unidades cuenta en ambas. No compara unidades de tamaño y disciplina distintos.',
+        + 'publicaciones, por lo que la distribución es parcial.' : '.')
+      + ' Una publicación firmada desde dos unidades se contabiliza en ambas. No permite comparar unidades de tamaño y disciplina distintos.',
       figura('produccion.html', 'P-07')));
   }
   if (prod.length) secciones.push(['Producción', prod]);
@@ -1422,23 +1425,23 @@ export function analisisResultados(pubs, sel, meta, pais) {
   if (I.conMetricas && I.totalCitas) {
     /* Título y frase neutros: «se concentran» se afirmaba en cualquier recorte,
        también en uno donde el 10 % más citado reúne poco más del 10 %. La
-       cifra dice cuánto; el «por eso» sólo vale si la mediana queda bajo el
+       cifra dice cuánto; el «por eso» solo vale si la mediana queda bajo el
        promedio, que es lo que la concentración explica. */
     imp.push(hallazgo('Cómo se reparten las citas',
       // Con una sola publicación no hay reparto que describir: se dice cuántas tiene.
       I.conMetricas === 1
-        ? `La única publicación con métricas tiene ${pl(I.totalCitas, 'cita', 'citas')} al ${e(meta.fecha_corte_citas)}.`
+        ? `La única publicación con métricas tiene ${pl(I.totalCitas, 'cita', 'citas')} al ${e(c.fechaLarga(meta.fecha_corte_citas))}.`
         : `${cabeza} reúne el ${c.num(100 * I.concentracion, 1)} % de las `
       + `${pl(I.totalCitas, 'cita', 'citas')}, y `
       + (I.sinCitas
         ? `${npub(I.sinCitas)} (${pct(I.sinCitas, I.conMetricas)}) ${I.sinCitas === 1 ? 'no tiene' : 'no tienen'} citas`
         : 'todas tienen al menos una cita')
-      + ` al ${e(meta.fecha_corte_citas)}. `
+      + ` al ${e(c.fechaLarga(meta.fecha_corte_citas))}. `
       + `${I.citasMediana < I.citasPromedio ? 'Por eso la' : 'La'} publicación típica —la mediana— tiene `
       + `${pl(I.citasMediana, 'cita', 'citas', Number.isInteger(I.citasMediana) ? 0 : 1)} y el promedio es `
       + `${c.num(I.citasPromedio, 2)}.`,
-      'Es la forma habitual de las distribuciones de citas: el promedio no describe a la publicación típica. '
-      + 'Las citas son acumuladas al corte y lo publicado en los últimos años tuvo menos tiempo para recibirlas.',
+      'Es la forma habitual de las distribuciones de citas: el promedio no describe la publicación típica. '
+      + 'Las citas se acumulan hasta la fecha de corte, y lo publicado en los últimos años ha tenido menos tiempo para recibirlas.',
       figura('impacto.html', 'I-08')));
   }
   if (I.fwciBase && I.fwciMediano != null) {
@@ -1450,8 +1453,8 @@ export function analisisResultados(pubs, sel, meta, pais) {
         ? `${npub(I.fwciSobre1)} (${pct(I.fwciSobre1, I.fwciBase)}) `
           + `${I.fwciSobre1 === 1 ? 'iguala o supera' : 'igualan o superan'} ese promedio.`
         : 'Ninguna publicación iguala o supera ese promedio.'),
-      'El FWCI de lo publicado recientemente se calcula con pocas citas y cambia con cada actualización. Se '
-      + 'usa la mediana porque unas pocas publicaciones muy citadas elevan la media.',
+      'El FWCI de lo publicado recientemente se calcula con pocas citas y varía con cada actualización. Se '
+      + 'utiliza la mediana porque unas pocas publicaciones muy citadas elevan la media.',
       figura('impacto.html', 'I-04')));
   }
   const top10 = I.percentil.datos.find(d => d.valor === 'Top 10 %');
@@ -1464,23 +1467,23 @@ export function analisisResultados(pubs, sel, meta, pais) {
     imp.push(hallazgo('Publicaciones entre las más citadas de su campo',
       `${top10.n ? `${npub(top10.n)} (${pct(top10.n, I.percentil.base)}) ${top10.n === 1 ? 'está' : 'están'}` : 'Ninguna publicación está'} en el 10 % más citado de su campo, año `
       + `y tipo: ${rel} esperable si se citaran como el conjunto mundial, que sería ${c.num(esperado, 1)} (10 %).`,
-      'El percentil lo calcula SciVal y, en las publicaciones recientes, todavía puede moverse.',
+      'El percentil lo calcula SciVal y, en las publicaciones recientes, aún puede variar.',
       figura('impacto.html', 'I-05')));
   }
   if (I.conCuartil) {
     imp.push(hallazgo('Revistas del primer cuartil',
       I.conCuartil === 1
-        ? `La publicación con percentil SJR ${I.q1 ? 'salió' : 'no salió'} en una revista del primer cuartil de su categoría.`
+        ? `La publicación con percentil SJR ${I.q1 ? 'se publicó' : 'no se publicó'} en una revista del primer cuartil de su categoría.`
         : `${nf(I.q1)} de las ${nf(I.conCuartil)} publicaciones con percentil `
-          + `SJR (${pct(I.q1, I.conCuartil)}) ${I.q1 === 1 ? 'salió' : 'salieron'} en revistas del primer cuartil de su categoría.`,
+          + `SJR (${pct(I.q1, I.conCuartil)}) ${I.q1 === 1 ? 'se publicó' : 'se publicaron'} en revistas del primer cuartil de su categoría.`,
       'Describe la revista, no el artículo: una publicación en una revista Q1 puede no ser citada, y a la inversa.',
       figura('impacto.html', 'R-01')));
   }
   imp.push(hallazgo('Acceso abierto',
     I.conOA ? `${npub(I.conOA)} (${pct(I.conOA, h.n)}) ${I.conOA === 1 ? 'tiene' : 'tienen'} al menos una vía de acceso abierto declarada.`
       : 'Ninguna publicación del recorte tiene una vía de acceso abierto declarada.',
-    'En las demás la fuente no declara vía, lo que no significa que sean de acceso cerrado. Una publicación '
-    + 'puede tener varias vías.', figura('impacto.html', 'A-01')));
+    'En las demás, la fuente no declara una vía, lo que no significa que sean de acceso cerrado. Una publicación '
+    + 'puede registrar más de una vía.', figura('impacto.html', 'A-01')));
   secciones.push(['Impacto', imp]);
 
   // 3. Colaboración
@@ -1488,7 +1491,7 @@ export function analisisResultados(pubs, sel, meta, pais) {
   if (C.internacional.base) {
     const inter = Math.round(C.internacional.valor * C.internacional.base / 100);
     /* La definición es la de C-01: autores de más de un país. Los países se
-       nombran sólo si hay colaboración internacional: tres publicaciones de la
+       nombran solo si hay colaboración internacional: tres publicaciones de la
        institución traen un único país que no es Chile y la fuente las marca
        nacionales (LIMITATIONS.md §11), así que el recorte «Nacional» decía
        «0 publicaciones con coautores de otro país» y nombraba tres países. */
@@ -1504,7 +1507,7 @@ export function analisisResultados(pubs, sel, meta, pais) {
   if (C.autoresMediana != null) {
     col.push(hallazgo('Tamaño de los equipos',
       `La mediana es de ${pl(C.autoresMediana, 'autor', 'autores', Number.isInteger(C.autoresMediana) ? 0 : 1)} por publicación.`,
-      'Se da la mediana porque unos pocos trabajos con muchos autores elevarían el promedio.',
+      'Se informa la mediana porque unos pocos trabajos con muchos autores elevarían el promedio.',
       figura('colaboracion.html', 'C-06')));
   }
   if (col.length) secciones.push(['Colaboración', col]);
@@ -1520,15 +1523,15 @@ export function analisisResultados(pubs, sel, meta, pais) {
       + `de ${T.conArea === 1 ? 'la publicación' : `las ${nf(T.conArea)} publicaciones`} `
       + `con área QS (${pct(a1.n, T.conArea)})`
       + (a2 && a2.n !== a1.n ? `, seguida de ${e(a2.valor)} (${nf(a2.n)}).` : '.'),
-      'El área es la de la revista, no el tema del artículo, y una publicación puede tener varias: los '
+      'El área corresponde a la revista, no al tema del artículo, y una publicación puede tener varias: los '
       + 'porcentajes no suman 100.', figura('tematica.html', 'T-05')));
   }
   if (T.conOds) {
     tem.push(hallazgo('Objetivos de Desarrollo Sostenible',
       `${npub(T.conOds)} (${pct(T.conOds, h.n)}) ${T.conOds === 1 ? 'tiene' : 'tienen'} al menos un ODS asignado por la fuente`
       + (T.odsPrincipal ? `; el más frecuente es ${e(T.odsPrincipal.valor)} (${nf(T.odsPrincipal.n)}).` : '.'),
-      'Sin ODS asignado no significa que una publicación no contribuya a alguno: la cobertura es baja y la '
-      + 'cifra sólo se lee como publicaciones con ODS asignado.', figura('tematica.html', 'T-04')));
+      'Que una publicación no tenga un ODS asignado no significa que no contribuya a alguno: la cobertura es baja y '
+      + 'la cifra solo debe leerse como publicaciones con ODS asignado.', figura('tematica.html', 'T-04')));
   }
   if (tem.length) secciones.push(['Áreas temáticas', tem]);
 
@@ -1569,22 +1572,24 @@ export function analisisResultados(pubs, sel, meta, pais) {
     <section class="analisis-eje" aria-labelledby="analisis-conjunto">
       <h2 id="analisis-conjunto">${secciones.length + 1}. Lectura de conjunto</h2>
       ${conjunto}
-      <p>Son descripciones de la producción indexada, no juicios sobre su calidad: el único referente externo es el
-      promedio mundial que traen las propias métricas normalizadas, y el informe no se compara con otras
-      instituciones.</p>
+      <p>Se trata de descripciones de la producción indexada, no de juicios sobre su calidad: el único referente
+      externo es el promedio mundial que incorporan las propias métricas normalizadas, y el informe no establece
+      comparaciones con otras instituciones.</p>
     </section>
     <section class="analisis-eje" aria-labelledby="analisis-limites">
       <h2 id="analisis-limites">${secciones.length + 2}. Limitaciones de este análisis</h2>
       <ul class="analisis-limites">
         <li>Scopus no cubre por igual todas las disciplinas: las humanidades, parte de las ciencias sociales, los
-          libros y lo publicado en español quedan subrepresentados, y con ellos las unidades que publican ahí.</li>
-        <li>La ventana es de ${nf((meta.ventana?.fin ?? 0) - (meta.ventana?.inicio ?? 0) + 1)} años y las citas son
-          acumuladas al ${e(meta.fecha_corte_citas)}: los años recientes no son comparables con los primeros.</li>
-        ${P.unidad.cubiertas < h.n ? `<li>La unidad académica sólo se identificó en el ${c.num(P.unidad.pct, 1)} % de las publicaciones.</li>` : ''}
-        <li>Las cifras por autor cuentan formas de firma, no personas: parte de ellas sigue sin consolidar.</li>
+          libros y lo publicado en español están subrepresentados, al igual que las unidades que publican en esos
+          ámbitos.</li>
+        <li>El periodo abarca ${nf((meta.ventana?.fin ?? 0) - (meta.ventana?.inicio ?? 0) + 1)} años y las citas se
+          acumulan hasta el ${e(c.fechaLarga(meta.fecha_corte_citas))}: los años recientes no son comparables con los
+          primeros.</li>
+        ${P.unidad.cubiertas < h.n ? `<li>La unidad académica solo se identificó en el ${c.num(P.unidad.pct, 1)} % de las publicaciones.</li>` : ''}
+        <li>Las cifras por autor contabilizan formas de firma, no personas: parte de ellas aún no está consolidada.</li>
       </ul>
       <p>El detalle de cada límite está en <a href="metodologia.html">Metodología y limitaciones</a>.</p>
     </section>
-    <p class="nota">Texto escrito desde las cifras de este recorte con las mismas funciones que dibujan los gráficos:
-      cambia con los filtros. Cada hallazgo remite a la figura que interpreta.</p>`;
+    <p class="nota">Texto generado a partir de las cifras de este recorte, con las mismas funciones que construyen
+      los gráficos; se actualiza al aplicar filtros. Cada hallazgo remite a la figura que interpreta.</p>`;
 }

@@ -14,7 +14,7 @@
    del mismo marcado, que es como esas dos versiones acaban divergiendo.
 
    La INTERACCIÓN —conmutador de vista, scroll-spy, tooltip, filtros— sigue
-   viviendo en paginas.js. Aquí sólo se emite el marcado que esa interacción
+   viviendo en paginas.js. Aquí solo se emite el marcado que esa interacción
    después manipula. */
 
 import * as c from './core.js';
@@ -39,7 +39,7 @@ export function coberturaOrcid(autores) {
 }
 
 /* La mediana del FWCI frente a su promedio es el dato que más fácilmente se
-   malinterpreta: se explicita en portada, no sólo en el módulo. Las cifras
+   malinterpreta: se explicita en portada, no solo en el módulo. Las cifras
    salen de kpis.json; el comentario anterior citaba las de la carga de julio. */
 export function lectura(kpisLista) {
   const fwci = kpisLista.find(k => k.codigo === 'I-03');
@@ -47,15 +47,15 @@ export function lectura(kpisLista) {
   return `<div class="modulo modulo-lectura">
     <h2>Cómo leer estas cifras</h2>
     <p>El FWCI compara las citas recibidas con las esperadas para
-    publicaciones del mismo campo, año y tipo: <strong>1,0 es el promedio
-    mundial</strong>. Aquí el promedio de los FWCI de cada publicación es
-    ${c.num(fwci.valor, 2)} y la mediana ${c.num(fwci.mediana, 2)}. La
-    diferencia entre ambas indica una distribución asimétrica: unas pocas
-    publicaciones muy citadas elevan el promedio.</p>
-    ${c.nota(fwci.nota)}
-    <p class="nota">Cada indicador declara sobre cuántas publicaciones se
-    calcula. No todas las publicaciones tienen métricas: el denominador
-    cambia según el indicador.</p>
+    publicaciones del mismo campo, año y tipo documental; <strong>el valor 1,00
+    corresponde al promedio mundial</strong>. En este informe, el promedio de
+    los FWCI individuales es ${c.num(fwci.valor, 2)} y la mediana,
+    ${c.num(fwci.mediana, 2)}. La diferencia entre ambos valores indica una
+    distribución asimétrica: unas pocas publicaciones muy citadas elevan el
+    promedio; por ello, el informe destaca la mediana.</p>
+    <p class="nota">Cada indicador declara la base sobre la que se calcula. No
+    todas las publicaciones tienen métricas, por lo que el denominador varía
+    según el indicador.</p>
   </div>`;
 }
 
@@ -91,7 +91,7 @@ export function datosCsv(meta) {
     por publicación con las columnas ${COLUMNAS_CSV.map(k => `<code>${k}</code>`).join(', ')}.
     El archivo lleva en su cabecera las fuentes, la ventana y la fecha de corte.</p>
     <p id="csv-accion"></p>
-    <p class="nota">Para descargar sólo un recorte, fíltrelo en
+    <p class="nota">Para descargar solo un recorte, fíltrelo en
       <a href="publicaciones.html">Publicaciones</a> y use «Exportar CSV».</p>`;
 }
 
@@ -108,7 +108,7 @@ export function canalCorrecciones(inst) {
     entra en la cola de revisión humana descrita arriba.</p>`;
 }
 
-/** Condiciones y procedencia. Sólo lo que se puede comprobar: ni una licencia
+/** Condiciones y procedencia. Solo lo que se puede comprobar: ni una licencia
     que falta confirmar con Elsevier (docs/DATA_LICENSE.md §5) ni un sello de
     conformidad. `notaUniverso` es la nota de P-01, que declara los duplicados
     pendientes de revisión (D-593). */
@@ -120,15 +120,15 @@ export function datosCondiciones(meta, notaUniverso, inst = null) {
       <a href="mailto:${c.escapar(inst.responsable.contacto)}">${c.escapar(inst.responsable.contacto)}</a>.</li>` : '';
   return `<ul class="datos-condiciones">
     ${uso}
-    <li>Los exports originales de Scopus y SciVal <b>no se publican</b>: el sitio sirve
+    <li>Las exportaciones originales de Scopus y SciVal <b>no se publican</b>: el sitio sirve
       datos derivados de ellos.</li>
     <li>Qué métricas derivadas de Elsevier permite publicar la licencia institucional
       <b>está pendiente de confirmar</b> con la unidad que administra la suscripción.</li>
-    <li>Citas y métricas de SciVal al <b>${c.escapar(meta.fecha_corte_citas)}</b>. El export
-      de Scopus no declara fecha de corte: los sellos de sus indicadores dan la de su
-      export, el <b>${c.escapar(meta.exports.Scopus.fecha_export)}</b>.</li>
+    <li>Citas y métricas de SciVal al <b>${c.escapar(meta.fecha_corte_citas)}</b>. La exportación
+      de Scopus no declara fecha de corte: sus indicadores se leen a la fecha de la
+      exportación, el <b>${c.escapar(meta.exports.Scopus.fecha_export)}</b>.</li>
     <li>Universo de ${c.nf.format(meta.denominadores.universo_total)} publicaciones, ventana
-      ${meta.ventana.inicio}–${meta.ventana.fin}, build del ${c.escapar(meta.fecha_build)}.
+      ${meta.ventana.inicio}–${meta.ventana.fin}, compilación del ${c.escapar(meta.fecha_build)}.
       ${notaUniverso ? c.escapar(notaUniverso) : ''}</li>
     <li>La producción fuera de Scopus viene de fuentes institucionales y abiertas, no de
       Elsevier: su procedencia va en su propia fila del inventario.</li>
@@ -136,9 +136,9 @@ export function datosCondiciones(meta, notaUniverso, inst = null) {
 }
 
 /** Inventario de los archivos que sirve el sitio. Las filas llegan medidas
-    desde el pre-renderizado —registros y bytes reales de dist/data—; aquí sólo
+    desde el pre-renderizado —registros y bytes reales de dist/data—; aquí solo
     se escriben. Los JSON se enlazan y no llevan botón de descarga: la política
-    de exportación declara sólo CSV (config/publication.yml). */
+    de exportación declara solo CSV (config/publication.yml). */
 export function datosInventario(filas, noListados) {
   const peso = b => b < 1024 ? `${c.nf.format(b)} B` : `${c.nf.format(Math.round(b / 1024))} KB`;
   return `<div class="tabla-envoltura tabla-datos tabla-inventario"><table>
@@ -187,7 +187,7 @@ export function objetivos(o, { titulo = 'Objetivos del informe' } = {}) {
    D-749. Todo archivo descargado —el PDF completo, el de cada sección y lo que
    imprime el botón «Descargar informe»— abre con dos hojas:
 
-     · la PORTADA, sólo con lo que identifica el documento: institución, unidad,
+     · la PORTADA, solo con lo que identifica el documento: institución, unidad,
        título, periodo, qué contiene, quién lo elabora, fuentes y fecha;
      · la FICHA DEL INFORME, con lo que hace falta para fecharlo, citarlo y
        usarlo: fechas de los datos, bases de cálculo, versión, huella, cómo
@@ -196,22 +196,15 @@ export function objetivos(o, { titulo = 'Objetivos del informe' } = {}) {
    Antes la hoja 1 del PDF lo traía todo junto y la impresión desde el
    navegador no traía portada. Un solo marcado para las dos vías: el sitio lo
    pinta en cada página, oculto en pantalla (`.solo-papel`), y el generador del
-   PDF lo vuelve a pintar con lo que sólo él sabe —la huella de los datos y la
+   PDF lo vuelve a pintar con lo que solo él sabe —la huella de los datos y la
    versión del código—. La maqueta vive en app.css. */
 
-const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
-  'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-
-/** «2026-09-28» → «28 de septiembre de 2026». Escrita a mano y no con `Intl`
-    para que el build, el generador y el navegador escriban exactamente lo
-    mismo. */
-export function fechaLarga(iso) {
-  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || '');
-  return m ? `${Number(m[3])} de ${MESES[Number(m[2]) - 1]} de ${m[1]}` : '';
-}
+/** «2026-09-28» → «28 de septiembre de 2026». Vive en `core.js`, que también
+    la usa el análisis de resultados. */
+export const fechaLarga = c.fechaLarga;
 
 /** Qué contiene el archivo: una sección, el informe entero o, con una
-    selección de gráficos, sólo las secciones que tienen alguno de los elegidos
+    selección de gráficos, solo las secciones que tienen alguno de los elegidos
     —«todas las secciones» sería falso—. */
 function contenidoInforme(seccion, seleccion) {
   if (seccion) return `Sección: ${seccion}`;
@@ -249,7 +242,7 @@ export function portadaInforme({ meta, inst, intro, seccion = null, alcance = ''
   const r = inst && inst.responsable;
   const d = inst && inst.derechos;
   /* El logo de la Dirección, cuando exista su archivo (D-752): el manual pide
-     el de la división y lo trae sólo como imagen, que no se redibuja. El logo
+     el de la división y lo trae solo como imagen, que no se redibuja. El logo
      ya lleva el nombre de la institución y de la unidad, así que en su lugar
      no se repiten en texto. */
   const logo = inst && inst.marca && inst.marca.logo;
@@ -287,7 +280,7 @@ export function portadaInforme({ meta, inst, intro, seccion = null, alcance = ''
 export const SELLO_PORTADA = 'Fecha de emisión';
 
 /** La ficha del informe, en la hoja que sigue a la portada. `huella` y
-    `codigo` sólo los conoce el generador del PDF; sin ellos, sus filas no se
+    `codigo` solo los conoce el generador del PDF; sin ellos, sus filas no se
     imprimen en vez de inventarse. */
 export function fichaInforme({ meta, inst, intro, seccion = null, alcance = '', seleccion = '',
                                emision = '', huella = null, codigo = null, filtra = false }) {
@@ -325,15 +318,15 @@ export function fichaInforme({ meta, inst, intro, seccion = null, alcance = '', 
       ${fila('Fuentes', e((meta.fuentes || []).join(' · ')))}
       ${fila('Periodo', `Publicaciones de ${e(String(v.inicio ?? ''))} a ${e(String(v.fin ?? ''))}`)}
       ${Object.entries(meta.exports || {}).map(([f, x]) =>
-        fila(`Exportación de ${f}`, e(x.fecha_export || '—'))).join('')}
-      ${fila('Citas actualizadas al', e(meta.fecha_corte_citas || '—'))}
+        fila(`Exportación de ${f}`, e(fechaLarga(x.fecha_export) || '—'))).join('')}
+      ${fila('Citas actualizadas al', e(fechaLarga(meta.fecha_corte_citas) || '—'))}
       ${bases.length ? fila('Bases de cálculo', bases.map(([n, q]) =>
         `<b>${e(c.nf.format(n))}</b> ${e(q)}`).join(' · ')) : ''}
     </dl>
     ${bases.length ? '<p class="fi-nota">Cada indicador declara su propia base, y no es la misma para todos.</p>' : ''}`)}
     ${grupo('Edición', `<dl class="fi-tabla">
-      ${fila('Emitido el', e(emision), ' data-ficha-emision')}
-      ${fila('Sitio construido el', e(meta.fecha_build || ''))}
+      ${fila('Emitido el', e(fechaLarga(emision) || emision), ' data-ficha-emision')}
+      ${fila('Sitio construido el', e(fechaLarga(meta.fecha_build) || meta.fecha_build || ''))}
       ${codigo ? fila('Versión del código', e(codigo)) : ''}
       ${huella ? fila('Huella de los datos', `SHA-256 ${e(huella.slice(0, 16))}`) : ''}
     </dl>
@@ -352,7 +345,7 @@ export function fichaInforme({ meta, inst, intro, seccion = null, alcance = '', 
     izquierda, «Hoja N de M» a la derecha. Es CSS de páginas —`@page` con
     cajas de margen, que Chromium implementa desde la versión 131—, así que lo
     imprimen igual el botón del navegador y el generador del PDF, y la portada
-    sale sin folio. La maqueta y el contador viven en app.css; aquí sólo va el
+    sale sin folio. La maqueta y el contador viven en app.css; aquí solo va el
     texto, que depende de la página.
 
     Con `partes` escribe una página con nombre por sección: en el informe
@@ -416,15 +409,15 @@ export function introduccion({ intro, objetivos: obj, meta, inst, corpus, lectur
         y ${e(String(v.fin ?? ''))}. Lo publicado después de ${e(String(v.fin ?? ''))} no está incluido.</dd></div>
       <div><dt>Universo</dt><dd>${e(c.nf.format(den.universo_total ?? 0))} publicaciones: ${union},
         cruzadas por su identificador de Scopus (EID).</dd></div>
-      <div><dt>Citas</dt><dd>Contadas hasta el ${e(meta.fecha_corte_citas || '')}${
+      <div><dt>Citas</dt><dd>Contabilizadas hasta el ${e(fechaLarga(meta.fecha_corte_citas))}${
         quienCorta ? `, fecha de corte que declara ${e(quienCorta.nombre)}` : ''}.</dd></div>
     </dl>
     <h3>Fuentes de los datos</h3>
     <dl class="intro-fuentes">${(intro.fuentes || []).map((f) => `
       <div><dt>${e(f.nombre)}</dt><dd>
-        <p class="intro-fuente-dato">${e(f.acceso)} · exportada el ${e(f.fecha_export || '—')} ·
+        <p class="intro-fuente-dato">${e(f.acceso)} · exportada el ${e(fechaLarga(f.fecha_export) || '—')} ·
           ${e(c.nf.format(f.n_registros_leido ?? 0))} registros · ${f.fecha_corte
-            ? `citas al ${e(f.fecha_corte)}` : 'el export no declara fecha de corte'}</p>
+            ? `citas al ${e(fechaLarga(f.fecha_corte))}` : 'la exportación no declara fecha de corte'}</p>
         <p>${e(f.aporta)}</p></dd></div>`).join('')}
     </dl>
     <p class="nota">${e(intro.fuentes_complementarias || '')}</p>`);
@@ -436,15 +429,15 @@ export function introduccion({ intro, objetivos: obj, meta, inst, corpus, lectur
     }).join('')}</ol>`);
 
   /* La fuente de una figura es la del indicador cuyos datos dibuja, tal como la
-     declara el anexo metodológico: la misma tabla que usa el sello. */
+     declara el anexo metodológico. */
   const fuente = (cods) => [...new Set((cods || [])
     .flatMap((k) => String(fuenteDe[k] || '').split(' · ')).filter(Boolean))].join(' · ') || '—';
   const tablaFiguras = (figuras) => `<div class="tabla-envoltura"><table class="tabla-guia">
-    <thead><tr><th scope="col">Código</th><th scope="col">Gráfico</th>
+    <thead><tr><th scope="col">Gráfico</th>
       <th scope="col">Qué muestra</th><th scope="col">Fuente</th></tr></thead>
     <tbody>${figuras.map((f) => {
       const l = lect[f.clave] || {};
-      return `<tr><td class="mono">${e(f.cod || '—')}</td><td>${e(f.titulo || l.titulo || f.clave)}</td>
+      return `<tr><td>${e(f.titulo || l.titulo || f.clave)}</td>
         <td>${e(l.muestra || '—')}</td><td>${e(fuente(f.fuentes))}</td></tr>`;
     }).join('')}</tbody></table></div>`;
   const guiaHtml = bloque('intro-guia', 'Guía de lectura de los gráficos', `
@@ -477,7 +470,7 @@ export function introduccion({ intro, objetivos: obj, meta, inst, corpus, lectur
 
     Se genera en vez de escribirse en el HTML para que no pueda divergir de
     PAGINAS: si mañana se añade una sección, aparece aquí sola. Va sobre el
-    suelo de énfasis, que sólo admite tipografía y enlaces. */
+    suelo de énfasis, que solo admite tipografía y enlaces. */
 export function cierrePortada() {
   const salidas = c.PAGINAS.filter(([href]) =>
     ['produccion.html', 'impacto.html', 'colaboracion.html', 'tematica.html'].includes(href));
@@ -512,7 +505,7 @@ export function catalogo(cat, graficos = {}) {
   const { indicadores, resumen, categorias, etiquetas_estado: est } = cat;
   /* Los códigos que además se dibujan como gráfico en alguna sección. El
      catálogo es la única página donde los veintiuno se ven juntos, así que es
-     donde se eligen: en una sección sólo están los suyos, y elegir «un gráfico
+     donde se eligen: en una sección solo están los suyos, y elegir «un gráfico
      independiente de la sección» exige verlos todos a la vez. */
   const esGrafico = (cod) => Object.prototype.hasOwnProperty.call(graficos, cod);
 
@@ -620,11 +613,11 @@ export function catalogo(cat, graficos = {}) {
     los indicadores Scopus/SciVal.
 
     PD-01 es lo que cada Facultad declara editorialmente en su propio
-    sitio (hoy sólo Medicina). PD-02 es lo que OpenAlex atribuye a la
+    sitio (hoy solo Medicina). PD-02 es lo que OpenAlex atribuye a la
     institución y un humano confirmó caso por caso (V2-26). PD-03 es lo
     que sus propios autores autoarchivaron en el repositorio institucional,
     con la Facultad o Escuela que biblioteca les asignó — cubre TODAS las
-    Facultades a la vez, pero esa unidad viene en bruto: sólo se agrega por
+    Facultades a la vez, pero esa unidad viene en bruto: solo se agrega por
     Facultad cuando la relación está validada institucionalmente
     (`config/matching_rules.yml`); el resto se cuenta aparte, por unidad
     declarada, nunca forzado a una Facultad sin validar. Ninguna de las
@@ -666,7 +659,7 @@ export function produccionDeclarada(datos) {
 
   // Fila «Facultad · año · N», compartida por las tablas de PD-01 y PD-03
   // (las dos únicas fuentes que agregan a este nivel; PD-02 no tiene
-  // Facultad y usa su propia fila, sólo año).
+  // Facultad y usa su propia fila, solo año).
   const filaFacultadAnio = (r) => `
     <tr><td>${c.escapar(r.facultad)}</td><td>${r.anio}</td>
       <td>${c.nf.format(r.n)}</td></tr>`;
@@ -827,7 +820,7 @@ export function produccionDeclarada(datos) {
       <div class="kpis" data-n="4">${kpisHTML}</div>
       ${c.nota(aa.nota)}
       <h3>Por Facultad y año, dentro de la ventana ${ventana.inicio}-${ventana.fin}
-      — sólo unidades con relación escuela→Facultad validada</h3>
+      — solo unidades con relación escuela→Facultad validada</h3>
       ${tabla}
       ${notaExtra}
       ${c.sello(aa.procedencia)}
@@ -955,13 +948,13 @@ export function fichaTecnica(meta, val, notaUniverso) {
         ? fila('Scopus Affiliation ID', `<span class="mono">${c.escapar(meta.scopus_affiliation_id)}</span>`) : ''}
       ${fila('Fuentes', c.escapar(meta.fuentes.join(' · ')))}
       ${fila('Ventana', `${meta.ventana.inicio}–${meta.ventana.fin}`)}
-      ${fila('Export de SciVal', c.escapar(meta.fecha_export))}
+      ${fila('Exportación de SciVal', c.escapar(meta.fecha_export))}
       ${fila('Citas y métricas de SciVal al', c.escapar(meta.fecha_corte_citas), x04
         ? `Scopus no suma las mismas citas que SciVal; la regla <span class="mono">X-04</span> falla: ${c.escapar(x04.observado)}.` : '')}
-      ${scopus ? fila('Export de Scopus', c.escapar(scopus.fecha_export)) : ''}
-      ${scopus ? fila('Corte de Scopus', scopus.fecha_corte ? c.escapar(scopus.fecha_corte) : 'El export no lo declara',
-        scopus.fecha_corte ? '' : 'Los sellos de los indicadores que salen de Scopus dan la fecha de su export.') : ''}
-      ${fila('Build de los datos', c.escapar(meta.fecha_build))}
+      ${scopus ? fila('Exportación de Scopus', c.escapar(scopus.fecha_export)) : ''}
+      ${scopus ? fila('Corte de Scopus', scopus.fecha_corte ? c.escapar(scopus.fecha_corte) : 'La exportación no lo declara',
+        scopus.fecha_corte ? '' : 'Los indicadores que salen de Scopus se leen a la fecha de su exportación.') : ''}
+      ${fila('Compilación de los datos', c.escapar(meta.fecha_build))}
     </dl>
     <h4>Denominadores</h4>
     <dl class="ficha-datos">
@@ -996,7 +989,7 @@ export function fichaTecnica(meta, val, notaUniverso) {
 
 /** Estado de la auditoría de datos (V2-27): la misma tabla de 30 reglas que
     `docs/VALIDATION_REPORT.md`, publicada donde el sitio se ve. Antes vivía
-    sólo en el repositorio — un informe que se declara riguroso y no deja
+    solo en el repositorio — un informe que se declara riguroso y no deja
     ver su propia auditoría le pide al lector que confíe sin poder
     comprobar. El resumen va siempre visible; la tabla completa entra en
     `<details>` para no imponerse sobre el resto de la página. */
@@ -1015,7 +1008,7 @@ export function validacion(v) {
       <strong>${c.nf.format(v.pasan)}</strong> pasan ·
       <strong>${c.nf.format(v.fallan)}</strong> falla${v.fallan === 1 ? '' : 'n'} ·
       <strong>${c.nf.format(v.bloqueantes_fallando)}</strong> bloqueante${v.bloqueantes_fallando === 1 ? '' : 's'} fallando.
-      Es la compuerta que el propio build no deja pasar si alguna regla bloqueante falla.
+      Es la compuerta que la propia compilación no deja pasar si alguna regla bloqueante falla.
     </p>
     <details class="metodo">
       <summary>Ver las ${c.nf.format(v.reglas_evaluadas)} reglas, una por una</summary>
@@ -1091,43 +1084,44 @@ export const REGLAS_ANEXO = ['E-04', 'E-08', 'E-02', 'X-01', 'I-01', 'I-04', 'I-
 
 const ESTRATEGIA = {
   union: 'El universo es la unión de las dos: una publicación que trae una sola fuente se conserva, marcada, en vez de excluirse.',
-  interseccion: 'El universo es la intersección de las dos: sólo entran las publicaciones que traen ambas fuentes.',
+  interseccion: 'El universo es la intersección de las dos: solo entran las publicaciones que traen ambas fuentes.',
   scopus: 'El universo es el de Scopus; SciVal aporta las métricas de las publicaciones que comparten.',
   scival: 'El universo es el de SciVal; Scopus aporta la autoría de las publicaciones que comparten.',
 };
 
 /** «Cómo se formó el corpus»: los pasos, cada uno con las reglas de la
-    auditoría que lo comprueban en esta carga. Qué dice cada export de sí mismo
+    auditoría que lo comprueban en esta carga. Qué dice cada exportación de sí mismo
     —ventana, filtros, registros— viene de config/sources.yml vía
     metodologia.json; nada de eso se reescribe aquí. */
 export function corpusAnexo(corpus, val, meta) {
   const e = c.escapar;
   const fuente = f => `<li><strong>${e(f.nombre)}</strong>, en ${e(String(f.formato).toUpperCase())},
-      exportado el ${e(f.fecha_export)}${f.fecha_corte ? ` con datos al ${e(f.fecha_corte)}` : ', sin fecha de corte declarada'}.
+      exportada el ${e(fechaLarga(f.fecha_export))}${f.fecha_corte ? ` con datos al ${e(fechaLarga(f.fecha_corte))}` : ', sin fecha de corte declarada'}.
       Ventana declarada: «${e(f.ventana_declarada)}». Filtros: «${e(f.filtros_aplicados || 'ninguno declarado')}».
       ${f.n_registros_declarado !== null && f.n_registros_declarado !== undefined
         ? `${c.nf.format(f.n_registros_declarado)} registros declarados, ${c.nf.format(f.n_registros_leido)} leídos.`
-        : `${c.nf.format(f.n_registros_leido)} registros leídos; el export no declara cuántos trae.`}
+        : `${c.nf.format(f.n_registros_leido)} registros leídos; la exportación no declara cuántos trae.`}
       ${(f.advertencias_del_export || []).length
-        ? `<span class="nota">El propio export advierte: ${f.advertencias_del_export.map(a => `«${e(a)}»`).join(' y ')}.</span>` : ''}</li>`;
+        ? `<span class="nota">La propia exportación advierte: ${f.advertencias_del_export.map(a => `«${e(a)}»`).join(' y ')}.</span>` : ''}</li>`;
   const pasos = [
     ['Exportar', `<ul class="lista-compacta">${corpus.fuentes.map(fuente).join('')}</ul>`, ['E-08', 'E-04']],
-    ['Unir', `Las dos fuentes se cruzan por el EID, el identificador que Scopus da a cada publicación.
+    ['Unir', `Las dos fuentes se cruzan por el EID, el identificador que Scopus asigna a cada publicación.
       ${e(ESTRATEGIA[corpus.estrategia_universo] || `Estrategia declarada: ${corpus.estrategia_universo}.`)}`,
       ['E-02', 'X-01']],
     ['Atribuir a la institución', `Dos métodos independientes: el identificador de afiliación de la
-      institución en Scopus (<span class="mono">${e(meta.scopus_affiliation_id)}</span>), que trae el export
-      de SciVal, y su nombre en la afiliación de cada autor, que trae el de Scopus. Toda publicación
-      necesita al menos uno, y un desacuerdo entre los dos lo revisa una persona.`,
+      institución en Scopus (<span class="mono">${e(meta.scopus_affiliation_id)}</span>), que contiene la exportación
+      de SciVal, y su nombre en la afiliación de cada autor, que contiene la de Scopus. Toda publicación
+      requiere al menos uno, y cualquier desacuerdo entre ambos lo revisa una persona.`,
       ['I-01', 'I-04', 'I-05']],
-    ['Marcar duplicados', `Un duplicado probable se marca y espera revisión humana: no se fusiona
-      por su cuenta (D-08). Mientras no se decida, cada registro cuenta.`,
+    ['Marcar duplicados', `Un duplicado probable se marca y queda a la espera de revisión humana: no
+      se fusiona automáticamente (D-08). Mientras no se resuelva, cada registro se contabiliza.`,
       ['D-01', 'D-02', 'D-03', 'P-01']],
-    ['Contar', `Cada publicación cuenta una vez en las cifras de la institución. En los repartos por
-      unidad académica y por autor cuenta entera en cada uno —conteo completo—, así que esos repartos
-      no suman el total.`, ['V-01', 'V-03']],
-    ['Tomar las métricas', `Citas, FWCI y percentiles son los que SciVal asigna a cada publicación, al
-      ${e(meta.fecha_corte_citas)}, sin recalcularlos. Sobre ellos se agregan los indicadores.`,
+    ['Contar', `Cada publicación se contabiliza una vez en las cifras de la institución. En las
+      distribuciones por unidad académica y por autor se contabiliza completa en cada una —conteo
+      completo—, por lo que esas distribuciones no suman el total.`, ['V-01', 'V-03']],
+    ['Tomar las métricas', `Las citas, el FWCI y los percentiles son los que SciVal asigna a cada
+      publicación, al ${e(fechaLarga(meta.fecha_corte_citas))}, sin recalcularlos. A partir de ellos se
+      agregan los indicadores.`,
       ['V-07', 'X-04']],
   ];
   return `<div class="tabla-envoltura"><table class="tabla-anexo tabla-corpus">
@@ -1150,10 +1144,10 @@ export function tiposAnexo(tipos, corpus) {
   const n = tipos.reduce((s, t) => s + t.n, 0);
   const citas = tipos.reduce((s, t) => s + t.citas, 0);
   const scival = corpus.fuentes.find(f => /scival/i.test(f.nombre));
-  return `<p>Entran todos los tipos documentales que traen los exports${scival && scival.filtros_aplicados
-      ? ` —el de SciVal lo declara: «${c.escapar(scival.filtros_aplicados)}»—` : ''}, y ninguno se excluye
-    después. Todos cuentan en los denominadores de las cifras de cabecera, incluidas las citas por
-    publicación. El FWCI, en cambio, compara cada publicación con las de su mismo tipo, año y campo.</p>
+  return `<p>Se incluyen todos los tipos documentales que contienen las exportaciones${scival && scival.filtros_aplicados
+      ? ` —la de SciVal lo declara: «${c.escapar(scival.filtros_aplicados)}»—` : ''}, y ninguno se excluye
+    posteriormente. Todos se contabilizan en los denominadores de las cifras principales, incluidas las
+    citas por publicación. El FWCI, en cambio, compara cada publicación con las de su mismo tipo, año y campo.</p>
     <div class="tabla-envoltura"><table class="tabla-anexo">
       <caption class="solo-lectores">Publicaciones y citas por tipo documental</caption>
       <thead><tr><th scope="col">Tipo documental</th><th scope="col" class="num">Publicaciones</th>
@@ -1170,7 +1164,7 @@ export function tiposAnexo(tipos, corpus) {
     «Tipo documental» y en la figura P-03. Las citas son las de SciVal al corte, sin normalizar.</p>`;
 }
 
-/* Qué campo de cada publicación usa qué indicador. Sólo los que no están
+/* Qué campo de cada publicación usa qué indicador. Solo los que no están
    completos en todas las cargas o que la lectura necesita; los que siempre
    vienen —año, tipo, fuente— no aportan nada a esta tabla. */
 const CAMPOS_ANEXO = [
@@ -1228,7 +1222,7 @@ export function calidadAnexo(q, val, corpus, meta) {
     items.push(`<li><strong>Lista de instituciones truncada: ${c.nf.format(k)}.</strong>
       ${k === 1 ? `Declara ${c.nf.format(q.institucionesTruncadas[0].declaradas)} instituciones y lista
       ${c.nf.format(q.institucionesTruncadas[0].listadas)}` : `Declaran más instituciones de las que listan`}${
-      truncadoAviso ? `; el export de SciVal lo advierte («${e(truncadoAviso)}»)` : ''}.
+      truncadoAviso ? `; la exportación de SciVal lo advierte («${e(truncadoAviso)}»)` : ''}.
       C-04 no cuenta ${faltan === 1 ? 'la que falta' : `las ${c.nf.format(faltan)} que faltan`}.</li>`);
   }
   if (q.orcid.compartidos) {

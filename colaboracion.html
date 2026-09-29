@@ -20,7 +20,7 @@
    1. El tema guardado: desde el módulo diferido, la página aparecería un
       instante con el tema equivocado.
    2. La clase `js`: marca que hay JavaScript. Las vistas conmutables se
-      contraen a una sola sólo bajo esa clase; sin JS se muestran las dos, que
+      contraen a una sola solo bajo esa clase; sin JS se muestran las dos, que
       es lo correcto —la tabla es la vía equivalente al gráfico, no un extra—. */
 (function(){var e=document.documentElement;e.className+=' js';
 try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(x){}})();</script>
@@ -151,7 +151,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     </div>
     <aside class="seccion-limite" aria-labelledby="limite-colaboracion">
       <p class="seccion-limite-tit" id="limite-colaboracion">Qué NO dice esta sección</p>
-      <p>Ni la calidad de la colaboración ni quién la lideró. Compartir una publicación es la única evidencia que la fuente entrega, y de ahí no se deduce el reparto del trabajo ni quién dirigió. «Más países» tampoco es «mejor»: en algunos campos el equipo internacional grande es la norma metodológica y en otros es excepcional, así que la cifra se lee dentro de su disciplina o no se lee.</p>
+      <p>La calidad de la colaboración ni quién la lideró. La coautoría es la única evidencia que entrega la fuente, y de ella no se deduce la distribución del trabajo ni el liderazgo. Un mayor número de países tampoco implica una mejor colaboración: en algunos campos los equipos internacionales amplios son la norma metodológica y en otros son excepcionales, por lo que la cifra debe interpretarse dentro de su disciplina.</p>
     </aside>
   </div>
 </div>
@@ -332,41 +332,41 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <h3 class="ficha-etq">Publicaciones</h3>
       <p class="ficha-base"><b data-base="publicaciones">1.342</b> publicaciones en el recorte</p>
       
-      <p class="ficha-lectura">Cuántas publicaciones distintas caen en el recorte. Una publicación cuenta una sola vez aunque la firmen varias personas de la institución.</p>
+      <p class="ficha-lectura">Número de publicaciones distintas incluidas en el recorte. Cada publicación se contabiliza una sola vez, aunque la firmen varias personas de la institución.</p>
     </article><article class="ficha" data-k="citas">
       <p class="ficha-valor" data-valor="citas">14.245</p>
       <h3 class="ficha-etq">Citas recibidas<button class="ayuda" type="button" data-ayuda="Fecha de corte"
     aria-label="Qué significa Fecha de corte">?</button></h3>
       <p class="ficha-base"><b data-base="citas">1.342</b> sobre las que tienen métricas</p>
       
-      <p class="ficha-lectura">El total de citas que han recibido esas publicaciones hasta la fecha de corte que declara el pie. Es una suma acumulada, así que lo publicado antes lleva más tiempo reuniéndolas.</p>
+      <p class="ficha-lectura">Total de citas recibidas por esas publicaciones hasta la fecha de corte declarada. Es una suma acumulada: las publicaciones más antiguas han tenido más tiempo para recibir citas.</p>
     </article><article class="ficha" data-k="citas_por_pub">
       <p class="ficha-valor" data-valor="citas_por_pub">10,61</p>
       <h3 class="ficha-etq">Citas por publicación</h3>
       <p class="ficha-base"><b data-base="citas_por_pub">1.342</b> sobre las que tienen métricas</p>
       <p class="ficha-base ficha-mediana">Mediana <b data-mediana="citas_por_pub">3</b></p>
-      <p class="ficha-lectura">Las citas totales divididas por las publicaciones que tienen métricas. Es un promedio: unas pocas publicaciones muy citadas lo levantan para todas, y no describe a la publicación típica. La mediana, debajo, sí: la mitad de las publicaciones tiene esa cantidad de citas o menos.</p>
+      <p class="ficha-lectura">Total de citas dividido por el número de publicaciones con métricas. Al tratarse de un promedio, unas pocas publicaciones muy citadas lo elevan, por lo que no describe la publicación típica. La mediana, indicada debajo, sí lo hace: la mitad de las publicaciones tiene esa cantidad de citas o menos.</p>
     </article><article class="ficha" data-k="fwci_mediano">
       <p class="ficha-valor" data-valor="fwci_mediano">0,48</p>
       <h3 class="ficha-etq">FWCI mediano<button class="ayuda" type="button" data-ayuda="FWCI"
     aria-label="Qué significa FWCI">?</button></h3>
       <p class="ficha-base"><b data-base="fwci_mediano">1.342</b> sobre las que tienen FWCI · 1,00 = promedio mundial</p>
       
-      <p class="ficha-lectura">El FWCI compara las citas de cada publicación con las esperadas para su campo, su año y su tipo, y 1,00 es el promedio mundial. Se muestra la mediana del recorte y no el promedio porque la distribución es muy asimétrica: unas pocas publicaciones muy citadas mueven el promedio y no la mediana, que describe la publicación típica.</p>
+      <p class="ficha-lectura">El FWCI compara las citas de cada publicación con las esperadas para su campo, año y tipo documental; el valor 1,00 corresponde al promedio mundial. Se informa la mediana del recorte y no el promedio, porque la distribución es muy asimétrica: unas pocas publicaciones muy citadas desplazan el promedio, pero no la mediana, que describe la publicación típica.</p>
     </article><article class="ficha" data-k="internacional">
       <p class="ficha-valor" data-valor="internacional">49,8<span class="ficha-sufijo">%</span></p>
       <h3 class="ficha-etq">Colaboración internacional<button class="ayuda" type="button" data-ayuda="Colaboración internacional"
     aria-label="Qué significa Colaboración internacional">?</button></h3>
       <p class="ficha-base"><b data-base="internacional">1.342</b> sobre las que declaran país</p>
       
-      <p class="ficha-lectura">El porcentaje de publicaciones firmadas con al menos una institución de otro país, sobre las que declaran país. Mide con quién se publica, no la calidad de lo publicado.</p>
+      <p class="ficha-lectura">Porcentaje de publicaciones firmadas con al menos una institución de otro país, respecto de las que declaran país. Indica con quién se publica, no la calidad de lo publicado.</p>
     </article><article class="ficha" data-k="autores">
       <p class="ficha-valor" data-valor="autores">829</p>
       <h3 class="ficha-etq">Autores UFT<button class="ayuda" type="button" data-ayuda="Formas de firma"
     aria-label="Qué significa Formas de firma">?</button></h3>
       <p class="ficha-base"><b data-base="autores">1.342</b> sobre las que tienen autoría detallada</p>
       
-      <p class="ficha-lectura">Cuántas firmas distintas de la institución aparecen en el recorte. Son formas de firma ya consolidadas por revisión humana, no necesariamente personas distintas: una persona que firma de dos maneras sin consolidar cuenta dos veces.</p>
+      <p class="ficha-lectura">Número de firmas distintas de la institución presentes en el recorte. Corresponden a formas de firma consolidadas mediante revisión humana, no necesariamente a personas distintas: una persona que firma de dos maneras no consolidadas se contabiliza dos veces.</p>
     </article></div>
 </div>
 
@@ -380,7 +380,6 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       data-corte="colaboracion" tabindex="-1">
       <header class="corte-cab">
         <h3>Nacional o internacional</h3>
-        <span class="corte-cod">C-01</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="C-01-grafico">Gráfico</button>
@@ -419,14 +418,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       
       
-      <p class="lectura-grafico"><b>Qué muestra</b> Reparte las publicaciones del recorte según participe o no al menos una institución de otro país en la firma. No mide cuánta colaboración hubo, sólo si la hubo.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Distribuye las publicaciones del recorte según si en su afiliación participa o no al menos una institución de otro país. Indica la presencia de colaboración internacional, no su intensidad.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-C-01">Nota
     metodológica en el anexo · C-01</a></p>
     </section><section class="corte" id="C-03"
       data-corte="paises" tabindex="-1">
       <header class="corte-cab">
         <h3>Países colaboradores</h3>
-        <span class="corte-cod">C-03</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="C-03-grafico">Gráfico</button>
@@ -616,14 +614,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="nota nota-recorte nota-figura">Se muestran los 15 primeros
     de 106 países distintos.</p>
       <p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>
-      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra es un país y cuenta las publicaciones firmadas con al menos una institución de ahí. Una publicación con tres países cuenta en los tres. Se dibujan los quince con más.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra representa un país e indica el número de publicaciones firmadas con al menos una institución de ese país. Una publicación con instituciones de tres países se contabiliza en los tres. Se representan los quince países con mayor número de publicaciones.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-C-03">Nota
     metodológica en el anexo · C-03</a></p>
     </section><section class="corte" id="C-04"
       data-corte="instituciones" tabindex="-1">
       <header class="corte-cab">
         <h3>Instituciones colaboradoras</h3>
-        <span class="corte-cod">C-04</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="C-04-grafico">Gráfico</button>
@@ -813,14 +810,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="nota nota-recorte nota-figura">Se muestran las 15 primeras
     de 1.120 instituciones distintas.</p>
       <p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>
-      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra es una institución que aparece en la firma de alguna publicación del recorte, y cuenta cuántas comparte. Se dibujan las quince con más.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra representa una institución presente en la afiliación de alguna publicación del recorte e indica en cuántas publicaciones figura. Se representan las quince instituciones con mayor número de publicaciones.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-C-04">Nota
     metodológica en el anexo · C-04</a></p>
     </section><section class="corte" id="C-06"
       data-corte="autores_tramo" tabindex="-1">
       <header class="corte-cab">
         <h3>Autores por publicación</h3>
-        <span class="corte-cod">C-06</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="C-06-grafico">Gráfico</button>
@@ -901,13 +897,12 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       
       
-      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra cuenta publicaciones según cuántas personas las firman, agrupadas en tramos. Cuenta todos los autores del trabajo, no sólo los de la institución.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra corresponde al número de publicaciones según la cantidad de personas que las firman, agrupadas en tramos. Considera todos los autores del trabajo, no solo los de la institución.</p>
     
     </section><section class="corte" id="AU-07"
       data-corte="autor" tabindex="-1">
       <header class="corte-cab">
         <h3>Productividad de las formas de firma</h3>
-        <span class="corte-cod">AU-07</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="AU-07-grafico">Gráfico</button>
@@ -979,7 +974,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       
       
-      <p class="lectura-grafico"><b>Qué muestra</b> Cuántas formas de firma de la institución tienen una publicación en el recorte, cuántas dos, de tres a cuatro, de cinco a nueve y diez o más. Cada forma de firma cae en un solo tramo. Enseña cómo se reparte lo publicado entre quienes firman, sin poner a nadie en una lista.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Número de formas de firma de la institución con una publicación en el recorte, con dos, de tres a cuatro, de cinco a nueve y con diez o más. Cada forma de firma se asigna a un único tramo. Muestra cómo se distribuye la producción entre quienes firman, sin identificar a personas.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-AU-07">Nota
     metodológica en el anexo · AU-07</a></p>
     </section><section class="corte corte-red" id="C-05" data-corte="coautoria" tabindex="-1">
@@ -9527,7 +9522,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       521 con al menos una coautoría interna ·
       399 componentes · 450 comunidades.
       Se dibujan las componentes de 5 personas o más.</p>
-    <p class="lectura-grafico"><b>Qué muestra</b> Cada punto es una firma de la institución y cada línea une a dos que comparten al menos una publicación; el grosor de la línea es cuántas comparten. Se dibujan los grupos de cinco personas o más, y las cifras y la tabla cubren a todas.</p>
+    <p class="lectura-grafico"><b>Qué muestra</b> Cada nodo representa una firma de la institución y cada línea une a dos firmas que comparten al menos una publicación; el grosor de la línea indica cuántas comparten. Se representan los grupos conectados de cinco personas o más; las cifras y la tabla consideran todas las firmas.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-C-05">Nota
     metodológica en el anexo · C-05</a></p>
   </section>
@@ -9536,21 +9531,23 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <div id="diferidos" data-prerender="1">
 <section class="banda banda-contraste no-publicados">
     <div class="banda-titulo">
-      <p class="banda-gancho">Lo que esta sección todavía no puede mostrar</p>
+      <p class="banda-gancho">Indicadores no publicados en esta sección</p>
       <h2>2 indicadores
-        de esta sección están verificados pero no se publican.</h2>
-      <p>No responden al recorte: no se calculan aquí. Se dice cuál y por qué.</p>
+        de esta sección están verificados, pero no se publican.</h2>
+      <p>No dependen del recorte y no se calculan en este informe. Se indica cuáles son y el motivo.</p>
     </div>
     <article class="modulo modulo-diferido" id="C-02">
       <header><div class="modulo-id">
-        <h3>Publicaciones sin colaboración con otras instituciones</h3><span class="codigo">C-02</span>
+        <h3>Publicaciones sin colaboración con otras instituciones</h3>
       </div><span class="estado" data-e="no_calculable">No calculable</span></header>
-      <p class="nota">No calculable. SciVal sólo lista las instituciones que reconoce: 17 de las 213 publicaciones con una sola institución tienen autores de otro país, así que esa cifra no prueba que no participara otra. El export no trae el tipo de colaboración que SciVal asigna a cada publicación.</p>
+      
+      <p class="nota">SciVal lista solo las instituciones que reconoce y cuenta los países sobre todas las afiliaciones: hay publicaciones con una sola institución y autores de otro país. Una sola institución en la lista no prueba que no participara otra, y la exportación no contiene el tipo de colaboración que SciVal asigna a cada publicación.</p>
     </article><article class="modulo modulo-diferido" id="C-07">
       <header><div class="modulo-id">
-        <h3>Liderazgo autoral</h3><span class="codigo">C-07</span>
+        <h3>Liderazgo autoral</h3>
       </div><span class="estado" data-e="diferido">Diferido a V2</span></header>
-      <p class="nota">Diferido: depende de resolver los perfiles Scopus fragmentados (T-04).</p>
+      
+      <p class="nota">Diferido: depende de revisar los nombres con varios identificadores de autor de Scopus que incorporó la carga 2020-2025.</p>
     </article>
   </section>
 </div>

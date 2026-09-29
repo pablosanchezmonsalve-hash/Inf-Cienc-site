@@ -13,7 +13,7 @@ import { montarTreemap, construirArbol } from './visualizations/treemap.js';
 
 /* El pre-renderizador ya dejó este HTML escrito en el archivo. Repintarlo
    destruiría un LCP que ya ocurrió y volvería a pagar el coste de dibujar
-   veinte SVG. Si el marcado está, sólo se enganchan los comportamientos. */
+   veinte SVG. Si el marcado está, solo se enganchan los comportamientos. */
 const yaPintado = el => el && el.dataset.prerender === '1';
 
 /* La portada es un EXPLORADOR: el lector elige un recorte y las cifras y los
@@ -31,7 +31,7 @@ async function portada() {
 
     Existe porque el botón «Descargar informe» resuelve una cosa y no la otra:
     da la página que se está mirando, con sus filtros, y no el informe entero
-    con sus seis secciones, su índice y sus hojas numeradas. Eso sólo lo compone
+    con sus seis secciones, su índice y sus hojas numeradas. Eso solo lo compone
     `make informe`, y hasta ahora había que tener el proyecto instalado para
     conseguirlo.
 
@@ -67,7 +67,7 @@ async function montarDescargaInforme() {
 
   const viejo = inf.build && meta.fecha_build && inf.build !== meta.fecha_build;
   const kb = (n) => `${c.nf.format(n)} KB`;
-  const hojas = (n) => `${c.nf.format(n)} ${n === 1 ? 'hoja' : 'hojas'}`;
+  const hojas = (n) => `${c.nf.format(n)} ${n === 1 ? 'página' : 'páginas'}`;
   /* El documento único (D-750) y, debajo, cada sección por separado. Un
      manifiesto anterior a D-750 no trae `completo`: se ofrece la lista, como
      entonces, en vez de romper el bloque. */
@@ -106,7 +106,7 @@ async function seccion() {
 
 /* Estado del recorte en la barra de vigencia, en sus dos formas: el badge de
    pantalla y la línea que se imprime. La barra pertenece al cromo aux
-   (core.js) y existe en todas las páginas; éste es el único sitio donde se
+   (core.js) y existe en todas las páginas; este es el único sitio donde se
    enciende el badge `.recorte-vivo`. En cualquier otra página queda oculto por
    su atributo hidden. Un vistazo a la parte superior debe bastar para saber
    que hay un recorte activo, sin bajar a los controles. */
@@ -271,7 +271,7 @@ async function montarExplorador(claveSeccion) {
     cortes: document.getElementById('cortes'),
     dinamica: document.getElementById('dinamica'),
     masCitadas: document.getElementById('mas-citadas'),
-    // Sólo existen en produccion.html (Bento Grid). El resto de las
+    // Solo existen en produccion.html (Bento Grid). El resto de las
     // secciones no tiene estos contenedores y quedan en null — se
     // comprueban antes de usarlos, igual que zonas.diferidos.
     heatmap: document.getElementById('heatmap-contenedor'),
@@ -291,7 +291,7 @@ async function montarExplorador(claveSeccion) {
   // misma lista de barras (ver `porFacultad()` en explorador.js).
   const jerarquia = metaBase.jerarquia || {};
 
-  // Persona → unidad académica, sólo para C-05 (red de coautoría): una
+  // Persona → unidad académica, solo para C-05 (red de coautoría): una
   // publicación no trae la unidad por autor individual, así que el corte de
   // colaboración necesita esta tabla aparte. Se carga siempre —barato, un
   // Map de una entrada por entidad— para que funcione igual con o sin
@@ -363,7 +363,7 @@ async function montarExplorador(claveSeccion) {
           metaBase, umbral, textos)
       : VX.explorador(publicaciones, sel, proc, jerarquia, metaBase, umbral, textos);
     // Se comparan los valores ANTES de reemplazar el marcado: la señal de
-    // cambio sólo debe encenderse en las cifras que de verdad cambiaron.
+    // cambio solo debe encenderse en las cifras que de verdad cambiaron.
     const antes = new Map([...zonas.cifras.querySelectorAll('[data-valor]')]
       .map(e => [e.dataset.valor, e.textContent]));
 
@@ -374,7 +374,7 @@ async function montarExplorador(claveSeccion) {
     redibujarSelectorAnio(publicaciones, sel, document.getElementById('recorte-anio-env'));
     redibujarMiniFoco(publicaciones, sel, document.getElementById('minifoco'));
     // Los cortes se repintan DENTRO de la transición: hay que medir la
-    // geometría antes y después del cambio, y el orden sólo se garantiza si el
+    // geometría antes y después del cambio, y el orden solo se garantiza si el
     // repintado ocurre en medio.
     anim.transicion(zonas.cortes, () => {
       zonas.cortes.innerHTML = partes.cortes;
@@ -394,7 +394,7 @@ async function montarExplorador(claveSeccion) {
     // es el mismo cálculo portado a JS, verificado línea a línea contra
     // hierarchy.json sobre el corpus completo antes de usarse aquí (mismo
     // resultado, sin recorte). Se recalcula en TODO pintar(), incluida la
-    // limpieza del recorte: si sólo se recalculara cuando hay filtro activo,
+    // limpieza del recorte: si solo se recalculara cuando hay filtro activo,
     // "Ver todo" habría dejado el treemap congelado en el último filtro.
     if (zonas.treemap) {
       montarTreemap(zonas.treemap,
@@ -424,7 +424,7 @@ async function montarExplorador(claveSeccion) {
   document.addEventListener('click', e => {
     // C-05: fijar/soltar un nodo y resaltar sus coautores. Se resuelve sin
     // volver a pedir datos ni repintar `zonas.cortes` —a diferencia de un
-    // filtro— porque no cambia el recorte, sólo qué se resalta.
+    // filtro— porque no cambia el recorte, solo qué se resalta.
     const nodoRed = e.target.closest('.nodo-red[data-red-nodo]');
     if (nodoRed) { alternarFocoRed(nodoRed); return; }
     const chip = e.target.closest('.chip[data-dim]');
@@ -452,7 +452,7 @@ async function montarExplorador(claveSeccion) {
      navegador, con el ratón o con el teclado, y ninguna de las dos vías pasa
      por un clic sobre un elemento nuestro.
 
-     Sólo entra un nombre que exista en el corpus. Un texto a medio escribir
+     Solo entra un nombre que exista en el corpus. Un texto a medio escribir
      dejaría la página vacía y con un filtro que nadie puede quitar porque no
      corresponde a nadie; escribir bien un apellido no es responsabilidad del
      lector. El campo se limpia solo: el panel se repinta entero. */
@@ -480,7 +480,7 @@ async function montarExplorador(claveSeccion) {
   addEventListener('popstate', () => { sel = X.leerURL(); pintar(); });
 
   /* Repintar también cuando hay SELECCIÓN de gráficos, aunque no haya recorte
-     de datos. `hayRecorte` mira sólo los filtros —y hace bien: una selección no
+     de datos. `hayRecorte` mira solo los filtros —y hace bien: una selección no
      restringe el conjunto—, pero el HTML pre-renderizado trae los gráficos de
      la sección entera, así que sin este repintado la página enseñaría los
      veintiuno mientras la hoja declara que son dos. */
@@ -576,7 +576,7 @@ async function publicaciones() {
   // Selección por casilla, independiente del recorte de filtros: sobrevive a
   // cambiar de página o de filtro, porque elegir publicaciones de a una para
   // exportarlas es justo el caso en que el lector NO quiere perder lo ya
-  // marcado por tocar un chip sin querer. Sólo se limpia a mano.
+  // marcado por tocar un chip sin querer. Solo se limpia a mano.
   const seleccion = new Set();
 
   function pintar({ nuevaEntrada = false, soloTabla = false } = {}) {
@@ -639,7 +639,7 @@ async function publicaciones() {
     pintarSeleccion(pag);
   }
 
-  /** Sincroniza la casilla «marcar todo» (indeterminada si sólo parte de la
+  /** Sincroniza la casilla «marcar todo» (indeterminada si solo parte de la
       página está marcada) y el contador + estado del botón de exportar. */
   function pintarSeleccion(pag) {
     const todo = document.getElementById('marcar-todo');
@@ -707,7 +707,7 @@ async function publicaciones() {
     ser interpretable en cuanto sale del sitio. `esSeleccion` distingue en la
     propia cabecera si son las publicaciones marcadas a mano o todo el
     recorte de filtros — quien reabra el CSV meses después necesita saber
-    cuál de las dos cosas está mirando, no sólo cuántas filas tiene. */
+    cuál de las dos cosas está mirando, no solo cuántas filas tiene. */
 async function exportar(filas, { esSeleccion = false } = {}) {
   const meta = await c.cargar('meta.json');
   const cab = [
@@ -741,7 +741,7 @@ async function autores() {
   let soloInterpretables = true, orden = 'n_publicaciones', asc = false;
   let q = new URLSearchParams(location.search).get('q') || '';
 
-  // El enlace de corrección va AQUÍ y no sólo en metodología: ésta es la página
+  // El enlace de corrección va AQUÍ y no solo en metodología: esta es la página
   // donde alguien se encuentra a sí mismo mal representado, y es el momento en
   // que necesita saber qué puede hacer. `DATA_LICENSE.md` §4 lo exige.
   document.getElementById('aviso-autores').innerHTML = `
@@ -750,7 +750,7 @@ async function autores() {
 
   // El umbral estaba escrito en el HTML. Viene de config/publication.yml.
   document.getElementById('etiqueta-umbral').textContent =
-    `Mostrar sólo firmas con ${parametros.n_minimo_interpretable} o más publicaciones`;
+    `Mostrar solo firmas con ${parametros.n_minimo_interpretable} o más publicaciones`;
 
   function pintar() {
     let f = lista.filter(a => (!soloInterpretables || a.interpretable));
@@ -758,7 +758,7 @@ async function autores() {
       const sinTildes = t => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
       const n = sinTildes(q);
       // Se busca también entre las variantes fusionadas: quien llega con
-      // «Giglio A.» desde Scopus no encontraría nada si sólo se mirara el
+      // «Giglio A.» desde Scopus no encontraría nada si solo se mirara el
       // nombre canónico, y la ficha que busca existe con otro título.
       f = f.filter(a => [a.nombre, ...(a.variantes_consolidadas || [])]
         .some(x => sinTildes(x).includes(n)));
@@ -766,7 +766,7 @@ async function autores() {
     f.sort((x, y) => (asc ? 1 : -1) * ((x[orden] ?? 0) - (y[orden] ?? 0)) ||
       x.nombre.localeCompare(y.nombre));
 
-    // La columna por la que se ordena se marca en todo su alto, no sólo en la
+    // La columna por la que se ordena se marca en todo su alto, no solo en la
     // cabecera: con 51 filas en pantalla, una flecha arriba del todo se pierde.
     const ord = k => (k === orden ? ' ordenada' : '');
 
@@ -779,9 +779,9 @@ async function autores() {
       `<strong>${c.nf.format(f.length)}</strong> de ${c.nf.format(parametros.total_firmas)} formas de firma` +
       // Con las palabras de la casilla que lo activa: «n ≥ 5» era jerga, y en un
       // teléfono la «n» quedaba sola al final de una línea.
-      (soloInterpretables ? ` · sólo las de ${parametros.n_minimo_interpretable}\u00a0o más publicaciones` : '') +
+      (soloInterpretables ? ` · solo las de ${parametros.n_minimo_interpretable}\u00a0o más publicaciones` : '') +
       ` · <strong>${c.nf.format(conOrcid)}</strong> con ORCID recuperado` +
-      // Sólo si la verificación se ha ejecutado: sin ella el recuento sería 0
+      // Solo si la verificación se ha ejecutado: sin ella el recuento sería 0
       // y un 0 aquí se leería como «ninguno se verificó», que es falso.
       (verificados ? ` · <strong>${c.nf.format(verificados)}</strong> verificado${
         verificados === 1 ? '' : 's'} contra el registro de ORCID` : '');
@@ -797,7 +797,7 @@ async function autores() {
              >${c.escapar(a.orcid)}</a>`
           // Se marca todo lo que NO sea una verificación independiente. Las
           // verificadas son la norma y etiquetarlas sería ruido; el resto dice
-          // qué evidencia tiene, incluidas las que sólo declara el titular.
+          // qué evidencia tiene, incluidas las que solo declara el titular.
           // En texto, no en color: el color solo no comunica.
           + (a.orcid_veredicto_clase && a.orcid_veredicto_clase !== 'verificado'
             ? ` <span class="nota nota-orcid-${c.escapar(a.orcid_veredicto_clase)}"
@@ -870,7 +870,7 @@ async function fichaAutor() {
 
   // Coautoría interna de ESTA persona (C-05): quién más firma sus mismas
   // publicaciones. No hace falta el grafo entero para una ficha individual,
-  // sólo cruzar sus propios EID contra `autores_uft` de cada publicación.
+  // solo cruzar sus propios EID contra `autores_uft` de cada publicación.
   const { publicaciones: todasPubs } = await c.cargar('publications.json');
   const { autores: todasFichas } = await c.cargar('authors.json');
   const idPorNombre = new Map(todasFichas.map(x => [x.nombre, x.id]));
@@ -908,7 +908,7 @@ async function fichaAutor() {
      las cifras que la ficha ya tiene: sus publicaciones y el universo que
      viaja en su propio `meta`. Cuando la ficha llega dentro de un informe
      recortado, el despachador ya escribió la línea con el recorte de la URL y
-     ésta la confirma con las mismas palabras. */
+     esta la confirma con las mismas palabras. */
   const papelFicha = document.getElementById('recorte-impreso');
   if (papelFicha) {
     papelFicha.textContent = c.fraseRecorte(
@@ -927,7 +927,7 @@ async function fichaAutor() {
       ? `<a class="enlace-dato" href="https://orcid.org/${c.escapar(a.orcid)}" target="_blank" rel="noopener">${c.escapar(a.orcid)}</a>`
         // Qué evidencia respalda este ORCID, en orden de fuerza. El veredicto
         // sale de contrastar la asignación contra el registro del propio
-        // titular, así que cuando existe desplaza a la confianza, que sólo
+        // titular, así que cuando existe desplaza a la confianza, que solo
         // dice lo que opina nuestra heurística de emparejamiento.
         + (a.orcid_veredicto_etiqueta
           ? ` <span class="nota nota-orcid-${c.escapar(a.orcid_veredicto_clase)}"
@@ -1023,7 +1023,7 @@ async function fichaAutor() {
            publicaciones no comparten firma con otra persona detectada como afiliada a
            la institución. No significa que trabaje en solitario — puede coautorar con
            gente fuera de la UFT, que este corte no ve.</p>`}
-      <p class="nota">Sólo cuenta coautoría <strong>interna</strong>: otra firma UFT en la
+      <p class="nota">Solo cuenta coautoría <strong>interna</strong>: otra firma UFT en la
         misma publicación, dentro de esta ventana. <a href="colaboracion.html#C-05">Ver la
         red completa →</a></p>
     </section>`;
@@ -1099,7 +1099,7 @@ async function catalogo() {
   if (!yaPintado(cont)) cont.innerHTML = v.catalogo(await c.cargar('catalogo.json'), graficos);
 
   /* El selector de gráficos. El catálogo es la única página donde los veintiuno
-     se ven juntos —en una sección sólo están los suyos—, así que es donde se
+     se ven juntos —en una sección solo están los suyos—, así que es donde se
      eligen sin depender de en cuál viven.
 
      La selección viaja como `grafico=` en la URL, junto al recorte y con la
@@ -1174,7 +1174,7 @@ async function produccionAmpliada() {
 function tecladoGraficos() {
   document.addEventListener('keydown', e => {
     // `g.nodo-red[tabindex]` generaliza la misma rotación a la red de
-    // coautoría (C-05): sólo los nodos con `tabindex` ya puesto entran a la
+    // coautoría (C-05): solo los nodos con `tabindex` ya puesto entran a la
     // tabulación (el tope de 90 por grado que fija `disponerRed()` en
     // core.js) — el resto del selector, y este bucle, no cambian.
     // `g.heatmap-celda`/`g.treemap-nodo` con `tabindex` reproducen el mismo
@@ -1233,7 +1233,7 @@ async function fuentesexternas() {
   }
 
   // Sin `autores`: la capa pública ya no trae la atribución obra-persona.
-  // La frontera la aplica src/build/10_fuentes_externas.py; aquí sólo se
+  // La frontera la aplica src/build/10_fuentes_externas.py; aquí solo se
   // consume lo que llega, y se declara lo que no llega.
   const { meta, publicaciones: pubs, resumen } = datos;
   const zonas = {
@@ -1351,7 +1351,7 @@ async function fuentesexternas() {
 
 /* ============================================================== arranque */
 /* ===================================================== descarga de datos */
-/* La página llega pre-renderizada entera; aquí sólo se pone el botón del CSV,
+/* La página llega pre-renderizada entera; aquí solo se pone el botón del CSV,
    que se genera en el navegador con la misma `exportar()` del listado. */
 async function datos() {
   montarDescargaInforme();
@@ -1366,7 +1366,7 @@ async function datos() {
   });
 }
 
-/** Introducción (D-748). El pre-renderizado la deja escrita entera; aquí sólo
+/** Introducción (D-748). El pre-renderizado la deja escrita entera; aquí solo
     se compone si faltó —un sitio ensamblado sin Node—, con la misma función. */
 async function introduccion() {
   const cont = document.getElementById('introduccion');
@@ -1410,8 +1410,8 @@ function hoyLocal() {
     Se componen al cargar, porque `beforeprint` no espera a una petición, y se
     vuelven a componer al imprimir con los datos ya en memoria: la fecha y el
     recorte pueden haber cambiado desde la carga. El generador del PDF pone las
-    suyas —con la huella y la versión, que sólo él conoce— y las marca con
-    `data-generador`; ésas no se tocan.
+    suyas —con la huella y la versión, que solo él conoce— y las marca con
+    `data-generador`; esas no se tocan.
 
     Sin `institucion.json` o sin `introduccion.json` se imprime con lo que
     haya: la portada no inventa un responsable. */
@@ -1434,7 +1434,7 @@ async function montarPortadaPapel(archivo) {
   folio.id = 'folio-papel';
   folio.textContent = v.marcaCSS(inst) + v.folioCSS(`${v.etiquetaInforme(meta)} · ${seccion}`);
   document.head.appendChild(folio);
-  // La tipografía del papel (Arimo, D-752) sólo la usa la impresión: se pide
+  // La tipografía del papel (Arimo, D-752) solo la usa la impresión: se pide
   // ya, para que esté cuando alguien imprima y no salga la de reserva.
   if (document.fonts) {
     ['400 10pt Arimo', '700 10pt Arimo'].forEach((f) => document.fonts.load(f, 'Áá').catch(() => {}));
@@ -1472,7 +1472,7 @@ const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodolo
     coautores directos — mismo patrón visual que el filtro atenúa las barras
     inactivas (`svg.chart.hay-foco .marca`), aplicado al nodo y sus vecinos
     en vez de a una serie. Puramente de marcado: no vuelve a pedir datos ni
-    repinta el SVG, sólo alterna clases ya previstas en `app.css`. */
+    repinta el SVG, solo alterna clases ya previstas en `app.css`. */
 function alternarFocoRed(g) {
   const svg = g.closest('svg.red-svg');
   if (!svg) return;
@@ -1508,7 +1508,7 @@ document.addEventListener('DOMContentLoaded', async () => {
        lo niegue contradice a las demás del mismo PDF.
 
        Sin cifras a propósito: esta página no tiene el corpus cargado y
-       declarar «N de M» exigiría pedirlo sólo para eso. Donde sí hay
+       declarar «N de M» exigiría pedirlo solo para eso. Donde sí hay
        explorador, `actualizarRecorteVivo()` reescribe la línea con las cifras
        en el primer repintado. */
     const selURL = X.leerURL();

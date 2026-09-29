@@ -20,7 +20,7 @@
    1. El tema guardado: desde el módulo diferido, la página aparecería un
       instante con el tema equivocado.
    2. La clase `js`: marca que hay JavaScript. Las vistas conmutables se
-      contraen a una sola sólo bajo esa clase; sin JS se muestran las dos, que
+      contraen a una sola solo bajo esa clase; sin JS se muestran las dos, que
       es lo correcto —la tabla es la vía equivalente al gráfico, no un extra—. */
 (function(){var e=document.documentElement;e.className+=' js';
 try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(x){}})();</script>
@@ -151,7 +151,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     </div>
     <aside class="seccion-limite" aria-labelledby="limite-tematica">
       <p class="seccion-limite-tit" id="limite-tematica">Qué NO dice esta sección</p>
-      <p>De qué trata cada artículo. La clasificación por área asigna la categoría de la revista, no el tema del trabajo: un artículo de historia de la medicina publicado en una revista clínica se clasifica como clínico. Las categorías tampoco son excluyentes —una revista puede estar en varias— y por eso no reparten el total. Y la prominencia de un tema describe la atención que el campo recibe en el mundo, no el desempeño de quien publica en él. Tampoco hay aquí palabras clave, coocurrencia ni redes de co-citación: los datos procesados no traen palabras clave ni referencias citadas, y el catálogo de indicadores dice qué haría falta para construirlas.</p>
+      <p>El tema de cada artículo. La clasificación por área asigna la categoría de la revista, no el tema del trabajo: un artículo de historia de la medicina publicado en una revista clínica se clasifica como clínico. Las categorías tampoco son excluyentes —una revista puede pertenecer a varias—, por lo que no constituyen una distribución del total. Además, la prominencia de un tema describe la atención que el campo recibe a nivel mundial, no el desempeño de quienes publican en él. Este informe tampoco incluye análisis de palabras clave, coocurrencia ni redes de cocitación, porque los datos procesados no contienen palabras clave ni referencias citadas; el catálogo de indicadores detalla qué se requeriría para construirlos.</p>
     </aside>
   </div>
 </div>
@@ -326,41 +326,41 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <h3 class="ficha-etq">Publicaciones</h3>
       <p class="ficha-base"><b data-base="publicaciones">1.342</b> publicaciones en el recorte</p>
       
-      <p class="ficha-lectura">Cuántas publicaciones distintas caen en el recorte. Una publicación cuenta una sola vez aunque la firmen varias personas de la institución.</p>
+      <p class="ficha-lectura">Número de publicaciones distintas incluidas en el recorte. Cada publicación se contabiliza una sola vez, aunque la firmen varias personas de la institución.</p>
     </article><article class="ficha" data-k="citas">
       <p class="ficha-valor" data-valor="citas">14.245</p>
       <h3 class="ficha-etq">Citas recibidas<button class="ayuda" type="button" data-ayuda="Fecha de corte"
     aria-label="Qué significa Fecha de corte">?</button></h3>
       <p class="ficha-base"><b data-base="citas">1.342</b> sobre las que tienen métricas</p>
       
-      <p class="ficha-lectura">El total de citas que han recibido esas publicaciones hasta la fecha de corte que declara el pie. Es una suma acumulada, así que lo publicado antes lleva más tiempo reuniéndolas.</p>
+      <p class="ficha-lectura">Total de citas recibidas por esas publicaciones hasta la fecha de corte declarada. Es una suma acumulada: las publicaciones más antiguas han tenido más tiempo para recibir citas.</p>
     </article><article class="ficha" data-k="citas_por_pub">
       <p class="ficha-valor" data-valor="citas_por_pub">10,61</p>
       <h3 class="ficha-etq">Citas por publicación</h3>
       <p class="ficha-base"><b data-base="citas_por_pub">1.342</b> sobre las que tienen métricas</p>
       <p class="ficha-base ficha-mediana">Mediana <b data-mediana="citas_por_pub">3</b></p>
-      <p class="ficha-lectura">Las citas totales divididas por las publicaciones que tienen métricas. Es un promedio: unas pocas publicaciones muy citadas lo levantan para todas, y no describe a la publicación típica. La mediana, debajo, sí: la mitad de las publicaciones tiene esa cantidad de citas o menos.</p>
+      <p class="ficha-lectura">Total de citas dividido por el número de publicaciones con métricas. Al tratarse de un promedio, unas pocas publicaciones muy citadas lo elevan, por lo que no describe la publicación típica. La mediana, indicada debajo, sí lo hace: la mitad de las publicaciones tiene esa cantidad de citas o menos.</p>
     </article><article class="ficha" data-k="fwci_mediano">
       <p class="ficha-valor" data-valor="fwci_mediano">0,48</p>
       <h3 class="ficha-etq">FWCI mediano<button class="ayuda" type="button" data-ayuda="FWCI"
     aria-label="Qué significa FWCI">?</button></h3>
       <p class="ficha-base"><b data-base="fwci_mediano">1.342</b> sobre las que tienen FWCI · 1,00 = promedio mundial</p>
       
-      <p class="ficha-lectura">El FWCI compara las citas de cada publicación con las esperadas para su campo, su año y su tipo, y 1,00 es el promedio mundial. Se muestra la mediana del recorte y no el promedio porque la distribución es muy asimétrica: unas pocas publicaciones muy citadas mueven el promedio y no la mediana, que describe la publicación típica.</p>
+      <p class="ficha-lectura">El FWCI compara las citas de cada publicación con las esperadas para su campo, año y tipo documental; el valor 1,00 corresponde al promedio mundial. Se informa la mediana del recorte y no el promedio, porque la distribución es muy asimétrica: unas pocas publicaciones muy citadas desplazan el promedio, pero no la mediana, que describe la publicación típica.</p>
     </article><article class="ficha" data-k="internacional">
       <p class="ficha-valor" data-valor="internacional">49,8<span class="ficha-sufijo">%</span></p>
       <h3 class="ficha-etq">Colaboración internacional<button class="ayuda" type="button" data-ayuda="Colaboración internacional"
     aria-label="Qué significa Colaboración internacional">?</button></h3>
       <p class="ficha-base"><b data-base="internacional">1.342</b> sobre las que declaran país</p>
       
-      <p class="ficha-lectura">El porcentaje de publicaciones firmadas con al menos una institución de otro país, sobre las que declaran país. Mide con quién se publica, no la calidad de lo publicado.</p>
+      <p class="ficha-lectura">Porcentaje de publicaciones firmadas con al menos una institución de otro país, respecto de las que declaran país. Indica con quién se publica, no la calidad de lo publicado.</p>
     </article><article class="ficha" data-k="autores">
       <p class="ficha-valor" data-valor="autores">829</p>
       <h3 class="ficha-etq">Autores UFT<button class="ayuda" type="button" data-ayuda="Formas de firma"
     aria-label="Qué significa Formas de firma">?</button></h3>
       <p class="ficha-base"><b data-base="autores">1.342</b> sobre las que tienen autoría detallada</p>
       
-      <p class="ficha-lectura">Cuántas firmas distintas de la institución aparecen en el recorte. Son formas de firma ya consolidadas por revisión humana, no necesariamente personas distintas: una persona que firma de dos maneras sin consolidar cuenta dos veces.</p>
+      <p class="ficha-lectura">Número de firmas distintas de la institución presentes en el recorte. Corresponden a formas de firma consolidadas mediante revisión humana, no necesariamente a personas distintas: una persona que firma de dos maneras no consolidadas se contabiliza dos veces.</p>
     </article></div>
 </div>
 
@@ -370,7 +370,6 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       data-corte="qs_area" tabindex="-1">
       <header class="corte-cab">
         <h3>Áreas QS</h3>
-        <span class="corte-cod">T-05</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="T-05-grafico">Gráfico</button>
@@ -449,14 +448,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       
       <p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>
-      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra cuenta las publicaciones de un área QS, que son las cinco grandes agrupaciones de la clasificación. Una publicación puede estar en varias.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra corresponde al número de publicaciones de un área QS, las cinco grandes agrupaciones de esta clasificación. Una publicación puede pertenecer a más de un área.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-T-05">Nota
     metodológica en el anexo · T-05</a></p>
     </section><section class="corte" id="T-01"
       data-corte="asjc" tabindex="-1">
       <header class="corte-cab">
         <h3>Áreas temáticas ASJC</h3>
-        <span class="corte-cod">T-01</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="T-01-grafico">Gráfico</button>
@@ -701,14 +699,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="nota nota-recorte nota-figura">Se muestran las 20 primeras
     de 271 áreas ASJC distintas.</p>
       <p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>
-      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra es una categoría temática de la revista en que se publicó y cuenta sus publicaciones. Se dibujan las veinte con más.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra representa una categoría temática de la revista en que se publicó el trabajo e indica su número de publicaciones. Se representan las veinte categorías con mayor número de publicaciones.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-T-01">Nota
     metodológica en el anexo · T-01</a></p>
     </section><section class="corte" id="T-04"
       data-corte="ods" tabindex="-1">
       <header class="corte-cab">
         <h3>Objetivos de Desarrollo Sostenible</h3>
-        <span class="corte-cod">T-04</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="T-04-grafico">Gráfico</button>
@@ -908,7 +905,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       
       <p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>
-      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra cuenta las publicaciones que la fuente asocia a ese Objetivo de Desarrollo Sostenible. Es un recuento, no un reparto del total: la mayoría de las publicaciones no tiene ninguno asignado.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra corresponde al número de publicaciones que la fuente asocia a ese Objetivo de Desarrollo Sostenible. Se trata de un recuento y no de una distribución del total: la mayoría de las publicaciones no tiene ningún objetivo asignado.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-T-04">Nota
     metodológica en el anexo · T-04</a></p>
     </section>
@@ -917,20 +914,22 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <div id="diferidos" data-prerender="1">
 <section class="banda banda-contraste no-publicados">
     <div class="banda-titulo">
-      <p class="banda-gancho">Lo que esta sección todavía no puede mostrar</p>
+      <p class="banda-gancho">Indicadores no publicados en esta sección</p>
       <h2>2 indicadores
-        de esta sección están verificados pero no se publican.</h2>
-      <p>No responden al recorte: no se calculan aquí. Se dice cuál y por qué.</p>
+        de esta sección están verificados, pero no se publican.</h2>
+      <p>No dependen del recorte y no se calculan en este informe. Se indica cuáles son y el motivo.</p>
     </div>
     <article class="modulo modulo-diferido" id="T-02">
       <header><div class="modulo-id">
-        <h3>Topics de SciVal</h3><span class="codigo">T-02</span>
+        <h3>Topics de SciVal</h3>
       </div><span class="estado" data-e="diferido">Diferido a V2</span></header>
-      <p class="nota">932 topics para 1.313 publicaciones: demasiado disperso para vista principal.</p>
+      
+      <p class="nota">932 topics para 1.313 publicaciones: demasiado disperso para una representación principal.</p>
     </article><article class="modulo modulo-diferido" id="T-03">
       <header><div class="modulo-id">
-        <h3>Prominencia temática</h3><span class="codigo">T-03</span>
+        <h3>Prominencia temática</h3>
       </div><span class="estado" data-e="diferido">Diferido a V2</span></header>
+      
       <p class="nota">Mide la atención del campo, no el desempeño institucional.</p>
     </article>
   </section>

@@ -20,7 +20,7 @@
    1. El tema guardado: desde el módulo diferido, la página aparecería un
       instante con el tema equivocado.
    2. La clase `js`: marca que hay JavaScript. Las vistas conmutables se
-      contraen a una sola sólo bajo esa clase; sin JS se muestran las dos, que
+      contraen a una sola solo bajo esa clase; sin JS se muestran las dos, que
       es lo correcto —la tabla es la vía equivalente al gráfico, no un extra—. */
 (function(){var e=document.documentElement;e.className+=' js';
 try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(x){}})();</script>
@@ -166,84 +166,86 @@ Sin filtros: el informe completo, 1.342 publicaciones.
       <h2 id="analisis-1">1. Producción</h2>
       <article class="hallazgo">
       <h3>Evolución del volumen</h3>
-      <p>La producción creció: pasó de 131 publicaciones en 2020 a 318 en 2025 (2,4 veces). <a class="analisis-figura" href="produccion.html#P-02"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>P-02<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
-      <p class="hallazgo-limite"><b>Límite.</b> Es volumen indexado en Scopus: depende también de qué revistas indexa la base y de cómo declara cada autor su afiliación. Mide actividad, no calidad ni rendimiento.</p>
+      <p>La producción creció: pasó de 131 publicaciones en 2020 a 318 en 2025 (2,4 veces). <a class="analisis-figura" href="produccion.html#P-02"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«Publicaciones por año»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> Corresponde al volumen indexado en Scopus: depende también de las revistas que indexa la base y de cómo declara cada autor su afiliación. Refleja actividad, no calidad ni rendimiento.</p>
     </article><article class="hallazgo">
       <h3>Tipos documentales</h3>
-      <p>El tipo más frecuente es Article (75,3 %), seguido de Review (13,0 %). <a class="analisis-figura" href="produccion.html#P-03"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>P-03<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
-      <p class="hallazgo-limite"><b>Límite.</b> El tipo lo asigna la fuente. Todos los tipos, también erratas, editoriales y cartas, cuentan en el universo del informe.</p>
+      <p>El tipo más frecuente es Article (75,3 %), seguido de Review (13,0 %). <a class="analisis-figura" href="produccion.html#P-03"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«Tipo documental»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> El tipo documental lo asigna la fuente. Todos los tipos, incluidas erratas, editoriales y cartas, se contabilizan en el universo del informe.</p>
     </article><article class="hallazgo">
       <h3>Unidades académicas</h3>
-      <p>Entre las 871 publicaciones con unidad académica identificada (64,9 % del recorte), la unidad más frecuente es Facultad de Medicina y Salud, con 652. <a class="analisis-figura" href="produccion.html#P-07"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>P-07<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
-      <p class="hallazgo-limite"><b>Límite.</b> La unidad sale de la afiliación que declara cada firma y no se pudo determinar en el 35,1 % de las publicaciones, así que el reparto es parcial. Una publicación firmada desde dos unidades cuenta en ambas. No compara unidades de tamaño y disciplina distintos.</p>
+      <p>Entre las 871 publicaciones con unidad académica identificada (64,9 % del recorte), la unidad más frecuente es Facultad de Medicina y Salud, con 652. <a class="analisis-figura" href="produccion.html#P-07"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«Unidad académica»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> La unidad se obtiene de la afiliación que declara cada firma y no se pudo determinar en el 35,1 % de las publicaciones, por lo que la distribución es parcial. Una publicación firmada desde dos unidades se contabiliza en ambas. No permite comparar unidades de tamaño y disciplina distintos.</p>
     </article>
     </section><section class="analisis-eje" aria-labelledby="analisis-2">
       <h2 id="analisis-2">2. Impacto</h2>
       <article class="hallazgo">
       <h3>Cómo se reparten las citas</h3>
-      <p>El 10 % más citado (134 publicaciones) reúne el 63,0 % de las 14.245 citas, y 311 publicaciones (23,2 %) no tienen citas al 2026-08-30. Por eso la publicación típica —la mediana— tiene 3 citas y el promedio es 10,61. <a class="analisis-figura" href="impacto.html#I-08"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>I-08<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
-      <p class="hallazgo-limite"><b>Límite.</b> Es la forma habitual de las distribuciones de citas: el promedio no describe a la publicación típica. Las citas son acumuladas al corte y lo publicado en los últimos años tuvo menos tiempo para recibirlas.</p>
+      <p>El 10 % más citado (134 publicaciones) reúne el 63,0 % de las 14.245 citas, y 311 publicaciones (23,2 %) no tienen citas al 30 de agosto de 2026. Por eso la publicación típica —la mediana— tiene 3 citas y el promedio es 10,61. <a class="analisis-figura" href="impacto.html#I-08"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«Distribución de citas»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> Es la forma habitual de las distribuciones de citas: el promedio no describe la publicación típica. Las citas se acumulan hasta la fecha de corte, y lo publicado en los últimos años ha tenido menos tiempo para recibirlas.</p>
     </article><article class="hallazgo">
       <h3>Impacto normalizado</h3>
-      <p>El FWCI mediano es 0,48, por debajo del promedio mundial (1,00): la publicación típica recibe el 48 % de las citas que recibe en promedio una publicación del mismo campo, año y tipo. 372 publicaciones (27,7 %) igualan o superan ese promedio. <a class="analisis-figura" href="impacto.html#I-04"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>I-04<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
-      <p class="hallazgo-limite"><b>Límite.</b> El FWCI de lo publicado recientemente se calcula con pocas citas y cambia con cada actualización. Se usa la mediana porque unas pocas publicaciones muy citadas elevan la media.</p>
+      <p>El FWCI mediano es 0,48, por debajo del promedio mundial (1,00): la publicación típica recibe el 48 % de las citas que recibe en promedio una publicación del mismo campo, año y tipo. 372 publicaciones (27,7 %) igualan o superan ese promedio. <a class="analisis-figura" href="impacto.html#I-04"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«FWCI mediano por año»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> El FWCI de lo publicado recientemente se calcula con pocas citas y varía con cada actualización. Se utiliza la mediana porque unas pocas publicaciones muy citadas elevan la media.</p>
     </article><article class="hallazgo">
       <h3>Publicaciones entre las más citadas de su campo</h3>
-      <p>115 publicaciones (8,6 %) están en el 10 % más citado de su campo, año y tipo: menos de lo esperable si se citaran como el conjunto mundial, que sería 134,2 (10 %). <a class="analisis-figura" href="impacto.html#I-05"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>I-05<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
-      <p class="hallazgo-limite"><b>Límite.</b> El percentil lo calcula SciVal y, en las publicaciones recientes, todavía puede moverse.</p>
+      <p>115 publicaciones (8,6 %) están en el 10 % más citado de su campo, año y tipo: menos de lo esperable si se citaran como el conjunto mundial, que sería 134,2 (10 %). <a class="analisis-figura" href="impacto.html#I-05"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«Umbrales de percentil»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> El percentil lo calcula SciVal y, en las publicaciones recientes, aún puede variar.</p>
     </article><article class="hallazgo">
       <h3>Revistas del primer cuartil</h3>
-      <p>578 de las 1.223 publicaciones con percentil SJR (47,3 %) salieron en revistas del primer cuartil de su categoría. <a class="analisis-figura" href="impacto.html#R-01"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>R-01<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
+      <p>578 de las 1.223 publicaciones con percentil SJR (47,3 %) se publicaron en revistas del primer cuartil de su categoría. <a class="analisis-figura" href="impacto.html#R-01"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«Cuartil de la revista»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
       <p class="hallazgo-limite"><b>Límite.</b> Describe la revista, no el artículo: una publicación en una revista Q1 puede no ser citada, y a la inversa.</p>
     </article><article class="hallazgo">
       <h3>Acceso abierto</h3>
-      <p>943 publicaciones (70,3 %) tienen al menos una vía de acceso abierto declarada. <a class="analisis-figura" href="impacto.html#A-01"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>A-01<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
-      <p class="hallazgo-limite"><b>Límite.</b> En las demás la fuente no declara vía, lo que no significa que sean de acceso cerrado. Una publicación puede tener varias vías.</p>
+      <p>943 publicaciones (70,3 %) tienen al menos una vía de acceso abierto declarada. <a class="analisis-figura" href="impacto.html#A-01"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«Vías de acceso abierto»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> En las demás, la fuente no declara una vía, lo que no significa que sean de acceso cerrado. Una publicación puede registrar más de una vía.</p>
     </article>
     </section><section class="analisis-eje" aria-labelledby="analisis-3">
       <h2 id="analisis-3">3. Colaboración</h2>
       <article class="hallazgo">
       <h3>Colaboración internacional</h3>
-      <p>668 publicaciones (49,8 %) tienen autores de más de un país. Aparte de Chile, los países más frecuentes en las afiliaciones son Spain (253), United States (159), Brazil (83). <a class="analisis-figura" href="colaboracion.html#C-01"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>C-01<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
+      <p>668 publicaciones (49,8 %) tienen autores de más de un país. Aparte de Chile, los países más frecuentes en las afiliaciones son Spain (253), United States (159), Brazil (83). <a class="analisis-figura" href="colaboracion.html#C-01"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«Nacional o internacional»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
       <p class="hallazgo-limite"><b>Límite.</b> Describe con quién se publica, no la calidad ni la influencia de lo publicado.</p>
     </article><article class="hallazgo">
       <h3>Tamaño de los equipos</h3>
-      <p>La mediana es de 5 autores por publicación. <a class="analisis-figura" href="colaboracion.html#C-06"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>C-06<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
-      <p class="hallazgo-limite"><b>Límite.</b> Se da la mediana porque unos pocos trabajos con muchos autores elevarían el promedio.</p>
+      <p>La mediana es de 5 autores por publicación. <a class="analisis-figura" href="colaboracion.html#C-06"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«Autores por publicación»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> Se informa la mediana porque unos pocos trabajos con muchos autores elevarían el promedio.</p>
     </article>
     </section><section class="analisis-eje" aria-labelledby="analisis-4">
       <h2 id="analisis-4">4. Áreas temáticas</h2>
       <article class="hallazgo">
       <h3>Áreas de las revistas</h3>
-      <p>Life Sciences &amp; Medicine aparece en 862 de las 1.317 publicaciones con área QS (65,5 %), seguida de Social Sciences &amp; Management (344). <a class="analisis-figura" href="tematica.html#T-05"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>T-05<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
-      <p class="hallazgo-limite"><b>Límite.</b> El área es la de la revista, no el tema del artículo, y una publicación puede tener varias: los porcentajes no suman 100.</p>
+      <p>Life Sciences &amp; Medicine aparece en 862 de las 1.317 publicaciones con área QS (65,5 %), seguida de Social Sciences &amp; Management (344). <a class="analisis-figura" href="tematica.html#T-05"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«Áreas QS»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> El área corresponde a la revista, no al tema del artículo, y una publicación puede tener varias: los porcentajes no suman 100.</p>
     </article><article class="hallazgo">
       <h3>Objetivos de Desarrollo Sostenible</h3>
-      <p>521 publicaciones (38,8 %) tienen al menos un ODS asignado por la fuente; el más frecuente es SDG 3 (322). <a class="analisis-figura" href="tematica.html#T-04"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>T-04<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
-      <p class="hallazgo-limite"><b>Límite.</b> Sin ODS asignado no significa que una publicación no contribuya a alguno: la cobertura es baja y la cifra sólo se lee como publicaciones con ODS asignado.</p>
+      <p>521 publicaciones (38,8 %) tienen al menos un ODS asignado por la fuente; el más frecuente es SDG 3 (322). <a class="analisis-figura" href="tematica.html#T-04"><span class="af-pantalla">Ver </span><span class="af-papel">(figura </span>«Objetivos de Desarrollo Sostenible»<span class="af-pantalla"> →</span><span class="af-papel">)</span></a></p>
+      <p class="hallazgo-limite"><b>Límite.</b> Que una publicación no tenga un ODS asignado no significa que no contribuya a alguno: la cobertura es baja y la cifra solo debe leerse como publicaciones con ODS asignado.</p>
     </article>
     </section>
     <section class="analisis-eje" aria-labelledby="analisis-conjunto">
       <h2 id="analisis-conjunto">5. Lectura de conjunto</h2>
       <p>En conjunto, entre 2020 y 2025 la producción creció (de 131 a 318 publicaciones al año); el impacto normalizado de la publicación típica está por debajo del promedio mundial (FWCI mediano 0,48), y el 10 % más citado reúne el 63 % de las citas; el 49,8 % de lo publicado es en colaboración internacional; el área QS más frecuente de las revistas es Life Sciences &amp; Medicine.</p>
-      <p>Son descripciones de la producción indexada, no juicios sobre su calidad: el único referente externo es el
-      promedio mundial que traen las propias métricas normalizadas, y el informe no se compara con otras
-      instituciones.</p>
+      <p>Se trata de descripciones de la producción indexada, no de juicios sobre su calidad: el único referente
+      externo es el promedio mundial que incorporan las propias métricas normalizadas, y el informe no establece
+      comparaciones con otras instituciones.</p>
     </section>
     <section class="analisis-eje" aria-labelledby="analisis-limites">
       <h2 id="analisis-limites">6. Limitaciones de este análisis</h2>
       <ul class="analisis-limites">
         <li>Scopus no cubre por igual todas las disciplinas: las humanidades, parte de las ciencias sociales, los
-          libros y lo publicado en español quedan subrepresentados, y con ellos las unidades que publican ahí.</li>
-        <li>La ventana es de 6 años y las citas son
-          acumuladas al 2026-08-30: los años recientes no son comparables con los primeros.</li>
-        <li>La unidad académica sólo se identificó en el 64,9 % de las publicaciones.</li>
-        <li>Las cifras por autor cuentan formas de firma, no personas: parte de ellas sigue sin consolidar.</li>
+          libros y lo publicado en español están subrepresentados, al igual que las unidades que publican en esos
+          ámbitos.</li>
+        <li>El periodo abarca 6 años y las citas se
+          acumulan hasta el 30 de agosto de 2026: los años recientes no son comparables con los
+          primeros.</li>
+        <li>La unidad académica solo se identificó en el 64,9 % de las publicaciones.</li>
+        <li>Las cifras por autor contabilizan formas de firma, no personas: parte de ellas aún no está consolidada.</li>
       </ul>
       <p>El detalle de cada límite está en <a href="metodologia.html">Metodología y limitaciones</a>.</p>
     </section>
-    <p class="nota">Texto escrito desde las cifras de este recorte con las mismas funciones que dibujan los gráficos:
-      cambia con los filtros. Cada hallazgo remite a la figura que interpreta.</p>
+    <p class="nota">Texto generado a partir de las cifras de este recorte, con las mismas funciones que construyen
+      los gráficos; se actualiza al aplicar filtros. Cada hallazgo remite a la figura que interpreta.</p>
 </div>
   </div></section>
 </main>

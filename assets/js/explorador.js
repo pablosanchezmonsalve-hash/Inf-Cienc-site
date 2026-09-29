@@ -111,7 +111,7 @@ export function resumen(sel_pubs) {
     // su mediana: en este corpus el 1 % más citado reúne un tercio de las
     // citas, y el promedio (10,61) triplica a la publicación típica (3) (D-710).
     // El promedio sigue la definición del build (I-02: suma / publicaciones con
-    // métricas, una cita ausente cuenta 0); la mediana sólo mira citas
+    // métricas, una cita ausente cuenta 0); la mediana solo mira citas
     // declaradas. En esta carga no hay publicación con métricas y sin citas, así
     // que coinciden en la base; si la hubiera, la mediana la dejaría fuera.
     citas_por_pub: { valor: conMetricas.length ? citas / conMetricas.length : null,
@@ -171,7 +171,7 @@ export function porFacultad(sel_pubs, jerarquia) {
     .sort((a, b) => b.n - a.n || a.valor.localeCompare(b.valor));
 }
 
-/** Sólo las unidades que la jerarquía reconoce como escuela —nunca
+/** Solo las unidades que la jerarquía reconoce como escuela —nunca
     facultades sueltas, «No determinada» ni «Sin dato declarado», que no
     tienen lectura como escuela. */
 export function porEscuela(sel_pubs, jerarquia) {
@@ -285,7 +285,7 @@ export const personaDelRecorte = (sel) =>
 
     Coincide con `n_publicaciones` de `authors.json` para las 829 entidades
     —comprobado sobre el artefacto—, así que la ficha y el informe recortado
-    dicen el mismo número sin que éste tenga que cargar aquél. */
+    dicen el mismo número sin que este tenga que cargar aquél. */
 export const publicacionesDe = (pubs, nombre) =>
   pubs.reduce((n, p) => n + ((p.autores_uft || []).includes(nombre) ? 1 : 0), 0);
 
@@ -304,7 +304,7 @@ export const unidadDelRecorte = (sel) =>
 
     Las dos cifras son distintas y las dos hacen falta. La primera es el tamaño
     del conjunto; la segunda es la base del indicador frágil, que no es la
-    misma: sólo las publicaciones con percentil de citación entran en él. Que
+    misma: solo las publicaciones con percentil de citación entran en él. Que
     una publicación valga `100/n` puntos no se estima, se calcula.
 
     Se mide sobre la unidad ENTERA en la ventana, sin el resto del recorte
@@ -322,7 +322,7 @@ export const baseDeUnidad = (pubs, nombre) => {
     publicaciones con percentil, de las que `enTop` están en el decil.
 
     Forma cerrada del jackknife, no una aproximación. Quitar una publicación
-    deja `base - 1`, y sólo hay dos resultados posibles: si la que sale estaba
+    deja `base - 1`, y solo hay dos resultados posibles: si la que sale estaba
     en el top, el valor pasa a `100(enTop-1)/(base-1)`; si no, a
     `100·enTop/(base-1)`. La diferencia entre ambos es `100/(base-1)`.
 
@@ -343,7 +343,7 @@ export const vaivenTop10 = ({ base, enTop }) => {
 export const hayRecorte = sel =>
   Boolean(sel.q) || DIMENSIONES.some(([c]) => sel[c] && sel[c].length);
 
-/** Cómo se llama el recorte activo, en palabras. Un tablero que sólo muestra
+/** Cómo se llama el recorte activo, en palabras. Un tablero que solo muestra
     cifras filtradas sin decir por qué está filtrado produce lecturas falsas:
     quien llega por un enlace tiene que saber qué está mirando. */
 export function describir(sel) {
@@ -372,7 +372,7 @@ export function describir(sel) {
 // lista tenía sus propios tramos —1,2,3,4–5,6–10,11–20,21 o más—, y el
 // gráfico de "Autores por publicación" cambiaba de agrupación entera al
 // tocar cualquier filtro (la vista estática usa 1,2–3,4–6,7–10,11–20,21+).
-// No es sólo un rótulo distinto: son fronteras de bin distintas, así que un
+// No es solo un rótulo distinto: son fronteras de bin distintas, así que un
 // mismo valor podía caer en tramos distintos según cuál de las dos versiones
 // se estuviera mirando.
 const TRAMOS_AUTORES = [
@@ -404,7 +404,7 @@ export const CAMPOS = {
     const t = TRAMOS_AUTORES.find(([a, b]) => n >= a && n <= b);
     return t ? [t[2]] : [];
   },
-  // Sólo las publicaciones con métricas: sin ellas no hay citas que contar, y
+  // Solo las publicaciones con métricas: sin ellas no hay citas que contar, y
   // meterlas en el tramo «0» confundiría «sin dato» con «sin citas» (D-24).
   citas_tramo: p => {
     if (!p.tiene_metricas || typeof p.citas !== 'number') return [];
@@ -498,7 +498,7 @@ export function cobertura(pubs_sel, clave) {
   // cobertura y no reparto, sigue excluyéndolo aquí.
   // «No determinada» tampoco es dato: es la unidad académica que la afiliación
   // no permitió identificar. Se dibuja como categoría (D-09), pero cubierta
-  // cuenta sólo la publicación con alguna unidad determinada, como la cobertura
+  // cuenta solo la publicación con alguna unidad determinada, como la cobertura
   // de P-07 en 02_indicators.py. Contándola, el sello de P-07 decía 99,6 %.
   const SIN_DATO = new Set(['Sin dato declarado', 'No determinada']);
   for (const p of pubs_sel) {

@@ -20,7 +20,7 @@
    1. El tema guardado: desde el módulo diferido, la página aparecería un
       instante con el tema equivocado.
    2. La clase `js`: marca que hay JavaScript. Las vistas conmutables se
-      contraen a una sola sólo bajo esa clase; sin JS se muestran las dos, que
+      contraen a una sola solo bajo esa clase; sin JS se muestran las dos, que
       es lo correcto —la tabla es la vía equivalente al gráfico, no un extra—. */
 (function(){var e=document.documentElement;e.className+=' js';
 try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(x){}})();</script>
@@ -161,7 +161,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     por publicación con las columnas <code>eid</code>, <code>anio</code>, <code>titulo</code>, <code>fuente</code>, <code>tipo</code>, <code>doi</code>, <code>citas</code>, <code>fwci</code>, <code>percentil_citacion</code>, <code>n_paises</code>.
     El archivo lleva en su cabecera las fuentes, la ventana y la fecha de corte.</p>
     <p id="csv-accion"></p>
-    <p class="nota">Para descargar sólo un recorte, fíltrelo en
+    <p class="nota">Para descargar solo un recorte, fíltrelo en
       <a href="publicaciones.html">Publicaciones</a> y use «Exportar CSV».</p>
 </div>
     </section>
@@ -172,15 +172,15 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <li><b>Uso exclusivo.</b> © 2026 Universidad Finis Terrae.
       Todos los derechos reservados. Documento de uso exclusivo de la Universidad Finis Terrae: no se permite su reproducción, distribución ni modificación, total o parcial, sin autorización escrita. Solicitudes de autorización:
       <a href="mailto:psanchez@uft.cl">psanchez@uft.cl</a>.</li>
-    <li>Los exports originales de Scopus y SciVal <b>no se publican</b>: el sitio sirve
+    <li>Las exportaciones originales de Scopus y SciVal <b>no se publican</b>: el sitio sirve
       datos derivados de ellos.</li>
     <li>Qué métricas derivadas de Elsevier permite publicar la licencia institucional
       <b>está pendiente de confirmar</b> con la unidad que administra la suscripción.</li>
-    <li>Citas y métricas de SciVal al <b>2026-08-30</b>. El export
-      de Scopus no declara fecha de corte: los sellos de sus indicadores dan la de su
-      export, el <b>2026-09-08</b>.</li>
+    <li>Citas y métricas de SciVal al <b>2026-08-30</b>. La exportación
+      de Scopus no declara fecha de corte: sus indicadores se leen a la fecha de la
+      exportación, el <b>2026-09-08</b>.</li>
     <li>Universo de 1.342 publicaciones, ventana
-      2020–2025, build del 2026-09-21.
+      2020–2025, compilación del 2026-09-21.
       Recuento de registros del universo. 2 grupos de registros comparten DOI y esperan revisión humana: si se confirman como el mismo trabajo, el total sobra en 2. No se fusionan por su cuenta (D-08) y quedan visibles en la tabla de validación, regla D-02.</li>
     <li>La producción fuera de Scopus viene de fuentes institucionales y abiertas, no de
       Elsevier: su procedencia va en su propia fila del inventario.</li>
@@ -204,7 +204,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <td class="num">1.430 KB</td>
       <td>Scopus, export 2026-09-08 · SciVal, citas al 2026-08-30</td></tr><tr>
       <td><a href="data/authors.json">data/authors.json</a></td>
-      <td>Una entrada por forma de firma de la institución, con sus recuentos.<br><span class="nota">Formas de firma, no personas. Sólo 68 de 829 tienen al menos 5 publicaciones; por debajo, sus cifras no son interpretables ni comparables entre personas (DORA, Manifiesto de Leiden).</span></td>
+      <td>Una entrada por forma de firma de la institución, con sus recuentos.<br><span class="nota">Formas de firma, no personas. Solo 68 de 829 tienen al menos 5 publicaciones; por debajo, sus cifras no son interpretables ni comparables entre personas (DORA, Manifiesto de Leiden).</span></td>
       <td class="num">829<br><span class="nota">formas de firma</span></td>
       <td class="num">387 KB</td>
       <td>Scopus, export 2026-09-08 · SciVal, citas al 2026-08-30</td></tr><tr>
@@ -252,7 +252,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <td>El anexo metodológico: cómo se formó el corpus, la fórmula de cada indicador publicado y las referencias que lo sustentan.<br><span class="nota">Con 12 referencias en APA 7.</span></td>
       <td class="num">35<br><span class="nota">indicadores</span></td>
       <td class="num">25 KB</td>
-      <td>Configuración y documentación del proyecto · build del 2026-09-28</td></tr><tr>
+      <td>Configuración y documentación del proyecto · build del 2026-09-29</td></tr><tr>
       <td><a href="data/produccion_declarada.json">data/produccion_declarada.json</a></td>
       <td>Producción de la institución fuera de Scopus, declarada por las facultades o recuperada de repositorios y fuentes abiertas.</td>
       <td class="num">417<br><span class="nota">obras en la ventana, sin repetir entre fuentes</span></td>

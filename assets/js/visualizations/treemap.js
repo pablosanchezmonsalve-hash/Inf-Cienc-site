@@ -6,7 +6,7 @@
 
    Misma separación que el resto de `assets/js/`: `squarify()` es una función
    pura de datos a geometría (corre igual en Node y en el navegador, aunque
-   hoy sólo se monta en el navegador porque necesita medir el contenedor),
+   hoy solo se monta en el navegador porque necesita medir el contenedor),
    `renderTreemap()` es una función pura de geometría a cadena SVG, y
    `montarTreemap()` es la única parte que toca el DOM.
 
@@ -124,15 +124,15 @@ function nombreQueCabe(nombre, w) {
 }
 
 /* Un treemap con 10 facultades necesitaría 10 tonos distinguibles, y
-   `app.css` sólo tiene DOS series validadas como par (`--serie-1`/`-2`); las
-   otras cuatro, medidas aquí contra sí mismas (no sólo contra el fondo, que
+   `app.css` solo tiene DOS series validadas como par (`--serie-1`/`-2`); las
+   otras cuatro, medidas aquí contra sí mismas (no solo contra el fondo, que
    es lo único que medía `validar_paleta.py` hasta ahora), caen a ΔE 2,5 bajo
    deuteranopía — el propio comentario del token ya avisaba de esto ("quien
    las estrene debe revalidarlas para el número de ranuras que vaya a usar,
    no para seis").
 
    La identidad de cada celda la lleva la ETIQUETA (igual que en cualquier
-   treemap profesional); el color sólo ayuda a separar celdas vecinas. Tras la
+   treemap profesional); el color solo ayuda a separar celdas vecinas. Tras la
    revisión del usuario (2026-09-01), el treemap vuelve a la FAMILIA DEL DATO
    del resto del informe (la detección anterior de celdas pastel fue un
    paréntesis: "la paleta es distinta a todo el resto"). Usa la rampa ordinal
@@ -150,7 +150,7 @@ function colorDe(nombre, indice) {
 
 /** `nodos`: salida de `squarify()` — cada uno con `.nombre`, `.valor`,
     `.citas`, `.rect`. `nivel`: rótulo del nivel actual, para el `aria-label`
-    ("Facultad" / "Escuela"), sólo texto, no cambia el dato. */
+    ("Facultad" / "Escuela"), solo texto, no cambia el dato. */
 export function renderTreemap(nodos, { ancho, alto, nivel = 'unidad', conHijos = () => false } = {}) {
   // Un solo punto de tabulación para todo el mapa (la primera celda
   // realmente dibujada — algunas se saltan por `w<=0||h<=0`), no una por
@@ -313,14 +313,14 @@ export function montarTreemap(contenedor, arbolRaiz) {
   const leyenda = document.createElement('div');
   leyenda.className = 'treemap-leyenda';
   // El color en este treemap es una paleta de ORDEN (identidad por etiqueta),
-  // no una magnitud: por eso la leyenda no promete "más oscuro = más", sólo
+  // no una magnitud: por eso la leyenda no promete "más oscuro = más", solo
   // aclara el gris de "sin dato" y que el tono alterna entre celdas para
   // ayudar a la vista a separarlas. Cambia con el nivel (facultad/escuela).
   leyenda.innerHTML =
     `<span class="treemap-ley-titulo">Tono</span>` +
     RAMPA.map(t => `<span class="treemap-ley-mostrar" style="background:${t}"></span>`).join('') +
     `<span class="treemap-ley-mostrar treemap-ley-sin" style="background:var(--sin-dato)"></span>` +
-    `<span class="treemap-ley-rotulo">sólo separa celdas vecinas: se repite y no mide nada · gris = sin dato</span>`;
+    `<span class="treemap-ley-rotulo">solo separa celdas vecinas: se repite y no mide nada · gris = sin dato</span>`;
   const lienzo = document.createElement('div');
   lienzo.className = 'treemap-lienzo';
   contenedor.replaceChildren(migas, leyenda, lienzo);

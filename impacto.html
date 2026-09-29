@@ -20,7 +20,7 @@
    1. El tema guardado: desde el módulo diferido, la página aparecería un
       instante con el tema equivocado.
    2. La clase `js`: marca que hay JavaScript. Las vistas conmutables se
-      contraen a una sola sólo bajo esa clase; sin JS se muestran las dos, que
+      contraen a una sola solo bajo esa clase; sin JS se muestran las dos, que
       es lo correcto —la tabla es la vía equivalente al gráfico, no un extra—. */
 (function(){var e=document.documentElement;e.className+=' js';
 try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(x){}})();</script>
@@ -151,7 +151,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     </div>
     <aside class="seccion-limite" aria-labelledby="limite-impacto">
       <p class="seccion-limite-tit" id="limite-impacto">Qué NO dice esta sección</p>
-      <p>Ni la calidad de un trabajo ni el mérito de quien lo firma. Citar no es aprobar, y no citar no es desaprobar: hay campos que citan diez veces más rápido que otros, y por eso las citas crudas no se comparan entre disciplinas. Tampoco es visibilidad —cuánta gente lo vio— que es otra cosa y se mide aparte. Y el cuartil o el percentil de una revista describen a la revista, no al artículo que se publicó en ella.</p>
+      <p>La calidad de un trabajo ni el mérito de quien lo firma. Citar no equivale a aprobar, ni la ausencia de citas a desaprobar; además, los ritmos de citación varían considerablemente entre campos, por lo que las citas sin normalizar no son comparables entre disciplinas. Las citas tampoco miden visibilidad —el número de lectores—, que es un fenómeno distinto y se mide con otros indicadores. Por último, el cuartil y el percentil de una revista caracterizan a la revista, no al artículo publicado en ella.</p>
     </aside>
   </div>
 </div>
@@ -334,41 +334,41 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <h3 class="ficha-etq">Publicaciones</h3>
       <p class="ficha-base"><b data-base="publicaciones">1.342</b> publicaciones en el recorte</p>
       
-      <p class="ficha-lectura">Cuántas publicaciones distintas caen en el recorte. Una publicación cuenta una sola vez aunque la firmen varias personas de la institución.</p>
+      <p class="ficha-lectura">Número de publicaciones distintas incluidas en el recorte. Cada publicación se contabiliza una sola vez, aunque la firmen varias personas de la institución.</p>
     </article><article class="ficha" data-k="citas">
       <p class="ficha-valor" data-valor="citas">14.245</p>
       <h3 class="ficha-etq">Citas recibidas<button class="ayuda" type="button" data-ayuda="Fecha de corte"
     aria-label="Qué significa Fecha de corte">?</button></h3>
       <p class="ficha-base"><b data-base="citas">1.342</b> sobre las que tienen métricas</p>
       
-      <p class="ficha-lectura">El total de citas que han recibido esas publicaciones hasta la fecha de corte que declara el pie. Es una suma acumulada, así que lo publicado antes lleva más tiempo reuniéndolas.</p>
+      <p class="ficha-lectura">Total de citas recibidas por esas publicaciones hasta la fecha de corte declarada. Es una suma acumulada: las publicaciones más antiguas han tenido más tiempo para recibir citas.</p>
     </article><article class="ficha" data-k="citas_por_pub">
       <p class="ficha-valor" data-valor="citas_por_pub">10,61</p>
       <h3 class="ficha-etq">Citas por publicación</h3>
       <p class="ficha-base"><b data-base="citas_por_pub">1.342</b> sobre las que tienen métricas</p>
       <p class="ficha-base ficha-mediana">Mediana <b data-mediana="citas_por_pub">3</b></p>
-      <p class="ficha-lectura">Las citas totales divididas por las publicaciones que tienen métricas. Es un promedio: unas pocas publicaciones muy citadas lo levantan para todas, y no describe a la publicación típica. La mediana, debajo, sí: la mitad de las publicaciones tiene esa cantidad de citas o menos.</p>
+      <p class="ficha-lectura">Total de citas dividido por el número de publicaciones con métricas. Al tratarse de un promedio, unas pocas publicaciones muy citadas lo elevan, por lo que no describe la publicación típica. La mediana, indicada debajo, sí lo hace: la mitad de las publicaciones tiene esa cantidad de citas o menos.</p>
     </article><article class="ficha" data-k="fwci_mediano">
       <p class="ficha-valor" data-valor="fwci_mediano">0,48</p>
       <h3 class="ficha-etq">FWCI mediano<button class="ayuda" type="button" data-ayuda="FWCI"
     aria-label="Qué significa FWCI">?</button></h3>
       <p class="ficha-base"><b data-base="fwci_mediano">1.342</b> sobre las que tienen FWCI · 1,00 = promedio mundial</p>
       
-      <p class="ficha-lectura">El FWCI compara las citas de cada publicación con las esperadas para su campo, su año y su tipo, y 1,00 es el promedio mundial. Se muestra la mediana del recorte y no el promedio porque la distribución es muy asimétrica: unas pocas publicaciones muy citadas mueven el promedio y no la mediana, que describe la publicación típica.</p>
+      <p class="ficha-lectura">El FWCI compara las citas de cada publicación con las esperadas para su campo, año y tipo documental; el valor 1,00 corresponde al promedio mundial. Se informa la mediana del recorte y no el promedio, porque la distribución es muy asimétrica: unas pocas publicaciones muy citadas desplazan el promedio, pero no la mediana, que describe la publicación típica.</p>
     </article><article class="ficha" data-k="internacional">
       <p class="ficha-valor" data-valor="internacional">49,8<span class="ficha-sufijo">%</span></p>
       <h3 class="ficha-etq">Colaboración internacional<button class="ayuda" type="button" data-ayuda="Colaboración internacional"
     aria-label="Qué significa Colaboración internacional">?</button></h3>
       <p class="ficha-base"><b data-base="internacional">1.342</b> sobre las que declaran país</p>
       
-      <p class="ficha-lectura">El porcentaje de publicaciones firmadas con al menos una institución de otro país, sobre las que declaran país. Mide con quién se publica, no la calidad de lo publicado.</p>
+      <p class="ficha-lectura">Porcentaje de publicaciones firmadas con al menos una institución de otro país, respecto de las que declaran país. Indica con quién se publica, no la calidad de lo publicado.</p>
     </article><article class="ficha" data-k="autores">
       <p class="ficha-valor" data-valor="autores">829</p>
       <h3 class="ficha-etq">Autores UFT<button class="ayuda" type="button" data-ayuda="Formas de firma"
     aria-label="Qué significa Formas de firma">?</button></h3>
       <p class="ficha-base"><b data-base="autores">1.342</b> sobre las que tienen autoría detallada</p>
       
-      <p class="ficha-lectura">Cuántas firmas distintas de la institución aparecen en el recorte. Son formas de firma ya consolidadas por revisión humana, no necesariamente personas distintas: una persona que firma de dos maneras sin consolidar cuenta dos veces.</p>
+      <p class="ficha-lectura">Número de firmas distintas de la institución presentes en el recorte. Corresponden a formas de firma consolidadas mediante revisión humana, no necesariamente a personas distintas: una persona que firma de dos maneras no consolidadas se contabiliza dos veces.</p>
     </article></div>
 </div>
 
@@ -384,7 +384,6 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       data-corte="citas" tabindex="-1">
       <header class="corte-cab">
         <h3>Citas por año de publicación</h3>
-        <span class="corte-cod">I-01</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="I-01-grafico">Gráfico</button>
@@ -465,14 +464,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       
       
-      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra suma las citas que han recibido las publicaciones de ese año, contadas hasta la fecha de corte. No son las citas emitidas ese año.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra corresponde a la suma de las citas recibidas por las publicaciones de ese año, contabilizadas hasta la fecha de corte. No corresponde a las citas emitidas durante ese año.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-I-01">Nota
     metodológica en el anexo · I-01</a></p>
     </section><section class="corte" id="I-09"
       data-corte="citas" tabindex="-1">
       <header class="corte-cab">
         <h3>Mediana de citas por año de publicación</h3>
-        <span class="corte-cod">I-09</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="I-09-grafico">Gráfico</button>
@@ -553,14 +551,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       
       
-      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra es la mediana de las citas de las publicaciones de ese año: la mitad tiene esa cantidad o menos. Describe la publicación típica de cada año, que la suma de citas de I-01 no describe, y baja en los años recientes porque esas publicaciones han tenido menos tiempo para ser citadas.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra corresponde a la mediana de las citas de las publicaciones de ese año: la mitad de ellas tiene esa cantidad de citas o menos. Describe la publicación típica de cada año, lo que la suma de citas de I-01 no permite, y tiende a disminuir en los años recientes, porque esas publicaciones han tenido menos tiempo para ser citadas.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-I-09">Nota
     metodológica en el anexo · I-09</a></p>
     </section><section class="corte" id="I-08"
       data-corte="citas_tramo" tabindex="-1">
       <header class="corte-cab">
         <h3>Distribución de citas</h3>
-        <span class="corte-cod">I-08</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="I-08-grafico">Gráfico</button>
@@ -641,14 +638,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       
       
-      <p class="lectura-grafico"><b>Qué muestra</b> Cuántas publicaciones del recorte tienen 0 citas, de 1 a 2, de 3 a 5, y así por tramos, hasta 51 o más. Enseña cómo se reparten las citas que el promedio resume en un solo número. Cada publicación con métricas cae en un solo tramo.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Número de publicaciones del recorte según tramos de citas: sin citas, de 1 a 2, de 3 a 5 y así sucesivamente, hasta 51 o más. Muestra cómo se distribuyen las citas que el promedio resume en un solo valor. Cada publicación con métricas se asigna a un único tramo.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-I-08">Nota
     metodológica en el anexo · I-08</a></p>
     </section><section class="corte" id="I-04"
       data-corte="fwci" tabindex="-1">
       <header class="corte-cab">
         <h3>FWCI mediano por año</h3>
-        <span class="corte-cod">I-04</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="I-04-grafico">Gráfico</button>
@@ -736,14 +732,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       
       
-      <p class="lectura-grafico"><b>Qué muestra</b> Cada punto es la mediana del FWCI de las publicaciones de ese año. El FWCI compara las citas recibidas con las esperadas para el mismo campo, año y tipo de documento: 1,00 es el promedio mundial.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Cada punto corresponde a la mediana del FWCI de las publicaciones de ese año. El FWCI compara las citas recibidas con las esperadas para publicaciones del mismo campo, año y tipo documental; el valor 1,00 corresponde al promedio mundial.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-I-04">Nota
     metodológica en el anexo · I-04</a></p>
     </section><section class="corte" id="I-05"
       data-corte="percentil" tabindex="-1">
       <header class="corte-cab">
         <h3>Umbrales de percentil</h3>
-        <span class="corte-cod">I-05</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="I-05-grafico">Gráfico</button>
@@ -804,13 +799,12 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       
       
-      <p class="lectura-grafico"><b>Qué muestra</b> Cuántas publicaciones del recorte entran en cada umbral de las más citadas de su campo. Los umbrales están encajados: lo que está en el top 1 % también se cuenta en el 5 %, en el 10 % y en el 25 %.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Número de publicaciones del recorte que se ubican en cada umbral de las más citadas de su campo. Los umbrales son acumulativos: una publicación del top 1 % también se contabiliza en el top 5 %, 10 % y 25 %.</p>
     
     </section><section class="corte" id="R-01"
       data-corte="cuartil" tabindex="-1">
       <header class="corte-cab">
         <h3>Cuartil de la revista</h3>
-        <span class="corte-cod">R-01</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="R-01-grafico">Gráfico</button>
@@ -873,14 +867,13 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       
       
-      <p class="lectura-grafico"><b>Qué muestra</b> Reparte las publicaciones del recorte según el cuartil de la revista en que salieron, medido por el percentil SJR que SciVal le asigna en el año de publicación del artículo (el SJR lo calcula SCImago sobre datos de Scopus). Cada publicación cae en un solo cuartil. Describe la revista, no el artículo.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Distribuye las publicaciones del recorte según el cuartil de la revista en que se publicaron, determinado por el percentil SJR que SciVal asigna a la revista en el año de publicación del artículo (el SJR es calculado por SCImago a partir de datos de Scopus). Cada publicación se asigna a un único cuartil. El indicador caracteriza la revista, no el artículo.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-R-01">Nota
     metodológica en el anexo · R-01</a></p>
     </section><section class="corte" id="A-01"
       data-corte="open_access" tabindex="-1">
       <header class="corte-cab">
         <h3>Vías de acceso abierto</h3>
-        <span class="corte-cod">A-01</span>
         <div class="vistas" role="group" aria-label="Forma de presentación">
     <button type="button" data-vista="grafico" aria-pressed="true"
       aria-controls="A-01-grafico">Gráfico</button>
@@ -959,7 +952,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </div>
       
       <p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>
-      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra cuenta las publicaciones que la fuente marca con esa vía de acceso abierto —dorada, verde, híbrida o de bronce—. Una publicación puede llevar varias a la vez.</p>
+      <p class="lectura-grafico"><b>Qué muestra</b> Cada barra corresponde al número de publicaciones que la fuente clasifica en esa vía de acceso abierto: dorada, verde, híbrida o bronce. Una publicación puede registrar más de una vía.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-A-01">Nota
     metodológica en el anexo · A-01</a></p>
     </section>
@@ -968,41 +961,47 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <div id="diferidos" data-prerender="1">
 <section class="banda banda-contraste no-publicados">
     <div class="banda-titulo">
-      <p class="banda-gancho">Lo que esta sección todavía no puede mostrar</p>
+      <p class="banda-gancho">Indicadores no publicados en esta sección</p>
       <h2>6 indicadores
-        de esta sección están verificados pero no se publican.</h2>
-      <p>No responden al recorte: no se calculan aquí. Se dice cuál y por qué.</p>
+        de esta sección están verificados, pero no se publican.</h2>
+      <p>No dependen del recorte y no se calculan en este informe. Se indica cuáles son y el motivo.</p>
     </div>
     <article class="modulo modulo-diferido" id="I-06">
       <header><div class="modulo-id">
-        <h3>Visualizaciones</h3><span class="codigo">I-06</span>
+        <h3>Visualizaciones</h3>
       </div><span class="estado" data-e="diferido">Diferido a V2</span></header>
+      
       <p class="nota">Mide visibilidad, no impacto.</p>
     </article><article class="modulo modulo-diferido" id="R-02">
       <header><div class="modulo-id">
-        <h3>Percentil CiteScore de la fuente</h3><span class="codigo">R-02</span>
+        <h3>Percentil CiteScore de la fuente</h3>
       </div><span class="estado" data-e="diferido">Diferido a V2</span></header>
-      <p class="nota">Alternativa a SJR. Elegir uno como principal para no duplicar lecturas del mismo fenómeno.</p>
+      
+      <p class="nota">Es una alternativa al SJR: se publica una sola métrica de revista para no duplicar lecturas del mismo fenómeno.</p>
     </article><article class="modulo modulo-diferido" id="R-03">
       <header><div class="modulo-id">
-        <h3>SNIP de la fuente</h3><span class="codigo">R-03</span>
+        <h3>SNIP de la fuente</h3>
       </div><span class="estado" data-e="diferido">Diferido a V2</span></header>
-      <p class="nota">Tercera métrica de revista. Redundante para V1.</p>
+      
+      <p class="nota">Sería una tercera métrica de revista, redundante con el SJR en esta versión del informe.</p>
     </article><article class="modulo modulo-diferido" id="AU-04">
       <header><div class="modulo-id">
-        <h3>FWCI por autor</h3><span class="codigo">AU-04</span>
+        <h3>FWCI por autor</h3>
       </div><span class="estado" data-e="no_calculable">No calculable</span></header>
-      <p class="nota">SciVal calcula el FWCI de un investigador como el promedio de los FWCI de sus publicaciones, pero sobre todo su perfil de Scopus; este export trae sólo lo afiliado a la UFT y en firmas sin consolidar (D-08). Promediarlo no sería su FWCI. Se declara no disponible (CLAUDE.md: placeholder metodológico).</p>
+      
+      <p class="nota">SciVal calcula el FWCI de un investigador como el promedio de los FWCI de sus publicaciones, pero sobre todas las de su perfil de Scopus, también las firmadas fuera de la UFT. Esta exportación contiene solo las afiliadas a la UFT, y en firmas sin consolidar en personas (D-08): su promedio sería otra cifra con el mismo nombre.</p>
     </article><article class="modulo modulo-diferido" id="X-01">
       <header><div class="modulo-id">
-        <h3>Autocitas</h3><span class="codigo">X-01</span>
+        <h3>Autocitas</h3>
       </div><span class="estado" data-e="no_calculable">No calculable</span></header>
-      <p class="nota">SciVal no incluyó autocitas en este export. Requiere reexportar con la opción activada.</p>
+      
+      <p class="nota">La exportación de SciVal no incluye autocitas: declara «Self-citations: -».</p>
     </article><article class="modulo modulo-diferido" id="X-02">
       <header><div class="modulo-id">
-        <h3>Benchmarking interinstitucional</h3><span class="codigo">X-02</span>
+        <h3>Benchmarking interinstitucional</h3>
       </div><span class="estado" data-e="fuera_de_alcance">Fuera de alcance</span></header>
-      <p class="nota">Excluido explícitamente por PROJECT_SPEC &lt;out_of_scope_for_v1&gt;.</p>
+      
+      <p class="nota">Queda fuera del alcance definido para esta versión: el informe no establece comparaciones con otras instituciones.</p>
     </article>
   </section>
 </div>
