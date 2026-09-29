@@ -200,6 +200,16 @@ export function porFacultad(sel_pubs, jerarquia) {
 
 /** Las unidades que `porFacultad()` agrupa en `SIN_FACULTAD`, con cuántas
     publicaciones distintas declara cada una. */
+/** Países que en el recorte aparecen SOLO en publicaciones de autoría masiva
+    (más de `umbral` autores), y cuántas publicaciones de ese tipo hay. */
+export function paisesSoloAutoriaMasiva(sub, umbral = 100) {
+  const masivas = sub.filter(p => (p.n_autores || 0) > umbral);
+  if (!masivas.length) return { paises: 0, publicaciones: 0, umbral };
+  const resto = new Set(sub.filter(p => (p.n_autores || 0) <= umbral).flatMap(p => p.paises || []));
+  const solo = new Set(masivas.flatMap(p => p.paises || []).filter(x => !resto.has(x)));
+  return { paises: solo.size, publicaciones: masivas.length, umbral };
+}
+
 export function unidadesSinFacultad(sel_pubs, jerarquia) {
   const j = jerarquia || {};
   const cuenta = new Map();

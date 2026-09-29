@@ -330,7 +330,8 @@ async function montarExplorador(claveSeccion) {
         : VX.cabecera(meta);
     }
     const lectura = document.getElementById('lectura');
-    if (lectura) lectura.innerHTML = v.lectura((await c.cargar('kpis.json')).kpis);
+    if (lectura) lectura.innerHTML = v.lectura((await c.cargar('kpis.json')).kpis,
+      (await c.cargar('publications.json')).publicaciones);
     const cierre = document.getElementById('cierre');
     if (cierre) cierre.innerHTML = v.cierrePortada();
     const objetivos = document.getElementById('objetivos');
@@ -1459,11 +1460,12 @@ async function analisis() {
   const sel = X.leerURL();
   const conFiltros = X.describir(sel).length > 0;
   if (yaPintado(cont) && !conFiltros) return;
-  const [{ publicaciones }, meta, anexo] = await Promise.all([
-    c.cargar('publications.json'), c.cargar('meta.json'), c.cargar('metodologia.json')]);
+  const [{ publicaciones }, meta, anexo, declarada] = await Promise.all([
+    c.cargar('publications.json'), c.cargar('meta.json'), c.cargar('metodologia.json'),
+    c.cargar('produccion_declarada.json').catch(() => null)]);
   const sub = X.recorte(publicaciones, sel);
   if (lineaRecorte) lineaRecorte.textContent = c.fraseRecorte(sub.length, publicaciones.length, X.describir(sel));
-  cont.innerHTML = VX.analisisResultados(publicaciones, sel, meta, anexo.corpus?.pais);
+  cont.innerHTML = VX.analisisResultados(publicaciones, sel, meta, anexo.corpus?.pais, declarada);
 }
 
 const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada, datos, analisis, introduccion };

@@ -40,10 +40,35 @@ export function coberturaOrcid(autores) {
 
 /* La mediana del FWCI frente a su promedio es el dato que más fácilmente se
    malinterpreta: se explicita en portada, no solo en el módulo. Las cifras
-   salen de kpis.json; el comentario anterior citaba las de la carga de julio. */
-export function lectura(kpisLista) {
+   salen de kpis.json; el comentario anterior citaba las de la carga de julio.
+   Con las publicaciones se dice además cuánto pesa la de mayor FWCI: en esta
+   carga, sin ella el promedio pasa de 1,14 a 0,95 y cruza el promedio mundial,
+   y quien cite el promedio sin la nota comunica una conclusión que los datos no
+   sostienen (auditoría de fiabilidad del 2026-09-29, recomendación 1). */
+export function extremoFwci(pubs) {
+  const con = (pubs || []).filter(p => typeof p.fwci === 'number');
+  if (con.length < 2) return null;
+  const mayor = con.reduce((m, p) => (p.fwci > m.fwci ? p : m));
+  const suma = con.reduce((s, p) => s + p.fwci, 0);
+  return { fwci: mayor.fwci, citas: mayor.citas, sinEl: (suma - mayor.fwci) / (con.length - 1) };
+}
+
+/* La columna «Observado» de las reglas llega del auditor en Python, con punto
+   decimal («64.2 %»). Se muestra con coma, como el resto del informe; solo los
+   porcentajes, para no tocar identificadores como «2-s2.0-…» (recomendación 4
+   de la auditoría de fiabilidad). */
+export function observado(texto) {
+  return c.escapar(texto).replace(/(\d)\.(\d+)(?=\s?%)/g, '$1,$2');
+}
+
+export function lectura(kpisLista, pubs) {
   const fwci = kpisLista.find(k => k.codigo === 'I-03');
   if (!fwci) return '';
+  const ext = extremoFwci(pubs);
+  const cruza = ext && (fwci.valor >= 1) !== (ext.sinEl >= 1);
+  const extremo = ext ? ` Una sola publicación, con FWCI ${c.num(ext.fwci, 2)}, pesa de forma
+    decisiva: sin ella, el promedio sería ${c.num(ext.sinEl, 2)}${cruza
+      ? `, ${ext.sinEl < 1 ? 'por debajo' : 'por encima'} del promedio mundial` : ''}.` : '';
   return `<div class="modulo modulo-lectura">
     <h2>Cómo leer estas cifras</h2>
     <p>El FWCI compara las citas recibidas con las esperadas para
@@ -52,7 +77,7 @@ export function lectura(kpisLista) {
     los FWCI individuales es ${c.num(fwci.valor, 2)} y la mediana,
     ${c.num(fwci.mediana, 2)}. La diferencia entre ambos valores indica una
     distribución asimétrica: unas pocas publicaciones muy citadas elevan el
-    promedio; por ello, el informe destaca la mediana.</p>
+    promedio; por ello, el informe destaca la mediana.${extremo}</p>
     <p class="nota">Cada indicador declara la base sobre la que se calcula. No
     todas las publicaciones tienen métricas, por lo que el denominador varía
     según el indicador.</p>
@@ -950,7 +975,7 @@ export function fichaTecnica(meta, val, notaUniverso) {
       ${fila('Ventana', `${meta.ventana.inicio}–${meta.ventana.fin}`)}
       ${fila('Exportación de SciVal', c.escapar(meta.fecha_export))}
       ${fila('Citas y métricas de SciVal al', c.escapar(meta.fecha_corte_citas), x04
-        ? `Scopus no suma las mismas citas que SciVal; la regla <span class="mono">X-04</span> falla: ${c.escapar(x04.observado)}.` : '')}
+        ? `Scopus no suma las mismas citas que SciVal; la regla <span class="mono">X-04</span> falla: ${observado(x04.observado)}.` : '')}
       ${scopus ? fila('Exportación de Scopus', c.escapar(scopus.fecha_export)) : ''}
       ${scopus ? fila('Corte de Scopus', scopus.fecha_corte ? c.escapar(scopus.fecha_corte) : 'La exportación no lo declara',
         scopus.fecha_corte ? '' : 'Los indicadores que salen de Scopus se leen a la fecha de su exportación.') : ''}
@@ -963,7 +988,7 @@ export function fichaTecnica(meta, val, notaUniverso) {
       ${fila('Con métricas', c.nf.format(d.con_metricas))}
       ${fila('Con autoría detallada', c.nf.format(d.con_autoria_detallada))}
       ${fila('Con área temática', c.nf.format(d.con_area_tematica))}
-      ${v10 ? fila('Campos bajo el umbral de la auditoría', c.escapar(v10.observado),
+      ${v10 ? fila('Campos bajo el umbral de la auditoría', observado(v10.observado),
         `Regla V-10 · ${c.escapar(v10.descripcion)}.`) : ''}
     </dl>
     <p class="nota">Los cuatro denominadores son los declarados en la configuración
@@ -999,7 +1024,7 @@ export function validacion(v) {
       <td>${c.escapar(r.severidad)}</td>
       <td>${c.escapar(r.descripcion)}</td>
       <td>${r.resultado === 'FALLA' ? '<strong>FALLA</strong>' : 'Pasa'}</td>
-      <td>${c.escapar(r.observado)}</td>
+      <td>${observado(r.observado)}</td>
     </tr>`).join('');
 
   return `
@@ -1073,7 +1098,7 @@ function reglaEnLinea(val, cod) {
   const falla = r.resultado === 'FALLA';
   return `<li${falla ? ' class="val-falla"' : ''}><span class="mono">${c.escapar(cod)}</span> `
     + `${c.escapar(r.descripcion)}: <strong>${falla ? 'falla' : 'pasa'}</strong>`
-    + ` <span class="nota">(${c.escapar(r.observado)})</span></li>`;
+    + ` <span class="nota">(${observado(r.observado)})</span></li>`;
 }
 
 /* Las reglas que cita el anexo. prerender.mjs comprueba que todas existan en

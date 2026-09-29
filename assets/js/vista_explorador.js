@@ -703,10 +703,25 @@ function notaRecorte(r, campo) {
       unidades que aún no tienen facultad confirmada y están en revisión.</p>`;
   }
   const d = DISTINTOS[campo];
-  if (!r || !d || !(r.distintos > r.datos.length)) return '';
+  const masiva = campo === 'paises' ? notaAutoriaMasiva(r) : '';
+  if (!r || !d || !(r.distintos > r.datos.length)) return masiva;
   const [nombre, distinto, art, primero] = d;
   return `<p class="nota nota-recorte nota-figura">Se muestran ${art} ${c.nf.format(r.datos.length)} ${primero}
-    de ${c.nf.format(r.distintos)} ${nombre} ${distinto}.</p>`;
+    de ${c.nf.format(r.distintos)} ${nombre} ${distinto}.</p>${masiva}`;
+}
+
+/* Con conteo completo, una publicación de cientos de autores suma todos sus
+   países: en esta carga, 8 publicaciones de más de 100 autores aportan por sí
+   solas 17 de los 106 países. Sin decirlo, la lista se lee como una red de
+   colaboración estable (auditoría de fiabilidad del 2026-09-29,
+   recomendación 2). */
+function notaAutoriaMasiva(r) {
+  const m = r?.autoriaMasiva;
+  if (!m || !m.paises) return '';
+  const nf = c.nf.format;
+  return `<p class="nota nota-recorte nota-figura">${nf(m.paises)} de los ${nf(r.distintos)} países
+    figuran solo en ${m.publicaciones === 1 ? 'una publicación' : `${nf(m.publicaciones)} publicaciones`}
+    de más de ${nf(m.umbral)} autores: con conteo completo, cada una suma todos sus países.</p>`;
 }
 
 /* ─────────────────────────────────────────────── el lienzo de cada gráfico
@@ -843,7 +858,8 @@ export function dibujar(sub, corte, jerarquia, ancho) {
       { titulo, etiquetaX: 'anio', etiquetaY: 'n', ancho }), datos,
       tabla: campo === 'anio' ? { categoria: 'Año', columna: 'Publicaciones' } : {} };
   }
-  return { svg: c.barrasH(datos, { titulo, trama: MULTIVALUADO.has(campo), ancho }), datos, distintos };
+  const extra = campo === 'paises' ? { autoriaMasiva: X.paisesSoloAutoriaMasiva(sub) } : {};
+  return { svg: c.barrasH(datos, { titulo, trama: MULTIVALUADO.has(campo), ancho }), datos, distintos, ...extra };
 }
 
 /** Gráfico y tabla, conmutables. Sin JavaScript se muestran los dos, que es lo
@@ -1334,7 +1350,26 @@ export function diferidos(catalogo, clave) {
     Un recorte a una persona no se analiza (DORA, Manifiesto de Leiden), igual
     que la síntesis de la portada. Uno pequeño se analiza con aviso: con pocas
     publicaciones, una sola mueve medianas y porcentajes. */
-export function analisisResultados(pubs, sel, meta, pais) {
+/* Cuánto de la producción queda fuera del corpus, con lo único que permite
+   medirlo: las fuentes institucionales de Producción ampliada. Es un límite del
+   corpus, no del recorte, y por eso no cambia con los filtros. Las cifras son
+   declaradas y no se verificaron obra por obra: se dicen como tales
+   (auditoría de fiabilidad del 2026-09-29, recomendación 7). */
+function limiteCobertura(declarada, meta) {
+  const r = declarada?.resumen;
+  const total = declarada?.total_fuera_de_scopus;
+  if (!r || !total || !(r.en_universo_scopus + r.en_ventana)) return '';
+  const nf = c.nf.format;
+  const v = meta.ventana || {};
+  const fac = (declarada.fuentes || []).length === 1 && /Medicina y Salud/.test(declarada.fuentes[0].nombre)
+    ? 'la Facultad de Medicina y Salud, la única con un listado propio contrastable,' : 'las Facultades con listado propio';
+  return `<li>El corpus no reúne toda la producción. Las fuentes institucionales declaran
+    ${nf(total.en_ventana)} obras de ${v.inicio}–${v.fin} que no están en Scopus, cifra no verificada obra por obra.
+    En ${fac} ${nf(r.en_universo_scopus)} de las ${nf(r.en_universo_scopus + r.en_ventana)} obras declaradas en
+    el periodo están en el corpus (véase <a href="produccion-ampliada.html">Producción ampliada</a>).</li>`;
+}
+
+export function analisisResultados(pubs, sel, meta, pais, declarada) {
   const e = c.escapar;
   const sub = X.recorte(pubs, sel || {});
   if (X.personaDelRecorte(sel || {})) {
@@ -1594,6 +1629,7 @@ export function analisisResultados(pubs, sel, meta, pais) {
           primeros.</li>
         ${P.unidad.cubiertas < h.n ? `<li>La unidad académica solo se identificó en el ${c.num(P.unidad.pct, 1)} % de las publicaciones.</li>` : ''}
         <li>Las cifras por autor contabilizan formas de firma, no personas: parte de ellas aún no está consolidada.</li>
+        ${limiteCobertura(declarada, meta)}
       </ul>
       <p>El detalle de cada límite está en <a href="metodologia.html">Metodología y limitaciones</a>.</p>
     </section>

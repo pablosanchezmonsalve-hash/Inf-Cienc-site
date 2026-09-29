@@ -2,12 +2,12 @@
  "generado": "2026-09-29",
  "build": "2026-09-21",
  "huella_publicaciones_sha256": "a86ca6f48cb0169fefc56bcb3e5d48086dc98f69b081ae6472742ecdef1b23d9",
- "codigo": "3c2e1b9",
+ "codigo": "7a2ce88",
  "recorte": "",
  "completo": {
   "archivo": "informe/informe-cienciometrico.pdf",
   "hojas": 72,
-  "kb": 3235,
+  "kb": 3238,
   "secciones": 8
  },
  "hojas": 86,
@@ -59,7 +59,7 @@
    "nombre": "Análisis de resultados",
    "archivo": "informe/informe-cienciometrico-analisis.pdf",
    "hojas": 6,
-   "kb": 92
+   "kb": 93
   },
   {
    "seccion": "metodologia",
