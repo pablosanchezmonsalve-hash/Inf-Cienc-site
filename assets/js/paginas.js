@@ -310,11 +310,15 @@ async function montarExplorador(claveSeccion) {
      siempre, esté la página pre-renderizada o no, porque el botón de descarga
      está en todas y el PDF no puede salir con la mitad de sus figuras
      explicadas. */
-  const [{ lecturas }, catalogo] = await Promise.all([
-    c.cargar('lecturas.json'), c.cargar('catalogo.json'),
+  const [{ lecturas }, catalogo, metaTextos, anexoTextos] = await Promise.all([
+    c.cargar('lecturas.json'), c.cargar('catalogo.json'), c.cargar('meta.json'), c.cargar('metodologia.json'),
   ]);
   const textos = {
     lecturas,
+    // El comentario de cada figura (comentarios.js) necesita la fecha de corte,
+    // el umbral de recorte pequeño y el país de la institución.
+    meta: metaTextos,
+    pais: anexoTextos.corpus?.pais,
     advertencias: Object.fromEntries(
       catalogo.indicadores.filter(i => i.advertencia).map(i => [i.codigo, i.advertencia])),
   };

@@ -2,15 +2,15 @@
  "generado": "2026-09-29",
  "build": "2026-09-21",
  "huella_publicaciones_sha256": "a86ca6f48cb0169fefc56bcb3e5d48086dc98f69b081ae6472742ecdef1b23d9",
- "codigo": "0bfdcd0",
+ "codigo": "4f156ca",
  "recorte": "",
  "completo": {
   "archivo": "informe/informe-cienciometrico.pdf",
   "hojas": 72,
-  "kb": 3238,
+  "kb": 3245,
   "secciones": 8
  },
- "hojas": 86,
+ "hojas": 88,
  "archivos": [
   {
    "seccion": "introduccion",
@@ -31,21 +31,21 @@
    "nombre": "Producción",
    "archivo": "informe/informe-cienciometrico-produccion.pdf",
    "hojas": 9,
-   "kb": 498
+   "kb": 500
   },
   {
    "seccion": "impacto",
    "nombre": "Impacto",
    "archivo": "informe/informe-cienciometrico-impacto.pdf",
-   "hojas": 7,
-   "kb": 346
+   "hojas": 8,
+   "kb": 349
   },
   {
    "seccion": "colaboracion",
    "nombre": "Colaboración",
    "archivo": "informe/informe-cienciometrico-colaboracion.pdf",
-   "hojas": 7,
-   "kb": 1500
+   "hojas": 8,
+   "kb": 1502
   },
   {
    "seccion": "tematica",

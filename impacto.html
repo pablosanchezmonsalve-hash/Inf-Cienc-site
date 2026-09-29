@@ -467,6 +467,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="lectura-grafico"><b>Qué muestra</b> Cada barra corresponde a la suma de las citas recibidas por las publicaciones de ese año, contabilizadas hasta la fecha de corte. No corresponde a las citas emitidas durante ese año.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-I-01">Nota
     metodológica en el anexo · I-01</a></p>
+      
     </section><section class="corte" id="I-09"
       data-corte="citas" tabindex="-1">
       <header class="corte-cab">
@@ -554,6 +555,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="lectura-grafico"><b>Qué muestra</b> Cada barra corresponde a la mediana de las citas de las publicaciones de ese año: la mitad de ellas tiene esa cantidad de citas o menos. Describe la publicación típica de cada año, lo que la suma de citas de I-01 no permite, y tiende a disminuir en los años recientes, porque esas publicaciones han tenido menos tiempo para ser citadas.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-I-09">Nota
     metodológica en el anexo · I-09</a></p>
+      
     </section><section class="corte" id="I-08"
       data-corte="citas_tramo" tabindex="-1">
       <header class="corte-cab">
@@ -641,6 +643,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="lectura-grafico"><b>Qué muestra</b> Número de publicaciones del recorte según tramos de citas: sin citas, de 1 a 2, de 3 a 5 y así sucesivamente, hasta 51 o más. Muestra cómo se distribuyen las citas que el promedio resume en un solo valor. Cada publicación con métricas se asigna a un único tramo.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-I-08">Nota
     metodológica en el anexo · I-08</a></p>
+      
     </section><section class="corte" id="I-04"
       data-corte="fwci" tabindex="-1">
       <header class="corte-cab">
@@ -735,6 +738,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="lectura-grafico"><b>Qué muestra</b> Cada punto corresponde a la mediana del FWCI de las publicaciones de ese año. El FWCI compara las citas recibidas con las esperadas para publicaciones del mismo campo, año y tipo documental; el valor 1,00 corresponde al promedio mundial.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-I-04">Nota
     metodológica en el anexo · I-04</a></p>
+      
     </section><section class="corte" id="I-05"
       data-corte="percentil" tabindex="-1">
       <header class="corte-cab">
@@ -801,6 +805,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       
       <p class="lectura-grafico"><b>Qué muestra</b> Número de publicaciones del recorte que se ubican en cada umbral de las más citadas de su campo. Los umbrales son acumulativos: una publicación del top 1 % también se contabiliza en el top 5 %, 10 % y 25 %.</p>
     
+      <div class="comentario" data-comentario="I-05">
+    <p class="lectura-grafico comentario-figura"><b>Qué se observa</b> En el 10 % más citado del mundo hay 115 publicaciones (8,6 %), por debajo de las 134 que corresponderían si el recorte se comportara como el conjunto mundial. En el 25 % más citado del mundo hay 345 publicaciones (25,7 %), en torno a las 336 que corresponderían si el recorte se comportara como el conjunto mundial.</p>
+    <p class="lectura-grafico comentario-figura"><b>Precauciones</b> Percentil de citación de SciVal al 30 de agosto de 2026: las publicaciones recientes todavía acumulan citas y tienden a quedar fuera de los umbrales. Las publicaciones empatadas en el umbral cuentan dentro de él.</p>
+    <p class="lectura-grafico comentario-figura"><b>Qué no permite concluir</b> La calidad científica de las publicaciones: el percentil compara citas recibidas con el conjunto mundial, no el valor del trabajo.</p>
+  </div>
     </section><section class="corte" id="R-01"
       data-corte="cuartil" tabindex="-1">
       <header class="corte-cab">
@@ -870,6 +879,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="lectura-grafico"><b>Qué muestra</b> Distribuye las publicaciones del recorte según el cuartil de la revista en que se publicaron, determinado por el percentil SJR que SciVal asigna a la revista en el año de publicación del artículo (el SJR es calculado por SCImago a partir de datos de Scopus). Cada publicación se asigna a un único cuartil. El indicador caracteriza la revista, no el artículo.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-R-01">Nota
     metodológica en el anexo · R-01</a></p>
+      <div class="comentario" data-comentario="R-01">
+    <p class="lectura-grafico comentario-figura"><b>Qué se observa</b> 578 publicaciones (43,1 % del recorte) están en revistas Q1. Sobre las 1.223 con cuartil son el 47,3 %, por encima del 25 % que correspondería si se repartieran por igual entre cuartiles. Sobre esa misma base, Q1 y Q2 reúnen el 68,9 %; Q4, el 15,4 %.</p>
+    <p class="lectura-grafico comentario-figura"><b>Precauciones</b> Es una métrica de la revista, no del artículo. Cuando una revista pertenece a varias áreas, SciVal podría asignarle el percentil de la más favorable; el proyecto aún no lo confirma en la documentación completa. 119 publicaciones sin cuartil (8,9 %) quedan fuera.</p>
+    <p class="lectura-grafico comentario-figura"><b>Qué no permite concluir</b> Que esos artículos tengan un impacto alto: una revista Q1 publica artículos muy citados y otros sin citas.</p>
+  </div>
     </section><section class="corte" id="A-01"
       data-corte="open_access" tabindex="-1">
       <header class="corte-cab">
@@ -955,6 +969,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p class="lectura-grafico"><b>Qué muestra</b> Cada barra corresponde al número de publicaciones que la fuente clasifica en esa vía de acceso abierto: dorada, verde, híbrida o bronce. Una publicación puede registrar más de una vía.</p>
     <p class="nota-anexo"><a href="metodologia.html#ind-A-01">Nota
     metodológica en el anexo · A-01</a></p>
+      
     </section>
 </div>
 

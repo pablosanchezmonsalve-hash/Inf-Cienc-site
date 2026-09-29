@@ -8,6 +8,7 @@
 import * as c from './core.js';
 import * as X from './explorador.js';
 import * as G from './grafo.js';
+import * as CM from './comentarios.js';
 
 /* ────────────────────────────────────────────────────────────── cabecera */
 
@@ -1232,6 +1233,7 @@ export function corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos
       ${MULTIVALUADO.has(corte.campo)
         ? '<p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
       ${bloqueLectura(corte.cod || corte.campo, corte, textos)}
+      ${r && corte.cod ? CM.comentario(corte.cod, sub, { meta: textos && textos.meta, pais: textos && textos.pais }) : ''}
     </section>`;
 }
 

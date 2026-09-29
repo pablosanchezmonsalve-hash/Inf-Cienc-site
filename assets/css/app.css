@@ -1948,7 +1948,7 @@ svg.chart .trama { pointer-events: none; }
      corte se parte DENTRO de la tabla, que repite su encabezado, y nunca a
      mitad de una figura ni de la frase que la explica. */
   .corte .vista[data-vista="grafico"], .corte-red .vista[data-vista="nodos"],
-  .lectura-grafico, .sello { break-inside: avoid; }
+  .lectura-grafico, .sello, .comentario { break-inside: avoid; }
   /* La figura no crece a lo alto de la hoja: un gráfico de 20 cm de alto
      empuja fuera todo lo que lo explica y obliga a partir el bloque, que es
      justo lo que la regla de arriba evita. */
@@ -2353,6 +2353,11 @@ svg.chart .trama { pointer-events: none; }
   display: block; font-size: var(--t-xs); letter-spacing: .08em;
   text-transform: uppercase; color: var(--tinta-3); margin-bottom: 2px;
 }
+/* El comentario de la figura (comentarios.js): las tres partes —qué se
+   observa, precauciones, qué no permite concluir— con la misma forma que
+   «Qué muestra», justo debajo. */
+.comentario .lectura-grafico { margin-top: var(--e2); }
+
 /* En una tarjeta bento la figura ya viene con su título propio, así que la
    lectura se pega al borde inferior de la tarjeta y no a la figura. */
 .bento-card .lectura-grafico { margin-top: var(--e4); }
