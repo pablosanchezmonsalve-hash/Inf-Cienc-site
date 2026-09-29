@@ -379,34 +379,10 @@ export function procedencias(series, meta) {
   return m;
 }
 
-/** Sello de procedencia de un corte, medido sobre el recorte que se mira.
-
-    QUÉ ES INVARIANTE Y QUÉ NO
-    `fuente`, `corte` y `export` son propiedades de la fuente y no cambian al
-    filtrar: vienen de `series.json`, que las calcula el build. `N` y la
-    cobertura SÍ cambian, y por eso se recalculan aquí sobre el subconjunto.
-
-    Repetir el N del total mientras el lector mira un recorte es exactamente el
-    error que la cabecera de este archivo describe: enseñar «una cifra del
-    total mientras el lector mira un recorte, que es la manera de que se lea la
-    que no es».
-
-    Sin procedencia para ese código no se inventa una: se devuelve cadena
-    vacía. Un sello con la fuente adivinada es peor que ningún sello. */
-function selloCorte(sub, campo, cod, proc) {
-  const p = proc && proc[cod];
-  if (!p) return '';
-  const { n, cubiertas, pct } = X.cobertura(sub, campo);
-  // La unidad es SIEMPRE publicaciones, porque `X.cobertura` cuenta
-  // publicaciones del recorte. La de `series.json` es la del cálculo del build
-  // —pares autor × publicación en P-07, personas en C-05—, y puesta junto a este
-  // N el sello publicaba «1.342 pares» y «1.342 personas», que no existen.
-  return c.sello({
-    fuente: p.fuente, corte: p.corte, export: p.export, unidad: 'publicaciones',
-    n, cubiertas, cobertura: pct,
-    insuficiente: pct !== null && p.umbral != null && pct < p.umbral * 100,
-  });
-}
+/* El sello de procedencia de cada figura —fuente, fecha, N y cobertura— se
+   retiró por decisión del usuario (D-754): el informe muestra título, figura
+   y «Qué muestra». La fuente de cada figura la declara la Introducción (guía
+   de lectura) y el anexo metodológico; las fechas, la ficha del informe. */
 
 export function cortes(pubs_sel, proc, jerarquia, textos, sel = {}) {
   // El aviso de P-07 se reutiliza tal cual del corte de sección, en vez de
@@ -425,11 +401,9 @@ export function cortes(pubs_sel, proc, jerarquia, textos, sel = {}) {
         <span class="corte-cod">${COD_PORTADA[clave]}</span></header>
       <div class="grafico" data-lienzo="${clave}">${grafico(pubs_sel, clave, titulo, forma, jerarquia)}</div>
       ${MULTIVALUADO.has(clave)
-        ? '<p class="leyenda-trama">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
-      ${clave === 'unidad' && avisoUnidad ? `<p class="nota">${c.escapar(avisoUnidad)}</p>` : ''}
+        ? '<p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
       ${bloqueLectura(COD_PORTADA[clave], { cod: COD_PORTADA[clave],
         aviso: clave === 'unidad' ? avisoUnidad : null }, textos)}
-      ${selloCorte(pubs_sel, clave, COD_PORTADA[clave], proc)}
     </section>`).join('');
 }
 
@@ -548,6 +522,13 @@ const MAS_CITADAS = { cod: 'I-07', titulo: 'Publicaciones más citadas', tope: 1
 
 /* Cómo se lee la tabla de más citadas. Vive aquí y no en indicators.yml porque
    describe un sesgo de LECTURA de esta tabla, no el cálculo (D-51). */
+/* La nota de la red de coautoría para el anexo (D-754): antes iba en un
+   recuadro sobre la figura. */
+const NOTA_RED = 'La posición agrupa por comunidad, detectada por un algoritmo (Louvain) que '
+  + 'maximiza la densidad interna: una heurística razonable, no un veredicto sobre qué grupos de '
+  + 'investigación existen. La componente —si hay un camino de coautoría entre dos personas— sí es '
+  + 'un hecho objetivo del grafo. En papel se dibuja sólo la vista de nodos; la matriz, los arcos y la '
+  + 'tabla de pares se consultan en el sitio.';
 const LECTURA_MAS_CITADAS = 'Ordena por citas totales al corte, sin normalizar: '
   + 'favorece lo publicado en los primeros años de la ventana y las áreas y tipos '
   + 'documentales que citan más. Describe publicaciones: no evalúa la calidad de los '
@@ -582,10 +563,7 @@ function tablaDinamica(sub, sel, meta, proc, textos) {
         <td class="num">${f.pct === null ? '—' : `${c.num(f.pct, 1)} %`}</td>
         <td class="num">${citas(f)}</td></tr>`).join('')}</tbody>
     </table></div>
-    <p class="nota">${c.escapar(AVISO_CITAS_POR_ANIO)}</p>
-    ${bloqueLectura(DINAMICA.campo, { aviso: true }, textos)}
-    ${selloCorte(sub, 'anio', 'P-02', proc)}
-    ${selloCorte(sub, 'citas', 'I-01', proc)}
+    ${bloqueLectura(DINAMICA.campo, { cod: 'I-01', aviso: AVISO_CITAS_POR_ANIO }, textos)}
   </section>`;
 }
 
@@ -609,13 +587,10 @@ function tablaMasCitadas(sub, sel, proc, textos) {
         individual que DORA y el Manifiesto de Leiden desaconsejan.</p>
     </section>`;
   }
-  const { base, filas } = X.masCitadas(sub, MAS_CITADAS.tope);
+  const { filas } = X.masCitadas(sub, MAS_CITADAS.tope);
   const q = X.consulta(sel || {});
   return `<section class="corte tabla-portada" data-corte="mas_citadas">${cab}
-    <p class="nota-destacada"><b>Cómo leer esta tabla</b> ${c.escapar(LECTURA_MAS_CITADAS)}</p>
-    ${filas.length ? `<p class="nota">${base === 1 ? 'La única publicación del recorte que tiene métricas.' : `Las ${c.nf.format(filas.length)} con más citas entre las
-      ${c.nf.format(base)} publicaciones del recorte que tienen métricas.`}</p>
-    <div class="tabla-envoltura tabla-datos"><table>
+    ${filas.length ? `<div class="tabla-envoltura tabla-datos"><table>
       <caption class="solo-lectores">Publicaciones del recorte ordenadas por citas totales</caption>
       <thead><tr><th scope="col" class="num">#</th><th scope="col">Título</th>
         <th scope="col">Fuente</th><th scope="col">Tipo</th><th scope="col" class="num">Año</th>
@@ -629,9 +604,7 @@ function tablaMasCitadas(sub, sel, proc, textos) {
     </table></div>
     <p class="nota enlace-autoria"><a href="publicaciones.html${q ? '?' + q : ''}">Ver la autoría en el listado de publicaciones →</a></p>`
     : '<p class="vacio">Ninguna publicación con citas en este recorte.</p>'}
-    ${bloqueLectura(MAS_CITADAS.cod, { aviso: true }, textos)}
-    ${selloCorte(sub, 'anio', 'P-02', proc)}
-    ${selloCorte(sub, 'citas', 'I-01', proc)}
+    ${bloqueLectura(MAS_CITADAS.cod, { cod: MAS_CITADAS.cod, aviso: LECTURA_MAS_CITADAS }, textos)}
   </section>`;
 }
 
@@ -729,7 +702,7 @@ function notaRecorte(r, campo) {
   const d = DISTINTOS[campo];
   if (!r || !d || !(r.distintos > r.datos.length)) return '';
   const [nombre, distinto, art, primero] = d;
-  return `<p class="nota nota-recorte">Se muestran ${art} ${c.nf.format(r.datos.length)} ${primero}
+  return `<p class="nota nota-recorte nota-figura">Se muestran ${art} ${c.nf.format(r.datos.length)} ${primero}
     de ${c.nf.format(r.distintos)} ${nombre} ${distinto}.</p>`;
 }
 
@@ -764,6 +737,14 @@ function corteDeLienzo(llave, clave) {
   return t ? { portada: t } : null;
 }
 
+/** El ancho de la hoja impresa en píxeles CSS: 182 mm de caja útil en A4
+    (`@page`, márgenes de 14 mm). Al imprimir, cada gráfico se redibuja a este
+    ancho: dibujado para la tarjeta de pantalla —418 px en la rejilla de dos
+    columnas— y estirado a la hoja, un corte de barras largo salía con los
+    rótulos encima de cada barra, altísimo, y el tope de altura del papel lo
+    encogía hasta hacerlo ilegible (P-07, D-755). */
+export const ANCHO_PAPEL = 680;
+
 /** Redibuja al ancho de su tarjeta los gráficos que no estén a escala 1:1.
     La llama la página tras pintar, al cargar sobre el marcado pre-renderizado
     y al cambiar el tamaño de la ventana. Devuelve cuántos rehizo.
@@ -771,10 +752,10 @@ function corteDeLienzo(llave, clave) {
     Rehace el SVG y nada más: la tabla equivalente, la nota de recorte y el
     sello no dependen del ancho, y volver a pintar la tarjeta entera perdería
     la vista elegida en el conmutador. */
-export function ajustarGraficos(zona, sub, { jerarquia, clave } = {}) {
+export function ajustarGraficos(zona, sub, { jerarquia, clave, ancho: forzado } = {}) {
   let hechos = 0;
   for (const caja of zona?.querySelectorAll('.grafico[data-lienzo]') || []) {
-    const ancho = caja.clientWidth;
+    const ancho = forzado || caja.clientWidth;
     const vb = caja.querySelector('svg.chart')?.viewBox.baseVal.width;
     if (!ancho || !vb || Math.abs(vb - ancho) <= HOLGURA_LIENZO) continue;
     const corte = corteDeLienzo(caja.dataset.lienzo, clave);
@@ -972,12 +953,6 @@ function corteRed(sub, corte, unidadPorPersona, proc, textos) {
         <button type="button" data-vista="tabla" aria-pressed="${sinDibujo}" aria-controls="${id}-tabla">Tabla</button>
       </div>
     </header>
-    <p class="nota-destacada"><b>Dos particiones que no son lo mismo</b>
-      La posición agrupa por <b>comunidad</b>, detectada por un algoritmo (Louvain) que
-      maximiza densidad interna — una heurística razonable, no un veredicto sobre qué
-      grupos de investigación existen. La <b>componente</b> —si hay un camino de
-      coautoría entre dos personas— sí es un hecho objetivo del grafo, sin parámetros
-      ni azar. <a href="metodologia.html#componente-y-comunidad-red-de-coautoria">Cómo se lee esta red →</a></p>
     <div class="vista" id="${id}-nodos" data-vista="nodos" data-activa="${!sinDibujo}">
       ${sinDibujo ? vacioDibujo : svgConTramaUnica(c.red(D, 'nodos'), id + '-nodos')}</div>
     <div class="vista" id="${id}-matriz" data-vista="matriz" data-activa="false">
@@ -985,17 +960,11 @@ function corteRed(sub, corte, unidadPorPersona, proc, textos) {
     <div class="vista" id="${id}-arcos" data-vista="arcos" data-activa="false">
       ${sinDibujo ? vacioDibujo : svgConTramaUnica(c.red(D, 'arcos'), id + '-arcos')}</div>
     <div class="vista" id="${id}-tabla" data-vista="tabla" data-activa="${sinDibujo}">${tablaRed(g.aristas)}</div>
-    ${bloqueLectura(id, corte, textos)}
-    <p class="solo-papel lectura-cuidado"><b>En papel</b>
-      Se dibuja sólo la vista de nodos. La matriz, los arcos y la tabla de pares
-      —una fila por cada par de firmas que coautoró— se consultan en el sitio: en
-      una hoja ocupaban cuarenta páginas de listado.</p>
-    <p class="nota"><strong>${c.nf.format(g.nodos.length)}</strong> personas en el recorte ·
-      <strong>${c.nf.format(conectadas)}</strong> con al menos una coautoría interna ·
-      <strong>${c.nf.format(nComp)}</strong> componentes · <strong>${c.nf.format(nComs)}</strong>
-      comunidades Louvain. Sólo se dibujan las componentes de 5 personas o más; la tabla
-      de pares cubre a las ${c.nf.format(conectadas)} personas con coautoría interna.</p>
-    ${selloCorte(sub, corte.campo, corte.cod, proc)}
+    <p class="nota nota-figura">${c.nf.format(g.nodos.length)} personas en el recorte ·
+      ${c.nf.format(conectadas)} con al menos una coautoría interna ·
+      ${c.nf.format(nComp)} componentes · ${c.nf.format(nComs)} comunidades.
+      Se dibujan las componentes de 5 personas o más.</p>
+    ${bloqueLectura(id, { ...corte, notaAnexo: NOTA_RED }, textos)}
   </section>`;
 }
 
@@ -1117,12 +1086,34 @@ export function seccionDeGrafico() {
 function bloqueLectura(clave, corte, textos) {
   if (!textos) return '';
   const l = (textos.lecturas || {})[clave];
-  const adv = corte.aviso ? null : (textos.advertencias || {})[corte.cod];
-  if (!l && !adv) return '';
-  return `${l ? `<p class="lectura-grafico"><b>Qué muestra</b>
-      ${c.escapar(l.muestra)}</p>` : ''}
-    ${adv ? `<p class="lectura-cuidado"><b>Cuidado</b>
-      ${c.escapar(adv)}</p>` : ''}`;
+  const cod = corte.cod || corte.seleccionCon || (corte.sello && corte.sello[1]);
+  // La nota metodológica sólo donde es pertinente: el indicador trae una
+  // advertencia del catálogo o la figura tiene notas propias (D-754).
+  const pertinente = cod && (corte.aviso || corte.notaAnexo || (textos.advertencias || {})[cod]);
+  return `${l ? `<p class="lectura-grafico"><b>Qué muestra</b> ${c.escapar(l.muestra)}</p>` : ''}
+    ${pertinente ? notaAnexo(cod) : ''}`;
+}
+
+/** La referencia a la nota metodológica del indicador en el anexo (D-754):
+    las advertencias, que antes iban pegadas a cada figura, viven allí. */
+function notaAnexo(cod) {
+  return `<p class="nota-anexo"><a href="metodologia.html#ind-${c.escapar(cod)}">Nota
+    metodológica en el anexo · ${c.escapar(cod)}</a></p>`;
+}
+
+/** Las notas de cada figura, por indicador, para el anexo metodológico
+    (D-754). Salen de los mismos registros que dibujan las figuras: el aviso
+    de cada corte, el de las citas por año y el de la tabla de más citadas. */
+export function notasDeFiguras() {
+  const m = {};
+  const poner = (cod, texto) => { if (cod && texto) (m[cod] = m[cod] || []).includes(texto) || m[cod].push(texto); };
+  for (const s2 of Object.values(SECCIONES)) {
+    for (const k of s2.cortes) poner(k.cod || k.seleccionCon, k.aviso || k.notaAnexo);
+  }
+  poner('I-01', AVISO_CITAS_POR_ANIO);
+  poner(MAS_CITADAS.cod, LECTURA_MAS_CITADAS);
+  poner('C-05', NOTA_RED);
+  return m;
 }
 
 /* Un corte que sobre una sola persona diría otra cosa.
@@ -1200,13 +1191,6 @@ export function corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos
     if (corte.forma === 'red') return corteRed(sub, corte, unidadPorPersona, proc, textos);
     const r = dibujar(sub, corte, jerarquia);
     const id = corte.cod || corte.campo;
-    // 'escuela' no tiene indicador propio — es P-07 visto por escuela—, así
-    // que el sello (fuente, corte, cobertura) se pide con el campo y el
-    // código de 'unidad': misma procedencia, mismo denominador. Un corte que
-    // sale del mismo campo que otro indicador lo declara en `sello`, como
-    // I-08 e I-09 con las citas de I-01: la tabla de más citadas ya lo hacía.
-    const [campoSello, codSello] = corte.sello
-      || (corte.campo === 'escuela' ? ['unidad', 'P-07'] : [corte.campo, corte.cod]);
     // El id es el CÓDIGO del indicador y no el campo: así la compuerta de
     // higiene puede comprobar que cada indicador declarado se dibuja de
     // verdad, y los enlaces del catálogo a #C-01 siguen llegando al gráfico.
@@ -1226,15 +1210,8 @@ export function corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos
       : '<p class="vacio">Ninguna publicación con este dato en el recorte.</p>'}
       ${notaRecorte(r, corte.campo)}
       ${MULTIVALUADO.has(corte.campo)
-        ? '<p class="leyenda-trama">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
-      ${corte.aviso ? `<p class="nota">${c.escapar(corte.aviso)}</p>` : ''}
+        ? '<p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
       ${bloqueLectura(corte.cod || corte.campo, corte, textos)}
-      ${persona && corte.forma.startsWith('mediana-')
-        ? `<p class="nota">Recortado a una persona, cada valor es la mediana de
-            las publicaciones de esa firma en ese año, que pueden ser una o dos.
-            Una mediana sobre tan pocos valores no describe una tendencia.</p>`
-        : ''}
-      ${selloCorte(sub, campoSello, codSello, proc)}
     </section>`;
 }
 

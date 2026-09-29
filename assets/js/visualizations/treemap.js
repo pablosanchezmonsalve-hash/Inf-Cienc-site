@@ -334,14 +334,16 @@ export function montarTreemap(contenedor, arbolRaiz) {
     }).join('');
   }
 
-  function medir() {
+  function medir(papel) {
+    // En papel (D-755) se dibuja al ancho de la hoja, no al de la tarjeta.
+    if (papel) return { ancho: papel, alto: Math.round(papel * 0.55) };
     const r = lienzo.getBoundingClientRect();
     return { ancho: Math.max(1, Math.round(r.width)), alto: Math.max(1, Math.round(r.height || r.width * 0.55)) };
   }
 
-  function dibujar({ origen } = {}) {
+  function dibujar({ origen, papel } = {}) {
     const paso = pila[pila.length - 1];
-    const { ancho, alto } = medir();
+    const { ancho, alto } = medir(papel);
     const nodos = squarify(paso.hijos, { ancho, alto });
     const conHijos = n => !!(n._origen && n._origen.hijos && n._origen.hijos.length);
     const svgHtml = renderTreemap(nodos, {
@@ -351,6 +353,14 @@ export function montarTreemap(contenedor, arbolRaiz) {
     const entrante = document.createElement('div');
     entrante.className = 'treemap-capa treemap-entrando';
     entrante.innerHTML = svgHtml;
+
+    if (papel) {
+      // Sin transición: la hoja se compone en el acto y saldría a medio fundido.
+      entrante.classList.remove('treemap-entrando');
+      lienzo.replaceChildren(entrante);
+      pintarMigas();
+      return;
+    }
 
     if (origen) {
       // Origen del acercamiento: el punto donde se hizo clic, en % del
@@ -414,4 +424,8 @@ export function montarTreemap(contenedor, arbolRaiz) {
   });
   observador.observe(lienzo);
   contenedor._treemapObserver = observador;
+  // Ganchos de impresión: quien monta la página los llama en beforeprint y
+  // afterprint (D-755).
+  contenedor._alPapel = ancho => dibujar({ papel: ancho });
+  contenedor._alPantalla = () => dibujar();
 }

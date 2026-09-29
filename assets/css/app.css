@@ -242,12 +242,15 @@
 
   /* ---- Advertencia metodológica: el «benchmark» esmeralda de Stitch, en la
           familia opuesta al dato azul. ---- */
-  --aviso-fondo: light-dark(#ecfdf5, #052e22);
-  --aviso-borde: light-dark(#059669, #34d399);
-  --aviso-tinta: light-dark(#065f46, #a7f3d0);
+  /* Grises, no esmeralda, desde D-754: el usuario pidió unificar los colores
+     de los mensajes. Una advertencia se distingue por su filete y su rótulo,
+     no por un color propio. */
+  --aviso-fondo: light-dark(#f5f5f4, #292524);
+  --aviso-borde: light-dark(#78716c, #8a8178);
+  --aviso-tinta: light-dark(#44403c, #e7e5e4);
   /* La ETIQUETA de una línea de referencia es texto: necesita 4,5:1, y el
      borde esmeralda no llega. Este token sí. */
-  --aviso-tinta-grafico: light-dark(#047857, #34d399);
+  --aviso-tinta-grafico: light-dark(#57534e, #d6d3d1);
 
   /* ---- Bento: el accent-cobalt de Stitch, la franja superior de sus
           tarjetas KPI. ---- */
@@ -875,10 +878,10 @@ main { padding: var(--e5) 0 var(--e8); }
   --cifra:        #ffffff;
   --red:          #0c2a63;
   --eje:          #2d4a8a;
-  --aviso-fondo:  #053a2a;
-  --aviso-borde:  #34d399;
-  --aviso-tinta:  #a7f3d0;
-  --aviso-tinta-grafico: #34d399;
+  --aviso-fondo:  #14336f;
+  --aviso-borde:  #b2c5ff;
+  --aviso-tinta:  #ffffff;
+  --aviso-tinta-grafico: #dbe6ff;
   color: var(--tinta);
 }
 
@@ -1160,12 +1163,14 @@ main { padding: var(--e5) 0 var(--e8); }
 .nota-orcid-neutro {
   color: var(--tinta-3); background: var(--superficie-2); border-color: var(--linea);
 }
+/* Un solo formato sobrio para los avisos, en gris y no en esmeralda (D-754):
+   el usuario pidió unificar colores y formatos de los mensajes. */
 .nota-destacada {
-  background: var(--aviso-fondo);
-  border: 1px solid color-mix(in srgb, var(--aviso-borde) 30%, transparent);
-  border-left: 3px solid var(--aviso-borde);
+  background: var(--superficie-2);
+  border: 1px solid var(--linea);
+  border-left: 3px solid var(--linea-fuerte);
   padding: var(--e3) var(--e4); border-radius: var(--radio-m);
-  font-size: var(--t-s); color: var(--aviso-tinta); margin: var(--e3) 0; line-height: 1.5;
+  font-size: var(--t-s); color: var(--tinta-2); margin: var(--e3) 0; line-height: 1.5;
 }
 .nota-destacada > b:first-child {
   display: flex; align-items: center; gap: var(--e1); margin-bottom: var(--e1);
@@ -1173,7 +1178,7 @@ main { padding: var(--e5) 0 var(--e8); }
 }
 .nota-destacada > b:first-child::before {
   content: ""; width: 13px; height: 13px; flex: none;
-  background: var(--aviso-borde);
+  background: var(--tinta-3);
   -webkit-mask: var(--icono-aviso) center/contain no-repeat;
   mask: var(--icono-aviso) center/contain no-repeat;
 }
@@ -1807,7 +1812,10 @@ svg.chart .trama { pointer-events: none; }
      24 % de ancho, que es el 49 % de media columna de rejilla— y no leyendo
      la hoja. Buscar «PAPEL, AL FINAL» al pie del archivo. */
   .vistas { display: none; }
-  .js .vista[data-activa="false"] { display: block; }
+  /* En papel va sólo la vista activa de cada figura —el gráfico, salvo que el
+     lector haya elegido la tabla—, no las dos (D-755): la figura con su tabla
+     duplicaba el dato y partía el bloque entre hojas. La tabla sigue en el
+     sitio y los datos en la descarga CSV. */
   .hero-texto { display: block; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .85em; color: #555; }
 
@@ -1944,11 +1952,13 @@ svg.chart .trama { pointer-events: none; }
      corte se parte DENTRO de la tabla, que repite su encabezado, y nunca a
      mitad de una figura ni de la frase que la explica. */
   .corte .vista[data-vista="grafico"], .corte-red .vista[data-vista="nodos"],
-  .lectura-grafico, .lectura-cuidado, .sello { break-inside: avoid; }
+  .lectura-grafico, .sello { break-inside: avoid; }
   /* La figura no crece a lo alto de la hoja: un gráfico de 20 cm de alto
      empuja fuera todo lo que lo explica y obliga a partir el bloque, que es
      justo lo que la regla de arriba evita. */
-  .corte .grafico svg, .corte .vista svg { max-height: 90mm; height: auto; }
+  /* 150 mm y no 90: con el gráfico redibujado al ancho de la hoja (D-755), un
+     corte de 18 barras necesita unos 130 mm para leerse a tamaño de texto. */
+  .corte .grafico svg, .corte .vista svg { max-height: 150mm; height: auto; }
   .corte-red svg { max-height: 120mm; }
 
   /* La red imprime UNA vista, no cuatro. En pantalla el lector elige entre
@@ -2338,19 +2348,30 @@ svg.chart .trama { pointer-events: none; }
    El rótulo va en versalitas, el mismo recurso del sello, para que las dos
    piezas se lean como ficha del gráfico y no como prosa suelta. Se distinguen
    por el color de la barra: la lectura describe, el cuidado advierte. */
-.lectura-grafico, .lectura-cuidado {
+.lectura-grafico {
   margin: var(--e3) 0 0; padding-left: var(--e3);
   border-left: 2px solid var(--linea-fuerte);
   font-size: var(--t-s); line-height: 1.55; color: var(--tinta-2);
 }
-.lectura-cuidado { border-left-color: var(--aviso-borde, var(--linea-fuerte)); }
-.lectura-grafico b, .lectura-cuidado b {
+.lectura-grafico b {
   display: block; font-size: var(--t-xs); letter-spacing: .08em;
   text-transform: uppercase; color: var(--tinta-3); margin-bottom: 2px;
 }
 /* En una tarjeta bento la figura ya viene con su título propio, así que la
    lectura se pega al borde inferior de la tarjeta y no a la figura. */
 .bento-card .lectura-grafico { margin-top: var(--e4); }
+
+/* Los pies de figura —la leyenda del rayado, cuántas categorías se dibujan,
+   las cifras de la red— y la remisión al anexo: letra de pie, sin caja
+   (D-754). */
+.nota-figura { font-size: var(--t-s); color: var(--tinta-2); margin: var(--e2) 0 0; }
+.nota-anexo { font-size: var(--t-xs); margin: var(--e2) 0 0; }
+.nota-anexo a { color: var(--tinta-2); }
+@media print {
+  .nota-figura { font-size: 8pt; line-height: 1.35; margin: 3pt 0 0; color: #333; }
+  .nota-anexo { font-size: 7.5pt; margin: 3pt 0 0; }
+  .nota-anexo a { color: #333; text-decoration: none; }
+}
 
 /* ---- el informe completo en PDF ----
    Sólo aparece si la corrida que construyó el sitio también generó el informe
@@ -2618,12 +2639,11 @@ svg.chart .trama { pointer-events: none; }
      estilo de pantalla desde que dejaron de ser `solo-papel`, y ese estilo se
      escribe después. Sin esta cola, el papel heredaba el cuerpo y el
      interlineado de la pantalla. */
-  .lectura-grafico, .lectura-cuidado {
+  .lectura-grafico {
     margin: 6pt 0 0; font-size: 8.5pt; line-height: 1.45; color: #000;
     padding-left: 8pt; border-left: 1.5pt solid #000;
   }
-  .lectura-cuidado { border-left-color: #666; color: #333; }
-  .lectura-grafico b, .lectura-cuidado b {
+  .lectura-grafico b {
     display: block; font-size: 7pt; letter-spacing: .08em;
     text-transform: uppercase; margin-bottom: 1pt; color: #000;
   }
@@ -2788,8 +2808,8 @@ svg.chart .trama { pointer-events: none; }
   .boton-primario { display: none; }
   .cockpit, .cortes-bento > .corte, .tabla-portada { box-shadow: none; }
   .banda-contraste {
-    --aviso-fondo: #ecfdf5; --aviso-borde: #059669; --aviso-tinta: #065f46;
-    --aviso-tinta-grafico: #047857;
+    --aviso-fondo: #f2f2f2; --aviso-borde: #666666; --aviso-tinta: #000000;
+    --aviso-tinta-grafico: #333333;
     --accion: #00205b; --accion-viva: #2563eb; --cifra: #00205b;
     --boton: #1c5fa8; --boton-vivo: #2563eb; --boton-tinta: #ffffff;
   }
@@ -2818,7 +2838,7 @@ svg.chart .trama { pointer-events: none; }
 
   /* Todos los rótulos en versal van en mono, como en el Cockpit y el Dossier. */
   .titulo-seccion, .banda-gancho, .rail-titulo, .minifoco-titulo, .cockpit-rotulo,
-  .lectura-grafico b, .lectura-cuidado b {
+  .lectura-grafico b {
     font-family: var(--f-mono); font-weight: 600; font-size: .75rem; letter-spacing: .1em;
   }
   .banda-titulo .banda-gancho { margin: 0 0 var(--e3); line-height: 1.4; }
@@ -2837,15 +2857,8 @@ svg.chart .trama { pointer-events: none; }
     border-radius: var(--radio-s); padding: var(--e2) var(--e3);
   }
 
-  /* Guías de lectura en caja: azul para qué muestra, esmeralda para el cuidado. */
-  .corte :is(.lectura-grafico, .lectura-cuidado) {
-    background: var(--accion-suave); border: 1px solid color-mix(in srgb, var(--accion-viva) 25%, transparent);
-    border-radius: var(--radio-m); padding: var(--e2) var(--e3);
-  }
-  .corte .lectura-cuidado {
-    background: var(--aviso-fondo); border-color: color-mix(in srgb, var(--aviso-borde) 35%, transparent);
-    border-left: 3px solid var(--aviso-borde);
-  }
+  /* «Qué muestra» ya no va en caja de color (D-754): el mismo filete gris en
+     todas las figuras, en pantalla y en papel. */
 
   /* Conmutador Gráfico ⇄ Tabla como los años de la barra superior. */
   .js .vistas { border: 0; padding: var(--e1); border-radius: var(--radio-m); }
@@ -3099,8 +3112,11 @@ svg.chart .trama { pointer-events: none; }
    Fuente se quedaba en una palabra por renglón («International / Journal of /
    Sports / …»), lo que hacía cada fila de seis líneas: anchos fijos. */
 @media print {
+  /* Desde D-754 la tabla va sin la nota ni el recuadro que la precedían: el
+     bloque entero —título, tabla y «Qué muestra»— cabe en una hoja y no se
+     parte. */
   .corte[data-corte="mas_citadas"],
-  .corte[data-corte="mas_citadas"] .tabla-envoltura { break-inside: auto; }
+  .corte[data-corte="mas_citadas"] .tabla-envoltura { break-inside: avoid; }
   .corte[data-corte="mas_citadas"] table { table-layout: fixed; width: 100%; }
   .corte[data-corte="mas_citadas"] th:nth-child(1) { width: 5%; }
   .corte[data-corte="mas_citadas"] th:nth-child(2) { width: 35%; }
@@ -3143,24 +3159,27 @@ svg.chart .trama { pointer-events: none; }
 /* Los valores de reserva, por si faltara la configuración: los del manual. La
    hoja que inyecta `vista.marcaCSS` los reemplaza con los de config/. */
 :root {
-  --marca-tinta: #000000;
-  --marca-acento: #00B7EB;
-  --marca-suave: #EBEBEB;
+  --manual-tinta: #000000;
+  --manual-acento: #00B7EB;
+  --manual-suave: #EBEBEB;
 }
 @media print {
   :root:root {
     --f-ui: "Arimo", Arial, "Helvetica Neue", sans-serif;
     --f-editorial: "Arimo", Arial, "Helvetica Neue", sans-serif;
-    --cifra: var(--marca-tinta, #000);
-    --accion: var(--marca-tinta, #000);
-    --accion-viva: var(--marca-acento, #00B7EB);
-    --marca: var(--marca-tinta, #000);
+    /* Una sola familia en el papel (D-754): los códigos y las bases de cálculo
+       iban en monoespaciada. */
+    --f-mono: "Arimo", Arial, "Helvetica Neue", sans-serif;
+    --cifra: var(--manual-tinta, #000);
+    --accion: var(--manual-tinta, #000);
+    --accion-viva: var(--manual-acento, #00B7EB);
+    --marca: var(--manual-tinta, #000);
     /* El filete superior de las tarjetas de cifra y de las figuras bento. */
-    --bento-acento: var(--marca-acento, #00B7EB);
+    --bento-acento: var(--manual-acento, #00B7EB);
   }
   .banda-contraste {
-    --accion: var(--marca-tinta, #000); --accion-viva: var(--marca-acento, #00B7EB);
-    --cifra: var(--marca-tinta, #000);
+    --accion: var(--manual-tinta, #000); --accion-viva: var(--manual-acento, #00B7EB);
+    --cifra: var(--manual-tinta, #000);
   }
   body { font-family: var(--f-ui); }
 
@@ -3169,24 +3188,113 @@ svg.chart .trama { pointer-events: none; }
   .pi-cabeza { border-bottom: 0; padding: 0 0 5mm; position: relative; }
   .pi-cabeza::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: 0;
-    height: 2.2mm; background: var(--marca-acento, #00B7EB);
+    height: 2.2mm; background: var(--manual-acento, #00B7EB);
   }
-  .pi-institucion, .pi-titulo, .pi-periodo, .pi-edicion { color: var(--marca-tinta, #000); }
+  .pi-institucion, .pi-titulo, .pi-periodo, .pi-edicion { color: var(--manual-tinta, #000); }
   /* El logo: nunca bajo 1,5 cm (manual, p. 21), con su área de resguardo. */
   .pi-logo { display: block; height: 22mm; width: auto; max-width: 120mm; margin: 0 0 1mm; }
-  .pi-periodo { border-bottom-color: var(--marca-acento, #00B7EB); border-bottom-width: 1.2pt; }
-  .pi-pie { background: var(--marca-suave, #EBEBEB); padding: 5mm 6mm 4mm; }
+  .pi-periodo { border-bottom-color: var(--manual-acento, #00B7EB); border-bottom-width: 1.2pt; }
+  .pi-pie { background: var(--manual-suave, #EBEBEB); padding: 5mm 6mm 4mm; }
   .pi-datos { border-top: 0; padding-top: 0; }
 
   /* Ficha e índice: el filete de cada título en cyan. */
   .ficha-informe h2, .indice-informe h2 {
-    border-bottom: 1.5mm solid var(--marca-acento, #00B7EB); padding-bottom: 2mm;
+    border-bottom: 1.5mm solid var(--manual-acento, #00B7EB); padding-bottom: 2mm;
   }
   .indice-informe h2 { display: inline-block; }
-  .fi-grupo h3 { color: var(--marca-tinta, #000); }
-  .indice-sec { border-bottom-color: var(--marca-tinta, #000); }
+  .fi-grupo h3 { color: var(--manual-tinta, #000); }
+  .indice-sec { border-bottom-color: var(--manual-tinta, #000); }
 
   /* El titular de cada sección, con el filete en cyan. */
-  .portada-cabecera .portada-id h1 { border-bottom: 1.2mm solid var(--marca-acento, #00B7EB); }
-  .encabezado-seccion { border-left-color: var(--marca-acento, #00B7EB); }
+  .portada-cabecera .portada-id h1 { border-bottom: 1.2mm solid var(--manual-acento, #00B7EB); }
+  .encabezado-seccion { border-left-color: var(--manual-acento, #00B7EB); }
+}
+
+/* ── Las figuras, a una columna en papel (D-755) ────────────────────────────
+   La rejilla de tarjetas (`.cortes`, auto-fit de 20 rem) resolvía en papel dos
+   columnas de unos 85 mm, y cada gráfico —redibujado al ancho de la hoja—
+   quedaba a la mitad: rótulos de 6 px. En papel cada figura ocupa el ancho de
+   la hoja, a escala 1:1, y no se parte entre dos hojas. */
+@media print {
+  .cortes, .cortes-bento, .bento-grid { display: block; }
+  .cortes > .corte, .cortes-bento > .corte, .bento-grid > .bento-card {
+    margin: 0 0 6mm; break-inside: avoid;
+  }
+}
+
+/* Sin cortes de página a destiempo (D-755). La rejilla bento vive en
+   modern-ui.css, que se carga después: se gana con una clase más. El bloque
+   de indicadores no publicados no se parte y su rótulo no queda solo al pie. */
+@media print {
+  .explorador-resultado .bento-grid { display: block; }
+  .banda.no-publicados { break-inside: avoid; }
+  .banda-titulo, .titulo-seccion, .banda-gancho { break-after: avoid; }
+  /* Un solo fondo en el papel: el blanco. Las bandas alternas de pantalla
+     teñían de gris azulado Análisis y Metodología, y sólo a ellas. */
+  .banda-papel, .banda-papel-2 { background: none; }
+  .banda-papel + .banda-papel-2, .banda-papel-2 + .banda-papel { border-top: 0; }
+}
+
+/* Nada más ancho que la hoja (D-755), medido sobre el papel A4 (182 mm útiles):
+   - la tabla de auditoría pedía 661 px en una tarjeta de 597: su última
+     columna pisaba el borde. Con columnas fijas cada celda se parte dentro de
+     la suya;
+   - la red de coautoría conservaba su mínimo de 680 px dentro de un `.grafico`
+     de 613 que recorta: se perdía el borde derecho del grafo;
+   - el ORCID de la tabla de autores imprimía además su enlace completo sin
+     partir (362 px): el identificador ya es el dato, el enlace sobra. Sus
+     etiquetas («identidad no consolidada», «comprobado por revisión») tampoco
+     se partían, y la tabla pedía 935 px. */
+@media print {
+  .tabla-validacion { table-layout: fixed; }
+  .tabla-validacion th:nth-child(1) { width: 10%; }
+  .tabla-validacion th:nth-child(2) { width: 17%; }
+  .tabla-validacion th:nth-child(3) { width: 27%; }
+  .tabla-validacion th:nth-child(4) { width: 14%; }
+  /* Sólo lo observado se parte en cualquier punto: son valores sin espacios
+     (`scopus_affiliation_id=60105368`); el resto son palabras. */
+  .tabla-validacion td:last-child { overflow-wrap: anywhere; }
+  svg.chart.red-svg { min-width: 0; }
+  a.etiqueta-orcid::after { content: none; }
+  td .etiqueta-en-linea, td .nota-orcid-revisado { white-space: normal; }
+  /* El papel no ordena: sin la flecha ni su reserva de 1,35 rem, y con el
+     relleno de las tablas angostas, los encabezados caben en su columna. */
+  th[aria-sort] { padding-right: var(--e2); }
+  th[aria-sort]::after { content: none; }
+  th, td { padding: var(--e2); }
+  /* Un solo cuerpo para las tablas del papel: 9 pt el dato, 7,5 pt el
+     encabezado. En pantalla siguen en `--t-s`. */
+  table { font-size: 9pt; }
+  th { font-size: 7.5pt; }
+  /* Las notas dentro de una celda iban en `--t-s` (15 px) bajo un dato de 12:
+     más grandes que lo que anotan. Toman el cuerpo de la tabla. */
+  td .nota { font-size: inherit; }
+
+  /* Los inventarios del sitio (datos y catálogo de indicadores) llevan rutas
+     y nombres de campo sin punto de corte —`data/produccion_declarada.json`,
+     `con_autoria_detallada`— y cifras con su explicación en `nowrap`: pedían
+     922 y 774 px. Columnas fijas, y cada celda se parte dentro de la suya. La
+     casilla de selección no tiene uso en papel. */
+  .tabla-inventario table, .tabla-catalogo table { table-layout: fixed; }
+  .tabla-inventario td, .tabla-catalogo td { overflow-wrap: anywhere; }
+  .tabla-inventario td.num, .tabla-catalogo .estado { white-space: normal; }
+  .col-marca input { visibility: hidden; }
+  .tabla-inventario th:nth-child(1) { width: 24%; }
+  .tabla-inventario th:nth-child(2) { width: 30%; }
+  .tabla-inventario th:nth-child(3) { width: 13%; }
+  .tabla-inventario th:nth-child(4) { width: 10%; }
+  .tabla-catalogo th:nth-child(1) { width: 4%; }
+  .tabla-catalogo th:nth-child(2) { width: 9%; }
+  .tabla-catalogo th:nth-child(3) { width: 30%; }
+  .tabla-catalogo th:nth-child(4) { width: 12%; }
+  .tabla-catalogo th:nth-child(5) { width: 16%; }
+  .tabla-catalogo th:nth-child(6) { width: 15%; }
+
+  /* El anexo de indicadores: en 9 pt «Confiabilidad» no cabía en el 13 % de la
+     columna Fuente y pisaba el borde de la tarjeta. Fuente gana lo que cede el
+     pseudocódigo, que se parte en cualquier punto. */
+  .tabla-indicadores .c-calc { width: 19%; }
+  .tabla-indicadores .c-base { width: 13%; }
+  .tabla-indicadores .c-fuente { width: 17%; }
+  .tabla-anexo td { overflow-wrap: break-word; }
 }

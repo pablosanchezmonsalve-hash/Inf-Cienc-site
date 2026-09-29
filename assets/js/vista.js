@@ -141,7 +141,7 @@ export function datosCondiciones(meta, notaUniverso, inst = null) {
     de exportación declara sólo CSV (config/publication.yml). */
 export function datosInventario(filas, noListados) {
   const peso = b => b < 1024 ? `${c.nf.format(b)} B` : `${c.nf.format(Math.round(b / 1024))} KB`;
-  return `<div class="tabla-envoltura tabla-datos"><table>
+  return `<div class="tabla-envoltura tabla-datos tabla-inventario"><table>
     <caption class="solo-lectores">Archivos de datos que sirve el sitio</caption>
     <thead><tr><th scope="col">Archivo</th><th scope="col">Qué contiene</th>
       <th scope="col" class="num">Registros</th><th scope="col" class="num">Tamaño</th>
@@ -234,7 +234,7 @@ export function marcaCSS(inst) {
   const col = (inst && inst.marca && inst.marca.colores) || {};
   const decl = Object.entries({ tinta: col.tinta, acento: col.acento, suave: col.suave })
     .filter(([, v]) => /^#[0-9a-f]{6}$/i.test(v || ''))
-    .map(([k, v]) => `--marca-${k}: ${v};`);
+    .map(([k, v]) => `--manual-${k}: ${v};`);
   return decl.length ? `:root { ${decl.join(' ')} }\n` : '';
 }
 
@@ -1261,7 +1261,10 @@ export function calidadAnexo(q, val, corpus, meta) {
 /** El catálogo de los indicadores publicados, con su fórmula. La definición y
     el cálculo salen de docs/INDICATORS.md; nombre, base y cautela, de
     config/indicators.yml (04_glossary.py los junta en metodologia.json). */
-export function indicadoresAnexo(indicadores, categorias, meta) {
+/* `notas` son las notas de cada figura (`vista_explorador.notasDeFiguras`):
+   desde D-754 no van pegadas a la figura sino aquí, en la fila de su
+   indicador, a la que la figura remite. */
+export function indicadoresAnexo(indicadores, categorias, meta, notas = {}) {
   const e = c.escapar;
   const orden = Object.keys(categorias || {});
   const grupos = new Map();
@@ -1282,7 +1285,8 @@ export function indicadoresAnexo(indicadores, categorias, meta) {
         <tbody>${grupos.get(k).map(i => `<tr id="ind-${e(i.codigo)}">
           <td class="mono">${e(i.codigo)}</td>
           <td><strong>${e(i.nombre)}</strong><br>${e(i.definicion)}${i.advertencia
-            ? `<span class="nota">${e(i.advertencia)}</span>` : ''}</td>
+            ? `<span class="nota"><b>Advertencia.</b> ${e(i.advertencia)}</span>` : ''}${
+            (notas[i.codigo] || []).map((n) => `<span class="nota"><b>Nota de la figura.</b> ${e(n)}</span>`).join('')}</td>
           <td><code>${e(i.logica)}</code></td>
           <td>${base(i.denominador)}</td>
           <td>${e(i.fuente)}${i.confiabilidad ? `<span class="nota">Confiabilidad

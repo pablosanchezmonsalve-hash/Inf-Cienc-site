@@ -505,6 +505,10 @@ async function montarExplorador(claveSeccion) {
   // Al cambiar el ancho de la ventana cambia el de las tarjetas, y con él la
   // escala del SVG: los gráficos se rehacen a la medida nueva.
   addEventListener('resize', c.debounce(ajustarLienzos, 250));
+  // En papel, al ancho de la hoja; de vuelta en pantalla, al de su tarjeta.
+  addEventListener('beforeprint', () => VX.ajustarGraficos(zonas.cortes,
+    X.recorte(publicaciones, sel), { jerarquia, clave: claveSeccion, ancho: VX.ANCHO_PAPEL }));
+  addEventListener('afterprint', ajustarLienzos);
 }
 
 /* Conmutador Gráfico ⇄ Tabla. Un solo escucha delegado para toda la página:
@@ -1036,6 +1040,11 @@ async function fichaAutor() {
   };
   dibujarEvolucion();
   addEventListener('resize', c.debounce(dibujarEvolucion, 250));
+  addEventListener('beforeprint', () => {
+    if (lienzo) lienzo.innerHTML = c.barrasV(a.evolucion,
+      { titulo: 'Publicaciones por año', etiquetaX: 'anio', etiquetaY: 'n', ancho: VX.ANCHO_PAPEL });
+  });
+  addEventListener('afterprint', dibujarEvolucion);
 }
 
 /* =========================================================== metodología */
@@ -1077,7 +1086,7 @@ async function metodologia() {
   if (tiposEl) tiposEl.innerHTML = v.tiposAnexo(X.tiposDocumentales(publicaciones), anexo.corpus);
   if (calidadEl) calidadEl.innerHTML = v.calidadAnexo(
     X.calidadDatos(publicaciones, autores, anexo.corpus.pais), val, anexo.corpus, meta);
-  if (indicadoresEl) indicadoresEl.innerHTML = v.indicadoresAnexo(anexo.indicadores, catalogo.categorias, meta);
+  if (indicadoresEl) indicadoresEl.innerHTML = v.indicadoresAnexo(anexo.indicadores, catalogo.categorias, meta, VX.notasDeFiguras());
   if (referenciasEl) referenciasEl.innerHTML = v.referenciasAnexo(anexo.referencias);
   if (nivelesEl) nivelesEl.innerHTML = v.confiabilidadAnexo(anexo.confiabilidad);
 }

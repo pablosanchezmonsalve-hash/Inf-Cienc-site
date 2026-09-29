@@ -199,8 +199,8 @@ export function montarHeatmap(contenedor, publicaciones, opciones = {}) {
 
   const agregado = agregarMatriz(publicaciones, opciones);
 
-  function dibujar() {
-    const ancho = Math.max(360, Math.round(contenedor.getBoundingClientRect().width));
+  function dibujar(papel) {
+    const ancho = papel || Math.max(360, Math.round(contenedor.getBoundingClientRect().width));
     contenedor.innerHTML = agregado.categorias.length
       ? renderHeatmap(agregado, { ancho })
       : '<p class="heatmap-vacio">Sin datos de área temática suficientes para el mapa.</p>';
@@ -214,4 +214,7 @@ export function montarHeatmap(contenedor, publicaciones, opciones = {}) {
   });
   observador.observe(contenedor);
   contenedor._heatmapObserver = observador;
+  // Ganchos de impresión, como en el treemap (D-755).
+  contenedor._alPapel = ancho => dibujar(ancho);
+  contenedor._alPantalla = () => dibujar();
 }
