@@ -2,12 +2,12 @@
  "generado": "2026-09-29",
  "build": "2026-09-21",
  "huella_publicaciones_sha256": "a86ca6f48cb0169fefc56bcb3e5d48086dc98f69b081ae6472742ecdef1b23d9",
- "codigo": "c5e5f1d",
+ "codigo": "3c2e1b9",
  "recorte": "",
  "completo": {
   "archivo": "informe/informe-cienciometrico.pdf",
   "hojas": 72,
-  "kb": 3348,
+  "kb": 3235,
   "secciones": 8
  },
  "hojas": 86,
@@ -24,14 +24,14 @@
    "nombre": "Panorama general",
    "archivo": "informe/informe-cienciometrico-panorama.pdf",
    "hojas": 9,
-   "kb": 329
+   "kb": 274
   },
   {
    "seccion": "produccion",
    "nombre": "Producción",
    "archivo": "informe/informe-cienciometrico-produccion.pdf",
    "hojas": 9,
-   "kb": 555
+   "kb": 498
   },
   {
    "seccion": "impacto",

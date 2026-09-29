@@ -545,7 +545,7 @@ export function botonAyuda(termino) {
 /* Una categoría que representa AUSENCIA de dato nunca se pinta como una que
    representa una medición (decisión D-09). El nombre de esas categorías lo fija
    el build, así que la lista vive aquí y no se adivina por color. */
-const SIN_DATO = /^(sin dato|no determinad|sin declarar|desconocid)/i;
+const SIN_DATO = /^(sin dato|no determinad|sin declarar|desconocid|sin facultad)/i;
 export const esSinDato = v => SIN_DATO.test(String(v).trim());
 
 /** Sello de procedencia de un indicador.

@@ -152,7 +152,34 @@ export function porDimension(sel_pubs, clave, { tope = 0, ordenar = true } = {})
     principal no: mezclar «Facultad de Medicina y Salud» con «Escuela de
     Kinesiología» en la misma lista de barras hace ilegible cuál es la
     unidad de comparación. `porEscuela()`, más abajo, es la vista aparte
-    para quien sí quiere el detalle de escuela. */
+    para quien sí quiere el detalle de escuela.
+
+    Solo facultades (D-758). Con la lista de facultades del vocabulario
+    (`jerarquiaDe(meta)`), una unidad que no es facultad ni sube a una por la
+    jerarquía —«Escuela de Postgrado», una variante en inglés aún sin
+    confirmar— no se dibuja como si fuera una facultad: se agrupa en
+    `SIN_FACULTAD`, y `unidadesSinFacultad()` dice cuáles son. «No
+    determinada» y «Sin dato declarado» se conservan como están. */
+export const SIN_FACULTAD = 'Sin facultad asignada';
+const FALTANTES = new Set(['No determinada', 'Sin dato declarado']);
+
+/** La jerarquía escuela -> facultad de `meta.json`, con la lista de
+    facultades del vocabulario adjunta (no enumerable: `Object.keys()` y el
+    JSON siguen viendo solo escuelas). */
+export function jerarquiaDe(meta) {
+  const j = { ...((meta && meta.jerarquia) || {}) };
+  Object.defineProperty(j, 'facultades',
+    { value: new Set((meta && meta.facultades) || []), enumerable: false });
+  return j;
+}
+
+function facultadDe(u, j) {
+  const f = j[u] || u;
+  const conocidas = j.facultades;
+  if (!conocidas || !conocidas.size || conocidas.has(f) || FALTANTES.has(f)) return f;
+  return SIN_FACULTAD;
+}
+
 export function porFacultad(sel_pubs, jerarquia) {
   const j = jerarquia || {};
   const cuenta = new Map();
@@ -163,8 +190,22 @@ export function porFacultad(sel_pubs, jerarquia) {
        Medicina y Salud»—, las dos suben a la misma y se contaba dos veces: 4
        publicaciones, 656 en vez de 652, contra la nota de P-07, que promete
        «publicaciones distintas por unidad» (auditoría del 2026-09-25). */
-    for (const f of new Set(unidades.map(u => j[u] || u))) {
+    for (const f of new Set(unidades.map(u => facultadDe(u, j)))) {
       cuenta.set(f, (cuenta.get(f) || 0) + 1);
+    }
+  }
+  return [...cuenta].map(([valor, n]) => ({ valor, n }))
+    .sort((a, b) => b.n - a.n || a.valor.localeCompare(b.valor));
+}
+
+/** Las unidades que `porFacultad()` agrupa en `SIN_FACULTAD`, con cuántas
+    publicaciones distintas declara cada una. */
+export function unidadesSinFacultad(sel_pubs, jerarquia) {
+  const j = jerarquia || {};
+  const cuenta = new Map();
+  for (const p of sel_pubs) {
+    for (const u of new Set(p.unidades)) {
+      if (facultadDe(u, j) === SIN_FACULTAD) cuenta.set(u, (cuenta.get(u) || 0) + 1);
     }
   }
   return [...cuenta].map(([valor, n]) => ({ valor, n }))
@@ -739,7 +780,7 @@ export function hallazgos(sub, { jerarquia = {}, pais = null } = {}) {
       serie,
       tipos: tiposDocumentales(sub),
       facultades: porFacultad(sub, jerarquia)
-        .filter(f => !['No determinada', 'Sin dato declarado'].includes(f.valor)),
+        .filter(f => !['No determinada', 'Sin dato declarado', SIN_FACULTAD].includes(f.valor)),
       unidad: cobertura(sub, 'unidad'),
     },
     impacto: {

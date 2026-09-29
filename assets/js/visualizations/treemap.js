@@ -224,10 +224,19 @@ const sumar = nodos => ({
     del recorte completo (sin filtrar) dejaría de coincidir con
     `hierarchy.json`.
 
-    `jerarquia` es `meta.jerarquia` (escuela → facultad, plano). */
+    `jerarquia` es `meta.jerarquia` (escuela → facultad, plano). Con la lista
+    de facultades adjunta (`jerarquiaDe(meta)`, D-758), una unidad que no es
+    facultad ni sube a una queda como hija de «Sin facultad asignada»,
+    igual que en `07_hierarchy.py`. */
+const SIN_FACULTAD = 'Sin facultad asignada';
+const FALTANTES = new Set(['No determinada', 'Sin dato declarado']);
 export function construirArbol(publicaciones, jerarquia, nombreRaiz) {
   const j = jerarquia || {};
-  const facultadDe = u => j[u] || u;
+  const conocidas = j.facultades;
+  const facultadDe = u => {
+    const f = j[u] || u;
+    return !conocidas || !conocidas.size || conocidas.has(f) || FALTANTES.has(f) ? f : SIN_FACULTAD;
+  };
 
   // 1. Estadísticas por unidad CRUDA (facultad o escuela, tal como aparece
   //    en unidades_conteo), sumando sobre pares, no sobre publicaciones.

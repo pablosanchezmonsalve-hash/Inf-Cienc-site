@@ -289,7 +289,7 @@ async function montarExplorador(claveSeccion) {
   // Escuela -> facultad (P-07): mismo criterio que agrega el build, para que
   // el gráfico reactivo no mezcle facultades y escuelas sueltas en una
   // misma lista de barras (ver `porFacultad()` en explorador.js).
-  const jerarquia = metaBase.jerarquia || {};
+  const jerarquia = X.jerarquiaDe(metaBase);
 
   // Persona → unidad académica, solo para C-05 (red de coautoría): una
   // publicación no trae la unidad por autor individual, así que el corte de

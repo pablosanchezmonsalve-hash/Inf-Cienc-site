@@ -696,6 +696,12 @@ const DISTINTOS = {
   ods: ['ODS', 'distintos', 'los', 'primeros'],
 };
 function notaRecorte(r, campo) {
+  // P-07 solo dibuja facultades (D-758): las unidades agrupadas aparte se nombran.
+  if (campo === 'unidad' && r && r.sinFacultad && r.sinFacultad.length) {
+    return `<p class="nota nota-recorte nota-figura">«${c.escapar(X.SIN_FACULTAD)}» agrupa
+      ${r.sinFacultad.map(u => `${c.escapar(u.valor)} (${c.nf.format(u.n)})`).join(', ')}:
+      unidades que aún no tienen facultad confirmada y están en revisión.</p>`;
+  }
   const d = DISTINTOS[campo];
   if (!r || !d || !(r.distintos > r.datos.length)) return '';
   const [nombre, distinto, art, primero] = d;
@@ -782,7 +788,8 @@ export function dibujar(sub, corte, jerarquia, ancho) {
   // lista de barras es justo lo que hacía ilegible el gráfico.
   if (campo === 'unidad') {
     const datos = X.porFacultad(sub, jerarquia);
-    return datos.length ? { svg: c.barrasH(datos, { titulo, trama: true, ancho }), datos } : null;
+    return datos.length ? { svg: c.barrasH(datos, { titulo, trama: true, ancho }), datos,
+      sinFacultad: X.unidadesSinFacultad(sub, jerarquia) } : null;
   }
   if (campo === 'escuela') {
     const datos = X.porEscuela(sub, jerarquia);
@@ -1335,7 +1342,7 @@ export function analisisResultados(pubs, sel, meta, pais) {
       indicadores de este informe no sirven para evaluar desempeño individual (DORA, Manifiesto de
       Leiden). Las cifras del recorte siguen en la <a href="index.html?${X.consulta(sel)}">portada</a>.</p>`;
   }
-  const h = X.hallazgos(sub, { jerarquia: meta.jerarquia || {}, pais });
+  const h = X.hallazgos(sub, { jerarquia: X.jerarquiaDe(meta), pais });
   if (!h) return '<p class="vacio">Ninguna publicación en este recorte: no hay resultados que analizar.</p>';
 
   // `consulta()` devuelve la cadena SIN «?»: sin él, cada «Ver P-02 →» de un
