@@ -1065,7 +1065,8 @@ export function seccionDeGrafico() {
    La advertencia del catálogo NO se imprime si el corte ya trae su propio
    `aviso`: son dos textos sobre lo mismo y en papel se leerían como dos
    advertencias distintas. */
-/** «Qué muestra» y «Cuidado», pegados a la figura. EN PANTALLA TAMBIÉN.
+/** «Qué muestra», pegado a la figura. EN PANTALLA TAMBIÉN. (Hasta D-754 iba
+    con «Cuidado»; la advertencia pasó al anexo.)
 
     Nacieron `solo-papel`, con este argumento: en pantalla quien no entiende una
     figura tiene la ayuda contextual, el glosario y el panel de la sección a un

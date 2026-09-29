@@ -449,8 +449,8 @@ export function introduccion({ intro, objetivos: obj, meta, inst, corpus, lectur
     }).join('')}</tbody></table></div>`;
   const guiaHtml = bloque('intro-guia', 'Guía de lectura de los gráficos', `
     <p>Qué muestra cada cifra y cada gráfico del informe, sección por sección. La misma
-      frase acompaña a la figura en su sección, junto con la advertencia que corresponda
-      («Cuidado») y su sello de fuente, fecha y cobertura.</p>
+      frase acompaña a la figura en su sección; cuando el indicador tiene una advertencia,
+      la figura remite a su fila del anexo de indicadores.</p>
     <h3>Cifras del tablero</h3>
     <p class="nota">Abren el panorama general y cada sección de resultados, calculadas sobre
       el recorte del informe.</p>
@@ -975,10 +975,10 @@ export function fichaTecnica(meta, val, notaUniverso) {
     </dl>
     <p class="nota">Los cuatro denominadores son los declarados en la configuración
       del informe, no un recuento campo a campo: la cobertura real de cada campo va en
-      el sello de cada indicador.</p>
+      la tabla «Calidad y cobertura de los datos».</p>
     <h4>Umbrales de lectura</h4>
     <dl class="ficha-datos">
-      ${fila('Cobertura para un sello sin advertencia', `${c.num(meta.cobertura_minima_sin_advertencia * 100)} %`)}
+      ${fila('Cobertura mínima sin advertencia', `${c.num(meta.cobertura_minima_sin_advertencia * 100)} %`)}
       ${fila('Mínimo interpretable de un recorte por unidad', `${c.nf.format(meta.n_minimo_interpretable_unidad)} publicaciones`)}
     </dl>
     <h4>Auditoría de datos</h4>
@@ -1246,8 +1246,8 @@ export function calidadAnexo(q, val, corpus, meta) {
     <p class="nota">La unidad académica no está en la tabla porque no se mide sobre publicaciones sino
     sobre pares autor × publicación: su cobertura está en las advertencias principales y en la regla
     <span class="mono">V-10</span>. Cuando el campo de una figura cubre menos del
-    ${c.num(meta.cobertura_minima_sin_advertencia * 100)} % de las publicaciones que se miran, su sello
-    lo advierte.</p>
+    ${c.num(meta.cobertura_minima_sin_advertencia * 100)} % de las publicaciones que se miran, lo declara
+    la advertencia de su indicador en el anexo.</p>
     <h4>Inconsistencias de la fuente que el informe no corrige</h4>
     <p>Se cuentan y se declaran; ninguna se corrige a mano (D-08).</p>
     <ul class="lista-calidad">${items.join('')}
