@@ -180,7 +180,10 @@ export function renderTreemap(nodos, { ancho, alto, nivel = 'unidad', conHijos =
     </g>`;
   }).join('');
 
+  // Con `role="list"` y sin nombre, un lector de pantalla anunciaba «lista» sin
+  // decir de qué (auditoría del 2026-09-30).
   return `<svg class="chart treemap-svg" viewBox="0 0 ${ancho} ${alto}" role="list"
+      aria-label="Producción por facultad y escuela: un rectángulo por unidad, de área proporcional a sus pares autor × publicación"
       preserveAspectRatio="xMidYMid meet">${celdas}</svg>`;
 }
 

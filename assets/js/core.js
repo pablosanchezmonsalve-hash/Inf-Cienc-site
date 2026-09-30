@@ -277,7 +277,7 @@ export function cromo(meta, paginaActual, tema = 'auto', inst = null) {
     cabecera: `
     <div class="lateral" id="menu-nav">
       <a class="marca" href="index.html">
-        <span class="marca-sigla" aria-hidden="true">UFT</span>
+        <span class="marca-sigla" aria-hidden="true">${escapar(meta.institucion_corta)}</span>
         <span class="marca-txt">
           <strong>${escapar(meta.institucion)}</strong>
           <span>${escapar(meta.titulo_plataforma)}</span>
@@ -302,7 +302,7 @@ export function cromo(meta, paginaActual, tema = 'auto', inst = null) {
         <span>Menú</span>
       </button>
       <a class="barra-marca" href="index.html">
-        <span class="marca-sigla" aria-hidden="true">UFT</span>${escapar(meta.institucion_corta)}</a>
+        <span class="marca-sigla" aria-hidden="true">${escapar(meta.institucion_corta)}</span>${escapar(meta.institucion_corta)}</a>
       <form class="buscador" action="publicaciones.html" method="get" role="search">
         <label class="solo-lectores" for="buscar-global">Buscar publicaciones por título, fuente o autor</label>
         <svg viewBox="${VIEWBOX_ICONO}" aria-hidden="true"><path d="${ICONO.search}"/></svg>
