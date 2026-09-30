@@ -6,7 +6,8 @@ import * as v from './vista.js';
 import * as X from './explorador.js';
 import * as VX from './vista_explorador.js';
 import * as anim from './animar.js';
-import { montarHeatmap } from './visualizations/heatmap.js';
+import { montarHeatmap, agregarMatriz } from './visualizations/heatmap.js';
+import * as CM from './comentarios.js';
 import { montarTreemap, construirArbol } from './visualizations/treemap.js';
 
 /* ============================================================== portada */
@@ -392,7 +393,12 @@ async function montarExplorador(claveSeccion) {
     // El mapa de calor de temáticas (Bento Grid) reacciona al mismo recorte
     // que el resto de la página: mismo criterio, un solo filtro. No lleva
     // pantalla de "sin datos" separada — montarHeatmap() ya la resuelve.
-    if (zonas.heatmap) montarHeatmap(zonas.heatmap, X.recorte(publicaciones, sel));
+    if (zonas.heatmap) {
+      const r = X.recorte(publicaciones, sel);
+      montarHeatmap(zonas.heatmap, r);
+      const ha = document.getElementById('heatmap-analisis');
+      if (ha) ha.innerHTML = CM.comentario('heatmap', r, { meta: metaBase, matriz: agregarMatriz(r) });
+    }
 
     // El treemap cuenta pares autor×publicación (criterio de
     // 07_hierarchy.py, distinto del resto de la página) — construirArbol()
@@ -402,8 +408,11 @@ async function montarExplorador(claveSeccion) {
     // limpieza del recorte: si solo se recalculara cuando hay filtro activo,
     // "Ver todo" habría dejado el treemap congelado en el último filtro.
     if (zonas.treemap) {
-      montarTreemap(zonas.treemap,
-        construirArbol(X.recorte(publicaciones, sel), jerarquia, metaBase.institucion_corta));
+      const r = X.recorte(publicaciones, sel);
+      const arbol = construirArbol(r, jerarquia, metaBase.institucion_corta);
+      montarTreemap(zonas.treemap, arbol);
+      const ta = document.getElementById('treemap-analisis');
+      if (ta) ta.innerHTML = CM.comentario('treemap', r, { meta: metaBase, arbol });
     }
 
 

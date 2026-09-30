@@ -404,6 +404,7 @@ export function cortes(pubs_sel, proc, jerarquia, textos, sel = {}) {
         ? '<p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
       ${bloqueLectura(COD_PORTADA[clave], { cod: COD_PORTADA[clave],
         aviso: clave === 'unidad' ? avisoUnidad : null }, textos)}
+      ${CM.comentario(clave, pubs_sel, ctxAnalisis(textos, jerarquia))}
     </section>`).join('');
 }
 
@@ -563,6 +564,7 @@ function tablaDinamica(sub, sel, meta, proc, textos) {
         <td class="num">${citas(f)}</td></tr>`).join('')}</tbody>
     </table></div>
     ${bloqueLectura(DINAMICA.campo, { cod: 'I-01', aviso: AVISO_CITAS_POR_ANIO }, textos)}
+    ${CM.comentario('dinamica', sub, ctxAnalisis(textos))}
   </section>`;
 }
 
@@ -603,6 +605,7 @@ function tablaMasCitadas(sub, sel, proc, textos) {
     <p class="nota enlace-autoria"><a href="publicaciones.html${q ? '?' + q : ''}">Ver la autoría en el listado de publicaciones →</a></p>`
     : '<p class="vacio">Ninguna publicación con citas en este recorte.</p>'}
     ${bloqueLectura(MAS_CITADAS.cod, { cod: MAS_CITADAS.cod, aviso: LECTURA_MAS_CITADAS }, textos)}
+    ${filas.length ? CM.comentario(MAS_CITADAS.cod, sub, ctxAnalisis(textos)) : ''}
   </section>`;
 }
 
@@ -986,6 +989,8 @@ function corteRed(sub, corte, unidadPorPersona, proc, textos) {
       ${c.nf.format(nComp)} componentes · ${c.nf.format(nComs)} comunidades.
       Se dibujan las componentes de 5 personas o más.</p>
     ${bloqueLectura(id, { ...corte, notaAnexo: NOTA_RED }, textos)}
+    ${CM.comentario(id, sub, { ...ctxAnalisis(textos), red: { personas: g.nodos.length, conectadas,
+      componentes: nComp, mayor: Math.max(...tamComp.values()) } })}
   </section>`;
 }
 
@@ -1195,6 +1200,13 @@ export function cortesSeccion(sub, clave, proc, unidadPorPersona, jerarquia, sel
     corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos, persona })).join('');
 }
 
+/** El contexto que necesita el análisis de cada figura (comentarios.js): la
+    fecha de corte y el umbral de recorte pequeño (`meta`), el país de la
+    institución y la jerarquía escuela -> facultad. */
+function ctxAnalisis(textos, jerarquia) {
+  return { meta: textos && textos.meta, pais: textos && textos.pais, jerarquia };
+}
+
 /** UN corte, con todo lo que lo hace legible: título, conmutador, las dos
     vistas, la trama si no suman, la advertencia, el bloque de lectura y el
     sello.
@@ -1233,7 +1245,7 @@ export function corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos
       ${MULTIVALUADO.has(corte.campo)
         ? '<p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
       ${bloqueLectura(corte.cod || corte.campo, corte, textos)}
-      ${r && corte.cod ? CM.comentario(corte.cod, sub, { meta: textos && textos.meta, pais: textos && textos.pais }) : ''}
+      ${r ? CM.comentario(corte.cod || corte.campo, sub, ctxAnalisis(textos, jerarquia)) : ''}
     </section>`;
 }
 
