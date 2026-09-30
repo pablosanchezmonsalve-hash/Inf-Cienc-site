@@ -76,7 +76,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"/></svg>
       <span>Oscuro</span></button></div>
         <p class="lateral-doc"><a href="metodologia.html">Documentación</a>
-          <span>Build 2026-09-21</span></p>
+          <span>Compilación 2026-09-21</span></p>
       </div>
     </div>
     <div class="barra-sup">
@@ -151,12 +151,12 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
 
     <div class="kpis" data-n="4">
       <div class="kpi">
-        <span class="valor">32</span>
+        <span class="valor">35</span>
         <span class="etiqueta">Publicado</span>
         <span class="secundario">Se calcula y se muestra en el sitio.</span>
       </div>
       <div class="kpi">
-        <span class="valor">5</span>
+        <span class="valor">7</span>
         <span class="etiqueta">No calculable</span>
         <span class="secundario">La fuente no entrega el dato. Aproximarlo sería inventar la métrica.</span>
       </div>
@@ -188,7 +188,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <div>
     <section class="modulo" id="cat-descriptivo" tabindex="-1">
       <header><div class="modulo-id"><h2>Producción y descripción</h2>
-        <span class="codigo">14</span></div></header>
+        <span class="codigo">15</span></div></header>
       <div class="tabla-envoltura tabla-datos tabla-catalogo">
         <table>
           <thead><tr>
@@ -281,11 +281,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">P-06</span></td>
         <td>
           <strong>Autores UFT distintos</strong>
-          <br><span class="nota">888 formas de firma, no 888 personas: 207 variantes de nombre y 29 perfiles Scopus fragmentados sin resolver (ver LIMITATIONS §2).</span>
+          <br><span class="nota">888 formas de firma, no 888 personas. La consolidación humana deja 829 fichas, la base del sitio. Siguen encoladas 207 variantes de nombre y 29 nombres con más de un Scopus Author ID (ver las limitaciones en Metodología).</span>
         </td>
         <td>Scopus</td>
         <td>con_autoria_detallada<br><span class="nota">1.342</span></td>
-        <td>888 formas de firma</td>
+        <td>888 formas de firma en la fuente · 829 tras consolidación</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
@@ -297,11 +297,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">P-07</span></td>
         <td>
           <strong>Producción por unidad académica</strong>
-          <br><span class="nota">Cobertura 64.2 % de los pares autor × publicación. Además el sesgo de cobertura de Scopus distorsiona la comparación entre unidades. Requiere advertencia visible obligatoria.</span>
+          <br><span class="nota">Cobertura 64,2 % de los pares autor × publicación. Además el sesgo de cobertura de Scopus distorsiona la comparación entre unidades. Requiere advertencia visible obligatoria.</span>
         </td>
         <td>Scopus</td>
         <td>con_autoria_detallada<br><span class="nota">1.342</span></td>
-        <td>1259/1962 pares (64.2 %)</td>
+        <td>1256/1956 pares (64,2 %)</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             baja</a></span>
@@ -338,7 +338,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>943/1342 (70.3 %)</td>
+        <td>943/1342 (70,3 %)</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
@@ -349,11 +349,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">AU-01</span></td>
         <td>
           <strong>Publicaciones por autor</strong>
-          <br><span class="nota">Conteo completo: la suma por autor (1.960) excede el total de publicaciones (1.342). No presentar como total institucional.</span>
+          <br><span class="nota">Conteo completo: la suma por autor (1.956) excede el total de publicaciones (1.342). No presentar como total institucional.</span>
         </td>
         <td>Scopus · SciVal</td>
         <td>con_autoria_detallada<br><span class="nota">1.342</span></td>
-        <td>888 autores · 70 con n&gt;=5</td>
+        <td>829 autores · 68 con n&gt;=5</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
@@ -368,7 +368,23 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>Scopus · SciVal</td>
         <td><span class="sin-dato-txt">No aplica</span></td>
-        <td>888 autores con anio_min/anio_max</td>
+        <td>829 autores con anio_min/anio_max</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
+            media</a></span>
+        </td>
+      </tr>
+      <tr id="AU-07">
+        <td class="col-marca"><label class="solo-lectores" for="g-AU-07">Incluir Productividad de las formas de firma en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-AU-07" data-cod="AU-07"></td>
+        <td><span class="codigo">AU-07</span></td>
+        <td>
+          <strong>Productividad de las formas de firma</strong>
+          <br><span class="nota">Formas de firma por tramo de publicaciones en el recorte: 1, 2, 3-4, 5-9 y 10 o más. Formas de firma, no personas, y conteo completo. Describe el reparto; no ordena a nadie.</span>
+        </td>
+        <td>Scopus</td>
+        <td>con_autoria_detallada<br><span class="nota">1.342</span></td>
+        <td>1=567 · 2=119 · 3-4=75 · 5-9=41 · 10+=27</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
@@ -379,11 +395,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">AU-05</span></td>
         <td>
           <strong>ORCID</strong>
-          <br><span class="nota">No existe en ninguna fuente. Recuperable vía Crossref por DOI (cobertura 97,7 %) — pendiente T-01. El campo se muestra con leyenda &#39;no disponible&#39;, no se oculta.</span>
+          <br><span class="nota">Publicado desde el 1 de agosto de 2026. Se recupera de Crossref por DOI y del registro público de ORCID, emparejando apellido e inicial; cada asignación viaja con su veredicto. Un ORCID que figura en más de una ficha se advierte en cada una y no las fusiona (D-44). Sin ORCID, la ficha dice «no disponible»; no se oculta.</span>
         </td>
         <td>Crossref · registro de ORCID</td>
         <td><span class="sin-dato-txt">No aplica</span></td>
-        <td>0/589</td>
+        <td>268/829 fichas · 250 identificadores distintos</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
@@ -392,7 +408,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <tr class="cat-motivo">
         <td colspan="7">
           
-          <br><strong>Qué falta:</strong> Confirmar candidatos por afiliación uno a uno (T-19); es la única vía que queda sin relajar el criterio de evidencia.
+          <br><strong>Qué falta:</strong> Confirmar uno a uno los candidatos por afiliación; es la única vía que queda sin relajar el criterio de evidencia.
         </td>
       </tr>
       <tr id="X-03">
@@ -400,19 +416,19 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">X-03</span></td>
         <td>
           <strong>Indicadores de financiamiento</strong>
-          <br><span class="nota">Cobertura demasiado baja para reportar sin sesgo.</span>
+          <br><span class="nota">Cobertura demasiado baja para reportar sin sesgo. La medición es de la carga anterior y no se ha repetido sobre la actual.</span>
         </td>
         <td><span class="sin-dato-txt">No se calcula</span></td>
         <td><span class="sin-dato-txt">No aplica</span></td>
-        <td>306/818 (37,4 %) en Scopus</td>
+        <td>306/818 (37,4 %) en Scopus, medido en la carga 2023-2025</td>
         <td><span class="estado" data-e="no_calculable">No calculable</span>
           
         </td>
       </tr>
       <tr class="cat-motivo">
         <td colspan="7">
-          <strong>Por qué:</strong> Cobertura 36,5 %: insuficiente para reportar sin sesgo.
-          <br><strong>Qué falta:</strong> Fuente complementaria de financiamiento: src/enrich/crossref_financiamiento.py está implementado y probado (--test), pero api.crossref.org no es alcanzable desde este entorno (config/sources.yml -&gt; crossref_financiamiento_api, ejecutada: false). Falta correrlo con acceso de red real y medir la cobertura combinada.
+          <strong>Por qué:</strong> Cobertura del 37,4 % (306 de 818 publicaciones de la carga 2023-2025): insuficiente para reportar sin sesgo.
+          <br><strong>Qué falta:</strong> Una fuente complementaria de financiamiento (Crossref). El procedimiento está implementado y probado, pero no se ha ejecutado contra el servicio: falta correrlo y medir la cobertura combinada.
         </td>
       </tr>
       <tr id="X-04">
@@ -440,7 +456,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     </section>
     <section class="modulo" id="cat-impacto" tabindex="-1">
       <header><div class="modulo-id"><h2>Impacto</h2>
-        <span class="codigo">15</span></div></header>
+        <span class="codigo">17</span></div></header>
       <div class="tabla-envoltura tabla-datos tabla-catalogo">
         <table>
           <thead><tr>
@@ -475,7 +491,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>10.61 sobre 1342 publicaciones con métrica</td>
+        <td>10,61 sobre 1342 publicaciones con métrica</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             alta</a></span>
@@ -490,7 +506,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>1342/1342 · media=1.14 mediana=0.48</td>
+        <td>1342/1342 · media=1,14 mediana=0,48</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
@@ -502,11 +518,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">I-04</span></td>
         <td>
           <strong>FWCI por año</strong>
-          <br><span class="nota">El 42 % de las publicaciones de 2025 no tiene citas aún. El FWCI del año más reciente no es comparable con el de 2023.</span>
+          <br><span class="nota">El 42 % de las publicaciones de 2025 no tiene citas aún. El FWCI del año más reciente no es comparable con el de 2020.</span>
         </td>
         <td>SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>2023=0.83 · 2024=1.04 · 2025=0.77</td>
+        <td>2020=0,80 · 2021=1,03 · 2022=2,57 · 2023=0,83 · 2024=1,04 · 2025=0,77</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             baja</a></span>
@@ -522,7 +538,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>115/1342 (8.6 %) · corr(percentil, citas)=-0.18</td>
+        <td>115/1342 (8,6 %) · corr(percentil, citas)=-0,18</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             alta</a></span>
@@ -541,6 +557,38 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
+        </td>
+      </tr>
+      <tr id="I-08">
+        <td class="col-marca"><label class="solo-lectores" for="g-I-08">Incluir Distribución de citas en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-I-08" data-cod="I-08"></td>
+        <td><span class="codigo">I-08</span></td>
+        <td>
+          <strong>Distribución de citas</strong>
+          <br><span class="nota">Publicaciones con métricas repartidas en tramos fijos de citas totales al corte: 0, 1-2, 3-5, 6-10, 11-50 y 51 o más. Enseña lo que el promedio de I-02 resume; sin normalizar, se lee junto al FWCI.</span>
+        </td>
+        <td>SciVal</td>
+        <td>con_metricas<br><span class="nota">1.342</span></td>
+        <td>1342/1342 · sin citas=311 · mediana=3</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
+            alta</a></span>
+        </td>
+      </tr>
+      <tr id="I-09">
+        <td class="col-marca"><label class="solo-lectores" for="g-I-09">Incluir Mediana de citas por año de publicación en la selección</label>
+             <input type="checkbox" class="chk-grafico" id="g-I-09" data-cod="I-09"></td>
+        <td><span class="codigo">I-09</span></td>
+        <td>
+          <strong>Mediana de citas por año de publicación</strong>
+          <br><span class="nota">Mediana de las citas totales al corte de las publicaciones de cada año. Baja en los años recientes por ventana de citación, no por menor impacto.</span>
+        </td>
+        <td>SciVal</td>
+        <td>con_metricas<br><span class="nota">1.342</span></td>
+        <td>2020=5 · 2021=7 · 2022=5 · 2023=4 · 2024=3 · 2025=1</td>
+        <td><span class="estado" data-e="publicado">Publicado</span>
+          <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
+            alta</a></span>
         </td>
       </tr>
       <tr id="I-06">
@@ -574,7 +622,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>578/1223 cubiertos (47.3 %) · cobertura 91.1 %</td>
+        <td>578/1223 cubiertos (47,3 %) · cobertura 91,1 %</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
@@ -589,7 +637,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>Scopus · SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>1242/1342 (92.5 %)</td>
+        <td>1242/1342 (92,5 %)</td>
         <td><span class="estado" data-e="diferido">Diferido a V2</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
@@ -631,7 +679,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>Scopus · SciVal</td>
         <td>con_autoria_detallada<br><span class="nota">1.342</span></td>
-        <td>20813 citas atribuidas (conteo completo)</td>
+        <td>20785 citas atribuidas (conteo completo)</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
@@ -642,11 +690,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">AU-03</span></td>
         <td>
           <strong>h-index en ventana 2020-2025</strong>
-          <br><span class="nota">NO es el h-index de carrera. Con ventana de 6 años, 729 de 888 autores tienen h&lt;=1: el indicador no discrimina. Etiquetar siempre &#39;h-index en ventana 2020-2025&#39;.</span>
+          <br><span class="nota">NO es el h-index de carrera. Con ventana de 6 años, 675 de 829 autores tienen h&lt;=1: el indicador no discrimina. Etiquetar siempre &#39;h-index en ventana 2020-2025&#39;.</span>
         </td>
         <td>Scopus · SciVal</td>
         <td><span class="sin-dato-txt">No aplica</span></td>
-        <td>calculable para 888 autores · max=20 · 729 autores con h&lt;=1</td>
+        <td>calculable para 829 autores · max=20 · 675 autores con h&lt;=1</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             baja</a></span>
@@ -657,7 +705,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">AU-04</span></td>
         <td>
           <strong>FWCI por autor</strong>
-          <br><span class="nota">SciVal calcula el FWCI de un investigador como el promedio de los FWCI de sus publicaciones, pero sobre todo su perfil de Scopus; este export trae sólo lo afiliado a la UFT y en firmas sin consolidar (D-08). Promediarlo no sería su FWCI. Se declara no disponible (CLAUDE.md: placeholder metodológico).</span>
+          <br><span class="nota">SciVal calcula el FWCI de un investigador como el promedio de los FWCI de sus publicaciones, pero sobre todo su perfil de Scopus; este export trae sólo lo afiliado a la UFT y en firmas sin consolidar (D-08). Promediarlo no sería su FWCI. Se declara no disponible como marcador metodológico.</span>
         </td>
         <td><span class="sin-dato-txt">No se calcula</span></td>
         <td><span class="sin-dato-txt">No aplica</span></td>
@@ -697,7 +745,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">X-02</span></td>
         <td>
           <strong>Benchmarking interinstitucional</strong>
-          <br><span class="nota">Excluido explícitamente por PROJECT_SPEC &lt;out_of_scope_for_v1&gt;.</span>
+          <br><span class="nota">Excluido del alcance de esta versión por la especificación del proyecto.</span>
         </td>
         <td><span class="sin-dato-txt">No se calcula</span></td>
         <td><span class="sin-dato-txt">No aplica</span></td>
@@ -737,7 +785,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>668/1342 (49.8 %)</td>
+        <td>668/1342 (49,8 %)</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             alta</a></span>
@@ -773,7 +821,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>1342/1342 · media=2.45 países</td>
+        <td>1342/1342 · media=2,45 países</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             alta</a></span>
@@ -789,7 +837,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>1342/1342 · media=4.62</td>
+        <td>1342/1342 · media=4,62</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             alta</a></span>
@@ -801,7 +849,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">C-05</span></td>
         <td>
           <strong>Red de coautoría</strong>
-          <br><span class="nota">Publicado el 2026-08-26 (T-10), tras cerrarse T-03: ya no hereda variantes de nombre sin resolver. Componente y comunidad Louvain se declaran por separado — ver docs/GLOSSARY.md.</span>
+          <br><span class="nota">Publicado desde el 26 de agosto de 2026, una vez resueltas las variantes de nombre pendientes. Componente y comunidad Louvain se declaran por separado; el glosario define cada una.</span>
         </td>
         <td>Scopus</td>
         <td><span class="sin-dato-txt">No aplica</span></td>
@@ -821,7 +869,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>1342/1342 · media=7.33 mediana=5</td>
+        <td>1342/1342 · media=7,33 mediana=5</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             alta</a></span>
@@ -832,11 +880,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">C-07</span></td>
         <td>
           <strong>Liderazgo autoral</strong>
-          <br><span class="nota">Requiere cruzar Scopus Author ID con la tabla maestra, que tiene 20 perfiles fragmentados. Diferido hasta T-04.</span>
+          <br><span class="nota">Requiere cruzar el Scopus Author ID con la tabla maestra, y los nombres con varios Scopus ID que trajo la carga 2020-2025 siguen sin revisar. Diferido hasta esa revisión; los del corpus anterior ya se revisaron.</span>
         </td>
         <td>Scopus · SciVal</td>
         <td><span class="sin-dato-txt">No aplica</span></td>
-        <td>first=1213/1342 (90.4 %)</td>
+        <td>first=1213/1342 (90,4 %)</td>
         <td><span class="estado" data-e="diferido">Diferido a V2</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
@@ -853,7 +901,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     </section>
     <section class="modulo" id="cat-tematico" tabindex="-1">
       <header><div class="modulo-id"><h2>Áreas temáticas</h2>
-        <span class="codigo">5</span></div></header>
+        <span class="codigo">7</span></div></header>
       <div class="tabla-envoltura tabla-datos tabla-catalogo">
         <table>
           <thead><tr>
@@ -900,11 +948,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">T-02</span></td>
         <td>
           <strong>Topics de SciVal</strong>
-          <br><span class="nota">Clúster de co-citación asignado al documento: mejor granularidad que ASJC. 632 topics para 794 publicaciones: demasiado disperso para vista principal. Útil en la ficha de publicación.</span>
+          <br><span class="nota">Clúster de co-citación asignado al documento: mejor granularidad que ASJC. 932 topics para 1.313 publicaciones: demasiado disperso para vista principal. Útil en la ficha de publicación.</span>
         </td>
         <td>Scopus · SciVal</td>
         <td><span class="sin-dato-txt">No aplica</span></td>
-        <td>1313/1342 (97.8 %) · 932 topics</td>
+        <td>1313/1342 (97,8 %) · 932 topics</td>
         <td><span class="estado" data-e="diferido">Diferido a V2</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             media</a></span>
@@ -947,10 +995,50 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         </td>
         <td>SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>521/1342 (38.8 %) · 16 ODS</td>
+        <td>521/1342 (38,8 %) · 16 ODS</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             baja</a></span>
+        </td>
+      </tr>
+      <tr id="T-06">
+        <td class="col-marca"></td>
+        <td><span class="codigo">T-06</span></td>
+        <td>
+          <strong>Palabras clave y su coocurrencia</strong>
+          
+        </td>
+        <td><span class="sin-dato-txt">No se calcula</span></td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="no_calculable">No calculable</span>
+          
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> Los datos procesados no traen palabras clave: el flujo de procesamiento no las lee de la exportación de Scopus, y no está comprobado que la exportación de esta carga las incluya.
+          <br><strong>Qué falta:</strong> Confirmar en el inventario de columnas de la exportación si trae las palabras clave del autor y las indexadas; si las trae, leerlas y normalizarlas —sinónimos, plurales, idiomas— antes de publicar una coocurrencia, y declarar su cobertura.
+        </td>
+      </tr>
+      <tr id="T-07">
+        <td class="col-marca"></td>
+        <td><span class="codigo">T-07</span></td>
+        <td>
+          <strong>Estructura intelectual: co-citación y acoplamiento bibliográfico</strong>
+          
+        </td>
+        <td><span class="sin-dato-txt">No se calcula</span></td>
+        <td><span class="sin-dato-txt">No aplica</span></td>
+        <td>—</td>
+        <td><span class="estado" data-e="no_calculable">No calculable</span>
+          
+        </td>
+      </tr>
+      <tr class="cat-motivo">
+        <td colspan="7">
+          <strong>Por qué:</strong> Exigen la lista de referencias citadas de cada publicación, que los datos procesados no traen. La exportación de Scopus puede incluirlas, pero el procesamiento actual no las lee y su completitud no se ha medido.
+          <br><strong>Qué falta:</strong> Leer las referencias de la exportación, desambiguar cada cita y medir su cobertura antes de construir una red. Los Topics de SciVal (T-02, diferido a V2) ya son clústeres de co-citación calculados por Elsevier y son la vía más corta.
         </td>
       </tr></tbody>
         </table>
@@ -1042,7 +1130,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <p>Universo: 1.342 publicaciones ·
       1.342 con métricas ·
       1.342 con autoría detallada.
-      Build 2026-09-21.</p>
+      Datos compilados el 2026-09-21.</p>
       <p class="pie-propiedad">Responsable: Pablo Sánchez Monsalve, Dirección de Bibliotecas,
       Universidad Finis Terrae · Contacto:
       <a href="mailto:psanchez@uft.cl">psanchez@uft.cl</a></p>

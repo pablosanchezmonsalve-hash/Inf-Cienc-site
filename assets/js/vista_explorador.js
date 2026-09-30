@@ -1330,10 +1330,11 @@ export function diferidos(catalogo, clave) {
   return `<section class="banda banda-contraste no-publicados">
     <div class="banda-titulo">
       <p class="banda-gancho">Indicadores no publicados en esta sección</p>
-      <h2>${filas.length === 1 ? 'Un indicador' : `${filas.length} indicadores`}
-        de esta sección está${filas.length === 1 ? '' : 'n'} verificado${
-        filas.length === 1 ? '' : 's'}, pero no se publica${filas.length === 1 ? '' : 'n'}.</h2>
-      <p>No dependen del recorte y no se calculan en este informe. Se indica cuáles son y el motivo.</p>
+      ${/* «Verificados» valía para los diferidos y no para los no calculables,
+           que conviven en la misma banda desde que el catálogo trae T-06 y T-07. */ ''}
+      <h2>${filas.length === 1 ? 'Un indicador de esta sección no se publica'
+        : `${filas.length} indicadores de esta sección no se publican`} en este informe.</h2>
+      <p>Cada uno declara su estado y el motivo. No dependen del recorte.</p>
     </div>
     ${filas.map(r => `<article class="modulo modulo-diferido" id="${c.escapar(r.codigo)}">
       <header><div class="modulo-id">

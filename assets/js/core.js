@@ -291,7 +291,7 @@ export function cromo(meta, paginaActual, tema = 'auto', inst = null) {
         <div class="lateral-filtros" id="lateral-filtros" hidden></div>
         ${selectorTema}
         <p class="lateral-doc"><a href="metodologia.html">Documentación</a>
-          <span>Build ${escapar(meta.fecha_build)}</span></p>
+          <span>Compilación ${escapar(meta.fecha_build)}</span></p>
       </div>
     </div>
     <div class="barra-sup">
@@ -379,7 +379,7 @@ export function cromo(meta, paginaActual, tema = 'auto', inst = null) {
       <p>Universo: ${nf.format(meta.denominadores.universo_total)} publicaciones ·
       ${nf.format(meta.denominadores.con_metricas)} con métricas ·
       ${nf.format(meta.denominadores.con_autoria_detallada)} con autoría detallada.
-      Build ${meta.fecha_build}.</p>
+      Datos compilados el ${meta.fecha_build}.</p>
       ${inst ? piePropiedad(inst) : ''}
     </div>`,
   };

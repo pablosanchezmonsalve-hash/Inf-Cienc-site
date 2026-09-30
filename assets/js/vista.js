@@ -351,7 +351,7 @@ export function fichaInforme({ meta, inst, intro, seccion = null, alcance = '', 
     ${bases.length ? '<p class="fi-nota">Cada indicador declara su propia base, y no es la misma para todos.</p>' : ''}`)}
     ${grupo('Edición', `<dl class="fi-tabla">
       ${fila('Emitido el', e(fechaLarga(emision) || emision), ' data-ficha-emision')}
-      ${fila('Sitio construido el', e(fechaLarga(meta.fecha_build) || meta.fecha_build || ''))}
+      ${fila('Datos compilados el', e(fechaLarga(meta.fecha_build) || meta.fecha_build || ''))}
       ${codigo ? fila('Versión del código', e(codigo)) : ''}
       ${huella ? fila('Huella de los datos', `SHA-256 ${e(huella.slice(0, 16))}`) : ''}
     </dl>
