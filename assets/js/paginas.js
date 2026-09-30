@@ -205,7 +205,7 @@ function montarSelectorAnio(publicaciones, actual, cambiar) {
 }
 
 /* Refresca los botones y el activo tras un repintado. Un año elegido que no
-   esté entre los tres de la barra se añade: si lo que se mira no aparece
+   esté entre los de la barra se añade: si lo que se mira no aparece
    marcado, el control diría que no hay filtro. */
 function redibujarSelectorAnio(publicaciones, sel, env) {
   if (!env) return;
@@ -216,11 +216,17 @@ function redibujarSelectorAnio(publicaciones, sel, env) {
   if (lista.length < 2) { env.hidden = true; return; }
   env.hidden = false;
   const elegidos = sel.anio || [];
-  const visibles = lista.slice(0, 3);
+  // Todos los años cuando caben (hasta seis). Con tres, un resto de la ventana
+  // 2023-2025, la barra ofrecía 2023-2025 dentro de un informe 2020-2025 y
+  // sugería que la ventana era otra (auditoría de diseño, 2026-09-30).
+  // Por debajo de 1200 px no caben: los que pasan de tres llevan `anio-extra`
+  // y la hoja de estilo los oculta allí, salvo el que esté elegido.
+  const visibles = lista.length <= 6 ? lista.slice() : lista.slice(0, 3);
   elegidos.filter(a => !visibles.includes(a)).forEach(a => visibles.push(a));
-  const boton = (valor, txt, pulsado) =>
-    `<button type="button" data-anio="${c.escapar(valor)}" aria-pressed="${pulsado}">${c.escapar(txt)}</button>`;
-  env.innerHTML = visibles.map(a => boton(a, a, elegidos.includes(a))).join('')
+  const boton = (valor, txt, pulsado, extra = false) =>
+    `<button type="button" data-anio="${c.escapar(valor)}" aria-pressed="${pulsado}"${
+      extra ? ' class="anio-extra"' : ''}>${c.escapar(txt)}</button>`;
+  env.innerHTML = visibles.map((a, i) => boton(a, a, elegidos.includes(a), i >= 3)).join('')
     + boton('', 'Todos', !elegidos.length);
 }
 

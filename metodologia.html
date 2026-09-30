@@ -173,6 +173,22 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
   procedencia exacta de esta carga en la <a href="#ficha-tecnica">ficha técnica</a>
   y las <a href="#referencias-titulo">referencias</a> que sustentan el método.</p>
   </header>
+  <!-- Índice de la página (auditoría de diseño, 2026-09-30): son 28 pantallas
+       en escritorio y 43 en un teléfono, y el único acceso a sus partes era el
+       párrafo de arriba. En papel no va: el PDF trae su propio índice. -->
+  <nav class="toc-pagina solo-pantalla" aria-label="En esta página">
+    <p class="toc-titulo">En esta página</p>
+    <ol>
+      <li><a href="#validacion-datos">Auditoría de datos</a></li>
+      <li><a href="#fuentes">Fuentes</a></li>
+      <li><a href="#corpus-titulo">Corpus</a></li>
+      <li><a href="#advertencias-titulo">Advertencias</a></li>
+      <li><a href="#correcciones">Corrección de fichas</a></li>
+      <li><a href="#glosario-titulo">Glosario y ficha técnica</a></li>
+      <li><a href="#indicadores-titulo">Indicadores</a></li>
+      <li><a href="#referencias-titulo">Referencias</a></li>
+    </ol>
+  </nav>
   </div></section>
 
   <section class="banda banda-papel-2"><div class="contenedor">
@@ -613,7 +629,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
   <section class="banda banda-contraste"><div class="contenedor">
   <div class="banda-titulo">
     <p class="banda-gancho">Los límites de lo que aquí se publica</p>
-    <h2>Advertencias principales</h2>
+    <h2 id="advertencias-titulo">Advertencias principales</h2>
     <p>Una cifra publicada sin sus límites cambia de sentido. Por ello, estas
     advertencias se presentan en un apartado propio y destacado.</p>
   </div>
@@ -706,7 +722,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
 
   <section class="banda banda-papel-2"><div class="contenedor">
     <div class="banda-titulo">
-      <h2>Glosario y ficha técnica</h2>
+      <h2 id="glosario-titulo">Glosario y ficha técnica</h2>
       <p>Qué significa cada métrica no trivial, y con qué datos se construyó esta
       carga: fuentes, fechas, denominadores y estado de la auditoría.</p>
     </div>

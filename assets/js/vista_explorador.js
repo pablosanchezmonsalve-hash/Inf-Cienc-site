@@ -403,8 +403,8 @@ export function cortes(pubs_sel, proc, jerarquia, textos, sel = {}) {
       ${MULTIVALUADO.has(clave)
         ? '<p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
       ${bloqueLectura(COD_PORTADA[clave], { cod: COD_PORTADA[clave],
-        aviso: clave === 'unidad' ? avisoUnidad : null }, textos)}
-      ${CM.comentario(clave, pubs_sel, ctxAnalisis(textos, jerarquia))}
+        aviso: clave === 'unidad' ? avisoUnidad : null }, textos,
+        CM.comentario(clave, pubs_sel, ctxAnalisis(textos, jerarquia)))}
     </section>`).join('');
 }
 
@@ -563,8 +563,8 @@ function tablaDinamica(sub, sel, meta, proc, textos) {
         <td class="num">${f.pct === null ? '—' : `${c.num(f.pct, 1)} %`}</td>
         <td class="num">${citas(f)}</td></tr>`).join('')}</tbody>
     </table></div>
-    ${bloqueLectura(DINAMICA.campo, { cod: 'I-01', aviso: AVISO_CITAS_POR_ANIO }, textos)}
-    ${CM.comentario('dinamica', sub, ctxAnalisis(textos))}
+    ${bloqueLectura(DINAMICA.campo, { cod: 'I-01', aviso: AVISO_CITAS_POR_ANIO }, textos,
+      CM.comentario('dinamica', sub, ctxAnalisis(textos)))}
   </section>`;
 }
 
@@ -604,8 +604,8 @@ function tablaMasCitadas(sub, sel, proc, textos) {
     </table></div>
     <p class="nota enlace-autoria"><a href="publicaciones.html${q ? '?' + q : ''}">Ver la autoría en el listado de publicaciones →</a></p>`
     : '<p class="vacio">Ninguna publicación con citas en este recorte.</p>'}
-    ${bloqueLectura(MAS_CITADAS.cod, { cod: MAS_CITADAS.cod, aviso: LECTURA_MAS_CITADAS }, textos)}
-    ${filas.length ? CM.comentario(MAS_CITADAS.cod, sub, ctxAnalisis(textos)) : ''}
+    ${bloqueLectura(MAS_CITADAS.cod, { cod: MAS_CITADAS.cod, aviso: LECTURA_MAS_CITADAS }, textos,
+      filas.length ? CM.comentario(MAS_CITADAS.cod, sub, ctxAnalisis(textos)) : '')}
   </section>`;
 }
 
@@ -988,9 +988,9 @@ function corteRed(sub, corte, unidadPorPersona, proc, textos) {
       ${c.nf.format(conectadas)} con al menos una coautoría interna ·
       ${c.nf.format(nComp)} componentes · ${c.nf.format(nComs)} comunidades.
       Se dibujan las componentes de 5 personas o más.</p>
-    ${bloqueLectura(id, { ...corte, notaAnexo: NOTA_RED }, textos)}
-    ${CM.comentario(id, sub, { ...ctxAnalisis(textos), red: { personas: g.nodos.length, conectadas,
-      componentes: nComp, mayor: Math.max(...tamComp.values()) } })}
+    ${bloqueLectura(id, { ...corte, notaAnexo: NOTA_RED }, textos,
+      CM.comentario(id, sub, { ...ctxAnalisis(textos), red: { personas: g.nodos.length, conectadas,
+        componentes: nComp, mayor: Math.max(...tamComp.values()) } }))}
   </section>`;
 }
 
@@ -1110,14 +1110,18 @@ export function seccionDeGrafico() {
     El texto es el mismo en los dos medios —un origen, `docs/LECTURAS.md`— y lo
     que cambia es la presentación, que la hoja de estilo resuelve: pie de figura
     en pantalla, bloque compacto en papel. */
-function bloqueLectura(clave, corte, textos) {
-  if (!textos) return '';
+function bloqueLectura(clave, corte, textos, analisis = '') {
+  // El orden es el de la lectura (auditoría de diseño, 2026-09-30): qué muestra
+  // la figura, qué se observa en ella y, al final, la remisión al anexo. La
+  // remisión iba entre la leyenda y el análisis y los separaba.
+  if (!textos) return analisis;
   const l = (textos.lecturas || {})[clave];
   const cod = corte.cod || corte.seleccionCon || (corte.sello && corte.sello[1]);
   // La nota metodológica solo donde es pertinente: el indicador trae una
   // advertencia del catálogo o la figura tiene notas propias (D-754).
   const pertinente = cod && (corte.aviso || corte.notaAnexo || (textos.advertencias || {})[cod]);
   return `${l ? `<p class="lectura-grafico"><b>Qué muestra</b> ${c.escapar(l.muestra)}</p>` : ''}
+    ${analisis}
     ${pertinente ? notaAnexo(cod) : ''}`;
 }
 
@@ -1244,8 +1248,8 @@ export function corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos
       ${notaRecorte(r, corte.campo)}
       ${MULTIVALUADO.has(corte.campo)
         ? '<p class="leyenda-trama nota-figura">Barras rayadas: no son partes de un total y no suman.</p>' : ''}
-      ${bloqueLectura(corte.cod || corte.campo, corte, textos)}
-      ${r ? CM.comentario(corte.cod || corte.campo, sub, ctxAnalisis(textos, jerarquia)) : ''}
+      ${bloqueLectura(corte.cod || corte.campo, corte, textos,
+        r ? CM.comentario(corte.cod || corte.campo, sub, ctxAnalisis(textos, jerarquia)) : '')}
     </section>`;
 }
 

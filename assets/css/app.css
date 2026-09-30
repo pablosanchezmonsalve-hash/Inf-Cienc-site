@@ -414,6 +414,13 @@ code, kbd, samp { font-family: var(--f-mono); font-size: .875em; font-variant-li
 .cabecera { position: relative; z-index: 40; }
 @media screen and (min-width: 900px) {
   .cabecera { position: sticky; top: 0; }
+  /* Todo destino de ancla —las filas del anexo (#ind-…), las partes de la
+     Introducción, el catálogo— quedaba bajo la barra fija de 64 px: el enlace
+     «Nota metodológica en el anexo» aterrizaba con el título tapado
+     (auditoría de diseño, 2026-09-30). El relleno va en el contenedor de
+     desplazamiento, así que vale para cualquier id sin enumerarlos; módulos y
+     cortes suman solo un respiro propio. */
+  html { scroll-padding-top: 4.5rem; }
 }
 
 .lateral {
@@ -1061,7 +1068,7 @@ main { padding: var(--e5) 0 var(--e8); }
 .diferido-detalle { color: var(--tinta-2); margin: 0 0 var(--e3); }
 /* El margen de anclaje sólo hace falta donde la cabecera es fija: si no, deja
    un hueco vacío sobre el módulo al saltar desde el índice. */
-@media (min-width: 900px) { .modulo { scroll-margin-top: 7.5rem; } }
+@media (min-width: 900px) { .modulo { scroll-margin-top: var(--e3); } }
 .modulo > header {
   display: flex; justify-content: space-between; align-items: flex-start;
   gap: var(--e4); margin-bottom: var(--e4); padding-bottom: var(--e3);
@@ -1903,7 +1910,9 @@ svg.chart .trama { pointer-events: none; }
     display: inline-block; min-width: 9mm;
   }
   .indice-sec .indice-n { min-width: 7mm; }
-  .indice-apartado .indice-tit { font-weight: 650; }
+  /* Apartados de texto y figuras con el mismo peso: el negrito solo en los
+     apartados, sin clave que lo explicara, se leía como un índice con dos
+     jerarquías mezcladas en la misma sección (auditoría de diseño, 2026-09-30). */
 
   /* ── La banda oscura se imprime en tinta sobre blanco ───────────────────
      `.banda-contraste` invierte la paleta: fondo azul marino y tinta clara
@@ -2086,7 +2095,7 @@ svg.chart .trama { pointer-events: none; }
 }
 .glosario { margin: 0; }
 .glosario-entrada { padding: var(--e4) 0; border-top: 1px solid var(--linea); }
-@media (min-width: 900px) { .glosario-entrada { scroll-margin-top: 7.5rem; } }
+@media (min-width: 900px) { .glosario-entrada { scroll-margin-top: var(--e3); } }
 .glosario-entrada:first-child { border-top: 0; padding-top: 0; }
 .glosario-entrada dt { font: 700 var(--t-l)/1.3 var(--f-ui); color: var(--tinta); }
 .glosario-entrada dd { margin: var(--e2) 0 0; }
@@ -2554,7 +2563,7 @@ svg.chart .trama { pointer-events: none; }
 /* El ancla del índice tiene que dejar el corte BAJO la cabecera fija, no
    detrás de ella. Es el mismo margen que ya usaban los módulos. */
 .corte { scroll-margin-top: var(--e4); }
-@media (min-width: 900px) { .corte { scroll-margin-top: 7.5rem; } }
+@media (min-width: 900px) { .corte { scroll-margin-top: var(--e3); } }
 
 /* Espacio al final para que el ÚLTIMO corte pueda subir hasta la cabecera.
    Sin esto el documento se acaba antes y el enlace del índice al último
@@ -3306,4 +3315,30 @@ svg.chart .trama { pointer-events: none; }
   .intro-bloque p, .intro-bloque li { orphans: 3; widows: 3; }
   /* El bloque final es corto: pasa entero a la página siguiente. */
   .intro-bloque[aria-labelledby="intro-uso"] { break-inside: avoid; }
+}
+
+/* ---- índice de página (Metodología) ----
+   Auditoría de diseño, 2026-09-30: la página más larga del sitio no tenía
+   navegación interna. Una fila de enlaces bajo la introducción, que se
+   reparte en varias líneas en un teléfono. `solo-pantalla` la saca del papel,
+   donde el PDF ya trae su índice. */
+.toc-pagina { margin: var(--e5) 0 0; padding-top: var(--e4); border-top: 1px solid var(--linea); }
+.toc-titulo {
+  margin: 0 0 var(--e2); font-size: var(--t-xs); letter-spacing: .08em;
+  text-transform: uppercase; color: var(--tinta-3);
+}
+.toc-pagina ol {
+  display: flex; flex-wrap: wrap; gap: var(--e2) var(--e4);
+  margin: 0; padding: 0; list-style: none; counter-reset: toc;
+}
+.toc-pagina li { counter-increment: toc; }
+.toc-pagina li::before { content: counter(toc) ". "; color: var(--tinta-3); font-variant-numeric: tabular-nums; }
+.toc-pagina a { color: var(--accion); }
+@media print { .solo-pantalla { display: none !important; } }
+
+/* Selector rápido de años: los seis de la ventana solo donde caben junto al
+   buscador (auditoría de diseño, 2026-09-30); por debajo, los tres más
+   recientes y el que esté elegido. */
+@media (max-width: 1199px) {
+  #recorte-anio-env .anio-extra:not([aria-pressed="true"]) { display: none; }
 }

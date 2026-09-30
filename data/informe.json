@@ -2,12 +2,12 @@
  "generado": "2026-09-30",
  "build": "2026-09-21",
  "huella_publicaciones_sha256": "108279382ed0e8ad4c8421b53aab131dbf45e23712bf64c60d0623792535c71e",
- "codigo": "122e817",
+ "codigo": "46c75ed",
  "recorte": "",
  "completo": {
   "archivo": "informe/informe-cienciometrico.pdf",
   "hojas": 73,
-  "kb": 3216,
+  "kb": 3211,
   "secciones": 8
  },
  "hojas": 88,
@@ -38,7 +38,7 @@
    "nombre": "Impacto",
    "archivo": "informe/informe-cienciometrico-impacto.pdf",
    "hojas": 8,
-   "kb": 343
+   "kb": 342
   },
   {
    "seccion": "colaboracion",
@@ -52,7 +52,7 @@
    "nombre": "Áreas temáticas",
    "archivo": "informe/informe-cienciometrico-tematica.pdf",
    "hojas": 7,
-   "kb": 403
+   "kb": 402
   },
   {
    "seccion": "analisis",
