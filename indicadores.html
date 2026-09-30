@@ -416,18 +416,18 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">X-03</span></td>
         <td>
           <strong>Indicadores de financiamiento</strong>
-          <br><span class="nota">Cobertura demasiado baja para reportar sin sesgo. La medición es de la carga anterior y no se ha repetido sobre la actual.</span>
+          <br><span class="nota">Cobertura demasiado baja para reportar sin sesgo: la ausencia del campo no distingue una publicación sin financiamiento de una que no lo declaró.</span>
         </td>
         <td><span class="sin-dato-txt">No se calcula</span></td>
         <td><span class="sin-dato-txt">No aplica</span></td>
-        <td>306/818 (37,4 %) en Scopus, medido en la carga 2023-2025</td>
+        <td>490/1342 (36,5 %) con financiamiento declarado en Scopus</td>
         <td><span class="estado" data-e="no_calculable">No calculable</span>
           
         </td>
       </tr>
       <tr class="cat-motivo">
         <td colspan="7">
-          <strong>Por qué:</strong> Cobertura del 37,4 % (306 de 818 publicaciones de la carga 2023-2025): insuficiente para reportar sin sesgo.
+          <strong>Por qué:</strong> Cobertura del 36,5 % (490 de 1.342 publicaciones declaran financiamiento en Scopus): insuficiente para reportar sin sesgo.
           <br><strong>Qué falta:</strong> Una fuente complementaria de financiamiento (Crossref). El procedimiento está implementado y probado, pero no se ha ejecutado contra el servicio: falta correrlo y medir la cobertura combinada.
         </td>
       </tr>
@@ -534,11 +534,11 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
         <td><span class="codigo">I-05</span></td>
         <td>
           <strong>Publicaciones en el top 10 % de citación</strong>
-          <br><span class="nota">La columna entrega el percentil de la publicación, donde menor = mejor. Semántica verificada empíricamente: correlación -0,66 con citas; las 3 más citadas tienen percentil 1-3 y las no citadas 56-78. El nombre de la columna no lo declara.</span>
+          <br><span class="nota">La columna entrega el percentil de la publicación, donde menor = mejor. Semántica verificada empíricamente: correlación de rangos -0,87 con las citas; las 28 con más de 50 citas tienen percentil 1-7 y las 311 sin citas, 59-84. El nombre de la columna no lo declara.</span>
         </td>
         <td>SciVal</td>
         <td>con_metricas<br><span class="nota">1.342</span></td>
-        <td>115/1342 (8,6 %) · corr(percentil, citas)=-0,18</td>
+        <td>115/1342 (8,6 %) · corr. de rangos (percentil, citas)=-0,87</td>
         <td><span class="estado" data-e="publicado">Publicado</span>
           <br><span class="nota"><a href="metodologia.html#confiabilidad">confiabilidad
             alta</a></span>
