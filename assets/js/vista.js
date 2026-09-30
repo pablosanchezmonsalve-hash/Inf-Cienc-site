@@ -193,10 +193,10 @@ export const PARTES_INFORME = c.PARTES_INFORME;
     específico enlaza a la sección que lo cumple, y «Fuera de alcance» dice lo
     que el informe no hace, con el mismo peso. */
 const DESTINO_OBJETIVO = PARTES_INFORME;
-export function objetivos(o, { titulo = 'Objetivos del informe' } = {}) {
+export function objetivos(o, { titulo = 'Objetivos del informe', id = '' } = {}) {
   if (!o) return '';
   const e = c.escapar;
-  return `<section class="objetivos modulo" aria-labelledby="objetivos-titulo">
+  return `<section class="objetivos modulo"${id ? ` id="${e(id)}"` : ''} aria-labelledby="objetivos-titulo">
     <h2 id="objetivos-titulo">${e(titulo)}</h2>
     <p class="objetivos-general"><b>Objetivo general.</b> ${e(o.general)}</p>
     <h3>Objetivos específicos</h3>
@@ -205,6 +205,19 @@ export function objetivos(o, { titulo = 'Objetivos del informe' } = {}) {
       return `<li><a href="${href}"><b>${e(nombre)}.</b></a> ${e(x.texto)}</li>`;
     }).join('')}</ol>
     <p class="objetivos-fuera"><b>Fuera de alcance.</b> ${e(o.fuera_de_alcance)}</p>
+  </section>`;
+}
+
+/** Los objetivos en la portada, en una línea (D-771). Completos —específicos
+    y fuera de alcance— los trae la Introducción; repetirlos enteros sobre el
+    explorador ponía 250 palabras entre el titular y la síntesis, que es lo
+    primero que busca quien lee solo la portada. */
+export function objetivosBreve(o) {
+  if (!o) return '';
+  const e = c.escapar;
+  return `<section class="objetivos objetivos-breve" aria-label="Objetivo del informe">
+    <p><b>Objetivo del informe.</b> ${e(o.general)}
+      <a href="introduccion.html#intro-objetivos">Objetivos específicos y alcance →</a></p>
   </section>`;
 }
 
@@ -425,7 +438,7 @@ export function introduccion({ intro, objetivos: obj, meta, inst, corpus, lectur
   const presentacion = bloque('intro-presentacion', 'Presentación',
     intro.presentacion.map((p) => `<p>${e(p)}</p>`).join(''));
 
-  const objetivosHtml = obj ? objetivos(obj, { titulo: `${++n}. Objetivos del informe` }) : '';
+  const objetivosHtml = obj ? objetivos(obj, { titulo: `${++n}. Objetivos del informe`, id: 'intro-objetivos' }) : '';
 
   const alcance = bloque('intro-alcance', 'Alcance y fuentes de los datos', `
     <dl class="intro-alcance">

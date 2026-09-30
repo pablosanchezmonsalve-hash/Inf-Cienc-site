@@ -1326,7 +1326,7 @@ export function acumulada(datos, { titulo = '', total = null, ancho = 680, sufij
   /* En un lienzo de teléfono el aviso, anclado sobre las barras, se salía por
      la derecha y se leía «…a los de arriba —», sin el «no se suman» que es
      justo la advertencia. Si no cabe, va en dos líneas desde el borde. */
-  const aviso = ['cada tramo CONTIENE a los de arriba', '— no se suman'];
+  const aviso = ['cada tramo incluye a los de arriba', '— no se suman'];
   const dosLineas = anchoTexto(aviso.join(' '), 12) > ancho - mIzq;
   const y0 = dosLineas ? 46 : 30;
   const alto = y0 + 16 + orden.length * 44;

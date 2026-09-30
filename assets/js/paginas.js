@@ -340,7 +340,7 @@ async function montarExplorador(claveSeccion) {
     const cierre = document.getElementById('cierre');
     if (cierre) cierre.innerHTML = v.cierrePortada();
     const objetivos = document.getElementById('objetivos');
-    if (objetivos) objetivos.innerHTML = v.objetivos((await c.cargar('ejes.json')).objetivos);
+    if (objetivos) objetivos.innerHTML = v.objetivosBreve((await c.cargar('ejes.json')).objetivos);
 
     // Los indicadores DIFERIDOS siguen apareciendo. Que un indicador esté
     // verificado y no se publique es información del informe: un hueco se

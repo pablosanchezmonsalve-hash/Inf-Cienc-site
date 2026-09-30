@@ -334,41 +334,41 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <h3 class="ficha-etq">Publicaciones</h3>
       <p class="ficha-base"><b data-base="publicaciones">1.342</b> publicaciones en el recorte</p>
       
-      <p class="ficha-lectura">Número de publicaciones distintas incluidas en el recorte. Cada publicación se contabiliza una sola vez, aunque la firmen varias personas de la institución.</p>
+      <p class="ficha-lectura">Publicaciones distintas del recorte; cada una cuenta una vez, aunque la firmen varias personas de la institución.</p>
     </article><article class="ficha" data-k="citas">
       <p class="ficha-valor" data-valor="citas">14.245</p>
       <h3 class="ficha-etq">Citas recibidas<button class="ayuda" type="button" data-ayuda="Fecha de corte"
     aria-label="Qué significa Fecha de corte">?</button></h3>
       <p class="ficha-base"><b data-base="citas">1.342</b> sobre las que tienen métricas</p>
       
-      <p class="ficha-lectura">Total de citas recibidas por esas publicaciones hasta la fecha de corte declarada. Es una suma acumulada: las publicaciones más antiguas han tenido más tiempo para recibir citas.</p>
+      <p class="ficha-lectura">Citas acumuladas hasta la fecha de corte. Las publicaciones más antiguas han tenido más tiempo para recibirlas.</p>
     </article><article class="ficha" data-k="citas_por_pub">
       <p class="ficha-valor" data-valor="citas_por_pub">10,61</p>
       <h3 class="ficha-etq">Citas por publicación</h3>
       <p class="ficha-base"><b data-base="citas_por_pub">1.342</b> sobre las que tienen métricas</p>
       <p class="ficha-base ficha-mediana">Mediana <b data-mediana="citas_por_pub">3</b></p>
-      <p class="ficha-lectura">Total de citas dividido por el número de publicaciones con métricas. Al tratarse de un promedio, unas pocas publicaciones muy citadas lo elevan, por lo que no describe la publicación típica. La mediana, indicada debajo, sí lo hace: la mitad de las publicaciones tiene esa cantidad de citas o menos.</p>
+      <p class="ficha-lectura">Promedio de citas por publicación con métricas. Unas pocas publicaciones muy citadas lo elevan; la mediana, debajo, describe la publicación típica.</p>
     </article><article class="ficha" data-k="fwci_mediano">
       <p class="ficha-valor" data-valor="fwci_mediano">0,48</p>
       <h3 class="ficha-etq">FWCI mediano<button class="ayuda" type="button" data-ayuda="FWCI"
     aria-label="Qué significa FWCI">?</button></h3>
       <p class="ficha-base"><b data-base="fwci_mediano">1.342</b> sobre las que tienen FWCI · 1,00 = promedio mundial</p>
       
-      <p class="ficha-lectura">El FWCI compara las citas de cada publicación con las esperadas para su campo, año y tipo documental; el valor 1,00 corresponde al promedio mundial. Se informa la mediana del recorte y no el promedio, porque la distribución es muy asimétrica: unas pocas publicaciones muy citadas desplazan el promedio, pero no la mediana, que describe la publicación típica.</p>
+      <p class="ficha-lectura">Citas de cada publicación frente a las esperadas en su campo, año y tipo documental (1,00 = promedio mundial). Se informa la mediana porque unas pocas publicaciones muy citadas desplazan el promedio.</p>
     </article><article class="ficha" data-k="internacional">
       <p class="ficha-valor" data-valor="internacional">49,8<span class="ficha-sufijo">%</span></p>
       <h3 class="ficha-etq">Colaboración internacional<button class="ayuda" type="button" data-ayuda="Colaboración internacional"
     aria-label="Qué significa Colaboración internacional">?</button></h3>
       <p class="ficha-base"><b data-base="internacional">1.342</b> sobre las que declaran país</p>
       
-      <p class="ficha-lectura">Porcentaje de publicaciones firmadas con al menos una institución de otro país, respecto de las que declaran país. Indica con quién se publica, no la calidad de lo publicado.</p>
+      <p class="ficha-lectura">Publicaciones con al menos una institución de otro país, sobre las que declaran país. Describe con quién se publica, no la calidad de lo publicado.</p>
     </article><article class="ficha" data-k="autores">
       <p class="ficha-valor" data-valor="autores">829</p>
       <h3 class="ficha-etq">Autores UFT<button class="ayuda" type="button" data-ayuda="Formas de firma"
     aria-label="Qué significa Formas de firma">?</button></h3>
       <p class="ficha-base"><b data-base="autores">1.342</b> sobre las que tienen autoría detallada</p>
       
-      <p class="ficha-lectura">Número de firmas distintas de la institución presentes en el recorte. Corresponden a formas de firma consolidadas mediante revisión humana, no necesariamente a personas distintas: una persona que firma de dos maneras no consolidadas se contabiliza dos veces.</p>
+      <p class="ficha-lectura">Formas de firma distintas de la institución, consolidadas por revisión humana. No equivalen necesariamente a personas: quien firma de dos maneras no consolidadas cuenta dos veces.</p>
     </article></div>
 </div>
 
@@ -761,7 +761,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <div class="vista" id="I-05-grafico" data-vista="grafico" data-activa="true">
         <div class="grafico" data-lienzo="I-05"><div class="grafico"><svg class="chart" viewBox="0 0 680 222"
     role="list" aria-label="Umbrales de percentil — tramos acumulados anidados, 4 umbrales">
-    <text class="tick" x="96" y="18">cada tramo CONTIENE a los de arriba — no se suman</text>
+    <text class="tick" x="96" y="18">cada tramo incluye a los de arriba — no se suman</text>
     <path class="acum-nido" d="M 100.14754098360656 62 L 100.14754098360656 74" /><path class="acum-nido" d="M 115.98360655737704 106 L 115.98360655737704 118" /><path class="acum-nido" d="M 139.36065573770492 150 L 139.36065573770492 162" /><g class="marca" tabindex="0" role="listitem"
         aria-label="Top 1 %: 11 · 0,8 % de 1.342"
         data-tip="Top 1 %" data-tip-v="11"
