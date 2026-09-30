@@ -9,13 +9,13 @@
      etiqueta meta: GitHub Pages no permite cabeceras propias. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ficha de autor — Informe Bibliométrico</title>
-<meta name="description" content="Ficha pública de autor con indicadores, evolución temporal y listado de publicaciones.">
+<title>Página no encontrada — Informe Bibliométrico</title>
+<meta name="description" content="La dirección no corresponde a ninguna página del informe.">
 <!-- Metadatos de citación y para compartir (auditoría del 2026-09-30). Dublin
      Core y Open Graph los leen gestores bibliográficos, buscadores académicos y
      redes; sin ellos, un enlace compartido o citado aparecía sin autor, fecha ni
      idioma. Los valores salen de config/institution.yml y de meta.json. -->
-<meta name="DC.title" content="Ficha de autor — Informe Bibliométrico">
+<meta name="DC.title" content="Página no encontrada — Informe Bibliométrico">
 <meta name="DC.creator" content="Universidad Finis Terrae">
 <meta name="DC.publisher" content="Universidad Finis Terrae">
 <meta name="DC.date" content="2026-09-21">
@@ -24,10 +24,10 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CL">
 <meta property="og:site_name" content="Informe Bibliométrico Institucional">
-<meta property="og:title" content="Ficha de autor — Informe Bibliométrico">
-<meta property="og:description" content="Ficha pública de autor con indicadores, evolución temporal y listado de publicaciones.">
-<link rel="canonical" href="https://pablosanchezmonsalve-hash.github.io/Inf-Cienc-site/autor.html">
-<meta property="og:url" content="https://pablosanchezmonsalve-hash.github.io/Inf-Cienc-site/autor.html">
+<meta property="og:title" content="Página no encontrada — Informe Bibliométrico">
+<meta property="og:description" content="La dirección no corresponde a ninguna página del informe.">
+<link rel="canonical" href="https://pablosanchezmonsalve-hash.github.io/Inf-Cienc-site/404.html">
+<meta property="og:url" content="https://pablosanchezmonsalve-hash.github.io/Inf-Cienc-site/404.html">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/app.css">
 <!-- Las fuentes NO se precargan. Se probó: con Inter y JetBrains Mono en
@@ -41,7 +41,7 @@
 <link rel="stylesheet" href="assets/css/modern-ui.css">
 <script src="assets/js/tema.js"></script>
 </head>
-<body data-pagina="fichaAutor">
+<body data-pagina="noencontrada">
 <a class="salto-contenido" href="#contenido">Saltar al contenido</a>
 <header class="cabecera" id="cabecera" data-prerender="1">
 
@@ -128,7 +128,7 @@
       <nav class="v-migas" aria-label="Ruta de posición">
         <a href="index.html">Portada</a>
         <span class="migas-sep" aria-hidden="true">·</span>
-        <span class="migas-actual" aria-current="page">Ficha de autor</span>
+        <span class="migas-actual" aria-current="page">Inicio</span>
       </nav>
       <span class="sep" aria-hidden="true"></span>
       <details class="v-chip">
@@ -158,7 +158,22 @@
     </div>
 </div>
 <main id="contenido" class="contenedor">
-  <div id="ficha"></div>
+  <!-- GitHub Pages sirve este archivo ante cualquier dirección inexistente del
+       sitio (C11). Sin él, el lector recibía la página genérica de GitHub, sin
+       la marca del informe ni un camino de vuelta. -->
+  <header class="portada-cabecera">
+    <div class="portada-id">
+      <h1>Página no encontrada</h1>
+      <p class="portada-sub">La dirección no corresponde a ninguna página del informe. Puede que
+        el enlace esté incompleto o que la página haya cambiado de nombre.</p>
+    </div>
+  </header>
+  <ul class="lista-compacta">
+    <li><a href="index.html">Portada del informe</a></li>
+    <li><a href="publicaciones.html">Buscar una publicación</a></li>
+    <li><a href="autores.html">Buscar un autor</a></li>
+    <li><a href="metodologia.html">Metodología</a></li>
+  </ul>
 </main>
 <footer class="pie" id="pie" data-prerender="1">
 

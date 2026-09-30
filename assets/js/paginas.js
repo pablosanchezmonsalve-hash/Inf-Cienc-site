@@ -158,7 +158,11 @@ function actualizarRecorteVivo(publicaciones, sel) {
 function repintarControles(zona, html) {
   const abiertas = new Set([...zona.querySelectorAll('details.dim[open] .dim-nombre')]
     .map(e => e.textContent));
+  // El panel plegable (D1) conserva su estado: quien lo abrió para filtrar no
+  // debe verlo cerrarse al elegir un valor.
+  const panel = zona.querySelector('details.filtros-plegables')?.open;
   zona.innerHTML = html;
+  if (panel) zona.querySelector('details.filtros-plegables')?.setAttribute('open', '');
   zona.querySelectorAll('details.dim').forEach(d => {
     if (abiertas.has(d.querySelector('.dim-nombre')?.textContent)) d.open = true;
   });
@@ -646,7 +650,7 @@ async function publicaciones() {
           // Una celda en blanco no distingue «no hay» de «no se muestra», y
           // aquí sí hay algo que decir: la publicación es institucional —la
           // afiliación la trajo— pero ninguna firma con nombre la sostiene.
-          : '<br><span class="sin-dato-txt">Sin autoría UFT nombrada</span>'}</td>
+          : `<br><span class="sin-dato-txt">Sin autoría ${c.escapar(c.sigla())} nombrada</span>`}</td>
       <td>${c.celda(p.fuente)}${p.solo_wos
         ? `<br><span class="nota">Solo en Web of Science · <span class="mono">${c.escapar(p.ut)}</span></span>` : ''}</td>
       <td>${c.celda(p.tipo)}</td>
@@ -1003,7 +1007,7 @@ async function fichaAutor() {
       href="index.html?autor=${encodeURIComponent(a.nombre_en_fuente)}"
       >Ver el informe recortado a esta firma →</a></p>
 
-    <div class="kpis">
+    <div class="kpis" data-n="5">
       ${kpi(i.n_publicaciones, 'Publicaciones')}
       ${kpi(i.citas_totales, 'Citas', 0, 'Fecha de corte')}
       ${kpi(i.citas_por_publicacion, 'Citas por publicación', 2)}
@@ -1012,7 +1016,7 @@ async function fichaAutor() {
     </div>
 
     <p class="nota">El FWCI no se muestra a nivel de autor: SciVal lo calcula sobre
-    todas las publicaciones de la persona, también las firmadas fuera de la UFT,
+    todas las publicaciones de la persona, también las firmadas fuera de la institución,
     y la fuente no lo entrega a nivel de persona.
     En su lugar se reporta la presencia en el top 10 % de citación, que sí está
     normalizado por campo. Ver <a href="metodologia.html">metodología</a>.</p>
@@ -1046,11 +1050,11 @@ async function fichaAutor() {
             ? `<a href="autor.html?id=${encodeURIComponent(otroId)}">${c.escapar(nombre)}</a>`
             : c.escapar(nombre)}</td><td class="num">${n}</td></tr>`;
         }).join('')}</tbody></table></div>`
-        : `<p class="vacio">Ninguna coautoría con otro autor UFT en esta ventana: sus
+        : `<p class="vacio">Ninguna coautoría con otro autor ${c.escapar(c.sigla())} en esta ventana: sus
            publicaciones no comparten firma con otra persona detectada como afiliada a
            la institución. No significa que trabaje en solitario — puede coautorar con
-           gente fuera de la UFT, que este corte no ve.</p>`}
-      <p class="nota">Solo cuenta coautoría <strong>interna</strong>: otra firma UFT en la
+           gente fuera de la institución, que este corte no ve.</p>`}
+      <p class="nota">Solo cuenta coautoría <strong>interna</strong>: otra firma ${c.escapar(c.sigla())} en la
         misma publicación, dentro de esta ventana. <a href="colaboracion.html#C-05">Ver la
         red completa →</a></p>
     </section>`;
@@ -1357,7 +1361,7 @@ async function fuentesexternas() {
       if (sel.fuente && sel.fuente.length) f = f.filter(p => (p.fuentes_id || []).some(x => sel.fuente.includes(x)));
       if (sel.anio && sel.anio.length) f = f.filter(p => sel.anio.includes(String(p.anio)));
       if (sel.q) { const nq = sel.q.toLowerCase(); f = f.filter(p => (p.titulo||'').toLowerCase().includes(nq)); }
-      const cab = [`# Producción fuera del corpus Scopus — UFT`, `# ${f.length} de ${pubs.length} publicaciones`, `# Generado el ${meta.fecha_generacion}`,
+      const cab = [`# Producción fuera del corpus Scopus — ${c.sigla()}`, `# ${f.length} de ${pubs.length} publicaciones`, `# Generado el ${meta.fecha_generacion}`,
         await c.lineaDerechosCsv()].filter(Boolean).join('\n');
       const cols = ['titulo', 'doi', 'anio', 'tipo', 'fuentes', 'escuela'];
       const esc = v => `"${c.celdaCsv(Array.isArray(v) ? v.join(' · ') : v)}"`;

@@ -372,6 +372,15 @@ h3 { font-size: var(--t-l); font-weight: 640; letter-spacing: -.008em; }
    un `div.parte` que lleva el `data-pagina` de su página (D-750), y estas
    reglas tienen que alcanzarla igual. La especificidad es la misma que con
    `body`. */
+/* D5 (auditoría de diseño): el TÍTULO de toda página interior va en la serif
+   editorial, también en los listados, la descarga, el catálogo y la ficha de
+   autor. Antes las secciones y la metodología usaban la serif y el resto la
+   sans en negrita, y dos estilos de título para un mismo informe se leían como
+   dos sitios. El cuerpo de las superficies de consulta sigue en Inter; la
+   portada conserva su titular propio. */
+:is(body, div):not([data-pagina="portada"]) main h1 {
+  font-family: var(--f-editorial); font-weight: 500; letter-spacing: -.02em;
+}
 :is(body, div):is([data-pagina="seccion"], [data-pagina="metodologia"]) main :is(h1, .banda-titulo h2),
 :is(body, div)[data-pagina="metodologia"] main :is(.modulo > h3, .ficha-tecnica h3) {
   font-family: var(--f-editorial); font-weight: 500; letter-spacing: -.02em;
@@ -468,27 +477,6 @@ code, kbd, samp { font-family: var(--f-mono); font-size: .875em; font-variant-li
   color: var(--tinta-3); font-size: var(--t-xs); font-weight: 550;
   letter-spacing: .02em; line-height: 1.3;
 }
-
-/* La ventana en la barra lateral, como en el diseño. No sustituye a la barra
-   de vigencia: ésa sigue en todas las páginas porque la lateral no se ve en un
-   teléfono, y una captura tomada ahí también tiene que decir de cuándo son los
-   datos. */
-.lateral-ventana {
-  margin: 0; padding: var(--e2) var(--e3); border-radius: var(--radio-m);
-  background: var(--superficie-2); display: flex; flex-direction: column; gap: 2px;
-  color: var(--tinta-3);
-}
-/* Rótulo «mono-seal» de Stitch: JetBrains Mono, 12 px, versal, +0,04 em. */
-.lateral-ventana span {
-  font: 500 .75rem/1.4 var(--f-mono); letter-spacing: .04em; text-transform: uppercase;
-}
-/* El icono date_range de Stitch, a la derecha del bloque. */
-.lateral-ventana { position: relative; padding-right: 2.5rem; }
-.lateral-ventana svg {
-  position: absolute; right: var(--e3); top: 50%; translate: 0 -50%;
-  width: 20px; height: 20px; fill: var(--marca-alta);
-}
-.lateral-ventana b { color: var(--cifra); font-size: .8125rem; font-weight: 650; }
 
 .nav { display: flex; flex-direction: column; gap: var(--e3); }
 .nav-grupo { display: flex; flex-direction: column; gap: 2px; }
@@ -625,6 +613,47 @@ input::placeholder { color: var(--tinta-3); opacity: 1; }
 }
 .anios button:hover { background: var(--superficie); color: var(--tinta); }
 .anios button[aria-pressed="true"] { background: var(--superficie); color: var(--accion); font-weight: 650; box-shadow: var(--sombra-1); }
+
+/* La lupa que abre el buscador: solo en el teléfono (D3). */
+.buscar-toggle {
+  display: none; align-items: center; justify-content: center;
+  width: 2.5rem; height: 2.5rem; border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio-m); background: var(--superficie); color: var(--tinta); cursor: pointer;
+}
+.buscar-toggle svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* D3 · Cabecera compacta en el teléfono. Antes eran cinco filas (menú,
+   buscador, años, descarga y vigencia en tres líneas), unos 330 de 844 px
+   antes del contenido. Ahora: una fila con menú, marca, lupa y descarga, y la
+   vigencia en dos. Los años salen de la barra: el filtro «Año» del panel hace
+   lo mismo justo debajo. El buscador se abre con la lupa, y solo cuando hay
+   JavaScript para abrirlo; sin él se queda a la vista. */
+@media screen and (max-width: 599px) {
+  .barra-sup { flex-wrap: wrap; gap: var(--e2); }
+  .barra-marca { margin-right: auto; }
+  .js .buscar-toggle { display: inline-flex; }
+  .js .barra-sup .buscador { display: none; order: 9; flex-basis: 100%; max-width: none; }
+  .js .barra-sup.busca-abierta .buscador { display: flex; }
+  .barra-sup .anios { display: none; }
+  .descargar { padding: .5rem .65rem; }
+  .descargar .descargar-txt {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  .vigencia { padding: .35rem 0; }
+  .vigencia .contenedor { gap: var(--e1) var(--e3); }
+  .vigencia .sep { display: none; }
+  /* La fuente se declara en el pie de cada página y en la Introducción: en
+     el teléfono la barra conserva ventana y corte, que caben en una línea. */
+  .vigencia .v-chip:first-of-type { display: none; }
+  .v-migas { order: 0; flex: 1 1 auto; }
+  .vigencia-guia { order: 1; }
+  .vigencia .v-chip { order: 2; }
+}
+
+/* D4 · Un solo buscador en Publicaciones: el de la página filtra en vivo, y
+   el de la barra, que lleva a esta misma página, se retira aquí. */
+body[data-pagina="publicaciones"] .barra-sup .buscador,
+body[data-pagina="publicaciones"] .barra-sup .buscar-toggle { display: none; }
 
 /* Barra de vigencia: persistente en todas las páginas, para que una captura de
    pantalla siga siendo interpretable fuera de contexto. */
@@ -936,10 +965,6 @@ main { padding: var(--e5) 0 var(--e8); }
   padding: var(--e2) var(--e3); color: var(--tinta-2); font-size: var(--t-m);
   line-height: 1.3; transition: background .14s, color .14s, border-color .14s;
 }
-.rail-cod {
-  display: block; font: 600 var(--t-xs)/1 var(--f-mono);
-  letter-spacing: .04em; color: var(--tinta-3); margin-bottom: 2px;
-}
 /* En el índice, el diferido se marca pero no se esconde. */
 .rail-marca {
   font: 650 var(--t-xs)/1 var(--f-ui); letter-spacing: .04em;
@@ -949,7 +974,6 @@ main { padding: var(--e5) 0 var(--e8); }
 }
 .rail a:hover { background: var(--superficie-2); color: var(--tinta); text-decoration: none; }
 .rail a.activo { background: var(--accion-suave); color: var(--tinta); font-weight: 650; }
-.rail a.activo .rail-cod { color: var(--accion); }
 
 /* Por debajo del punto de corte: fila de pastillas desplazable. */
 @media (max-width: 1039px) {
@@ -961,7 +985,6 @@ main { padding: var(--e5) 0 var(--e8); }
     background: var(--superficie); white-space: nowrap;
   }
   .rail-txt { display: none; }
-  .rail-cod { margin: 0; font-size: var(--t-m); color: var(--tinta-2); }
   .rail a.activo { border-color: var(--accion-viva); }
 }
 @media (min-width: 1040px) {
@@ -1086,7 +1109,7 @@ main { padding: var(--e5) 0 var(--e8); }
   padding: .22rem .45rem; white-space: nowrap; flex: none;
 }
 .modulo-compacto { padding: var(--e4); }
-.modulo-lectura { margin-top: var(--e5); }
+.modulo-lectura { margin: 0 0 var(--e6); }
 
 /* Conmutador Gráfico ⇄ Tabla. Existe sólo si hay JavaScript: sin él las dos
    vistas se muestran y un control que no conmuta nada sería una promesa falsa. */
@@ -2268,6 +2291,21 @@ svg.chart .trama { pointer-events: none; }
 /* ---- los controles: una píldora por dimensión ----
    La lista de valores se despliega a lo ancho de la barra y no bajo su
    píldora: bajo la última de la fila se salía por la derecha de la pantalla. */
+/* D1: el panel de filtros plegado en una fila. El resumen toma la forma de
+   una píldora, para que se lea como el mismo tipo de control que las siete que
+   abre. */
+.filtros-plegables > summary {
+  display: inline-flex; align-items: center; gap: var(--e2); cursor: pointer; list-style: none;
+  padding: .45rem .95rem; font-weight: 650; border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio-pastilla); background: var(--plano);
+}
+.filtros-plegables > summary::-webkit-details-marker { display: none; }
+.filtros-plegables > summary::after {
+  content: ""; width: .45em; height: .45em; border: solid currentColor;
+  border-width: 0 2px 2px 0; transform: rotate(45deg); margin: -.2rem .1rem 0;
+}
+.filtros-plegables[open] > summary { border-color: var(--accion-viva); margin-bottom: var(--e3); }
+.filtros-plegables[open] > summary::after { transform: rotate(-135deg); margin-top: .2rem; }
 .filtros-explorador { position: relative; display: flex; flex-wrap: wrap; gap: var(--e2); }
 .dim { border: 1px solid var(--linea-fuerte); border-radius: var(--radio-pastilla); background: var(--plano); }
 .dim[open] { border-color: var(--accion-viva); }
@@ -2319,7 +2357,6 @@ svg.chart .trama { pointer-events: none; }
   padding: .35rem .75rem; white-space: nowrap;
   border: 1px solid var(--linea); border-radius: var(--radio-pastilla); background: var(--plano);
 }
-.explorador-panel .rail-cod { margin: 0; white-space: nowrap; }
 /* Una pastilla no puede ser más ancha que la tarjeta: «Mediana de citas por
    año de publicación» en una línea mide más que un teléfono de 390 px, y la
    página entera se desplazaba de lado. Sólo el nombre se parte. */
@@ -2458,6 +2495,10 @@ svg.chart .trama { pointer-events: none; }
 .portada-cabecera { padding: var(--e5) 0 var(--e4); }
 .portada-id h1 {
   font: 700 var(--t-2xl)/1.1 var(--f-ui); letter-spacing: -.025em; margin: 0;
+}
+/* D5: fuera de la portada, el título de página va en la serif editorial. */
+:is(body, div):not([data-pagina="portada"]) .portada-id h1 {
+  font-family: var(--f-editorial); font-weight: 500; letter-spacing: -.02em;
 }
 .portada-sub { color: var(--tinta-2); font-size: var(--t-m); margin: var(--e2) 0 0; }
 /* El aviso de cierre de ventana y el desplegable «Qué mide este informe y qué
@@ -2985,6 +3026,21 @@ svg.chart .trama { pointer-events: none; }
   .referencias > li { padding: 1.6mm 0; }
   .referencias-grupo + .referencias-grupo { margin-top: 3mm; }
   .referencias .nota { margin-top: .5mm; }
+
+  /* D8 · Anexo metodológico compacto en papel. Ocupaba 32 de 73 hojas con
+     1.100 a 2.200 caracteres cada una: tablas con el relleno de la pantalla.
+     Se queda dentro del informe —las remisiones «Nota metodológica en el
+     anexo» enlazan a sus filas— y se imprime con la densidad de un anexo:
+     tablas a 8 pt, relleno de 1 mm, módulos sin aire de pantalla. */
+  :is(body, div)[data-pagina="metodologia"] main { font-size: 9.5pt; line-height: 1.4; }
+  :is(body, div)[data-pagina="metodologia"] :is(.tabla-anexo, .tabla-validacion) {
+    font-size: 8pt; line-height: 1.3;
+  }
+  :is(body, div)[data-pagina="metodologia"] :is(.tabla-anexo, .tabla-validacion) :is(th, td) {
+    padding: 1mm 1.6mm;
+  }
+  :is(body, div)[data-pagina="metodologia"] .modulo { margin: 0 0 4mm; padding: 0; }
+  :is(body, div)[data-pagina="metodologia"] :is(.modulo, .anexo-grupo) p { margin-bottom: 2mm; }
 }
 
 /* ── Síntesis de la portada (D-714) ──────────────────────────────────────
@@ -3125,8 +3181,18 @@ svg.chart .trama { pointer-events: none; }
   /* Desde D-754 la tabla va sin la nota ni el recuadro que la precedían: el
      bloque entero —título, tabla y «Qué muestra»— cabe en una hoja y no se
      parte. */
+  /* D7: con «Cómo leer estas cifras» junto a las cifras, la tabla entera ya no
+     cabía tras «Dinámica anual» y dejaba esa hoja con el 65 % en blanco. Se
+     parte entre filas —indivisibles, con la cabecera repetida— y el título no
+     queda huérfano al pie. */
   .corte[data-corte="mas_citadas"],
-  .corte[data-corte="mas_citadas"] .tabla-envoltura { break-inside: avoid; }
+  .corte[data-corte="mas_citadas"] .tabla-envoltura { break-inside: auto; }
+  .corte[data-corte="mas_citadas"] tr { break-inside: avoid; }
+  .corte[data-corte="mas_citadas"] :is(h2, h3) { break-after: avoid; }
+  /* El recuadro de lectura, a la densidad del resto del papel. */
+  .modulo-lectura { font-size: 9.5pt; line-height: 1.45; padding: 3mm 4mm; }
+  .modulo-lectura h2 { font-size: 12pt; margin-bottom: 1.5mm; }
+  .modulo-lectura .nota { font-size: 8.5pt; }
   .corte[data-corte="mas_citadas"] table { table-layout: fixed; width: 100%; }
   .corte[data-corte="mas_citadas"] th:nth-child(1) { width: 5%; }
   .corte[data-corte="mas_citadas"] th:nth-child(2) { width: 35%; }

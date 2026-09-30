@@ -2,15 +2,15 @@
  "generado": "2026-09-30",
  "build": "2026-09-21",
  "huella_publicaciones_sha256": "108279382ed0e8ad4c8421b53aab131dbf45e23712bf64c60d0623792535c71e",
- "codigo": "0f3f0ed",
+ "codigo": "1e6458a",
  "recorte": "",
  "completo": {
   "archivo": "informe/informe-cienciometrico.pdf",
-  "hojas": 73,
-  "kb": 3211,
+  "hojas": 61,
+  "kb": 3188,
   "secciones": 8
  },
- "hojas": 88,
+ "hojas": 76,
  "archivos": [
   {
    "seccion": "introduccion",
@@ -23,8 +23,8 @@
    "seccion": "panorama",
    "nombre": "Panorama general",
    "archivo": "informe/informe-cienciometrico-panorama.pdf",
-   "hojas": 8,
-   "kb": 275
+   "hojas": 7,
+   "kb": 276
   },
   {
    "seccion": "produccion",
@@ -65,8 +65,8 @@
    "seccion": "metodologia",
    "nombre": "Metodología y limitaciones",
    "archivo": "informe/informe-cienciometrico-metodologia.pdf",
-   "hojas": 34,
-   "kb": 550
+   "hojas": 23,
+   "kb": 526
   }
  ]
 }

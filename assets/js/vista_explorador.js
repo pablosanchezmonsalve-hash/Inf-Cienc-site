@@ -60,13 +60,16 @@ export function cabecera(meta) {
    papel los imprimía pegados a ese número: «1.342 formas de firma, no
    personas» —1.342 son publicaciones, no firmas— y «1.342 1,00 = promedio
    mundial» (D-709). Lo que la cifra ES lo dice la lectura, debajo. */
+/* El rótulo lleva la sigla de los datos, no una escrita aquí (C9). */
+const conSigla = (t) => t.replace('{sigla}', c.sigla()).replace(/\s+$/, '');
+
 const FICHAS = [
   ['publicaciones', 'Publicaciones',        'publicaciones en el recorte', null],
   ['citas',         'Citas recibidas',      'sobre las que tienen métricas', 'Fecha de corte'],
   ['citas_por_pub', 'Citas por publicación', 'sobre las que tienen métricas', null],
   ['fwci_mediano',  'FWCI mediano',         'sobre las que tienen FWCI · 1,00 = promedio mundial', 'FWCI'],
   ['internacional', 'Colaboración internacional', 'sobre las que declaran país', 'Colaboración internacional'],
-  ['autores',       'Autores UFT',          'sobre las que tienen autoría detallada', 'Formas de firma'],
+  ['autores',       'Autores {sigla}',      'sobre las que tienen autoría detallada', 'Formas de firma'],
 ];
 
 function fmt(f) {
@@ -104,7 +107,7 @@ export function cifras(res, textos, { bento = false } = {}) {
           f.mediana === null ? '—' : c.num(f.mediana, Number.isInteger(f.mediana) ? 0 : 1)}</b></p>`;
     return `<article class="ficha" data-k="${k}">
       <p class="ficha-valor" data-valor="${k}">${fmt(f)}</p>
-      <h3 class="ficha-etq">${c.escapar(etq)}${termino ? c.botonAyuda(termino) : ''}</h3>
+      <h3 class="ficha-etq">${c.escapar(conSigla(etq))}${termino ? c.botonAyuda(termino) : ''}</h3>
       <p class="ficha-base"><b data-base="${k}">${c.nf.format(f.base)}</b> ${
         c.escapar(f.base === 1 ? base.replace(/^publicaciones\b/, 'publicación') : base)}</p>
       ${med}
@@ -278,7 +281,17 @@ export function controles(pubs, sel, { buscador = false } = {}) {
   </div>` : '';
   // Las píldoras nacen cerradas: son listas desplegables sobre el resultado, y
   // una abierta de partida taparía las cifras que se vienen a ver.
-  return busca + `<div class="filtros-explorador">${X.DIMENSIONES.map(([clave, etiqueta]) => {
+  //
+  // Y el panel entero se pliega en una sola fila «Filtrar» (D1, auditoría de
+  // diseño): con las siete píldoras a la vista, la primera figura de cada
+  // sección empezaba cerca de los 900 px en escritorio y de los 3.000 en el
+  // teléfono. Se abre solo si hay filtros puestos, para que el lector vea qué
+  // está aplicado; sin JavaScript, `details` se abre igual con un clic.
+  const activos = X.DIMENSIONES.reduce((n, [k]) => n + (sel[k] || []).length, 0);
+  return busca + `<details class="filtros-plegables"${activos ? ' open' : ''}>
+    <summary><span class="dim-nombre">Filtrar el informe</span>${
+      activos ? `<span class="dim-n">${activos}</span>` : ''}</summary>
+    <div class="filtros-explorador">${X.DIMENSIONES.map(([clave, etiqueta]) => {
     const cuenta = X.facetas(pubs, sel, clave);
     const elegidos = sel[clave] || [];
     const opciones = [...cuenta.entries()]
@@ -295,7 +308,8 @@ export function controles(pubs, sel, { buscador = false } = {}) {
             aria-pressed="${act}">${c.escapar(valor)}<span class="chip-n">${c.nf.format(n)}</span></button>`;
         }).join('')}</div>
     </details>`;
-  }).join('')}</div>`;
+  }).join('')}</div>
+  </details>`;
 }
 
 /** La dimensión de persona no se dibuja como las demás.
@@ -616,7 +630,7 @@ export const SECCIONES = {
       { cod: 'P-03', campo: 'tipo',   titulo: 'Tipo documental',              forma: 'barrasH' },
       { cod: 'P-05', campo: 'fuente', titulo: 'Fuentes con más publicaciones', forma: 'barrasH', tope: 15 },
       { cod: 'P-07', campo: 'unidad', titulo: 'Unidad académica',             forma: 'barrasH',
-        aviso: 'Cuenta publicaciones distintas por unidad: una publicación con dos autores UFT de la misma unidad cuenta una sola vez. El treemap «Producción por facultad y escuela», en la sección Producción, cuenta pares autor×publicación —la misma publicación puede contar dos veces— y por eso sus totales no coinciden con estas barras. Ambos criterios están documentados; ninguno es un error.' },
+        aviso: 'Cuenta publicaciones distintas por unidad: una publicación con dos autores de la institución de la misma unidad cuenta una sola vez. El treemap «Producción por facultad y escuela», en la sección Producción, cuenta pares autor×publicación —la misma publicación puede contar dos veces— y por eso sus totales no coinciden con estas barras. Ambos criterios están documentados; ninguno es un error.' },
       // Sin `cod` propio a propósito: no es un indicador nuevo, es la misma
       // P-07 vista a nivel de escuela. Con `cod: 'P-07'` el id chocaría con
       // el corte de arriba (dos secciones con el mismo id="P-07" en la
@@ -923,7 +937,7 @@ function corteRed(sub, corte, unidadPorPersona, proc, textos) {
   if (!g.nodos.length) {
     return `<section class="corte" id="${id}" data-corte="${corte.campo}" tabindex="-1">
       <header class="corte-cab"><h3>${c.escapar(corte.titulo)}</h3></header>
-      <p class="vacio">Ninguna publicación con autoría UFT detallada en este recorte.</p>
+      <p class="vacio">Ninguna publicación con autoría ${c.escapar(c.sigla())} detallada en este recorte.</p>
     </section>`;
   }
   const comp = G.componentes(g.nodos, g.aristas);
@@ -1062,7 +1076,7 @@ export function guiaDeFiguras() {
 
 /** Las seis cifras del tablero, con el rótulo de su base, para la guía. */
 export function cifrasDelTablero() {
-  return FICHAS.map(([clave, etiqueta, base]) => ({ clave, etiqueta, base }));
+  return FICHAS.map(([clave, etiqueta, base]) => ({ clave, etiqueta: conSigla(etiqueta), base }));
 }
 
 export function seccionDeGrafico() {
@@ -1265,7 +1279,6 @@ export function indice(clave) {
   return `<nav class="rail" aria-label="Indicadores de la sección">
     <p class="rail-titulo">En esta sección</p>
     ${s.cortes.map(x => `<a href="#${c.escapar(x.cod || x.campo)}">
-      <span class="rail-cod">${c.escapar(x.cod || '')}</span>
       <span class="rail-nom">${c.escapar(x.titulo)}</span></a>`).join('')}
   </nav>`;
 }

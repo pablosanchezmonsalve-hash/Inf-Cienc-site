@@ -2,6 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<!-- Política de seguridad de contenido (C11): solo recursos del propio sitio.
+     Ningún guion en línea —el del tema y el de producción se movieron a
+     archivos—. Los estilos admiten atributos en línea porque las figuras SVG
+     los usan para posicionar. `frame-ancestors` no se puede declarar en una
+     etiqueta meta: GitHub Pages no permite cabeceras propias. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Informe Bibliométrico Institucional</title>
 <meta name="description" content="Producción, impacto, colaboración y áreas temáticas de la actividad científica institucional.">
@@ -33,14 +39,7 @@
      cargarse en las once páginas sin que las que aún no usan Bento Grid
      cambien de aspecto. -->
 <link rel="stylesheet" href="assets/css/modern-ui.css">
-<script>/* Corre antes de pintar, y las dos cosas que hace tienen que ocurrir antes.
-   1. El tema guardado: desde el módulo diferido, la página aparecería un
-      instante con el tema equivocado.
-   2. La clase `js`: marca que hay JavaScript. Las vistas conmutables se
-      contraen a una sola solo bajo esa clase; sin JS se muestran las dos, que
-      es lo correcto —la tabla es la vía equivalente al gráfico, no un extra—. */
-(function(){var e=document.documentElement;e.className+=' js';
-try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(x){}})();</script>
+<script src="assets/js/tema.js"></script>
 </head>
 <body data-pagina="portada">
 <a class="salto-contenido" href="#contenido">Saltar al contenido</a>
@@ -54,9 +53,8 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
           <span>Informe Bibliométrico Institucional</span>
         </span>
       </a>
-      <p class="lateral-ventana"><span>Ventana Scopus · SciVal</span>
-        <b>2020–2025 · citas al 2026-08-30</b>
-        <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M320-400q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm160 0q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm160 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z"/></svg></p>
+      <!-- D2: la ventana y el corte se declaran una vez, en la barra de
+           vigencia de cada página; la tarjeta que los repetía aquí se retiró. -->
       <nav class="nav" aria-label="Secciones"><div class="nav-grupo">
     <p class="nav-grupo-nombre">Informe</p>
     <a href="index.html" aria-current="page">
@@ -105,6 +103,10 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       </button>
       <a class="barra-marca" href="index.html">
         <span class="marca-sigla" aria-hidden="true">UFT</span>UFT</a>
+      <button type="button" class="buscar-toggle" aria-expanded="false" aria-controls="buscar-global"
+        aria-label="Buscar publicaciones">
+        <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+      </button>
       <form class="buscador" action="publicaciones.html" method="get" role="search">
         <label class="solo-lectores" for="buscar-global">Buscar publicaciones por título, fuente o autor</label>
         <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
@@ -116,7 +118,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       <button type="button" class="descargar" id="descargar-informe"
         title="Abre el diálogo de impresión del navegador; elija «Guardar como PDF»">
         <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M360-460h40v-80h40q17 0 28.5-11.5T480-580v-40q0-17-11.5-28.5T440-660h-80v200Zm40-120v-40h40v40h-40Zm120 120h80q17 0 28.5-11.5T640-500v-120q0-17-11.5-28.5T600-660h-80v200Zm40-40v-120h40v120h-40Zm120 40h40v-80h40v-40h-40v-40h40v-40h-80v200ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg>
-        Descargar informe
+        <span class="descargar-txt">Descargar informe</span>
       </button>
     </div>
 </header>
@@ -209,7 +211,9 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
     <aside class="explorador-panel" aria-label="Filtros">
       <h2 class="solo-lectores">Filtrar las publicaciones</h2>
       <div id="controles" data-prerender="1">
-<div class="filtros-explorador"><details class="dim">
+<details class="filtros-plegables">
+    <summary><span class="dim-nombre">Filtrar el informe</span></summary>
+    <div class="filtros-explorador"><details class="dim">
       <summary><span class="dim-nombre">Año</span></summary>
       <div class="dim-ops"><button type="button" class="chip"
             data-dim="anio" data-valor="2020"
@@ -345,6 +349,7 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
             data-dim="colaboracion" data-valor="Internacional"
             aria-pressed="false">Internacional<span class="chip-n">668</span></button></div>
     </details></div>
+  </details>
 </div>
     </aside>
 
@@ -397,6 +402,25 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
       
       <p class="ficha-lectura">Formas de firma distintas de la institución, consolidadas por revisión humana. No equivalen necesariamente a personas: quien firma de dos maneras no consolidadas cuenta dos veces.</p>
     </article></div>
+</div>
+      <!-- «Cómo leer estas cifras» va junto a las cifras que explica (D7). Al
+           final de la portada, en el PDF quedaba sola en una hoja con el 60 %
+           en blanco, lejos del FWCI del que habla. -->
+      <div id="lectura" data-prerender="1">
+<div class="modulo modulo-lectura">
+    <h2>Cómo leer estas cifras</h2>
+    <p>El FWCI compara las citas recibidas con las esperadas para
+    publicaciones del mismo campo, año y tipo documental; <strong>el valor 1,00
+    corresponde al promedio mundial</strong>. En este informe, el promedio de
+    los FWCI individuales es 1,14 y la mediana,
+    0,48. La diferencia entre ambos valores indica una
+    distribución asimétrica: unas pocas publicaciones muy citadas elevan el
+    promedio; por ello, el informe destaca la mediana. Una sola publicación, con FWCI 250,06, pesa de forma
+    decisiva: sin ella, el promedio sería 0,95, por debajo del promedio mundial.</p>
+    <p class="nota">Cada indicador declara la base sobre la que se calcula. No
+    todas las publicaciones tienen métricas, por lo que el denominador varía
+    según el indicador.</p>
+  </div>
 </div>
 
       <h2 class="titulo-seccion">Cómo se reparte</h2>
@@ -833,23 +857,6 @@ try{var t=localStorage.getItem('tema');if(t)e.setAttribute('data-tema',t)}catch(
   </section>
 </div>
 
-      <!-- Antes un <details> sin <summary>: el navegador lo rotulaba «Detalles». -->
-      <div id="lectura" data-prerender="1">
-<div class="modulo modulo-lectura">
-    <h2>Cómo leer estas cifras</h2>
-    <p>El FWCI compara las citas recibidas con las esperadas para
-    publicaciones del mismo campo, año y tipo documental; <strong>el valor 1,00
-    corresponde al promedio mundial</strong>. En este informe, el promedio de
-    los FWCI individuales es 1,14 y la mediana,
-    0,48. La diferencia entre ambos valores indica una
-    distribución asimétrica: unas pocas publicaciones muy citadas elevan el
-    promedio; por ello, el informe destaca la mediana. Una sola publicación, con FWCI 250,06, pesa de forma
-    decisiva: sin ella, el promedio sería 0,95, por debajo del promedio mundial.</p>
-    <p class="nota">Cada indicador declara la base sobre la que se calcula. No
-    todas las publicaciones tienen métricas, por lo que el denominador varía
-    según el indicador.</p>
-  </div>
-</div>
     </div>
   </div>
 
