@@ -1582,3 +1582,14 @@ export function debounce(fn, ms = 250) {
   let t;
   return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
 }
+
+/** Valor de una celda CSV, sin comillas exteriores: comillas dobladas y, si es
+    texto que empieza por = + - @ tabulador o retorno, un apóstrofo delante,
+    para que una planilla no lo ejecute como fórmula (inyección CSV). Los
+    números pasan tal cual: un negativo no es una fórmula. */
+export function celdaCsv(v) {
+  if (v === null || v === undefined) return '';
+  let t = String(v);
+  if (typeof v === 'string' && /^[=+\-@\t\r]/.test(t)) t = `'${t}`;
+  return t.replace(/"/g, '""');
+}

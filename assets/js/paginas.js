@@ -735,7 +735,9 @@ async function exportar(filas, { esSeleccion = false } = {}) {
     await c.lineaDerechosCsv(),
   ].filter(Boolean).join('\n');
   const cols = v.COLUMNAS_CSV;
-  const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  // Un texto que empieza por = + - @ se ejecutaría como fórmula al abrir el
+  // CSV en una planilla (inyección de fórmulas): se antepone un apóstrofo.
+  const esc = v => `"${c.celdaCsv(v)}"`;
   const csv = [cab, cols.join(','), ...filas.map(f => cols.map(k => esc(f[k])).join(','))].join('\n');
   const url = URL.createObjectURL(new Blob([`﻿${csv}`], { type: 'text/csv;charset=utf-8' }));
   const a = document.createElement('a');
@@ -1347,7 +1349,7 @@ async function fuentesexternas() {
       const cab = [`# Producción fuera del corpus Scopus — UFT`, `# ${f.length} de ${pubs.length} publicaciones`, `# Generado el ${meta.fecha_generacion}`,
         await c.lineaDerechosCsv()].filter(Boolean).join('\n');
       const cols = ['titulo', 'doi', 'anio', 'tipo', 'fuentes', 'escuela'];
-      const esc = v => `"${String(Array.isArray(v) ? v.join(' · ') : (v ?? '')).replace(/"/g, '""')}"`;
+      const esc = v => `"${c.celdaCsv(Array.isArray(v) ? v.join(' · ') : v)}"`;
       const csv = [cab, cols.join(','), ...f.map(r => cols.map(k => esc(r[k])).join(','))].join('\n');
       const url = URL.createObjectURL(new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8' }));
       const a = document.createElement('a'); a.href = url; a.download = `fuentes-externas-${meta.fecha_generacion}.csv`; a.click(); URL.revokeObjectURL(url);
