@@ -99,6 +99,32 @@ export function kpisFuentesExternas(meta, resumen) {
       <div class="etiqueta">DOIs en universo Scopus</div></article>`;
 }
 
+/** Qué cubre el listado de fuentes externas, dicho con sus propias cifras
+    (auditoría integral, 2026-09-30). Sin esto la página no decía que casi
+    todas sus obras no declaran año —no pueden situarse en la ventana del
+    informe— ni que una de las fuentes que nombra no aporta ninguna obra, y su
+    total se leía como comparable con el de Producción ampliada, que sí filtra
+    por ventana. */
+export function alcanceFuentesExternas(meta, resumen, pubs = []) {
+  const e = c.escapar;
+  const total = pubs.length || resumen.total_publicaciones || 0;
+  const sinAnio = pubs.filter(p => !String(p.anio || '').trim()).length;
+  const ids = { 'Facultad de Medicina y Salud': 'facmed', 'Repositorio institucional DSpace': 'dspace',
+    'Autoarchivo de biblioteca': 'autoarchivo' };
+  const vacias = (meta.fuentes || []).filter(f => ids[f] && !(resumen.por_fuente || {})[ids[f]]);
+  const frases = [];
+  if (sinAnio) {
+    frases.push(`${c.nf.format(sinAnio)} de las ${c.nf.format(total)} obras no declaran año, así que no
+      pueden situarse en la ventana del informe: este listado no es comparable con el total de
+      <a href="produccion-ampliada.html">Producción ampliada</a>, que cuenta solo lo publicado en la ventana.`);
+  }
+  if (vacias.length) {
+    frases.push(`${vacias.map(f => `«${e(f)}»`).join(' y ')} no ${vacias.length === 1 ? 'aporta' : 'aportan'}
+      obras a esta compilación del listado.`);
+  }
+  return frases.length ? `<p class="nota alcance-fuentes">${frases.join(' ')}</p>` : '';
+}
+
 /* ═══════════════════════════════════════════════ descarga de datos ════ */
 
 /** Las columnas del CSV de publicaciones. Una sola lista para la exportación
@@ -652,7 +678,7 @@ export function catalogo(cat, graficos = {}) {
 
     PD-01 es lo que cada Facultad declara editorialmente en su propio
     sitio (hoy solo Medicina). PD-02 es lo que OpenAlex atribuye a la
-    institución y un humano confirmó caso por caso (V2-26). PD-03 es lo
+    institución y un humano confirmó caso por caso. PD-03 es lo
     que sus propios autores autoarchivaron en el repositorio institucional,
     con la Facultad o Escuela que biblioteca les asignó — cubre TODAS las
     Facultades a la vez, pero esa unidad viene en bruto: solo se agrega por
@@ -679,13 +705,11 @@ export function produccionDeclarada(datos) {
 
   if (!hayPD01 && !hayPD02 && !hayPD03 && !hayPD04) {
     return `
-    <p class="nota">Todavía no hay ninguna fuente de producción fuera de
-    Scopus: ni una Facultad con listado propio en
-    <code>config/sources.yml</code>, ni <code>internal/openalex_cobertura.csv</code>
-    (V2-26), ni <code>data/enriched/autoarchivo_produccion.json</code>, ni
-    <code>internal/obras_externas_cobertura.csv</code>. Esta
-    sección aparece vacía a propósito: el dato es opcional, no un indicador
-    que debiera existir.</p>`;
+    <p class="nota">Esta compilación no trae ninguna fuente de producción
+    fuera de Scopus: ni listados propios de las Facultades, ni obras
+    confirmadas en OpenAlex o en repositorios abiertos, ni el inventario de
+    autoarchivo. La sección aparece vacía a propósito: el dato es opcional,
+    no un indicador que debiera existir.</p>`;
   }
 
   const kpi = (valor, etiqueta, secundario) => `
@@ -765,13 +789,13 @@ export function produccionDeclarada(datos) {
   })() : `
     <h2>Declarada por las Facultades</h2>
     <p class="nota">Ninguna Facultad tiene, por ahora, un listado propio
-    declarado en <code>config/sources.yml</code>.</p>`;
+    declarado como fuente.</p>`;
 
   const pd02HTML = hayPD02 ? (() => {
     const r = oa.resumen;
     const kpisHTML = [
       kpi(r.total_evaluados, 'Candidatos evaluados por OpenAlex',
-        'obras que OpenAlex atribuye a la institución y el universo Scopus no tiene (V2-26)'),
+        'obras que OpenAlex atribuye a la institución y el universo Scopus no tiene'),
       kpi(r.confirmadas, 'Confirmadas con revisión humana',
         'caso por caso, antes de contarse — nunca automáticamente'),
       kpi(r.en_ventana, `En la ventana ${ventana.inicio}-${ventana.fin}`,
@@ -798,7 +822,7 @@ export function produccionDeclarada(datos) {
       ${c.nf.format(r.sin_anio)} sin año declarado, sin descartarse.</p>` : '';
 
     return `
-      <h2>Confirmada por revisión de cobertura OpenAlex (V2-26)</h2>
+      <h2>Confirmada por revisión de cobertura OpenAlex</h2>
       <div class="kpis" data-n="4">${kpisHTML}</div>
       ${c.nota(oa.nota)}
       <h3>Por año, dentro de la ventana ${ventana.inicio}-${ventana.fin}</h3>
@@ -807,12 +831,11 @@ export function produccionDeclarada(datos) {
       ${c.sello(oa.procedencia)}
       <p class="nota">En esta subsección, «Cobertura» es el porcentaje de lo
       confirmado que cae dentro de la ventana ${ventana.inicio}-${ventana.fin}.
-      Revisión caso por caso en
-      <code>internal/revision_cobertura_openalex.html</code>.</p>`;
+      Cada obra se confirma por revisión humana, caso por caso.</p>`;
   })() : `
-    <h2>Confirmada por revisión de cobertura OpenAlex (V2-26)</h2>
-    <p class="nota">Falta <code>internal/openalex_cobertura.csv</code>: correr
-    <code>src/enrich/openalex_cobertura.py</code>.</p>`;
+    <h2>Confirmada por revisión de cobertura OpenAlex</h2>
+    <p class="nota">Sin obras en esta compilación: la revisión de cobertura en
+    OpenAlex aún no se ha ejecutado, y nada se cuenta sin ella.</p>`;
 
   const pd03HTML = hayPD03 ? (() => {
     const r = aa.resumen;
@@ -876,8 +899,8 @@ export function produccionDeclarada(datos) {
       el resto del sitio.</p>`;
   })() : `
     <h2>Autoarchivada en el repositorio institucional</h2>
-    <p class="nota">Falta <code>data/enriched/autoarchivo_produccion.json</code>:
-    correr <code>src/enrich/autoarchivo_produccion.py</code>.</p>`;
+    <p class="nota">Sin obras en esta compilación: el inventario de autoarchivo
+    no se procesó.</p>`;
 
   const pd04HTML = hayPD04 ? (() => {
     const r = oe.resumen;
@@ -952,12 +975,12 @@ export function produccionDeclarada(datos) {
       ${tablaFuente}
       <p class="nota">En esta subsección, «Cobertura» es el porcentaje de lo
       confirmado que cae dentro de la ventana ${ventana.inicio}-${ventana.fin}.
-      Revisión caso por caso en
-      <code>internal/revision_obras_externas.html</code>.</p>`;
+      Cada obra se confirma por revisión humana, caso por caso.</p>`;
   })() : `
     <h2>Confirmada en repositorios de datos y acceso abierto</h2>
-    <p class="nota">Falta <code>internal/obras_externas_cobertura.csv</code>:
-    correr <code>src/enrich/obras_externas.py</code>.</p>`;
+    <p class="nota">Sin obras en esta compilación: la búsqueda en DataCite,
+    Europe PMC y Zenodo aún no se ha revisado, y nada se cuenta sin revisión
+    humana.</p>`;
 
   return `${totalHTML}${pd01HTML}${pd02HTML}${pd03HTML}${pd04HTML}`;
 }

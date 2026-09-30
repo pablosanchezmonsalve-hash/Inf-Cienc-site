@@ -1256,7 +1256,8 @@ async function fuentesexternas() {
   };
 
   document.getElementById('aviso-fuentes').innerHTML =
-    `<b>Sobre este listado</b> ${c.escapar(meta.advertencia)}`;
+    `<b>Sobre este listado</b> ${c.escapar(meta.advertencia)}`
+    + v.alcanceFuentesExternas(meta, resumen, pubs);
 
   document.getElementById('kpis-fuentes').innerHTML = v.kpisFuentesExternas(meta, resumen);
 
