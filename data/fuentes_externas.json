@@ -173,19 +173,6 @@
    ]
   },
   {
-   "titulo": "Publisher Correction: A systematic review and meta-analysis: prevalence and clinical implications of anatomical variants of the hepatic portal vein (NO ES UN ARTÍCULO NUEVO)",
-   "doi": "10.1038/s41598-025-86692-7",
-   "anio": "2025",
-   "escuela": "Escuela de Medicina",
-   "tipo": "Artículo",
-   "fuentes": [
-    "Facultad de Medicina y Salud"
-   ],
-   "fuentes_id": [
-    "facmed"
-   ]
-  },
-  {
    "titulo": "Butyrate suppresses mucosal inflammation in IBD primarily through HDAC3 inhibition in monocytes and macrophages",
    "doi": "",
    "anio": "2025",
@@ -3593,14 +3580,15 @@
   }
  ],
  "resumen": {
-  "total_publicaciones": 275,
+  "total_publicaciones": 274,
   "sin_doi": 1,
   "por_fuente": {
-   "facmed": 14,
+   "facmed": 13,
    "dspace": 263
   },
   "en_mas_de_una_fuente": 2,
-  "atribuciones_retenidas": 282,
+  "excluidas_no_obra": 1,
+  "atribuciones_retenidas": 281,
   "personas_nombradas_en_la_fuente": 198
  }
 }

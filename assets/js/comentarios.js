@@ -217,8 +217,12 @@ const ANALISTAS = {
     ];
   },
 
+  // R-01, A-01, C-01 y C-03 vienen de SciVal y se miden sobre las publicaciones
+  // con métricas, igual que el build: una exclusiva de Web of Science no trae
+  // cuartil, acceso abierto ni países (D-791). Hoy son todas.
   'R-01': (sub) => {
     const q = Object.fromEntries(X.porCampo(sub, 'cuartil').map(d => [d.valor, d.n]));
+    const de = sub.every(p => p.tiene_metricas) ? 'del recorte' : 'de las que tienen métricas';
     const sinDato = q['Sin dato declarado'] || 0;
     const base = ['Q1', 'Q2', 'Q3', 'Q4'].reduce((s, k) => s + (q[k] || 0), 0);
     if (!base) return null;
@@ -226,14 +230,15 @@ const ANALISTAS = {
     // Primero sobre la base de la figura —todo el recorte—; después sobre las
     // que tienen cuartil, que es donde vale la referencia del 25 %.
     return [
-      `${nf(q1)} publicaciones (${pc(pct(q1, base + sinDato))} del recorte) están en revistas Q1.`
+      `${nf(q1)} publicaciones (${pc(pct(q1, base + sinDato))} ${de}) están en revistas Q1.`
         + ` Sobre las ${nf(base)} con cuartil son el ${pc(pct(q1, base))}, ${frenteAl(pct(q1, base), 25)}`
         + ' 25 % que correspondería a un reparto uniforme entre cuartiles.',
       `Sobre esa misma base, Q1 y Q2 reúnen el ${pc(pct(q1 + (q.Q2 || 0), base))}; Q4, el ${pc(pct(q.Q4 || 0, base))}.`,
     ];
   },
 
-  'A-01': (sub) => {
+  'A-01': (todas) => {
+    const sub = todas.filter(p => p.tiene_metricas);
     const oa = desc(X.porCampo(sub, 'open_access'));
     const sinDato = (oa.find(d => d.valor === 'Sin dato declarado') || { n: 0 }).n;
     const vias = oa.filter(d => d.valor !== 'Sin dato declarado');
@@ -248,7 +253,8 @@ const ANALISTAS = {
     ];
   },
 
-  'C-01': (sub) => {
+  'C-01': (todas) => {
+    const sub = todas.filter(p => p.tiene_metricas);
     const intl = sub.filter(p => p.es_internacional).length;
     const out = [`${nf(intl)} publicaciones (${pc(pct(intl, sub.length))}) son en colaboración internacional`
       + ` y ${nf(sub.length - intl)} (${pc(pct(sub.length - intl, sub.length))}), nacionales.`];
@@ -261,7 +267,8 @@ const ANALISTAS = {
     return out;
   },
 
-  'C-03': (sub, { pais } = {}) => {
+  'C-03': (todas, { pais } = {}) => {
+    const sub = todas.filter(p => p.tiene_metricas);
     const socios = desc(X.porCampo(sub, 'paises').filter(d => d.valor !== pais));
     const intl = sub.filter(p => p.es_internacional).length;
     const out = [`El ${pc(pct(intl, sub.length))} de las publicaciones incluye instituciones de más de un país.`];

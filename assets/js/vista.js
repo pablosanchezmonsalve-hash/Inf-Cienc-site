@@ -122,6 +122,12 @@ export function alcanceFuentesExternas(meta, resumen, pubs = []) {
     frases.push(`${vacias.map(f => `«${e(f)}»`).join(' y ')} no ${vacias.length === 1 ? 'aporta' : 'aportan'}
       obras a esta compilación del listado.`);
   }
+  const noObras = resumen.excluidas_no_obra || 0;
+  if (noObras) {
+    frases.push(noObras === 1
+      ? 'Se excluyó un registro que la fuente lista y no es una obra: una fe de erratas del editor.'
+      : `Se excluyeron ${c.nf.format(noObras)} registros que la fuente lista y no son obras, como las fe de erratas del editor.`);
+  }
   return frases.length ? `<p class="nota alcance-fuentes">${frases.join(' ')}</p>` : '';
 }
 
@@ -139,7 +145,8 @@ export const COLUMNAS_CSV = ['eid', 'anio', 'titulo', 'fuente', 'tipo', 'doi', '
 export function datosCsv(meta) {
   const n = meta.denominadores.universo_total;
   return `<p>Todas las publicaciones del universo, <b>${c.nf.format(n)}</b>, en CSV: una fila
-    por publicación con las columnas ${COLUMNAS_CSV.map(k => `<code>${k}</code>`).join(', ')}.
+    por publicación con las columnas ${COLUMNAS_CSV.map(k => `<code>${k}</code>`).join(', ')}.${
+    meta.web_of_science ? ' En las exclusivas de Web of Science, <code>eid</code> lleva su UT.' : ''}
     El archivo lleva en su cabecera las fuentes, la ventana y la fecha de corte.</p>
     <p id="csv-accion"></p>
     <p class="nota">Para descargar solo un recorte, fíltrelo en
@@ -454,7 +461,8 @@ export function introduccion({ intro, objetivos: obj, meta, inst, corpus, lectur
     ids.scopus_af_id && `identificador de afiliación en Scopus ${e(ids.scopus_af_id)}`,
     ids.ror && `ROR ${e(ids.ror)}`,
   ].filter(Boolean).join(' · ');
-  const nombres = (meta.fuentes || []).join(' y ');
+  // Las que se cruzan por EID. Web of Science se suma aparte, por DOI (D-794).
+  const nombres = (meta.fuentes || []).filter((f) => f !== 'Web of Science').join(' y ');
   const union = {
     union: `la unión de las exportaciones de ${e(nombres)}`,
     interseccion: `las publicaciones presentes en las exportaciones de ${e(nombres)}`,
@@ -472,7 +480,8 @@ export function introduccion({ intro, objetivos: obj, meta, inst, corpus, lectur
       <div><dt>Periodo</dt><dd>Publicaciones con año de publicación entre ${e(String(v.inicio ?? ''))}
         y ${e(String(v.fin ?? ''))}. Lo publicado después de ${e(String(v.fin ?? ''))} no está incluido.</dd></div>
       <div><dt>Universo</dt><dd>${e(c.nf.format(den.universo_total ?? 0))} publicaciones: ${union},
-        cruzadas por su identificador de Scopus (EID).</dd></div>
+        cruzadas por su identificador de Scopus (EID).${meta.web_of_science ? ` Incluye
+        ${e(c.nf.format(meta.web_of_science.solo_wos))} indexadas solo en Web of Science, cruzadas por DOI.` : ''}</dd></div>
       <div><dt>Citas</dt><dd>Contabilizadas hasta el ${e(fechaLarga(meta.fecha_corte_citas))}${
         quienCorta ? `, fecha de corte que declara ${e(quienCorta.nombre)}` : ''}.</dd></div>
     </dl>
@@ -743,7 +752,10 @@ export function produccionDeclarada(datos) {
   const pd01HTML = hayPD01 ? (() => {
     const kpisHTML = [
       kpi(resumen.total_leido, 'Registros declarados',
-        `por las Facultades participantes, ${resumen.duplicados_colapsados_por_doi} duplicados de la fuente ya colapsados`),
+        `por las Facultades participantes, ${resumen.duplicados_colapsados_por_doi} duplicados de la fuente ya colapsados`
+        + (resumen.excluidos_no_obra
+          ? ` y ${c.nf.format(resumen.excluidos_no_obra)} ${resumen.excluidos_no_obra === 1 ? 'registro excluido' : 'registros excluidos'} por no ser una obra (fe de erratas)`
+          : '')),
       kpi(resumen.en_universo_scopus, 'Ya en el universo Scopus',
         'divulgación: ya se cuentan en el resto del sitio, no se repiten aquí'),
       kpi(resumen.fuera_del_universo, 'Fuera del universo Scopus',
@@ -841,7 +853,10 @@ export function produccionDeclarada(datos) {
     const r = aa.resumen;
     const kpisHTML = [
       kpi(r.total_leido, 'Registros autoarchivados',
-        `${r.duplicados_colapsados_por_doi} duplicados de la fuente ya colapsados`),
+        `${r.duplicados_colapsados_por_doi} duplicados de la fuente ya colapsados`
+        + (r.excluidos_no_obra
+          ? ` y ${c.nf.format(r.excluidos_no_obra)} ${r.excluidos_no_obra === 1 ? 'registro excluido' : 'registros excluidos'} por no ser una obra`
+          : '')),
       kpi(r.fuera_del_universo, 'Fuera del universo Scopus',
         'el conjunto que este corpus paralelo aporta de nuevo'),
       kpi(r.en_ventana_con_facultad, `Con Facultad validada, en la ventana ${ventana.inicio}-${ventana.fin}`,
@@ -1169,6 +1184,13 @@ export function corpusAnexo(corpus, val, meta) {
     ['Unir', `Las dos fuentes se cruzan por el EID, el identificador que Scopus asigna a cada publicación.
       ${e(ESTRATEGIA[corpus.estrategia_universo] || `Estrategia declarada: ${corpus.estrategia_universo}.`)}`,
       ['E-02', 'X-01']],
+    ...(corpus.fuentes.some(f => /web of science/i.test(f.nombre)) ? [['Sumar Web of Science',
+      `Cada registro de Web of Science se cruza por DOI con el universo. Si coincide, es la misma
+      publicación y no se suma. Si no, se suma como exclusiva de Web of Science cuando su año está en
+      la ventana y su afiliación nombra a la institución; sin métricas de SciVal, autoría detallada
+      ni área temática. Los casos dudosos, como un título y año idénticos sin DOI común, los revisa
+      una persona antes de contarse. Las citas de Web of Science no se suman a las de Scopus.`,
+      ['W-03', 'W-04', 'W-05', 'W-06']]] : []),
     ['Atribuir a la institución', `Dos métodos independientes: el identificador de afiliación de la
       institución en Scopus (<span class="mono">${e(meta.scopus_affiliation_id)}</span>), que contiene la exportación
       de SciVal, y su nombre en la afiliación de cada autor, que contiene la de Scopus. Toda publicación

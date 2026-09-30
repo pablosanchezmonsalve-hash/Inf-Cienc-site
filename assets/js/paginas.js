@@ -586,7 +586,11 @@ function scrollSpy(raiz) {
 const POR_PAGINA = 50;
 
 async function publicaciones() {
-  const { publicaciones: pubs } = await c.cargar('publications.json');
+  const { meta, publicaciones: pubs } = await c.cargar('publications.json');
+  // La salvedad de licencia del UT va una vez, junto a la tabla (D-793).
+  if (meta.web_of_science) document.getElementById('paginacion').insertAdjacentHTML('afterend',
+    `<p class="nota">«Solo en Web of Science»: publicación que Scopus no indexa, identificada por su UT,
+    el identificador de Clarivate, cuyos términos de publicación están pendientes de confirmar.</p>`);
   const zonas = {
     estado: document.getElementById('estado-recorte'),
     controles: document.getElementById('controles'),
@@ -643,7 +647,8 @@ async function publicaciones() {
           // aquí sí hay algo que decir: la publicación es institucional —la
           // afiliación la trajo— pero ninguna firma con nombre la sostiene.
           : '<br><span class="sin-dato-txt">Sin autoría UFT nombrada</span>'}</td>
-      <td>${c.celda(p.fuente)}</td>
+      <td>${c.celda(p.fuente)}${p.solo_wos
+        ? `<br><span class="nota">Solo en Web of Science · <span class="mono">${c.escapar(p.ut)}</span></span>` : ''}</td>
       <td>${c.celda(p.tipo)}</td>
       <td class="num">${p.tiene_metricas ? c.celda(p.citas) : '<span class="sin-dato-txt">Sin métricas</span>'}</td>
       <td class="num">${p.tiene_metricas ? c.celda(p.fwci, 2) : '<span class="sin-dato-txt">Sin métricas</span>'}</td>

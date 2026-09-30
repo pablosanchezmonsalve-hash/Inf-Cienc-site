@@ -493,12 +493,19 @@ const ORDEN_FIJO = {
   cuartil: ['Q1', 'Q2', 'Q3', 'Q4', 'Sin dato declarado'],
 };
 
+/* Campos de SciVal cuyo indicador declara `con_metricas` como base (R-01,
+   A-01, C-01), igual que 02_indicators.py. Una publicación sin métricas —una
+   exclusiva de Web of Science, D-791— no es «sin dato» en esas figuras: está
+   fuera de su fuente. El filtro sí la ofrece como «Sin dato declarado». */
+const CON_METRICAS = new Set(['cuartil', 'open_access', 'colaboracion']);
+const baseDe = (pubs, clave) => (CON_METRICAS.has(clave) ? pubs.filter(p => p.tiene_metricas) : pubs);
+
 /** Recuento por un campo cualquiera —dimensión de filtro o eje de gráfico—. */
 export function porCampo(pubs_sel, clave, { tope = 0 } = {}) {
   const saca = EXTRAE[clave] || CAMPOS[clave];
   if (!saca) return [];
   const cuenta = new Map();
-  for (const p of pubs_sel) {
+  for (const p of baseDe(pubs_sel, clave)) {
     for (const v of saca(p)) cuenta.set(String(v), (cuenta.get(String(v)) || 0) + 1);
   }
   let filas = [...cuenta].map(([valor, n]) => ({ valor, n }));
@@ -529,6 +536,7 @@ export function porCampo(pubs_sel, clave, { tope = 0 } = {}) {
 const NUMERICO = { citas: 'citas', fwci: 'fwci', percentil: 'percentil_citacion' };
 
 export function cobertura(pubs_sel, clave) {
+  pubs_sel = baseDe(pubs_sel, clave);
   const n = pubs_sel.length;
   const pct = cub => (n ? Math.round(1000 * cub / n) / 10 : null);
   const campo = NUMERICO[clave];
