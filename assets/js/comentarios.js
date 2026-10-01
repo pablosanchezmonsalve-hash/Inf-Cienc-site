@@ -176,7 +176,7 @@ const ANALISTAS = {
   },
 
   'I-08': (sub) => {
-    const v = sub.filter(p => p.tiene_metricas && typeof p.citas === 'number').map(p => p.citas).sort((a, b) => b - a);
+    const v = sub.filter(p => typeof p.citas === 'number').map(p => p.citas).sort((a, b) => b - a);
     if (!v.length) return null;
     const total = v.reduce((a, x) => a + x, 0);
     const sin = v.filter(x => x === 0).length;
@@ -217,12 +217,13 @@ const ANALISTAS = {
     ];
   },
 
-  // R-01, A-01, C-01 y C-03 vienen de SciVal y se miden sobre las publicaciones
-  // con métricas, igual que el build: una exclusiva de Web of Science no trae
-  // cuartil, acceso abierto ni países (D-791). Hoy son todas.
-  'R-01': (sub) => {
+  // A-01, C-01 y C-03 vienen de SciVal y se miden sobre las publicaciones con
+  // métricas, igual que el build: una exclusiva de Web of Science no trae
+  // acceso abierto ni países (D-791). R-01 llega ya filtrado a la base de
+  // impacto, como los I- (ver `analisis`).
+  'R-01': (sub, { recorteCompleto = true } = {}) => {
     const q = Object.fromEntries(X.porCampo(sub, 'cuartil').map(d => [d.valor, d.n]));
-    const de = sub.every(p => p.tiene_metricas) ? 'del recorte' : 'de las que tienen métricas';
+    const de = recorteCompleto ? 'del recorte' : 'de las de investigación con métricas';
     const sinDato = q['Sin dato declarado'] || 0;
     const base = ['Q1', 'Q2', 'Q3', 'Q4'].reduce((s, k) => s + (q[k] || 0), 0);
     if (!base) return null;
@@ -430,15 +431,30 @@ const ALIAS = { anio: 'P-02', qs_area: 'T-05', unidad: 'P-07', tipo: 'P-03' };
 
 export const CODIGOS = Object.keys(ANALISTAS);
 
+/* Los indicadores de impacto (I-) y de revista (R-) se leen sobre la base de
+   impacto (D-817): obras de investigación con métricas. El build los calcula
+   así; filtrar aquí, una vez, evita que cada analista lo repita —y que uno lo
+   olvide y cuente una carta en la mediana de citas—. */
+const DE_IMPACTO = cod => /^[IR]-/.test(cod);
+
 /** El análisis de la figura `cod` sobre el recorte: {texto: [oraciones],
     insuficiente?}, o null si la figura no tiene analista o no hay dato. */
 export function analisis(cod, sub, contexto = {}) {
-  const leer = ANALISTAS[ALIAS[cod] || cod];
+  const clave = ALIAS[cod] || cod;
+  const leer = ANALISTAS[clave];
   if (!leer || !sub) return null;
+  if (DE_IMPACTO(clave)) {
+    const base = sub.filter(X.enBaseImpacto);
+    contexto = { ...contexto, recorteCompleto: base.length === sub.length };
+    sub = base;
+  }
   const minimo = (contexto.meta && contexto.meta.n_minimo_interpretable_unidad) || REGLAS.minimo;
   if (sub.length < minimo) {
+    // Si el filtro de impacto dejó fuera parte del recorte, se nombra la base:
+    // «0 publicaciones en el recorte» sobre un recorte de 32 cartas mentiría.
+    const deQue = contexto.recorteCompleto === false ? ' de investigación con métricas' : '';
     return { insuficiente: true, texto: [`Con ${nf(sub.length)} ${sub.length === 1 ? 'publicación' : 'publicaciones'}`
-      + ` en el recorte, menos de ${nf(minimo)}, la figura no se analiza: una sola publicación cambiaría`
+      + `${deQue} en el recorte, menos de ${nf(minimo)}, la figura no se analiza: una sola publicación cambiaría`
       + ' visiblemente cada proporción.'] };
   }
   const texto = leer(sub, contexto);

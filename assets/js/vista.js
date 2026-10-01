@@ -46,7 +46,8 @@ export function coberturaOrcid(autores) {
    y quien cite el promedio sin la nota comunica una conclusión que los datos no
    sostienen (auditoría de fiabilidad del 2026-09-29, recomendación 1). */
 export function extremoFwci(pubs) {
-  const con = (pubs || []).filter(p => typeof p.fwci === 'number');
+  // Sobre la base de I-03 (D-817): con métricas y de investigación.
+  const con = (pubs || []).filter(p => X.enBaseImpacto(p) && typeof p.fwci === 'number');
   if (con.length < 2) return null;
   const mayor = con.reduce((m, p) => (p.fwci > m.fwci ? p : m));
   const suma = con.reduce((s, p) => s + p.fwci, 0);
@@ -369,6 +370,7 @@ export function fichaInforme({ meta, inst, intro, seccion = null, alcance = '', 
   const bases = filtra ? [] : [
     [den.universo_total, 'en el universo'],
     [den.con_metricas, 'con métricas normalizadas'],
+    [den.base_impacto, 'en la base de impacto'],
     [den.con_autoria_detallada, 'con autoría detallada'],
     [den.con_area_tematica, 'con área temática'],
   ].filter(([n]) => n !== undefined && n !== null);
@@ -1037,12 +1039,14 @@ export function fichaTecnica(meta, val, notaUniverso) {
       ${fila('Universo', `${c.nf.format(d.universo_total)} publicaciones`,
         notaUniverso ? c.escapar(notaUniverso) : '')}
       ${fila('Con métricas', c.nf.format(d.con_metricas))}
+      ${typeof d.base_impacto === 'number' ? fila('Base de impacto', c.nf.format(d.base_impacto),
+        'Publicaciones de investigación con métricas: la base de las citas, el FWCI, los percentiles y los cuartiles.') : ''}
       ${fila('Con autoría detallada', c.nf.format(d.con_autoria_detallada))}
       ${fila('Con área temática', c.nf.format(d.con_area_tematica))}
       ${v10 ? fila('Campos bajo el umbral de la auditoría', observado(v10.observado),
         `Regla V-10 · ${c.escapar(v10.descripcion)}.`) : ''}
     </dl>
-    <p class="nota">Los cuatro denominadores son los declarados en la configuración
+    <p class="nota">Los denominadores son los declarados en la configuración
       del informe, no un recuento campo a campo: la cobertura real de cada campo va en
       la tabla «Calidad y cobertura de los datos».</p>
     <h4>Umbrales de lectura</h4>
@@ -1128,6 +1132,7 @@ export function glosario(entradas) {
 const ETIQUETA_DENOMINADOR = {
   universo_total: 'Universo',
   con_metricas: 'Con métricas',
+  base_impacto: 'Base de impacto',
   con_autoria_detallada: 'Con autoría detallada',
   con_area_tematica: 'Con área temática',
 };
@@ -1227,24 +1232,41 @@ export function tiposAnexo(tipos, corpus) {
   const n = tipos.reduce((s, t) => s + t.n, 0);
   const citas = tipos.reduce((s, t) => s + t.citas, 0);
   const scival = corpus.fuentes.find(f => /scival/i.test(f.nombre));
-  return `<p>Se incluyen todos los tipos documentales que contienen las exportaciones${scival && scival.filtros_aplicados
+  // Tipología común (D-817): los datos la traen desde la carga que sigue al
+  // 2026-10-01. Sin ella, el anexo describe el criterio anterior (D-720).
+  const conGrupo = tipos.some(t => t.grupo);
+  const GRUPO = { investigacion: 'Investigación', otros: 'Otros documentos' };
+  const excluidas = corpus.excluidos_no_obra;
+  const intro = conGrupo
+    ? `<p>Rige una tipología común a Scopus/SciVal y Web of Science. Las <b>obras de investigación</b>
+    —artículo, revisión, capítulo, libro, artículo de congreso o de datos— son la base de los indicadores
+    de impacto. Los <b>otros documentos</b> —carta, nota, editorial, reseña, resumen de congreso— cuentan
+    en la producción y no en el impacto. Las fe de erratas y los avisos de retractación no son obras: no
+    se cuentan${typeof excluidas === 'number' && excluidas
+      ? ` (${c.nf.format(excluidas)} ${excluidas === 1 ? 'excluida' : 'excluidas'} en esta carga)` : ''}.
+    El FWCI compara además cada publicación con las de su mismo tipo, año y campo.</p>`
+    : `<p>Se incluyen todos los tipos documentales que contienen las exportaciones${scival && scival.filtros_aplicados
       ? ` —la de SciVal lo declara: «${c.escapar(scival.filtros_aplicados)}»—` : ''}, y ninguno se excluye
     posteriormente. Todos se contabilizan en los denominadores de las cifras principales, incluidas las
-    citas por publicación. El FWCI, en cambio, compara cada publicación con las de su mismo tipo, año y campo.</p>
+    citas por publicación. El FWCI, en cambio, compara cada publicación con las de su mismo tipo, año y campo.</p>`;
+  return `${intro}
     <div class="tabla-envoltura"><table class="tabla-anexo">
       <caption class="solo-lectores">Publicaciones y citas por tipo documental</caption>
-      <thead><tr><th scope="col">Tipo documental</th><th scope="col" class="num">Publicaciones</th>
+      <thead><tr><th scope="col">Tipo documental</th>${conGrupo ? '<th scope="col">Grupo</th>' : ''}
+        <th scope="col" class="num">Publicaciones</th>
         <th scope="col" class="num">% del universo</th><th scope="col" class="num">Citas</th>
         <th scope="col" class="num">% de las citas</th></tr></thead>
-      <tbody>${tipos.map(t => `<tr><td>${c.escapar(t.tipo)}</td>
+      <tbody>${tipos.map(t => `<tr><td>${c.escapar(t.tipo)}</td>${conGrupo
+          ? `<td>${c.escapar(GRUPO[t.grupo] || 'Sin grupo')}</td>` : ''}
         <td class="num">${c.nf.format(t.n)}</td><td class="num">${pct1(t.n, n)}</td>
         <td class="num">${c.nf.format(t.citas)}</td><td class="num">${pct1(t.citas, citas)}</td></tr>`).join('')}
       </tbody>
-      <tfoot><tr><th scope="row">Total</th><td class="num">${c.nf.format(n)}</td><td class="num">100 %</td>
+      <tfoot><tr><th scope="row"${conGrupo ? ' colspan="2"' : ''}>Total</th><td class="num">${c.nf.format(n)}</td><td class="num">100 %</td>
         <td class="num">${c.nf.format(citas)}</td><td class="num">100 %</td></tr></tfoot>
     </table></div>
-    <p class="nota">El tipo es el que declara la fuente, con su nombre en inglés, como en el filtro
-    «Tipo documental» y en la figura P-03. Las citas son las de SciVal al corte, sin normalizar.</p>`;
+    <p class="nota">El tipo es el que declara la fuente, como en el filtro «Tipo documental» y en la
+    figura P-03. Las citas son las de SciVal al corte, sin normalizar${conGrupo
+      ? '; la tabla las muestra para todos los tipos, y los indicadores de impacto suman solo las de investigación' : ''}.</p>`;
 }
 
 /* Qué campo de cada publicación usa qué indicador. Solo los que no están

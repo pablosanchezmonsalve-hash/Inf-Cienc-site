@@ -97,8 +97,17 @@ export function mediana(xs) {
     Cada una declara SU PROPIO DENOMINADOR, que es la decisión D-16 del
     proyecto: no todas las publicaciones tienen métricas, así que dividir
     siempre por el total daría porcentajes que no significan nada. */
+/** ¿Entra la publicación en la base de los indicadores de impacto? (D-817)
+
+    Con métricas y del grupo «investigación»: cartas, notas y editoriales
+    cuentan en la producción, no en el impacto. Datos anteriores a la
+    tipología común no traen `base_impacto`: entonces la base es la de antes,
+    `tiene_metricas`, y las cifras no cambian. El build usa la misma regla
+    (02_indicators.py), y coherencia.mjs compara los dos lados. */
+export const enBaseImpacto = p => (p.base_impacto ?? p.tiene_metricas) === true;
+
 export function resumen(sel_pubs) {
-  const conMetricas = sel_pubs.filter(p => p.tiene_metricas);
+  const conMetricas = sel_pubs.filter(enBaseImpacto);
   const conColab = sel_pubs.filter(p => p.es_internacional !== null);
   const inter = conColab.filter(p => p.es_internacional);
   const citas = conMetricas.reduce((a, p) => a + (p.citas || 0), 0);
@@ -458,7 +467,7 @@ export const CAMPOS = {
   // Solo las publicaciones con métricas: sin ellas no hay citas que contar, y
   // meterlas en el tramo «0» confundiría «sin dato» con «sin citas» (D-24).
   citas_tramo: p => {
-    if (!p.tiene_metricas || typeof p.citas !== 'number') return [];
+    if (!enBaseImpacto(p) || typeof p.citas !== 'number') return [];
     const t = TRAMOS_CITAS.find(([a, b]) => p.citas >= a && p.citas <= b);
     return t ? [t[2]] : [];
   },
@@ -497,8 +506,15 @@ const ORDEN_FIJO = {
    A-01, C-01), igual que 02_indicators.py. Una publicación sin métricas —una
    exclusiva de Web of Science, D-791— no es «sin dato» en esas figuras: está
    fuera de su fuente. El filtro sí la ofrece como «Sin dato declarado». */
-const CON_METRICAS = new Set(['cuartil', 'open_access', 'colaboracion']);
-const baseDe = (pubs, clave) => (CON_METRICAS.has(clave) ? pubs.filter(p => p.tiene_metricas) : pubs);
+const CON_METRICAS = new Set(['open_access', 'colaboracion']);
+/* Y los de impacto, sobre la base de impacto (D-817): con métricas y de
+   investigación. El cuartil es una métrica de la revista, pero su indicador
+   (R-01) es de impacto y comparte esa base. */
+const BASE_IMPACTO = new Set(['cuartil', 'citas_tramo', 'citas', 'fwci', 'percentil']);
+const baseDe = (pubs, clave) => (BASE_IMPACTO.has(clave) ? pubs.filter(enBaseImpacto)
+  : CON_METRICAS.has(clave) ? pubs.filter(p => p.tiene_metricas) : pubs);
+/* Los campos numéricos de impacto, por su nombre en publications.json. */
+const CAMPOS_IMPACTO = new Set(['citas', 'fwci', 'percentil_citacion']);
 
 /** Recuento por un campo cualquiera —dimensión de filtro o eje de gráfico—. */
 export function porCampo(pubs_sel, clave, { tope = 0 } = {}) {
@@ -572,6 +588,7 @@ export function sumaPorAnio(pubs_sel, campo) {
   const acc = new Map();
   for (const p of pubs_sel) {
     if (typeof p[campo] !== 'number') continue;
+    if (CAMPOS_IMPACTO.has(campo) && !enBaseImpacto(p)) continue;
     acc.set(String(p.anio), (acc.get(String(p.anio)) || 0) + p[campo]);
   }
   return [...acc].sort((a, b) => a[0].localeCompare(b[0]))
@@ -587,6 +604,7 @@ export function medianaPorAnio(pubs_sel, campo) {
   const grupos = new Map();
   for (const p of pubs_sel) {
     if (typeof p[campo] !== 'number') continue;
+    if (CAMPOS_IMPACTO.has(campo) && !enBaseImpacto(p)) continue;
     if (!grupos.has(String(p.anio))) grupos.set(String(p.anio), []);
     grupos.get(String(p.anio)).push(p[campo]);
   }
@@ -607,7 +625,7 @@ export function dinamicaAnual(pubs_sel, anios) {
   const total = pubs_sel.length;
   return anios.map(anio => {
     const suyas = pubs_sel.filter(p => String(p.anio) === String(anio));
-    const conMetricas = suyas.filter(p => p.tiene_metricas && typeof p.citas === 'number');
+    const conMetricas = suyas.filter(p => enBaseImpacto(p) && typeof p.citas === 'number');
     return {
       anio: String(anio), n: suyas.length,
       pct: total ? 100 * suyas.length / total : null,
@@ -621,7 +639,7 @@ export function dinamicaAnual(pubs_sel, anios) {
     normalizar, por decisión del usuario: la tabla lleva su advertencia. El
     empate se resuelve por EID para que el orden no dependa del archivo. */
 export function masCitadas(pubs_sel, tope = 10) {
-  const base = pubs_sel.filter(p => p.tiene_metricas && typeof p.citas === 'number');
+  const base = pubs_sel.filter(p => enBaseImpacto(p) && typeof p.citas === 'number');
   const filas = base.filter(p => p.citas > 0)
     .sort((a, b) => b.citas - a.citas || a.eid.localeCompare(b.eid))
     .slice(0, tope);
@@ -629,7 +647,7 @@ export function masCitadas(pubs_sel, tope = 10) {
 }
 
 export function umbralesPercentil(pubs_sel) {
-  const v = pubs_sel.map(p => p.percentil_citacion).filter(x => typeof x === 'number');
+  const v = pubs_sel.filter(enBaseImpacto).map(p => p.percentil_citacion).filter(x => typeof x === 'number');
   return {
     base: v.length,
     datos: [1, 5, 10, 25].map(u => ({ valor: `Top ${u} %`, n: v.filter(x => x <= u).length })),
@@ -691,18 +709,22 @@ export function productividad(pubs_sel) {
 
 /** Los tipos documentales del universo, con sus citas.
 
-    El universo no filtra por tipo —el export de SciVal lo declara: «not
-    filtered; all publication types»—, así que erratas, editoriales, notas y
-    cartas cuentan en los denominadores de las cifras de cabecera. El anexo lo
-    muestra en vez de dejarlo implícito. Las citas son las de SciVal sobre las
-    publicaciones con métricas, las mismas que suma `I-01`. */
+    El export de SciVal no filtra por tipo («not filtered; all publication
+    types»). Con la tipología común (D-817) las fe de erratas ya no están en el
+    universo, y editoriales, notas y cartas cuentan en la producción pero no en
+    el impacto. El anexo lo muestra en vez de dejarlo implícito: `citas` son
+    todas las de SciVal sobre las publicaciones con métricas, y `citas_impacto`
+    las que suma `I-01`, solo las de la base de impacto. */
 export function tiposDocumentales(pubs) {
   const por = new Map();
   for (const p of pubs) {
     const tipo = p.tipo || 'Sin dato declarado';
-    const e = por.get(tipo) || { tipo, n: 0, citas: 0 };
+    const e = por.get(tipo) || { tipo, grupo: p.grupo || null, n: 0, citas: 0, citas_impacto: 0 };
     e.n += 1;
     if (p.tiene_metricas && typeof p.citas === 'number') e.citas += p.citas;
+    // Las que entran a I-01: con la tipología común (D-817), solo las de
+    // investigación. coherencia.mjs suma esta columna contra I-01.
+    if (enBaseImpacto(p) && typeof p.citas === 'number') e.citas_impacto += p.citas;
     por.set(tipo, e);
   }
   return [...por.values()].sort((a, b) => b.n - a.n || a.tipo.localeCompare(b.tipo, 'es'));
@@ -780,11 +802,11 @@ export function hallazgos(sub, { jerarquia = {}, pais = null } = {}) {
   const r = resumen(sub);
 
   // Citas: concentración y ausencia, sobre las publicaciones con métricas.
-  const citas = sub.filter(p => p.tiene_metricas && typeof p.citas === 'number')
+  const citas = sub.filter(p => enBaseImpacto(p) && typeof p.citas === 'number')
     .map(p => p.citas).sort((a, b) => b - a);
   const totalCitas = citas.reduce((a, x) => a + x, 0);
   const k10 = Math.max(1, Math.round(citas.length * 0.10));
-  const fwci = num(sub.map(p => p.fwci));
+  const fwci = num(sub.filter(enBaseImpacto).map(p => p.fwci));
 
   const cuartiles = porCampo(sub, 'cuartil');
   const cobCuartil = cobertura(sub, 'cuartil');

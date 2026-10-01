@@ -65,8 +65,8 @@ const conSigla = (t) => t.replace('{sigla}', c.sigla()).replace(/\s+$/, '');
 
 const FICHAS = [
   ['publicaciones', 'Publicaciones',        'publicaciones en el recorte', null],
-  ['citas',         'Citas recibidas',      'sobre las que tienen métricas', 'Fecha de corte'],
-  ['citas_por_pub', 'Citas por publicación', 'sobre las que tienen métricas', null],
+  ['citas',         'Citas recibidas',      'sobre las de investigación con métricas', 'Fecha de corte'],
+  ['citas_por_pub', 'Citas por publicación', 'sobre las de investigación con métricas', null],
   ['fwci_mediano',  'FWCI mediano',         'sobre las que tienen FWCI · 1,00 = promedio mundial', 'FWCI'],
   ['internacional', 'Colaboración internacional', 'sobre las que declaran país', 'Colaboración internacional'],
   ['autores',       'Autores {sigla}',      'sobre las que tienen autoría detallada', 'Formas de firma'],
@@ -1504,7 +1504,7 @@ export function analisisResultados(pubs, sel, meta, pais, declarada) {
     imp.push(hallazgo('Cómo se reparten las citas',
       // Con una sola publicación no hay reparto que describir: se dice cuántas tiene.
       I.conMetricas === 1
-        ? `La única publicación con métricas tiene ${pl(I.totalCitas, 'cita', 'citas')} al ${e(c.fechaLarga(meta.fecha_corte_citas))}.`
+        ? `La única publicación de investigación con métricas tiene ${pl(I.totalCitas, 'cita', 'citas')} al ${e(c.fechaLarga(meta.fecha_corte_citas))}.`
         : `${cabeza} reúne el ${c.num(100 * I.concentracion, 1)} % de las `
       + `${pl(I.totalCitas, 'cita', 'citas')}, y `
       + (I.sinCitas

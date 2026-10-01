@@ -1015,6 +1015,14 @@ async function fichaAutor() {
       ${kpi(i.publicaciones_top10, 'En el top 10 % de citación', 0, 'Percentil de citación')}
     </div>
 
+    ${typeof i.n_base_impacto === 'number' && i.n_base_impacto < i.n_publicaciones
+      ? `<p class="nota">Citas, citas por publicación, h-index y top 10 % se calculan
+    sobre ${i.n_base_impacto === 1 ? 'la publicación' : `las ${c.nf.format(i.n_base_impacto)} publicaciones`}
+    de investigación con métricas de esta firma, no sobre las
+    ${c.nf.format(i.n_publicaciones)}: cartas, notas y editoriales cuentan en la
+    producción y no en el impacto (tipología común, ver
+    <a href="metodologia.html">metodología</a>).</p>` : ''}
+
     <p class="nota">El FWCI no se muestra a nivel de autor: SciVal lo calcula sobre
     todas las publicaciones de la persona, también las firmadas fuera de la institución,
     y la fuente no lo entrega a nivel de persona.
