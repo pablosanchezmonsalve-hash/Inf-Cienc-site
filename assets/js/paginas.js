@@ -8,7 +8,6 @@ import * as VX from './vista_explorador.js';
 import * as anim from './animar.js';
 import { montarHeatmap, agregarMatriz } from './visualizations/heatmap.js';
 import * as CM from './comentarios.js';
-import * as W from './vista_wos.js';
 import { montarTreemap, construirArbol } from './visualizations/treemap.js';
 
 /* ============================================================== portada */
@@ -1199,9 +1198,12 @@ async function produccionAmpliada() {
 
 /* El lente Web of Science (D-814). Sin `lente_wos.json` —una compilación sin
    WoS— la página lo dice en vez de quedar vacía. */
+/* vista_wos.js y vista_comparacion.js se cargan bajo demanda, solo en su
+   página: importarlos arriba los hacía descargar en todas (peso.mjs). */
 async function lenteWos() {
   const cont = document.getElementById('lente-wos');
   if (!cont) return;
+  const W = await import('./vista_wos.js');
   // Sin el lente en este build (`meta.lente_wos`) no se pide el archivo: no
   // existe, y la petición fallida ensuciaría la consola de quien la abra.
   const meta = await c.cargar('meta.json').catch(() => null);
@@ -1216,6 +1218,25 @@ async function lenteWos() {
   ajustar();
   addEventListener('resize', c.debounce(ajustar, 250));
   addEventListener('beforeprint', () => W.ajustarGraficos(cont, datos, { ancho: W.ANCHO_PAPEL }));
+  addEventListener('afterprint', ajustar);
+}
+
+/* La comparación entre bases (D-825), con la misma lógica que el lente WoS:
+   sin el lente en el build no hay archivo que pedir. */
+async function comparacion() {
+  const cont = document.getElementById('comparacion');
+  if (!cont) return;
+  const CMP = await import('./vista_comparacion.js');
+  const meta = await c.cargar('meta.json').catch(() => null);
+  const datos = meta && meta.lente_wos ? await c.cargar('comparacion_lentes.json').catch(() => null) : null;
+  if (!yaPintado(cont)) {
+    const lect = await c.cargar('lecturas.json').catch(() => ({}));
+    cont.innerHTML = CMP.comparacion(datos, lect.lecturas);
+  }
+  const ajustar = () => CMP.ajustarGraficos(cont, datos);
+  ajustar();
+  addEventListener('resize', c.debounce(ajustar, 250));
+  addEventListener('beforeprint', () => CMP.ajustarGraficos(cont, datos, { ancho: CMP.ANCHO_PAPEL }));
   addEventListener('afterprint', ajustar);
 }
 
@@ -1530,7 +1551,7 @@ async function analisis() {
   cont.innerHTML = VX.analisisResultados(publicaciones, sel, meta, anexo.corpus?.pais, declarada);
 }
 
-const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada, datos, analisis, introduccion, lenteWos };
+const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada, datos, analisis, introduccion, lenteWos, comparacion };
 
 /** C-05: fija (o suelta, si ya estaba fijado) el nodo `g` y resalta sus
     coautores directos — mismo patrón visual que el filtro atenúa las barras

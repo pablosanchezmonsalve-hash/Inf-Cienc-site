@@ -99,7 +99,7 @@ function tablaObras(filas, vacio) {
    mitad. Se dibujan por su sigla —la que el propio nombre trae entre
    paréntesis— y la clave completa va debajo de la figura. */
 const SIGLA_INDICE = /\(([^()]+)\)\s*$/;
-function siglasIndices(datos) {
+export function siglasIndices(datos) {
   const clave = [];
   const filas = datos.map(r => {
     const m = String(r.valor).match(SIGLA_INDICE);
