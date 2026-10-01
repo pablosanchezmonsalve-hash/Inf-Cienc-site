@@ -494,9 +494,31 @@ export const CAMPOS = {
     if (typeof q !== 'number') return ['Sin dato declarado'];
     return [q <= 25 ? 'Q1' : q <= 50 ? 'Q2' : q <= 75 ? 'Q3' : 'Q4'];
   },
+  /* Fase 4 (D-827). Cada uno tiene su base en `BASE_PROPIA`, más abajo: la
+     publicación sin el dato no es un cero. */
+  palabras_clave: p => p.palabras_clave || [],
+  // T-06, coocurrencia: los pares de palabras del vocabulario que aparecen en
+  // la misma publicación. Cada par una vez, en orden alfabético.
+  palabras_pares: p => {
+    const k = [...new Set(p.palabras_clave || [])].sort((a, b) => a.localeCompare(b, 'es'));
+    const out = [];
+    for (let i = 0; i < k.length; i++) for (let j = i + 1; j < k.length; j++) out.push(`${k[i]} · ${k[j]}`);
+    return out;
+  },
+  sectores: p => p.sectores || [],
+  liderazgo: p => p.liderazgo || [],
+  financiamiento: p => (p.financiamiento == null ? []
+    : [p.financiamiento ? 'Declara financiamiento' : 'No lo declara']),
+  uso_externo: p => [
+    p.citas_politicas > 0 && 'Citada en documentos de política',
+    p.familias_patentes > 0 && 'Citada en patentes',
+  ].filter(Boolean),
 };
 
 const ORDEN_FIJO = {
+  liderazgo: ['Primer autor', 'Último autor', 'Autor de correspondencia'],
+  financiamiento: ['Declara financiamiento', 'No lo declara'],
+  uso_externo: ['Citada en documentos de política', 'Citada en patentes'],
   autores_tramo: TRAMOS_AUTORES.map(t => t[2]),
   citas_tramo: TRAMOS_CITAS.map(t => t[2]),
   cuartil: ['Q1', 'Q2', 'Q3', 'Q4', 'Sin dato declarado'],
@@ -511,7 +533,21 @@ const CON_METRICAS = new Set(['open_access', 'colaboracion']);
    investigación. El cuartil es una métrica de la revista, pero su indicador
    (R-01) es de impacto y comparte esa base. */
 const BASE_IMPACTO = new Set(['cuartil', 'citas_tramo', 'citas', 'fwci', 'percentil']);
-const baseDe = (pubs, clave) => (BASE_IMPACTO.has(clave) ? pubs.filter(enBaseImpacto)
+/* Los de la fase 4 (D-827): la base es la publicación que trae el dato.
+   `null` es «la fuente no lo trae» —una exclusiva de Web of Science, una
+   publicación con los autores desalineados en el liderazgo—, y no entra al
+   denominador. El uso fuera de la academia (I-10) es de impacto: además, la
+   base de impacto. */
+export const BASE_PROPIA = {
+  palabras_clave: p => p.palabras_clave != null,
+  palabras_pares: p => p.palabras_clave != null,
+  sectores: p => p.sectores != null,
+  liderazgo: p => p.liderazgo != null,
+  financiamiento: p => p.financiamiento != null,
+  uso_externo: p => enBaseImpacto(p) && typeof p.citas_politicas === 'number',
+};
+export const baseDe = (pubs, clave) => (BASE_PROPIA[clave] ? pubs.filter(BASE_PROPIA[clave])
+  : BASE_IMPACTO.has(clave) ? pubs.filter(enBaseImpacto)
   : CON_METRICAS.has(clave) ? pubs.filter(p => p.tiene_metricas) : pubs);
 /* Los campos numéricos de impacto, por su nombre en publications.json. */
 const CAMPOS_IMPACTO = new Set(['citas', 'fwci', 'percentil_citacion']);

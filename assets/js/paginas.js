@@ -1132,7 +1132,7 @@ async function metodologia() {
 
 async function catalogo() {
   const cont = document.getElementById('catalogo');
-  const graficos = VX.seccionDeGrafico();
+  const graficos = VX.seccionDeGrafico(await c.cargar('meta.json'));
   // Pre-renderizado: repintar destruiría un LCP que ya ocurrió, y el marcado
   // sería idéntico porque lo produce esta misma función.
   if (!yaPintado(cont)) cont.innerHTML = v.catalogo(await c.cargar('catalogo.json'), graficos);
@@ -1461,7 +1461,7 @@ async function introduccion() {
     c.cargar('lecturas.json')]);
   cont.innerHTML = v.introduccion({
     intro, objetivos: ejes.objetivos, meta, inst, corpus: anexo.corpus, lecturas: lect.lecturas,
-    guia: VX.guiaDeFiguras(), cifras: VX.cifrasDelTablero(),
+    guia: VX.guiaDeFiguras(meta), cifras: VX.cifrasDelTablero(),
     fuentePorCodigo: Object.fromEntries(anexo.indicadores.map((i) => [i.codigo, i.fuente])),
   });
 }
@@ -1611,7 +1611,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const elegidos = X.graficosDe(selURL);
     const linea = document.getElementById('seleccion-impresa');
     if (linea && elegidos) {
-      const total = Object.keys(VX.seccionDeGrafico()).length;
+      const total = Object.keys(VX.seccionDeGrafico(await c.cargar('meta.json').catch(() => null))).length;
       linea.textContent = `Selección: ${elegidos.length} de los ${total} `
         + 'gráficos del informe. '
         + 'Las cifras no cambian: lo que se acota es qué figuras se muestran.';

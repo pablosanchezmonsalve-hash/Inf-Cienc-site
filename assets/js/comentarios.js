@@ -50,6 +50,8 @@ const desc = (xs) => [...xs].sort((a, b) => b.n - a.n || String(a.valor).localeC
 const q = (v) => `«${v}»`;
 const lista = (xs, k = REGLAS.nombrados, cat = false) =>
   unirY(xs.slice(0, k).map(d => `${cat ? q(d.valor) : d.valor} (${nf(d.n)})`));
+// El sector académico de SciVal, traducido (config/etiquetas_es.yml) o no.
+const ACADEMICO = new Set(['Académico', 'Academic']);
 const SIN_UNIDAD = new Set(['No determinada', 'Sin dato declarado', X.SIN_FACULTAD]);
 
 /** «por encima de», «por debajo de» o «en torno a» una referencia. */
@@ -357,6 +359,100 @@ const ANALISTAS = {
     return [
       `${nf(con)} publicaciones (${pc(pct(con, sub.length))}) tienen al menos un ODS asignado.`,
       `Los más frecuentes son ${lista(o, REGLAS.nombrados, true)}.`,
+    ];
+  },
+
+  /* Fase 4 (D-827). Cada uno se mide sobre las publicaciones que traen SU dato
+     (`X.BASE_PROPIA`), y sin ninguna devuelve null: un dato anterior a la fase
+     no trae el campo y la figura tampoco se dibuja. */
+  'X-03': (todas) => {
+    const base = todas.filter(X.BASE_PROPIA.financiamiento);
+    if (!base.length) return null;
+    const con = base.filter(p => p.financiamiento).length;
+    const out = [`${nf(con)} publicaciones (${pc(pct(con, base.length))} de las ${nf(base.length)} registradas en Scopus)`
+      + ' declaran financiamiento.'];
+    const anios = [...new Set(base.map(p => p.anio))].sort();
+    if (anios.length >= REGLAS.aniosEvolucion) {
+      const pa = (a) => { const s = base.filter(p => p.anio === a); return pct(s.filter(p => p.financiamiento).length, s.length); };
+      const [a, b] = [anios[0], anios[anios.length - 1]];
+      out.push(`La proporción es ${pc(pa(a))} en ${a} y ${pc(pa(b))} en ${b}.`);
+    }
+    return out;
+  },
+
+  // Llega filtrado a la base de impacto, como los demás I- (ver `analisis`).
+  'I-10': (sub) => {
+    const base = sub.filter(X.BASE_PROPIA.uso_externo);
+    if (!base.length) return null;
+    const pol = base.filter(p => p.citas_politicas > 0);
+    const pat = base.filter(p => p.familias_patentes > 0).length;
+    const citas = pol.reduce((a, p) => a + p.citas_politicas, 0);
+    return [
+      `Sobre ${nf(base.length)} publicaciones de investigación con el dato, ${nf(pol.length)} (${pc(pct(pol.length, base.length))})`
+        + ` tienen al menos una cita en documentos de política y ${nf(pat)} (${pc(pct(pat, base.length))}), en patentes.`,
+      ...(pol.length ? [`Las primeras reúnen ${nf(citas)} ${citas === 1 ? 'cita' : 'citas'} en documentos de política.`] : []),
+    ];
+  },
+
+  'C-07': (todas) => {
+    const base = todas.filter(X.BASE_PROPIA.liderazgo);
+    if (!base.length) return null;
+    const rol = (r) => {
+      const b = base.filter(p => !(p.liderazgo_sin_dato || []).includes(r));
+      const n = b.filter(p => p.liderazgo.includes(r)).length;
+      return { n, b: b.length };
+    };
+    const [pri, ult, cor] = ['Primer autor', 'Último autor', 'Autor de correspondencia'].map(rol);
+    const alguno = base.filter(p => p.liderazgo.length).length;
+    const fuera = todas.length - base.length;
+    return [
+      `La persona que firma en primer lugar tiene afiliación a la institución en ${nf(pri.n)} publicaciones`
+        + ` (${pc(pct(pri.n, pri.b))}); la que firma en último lugar, en ${nf(ult.n)} (${pc(pct(ult.n, ult.b))});`
+        + ` la de correspondencia, en ${nf(cor.n)} (${pc(pct(cor.n, cor.b))}).`,
+      `${nf(alguno)} publicaciones (${pc(pct(alguno, base.length))} de las ${nf(base.length)} con los roles identificados)`
+        + ' tienen al menos uno de los tres a cargo de la institución.'
+        + (fuera ? ` En ${nf(fuera)} del recorte los roles no se pudieron identificar.` : ''),
+    ];
+  },
+
+  'C-08': (todas) => {
+    const base = todas.filter(X.BASE_PROPIA.sectores);
+    if (!base.length) return null;
+    const s = desc(X.porCampo(todas, 'sectores'));
+    const con = base.filter(p => p.sectores.length).length;
+    if (!s.length) return [`Ninguna publicación del recorte nombra una institución colaboradora con sector asignado.`];
+    const otros = base.filter(p => p.sectores.some(x => !ACADEMICO.has(x))).length;
+    return [
+      `${nf(con)} publicaciones (${pc(pct(con, base.length))} de las ${nf(base.length)} con métricas) nombran al menos`
+        + ' una institución colaboradora con sector asignado.',
+      `El sector más frecuente es ${q(s[0].valor)} (${nf(s[0].n)})`
+        + (s.length > 1 ? `; le siguen ${lista(s.slice(1), 2, true)}.` : '.'),
+      `${nf(otros)} publicaciones (${pc(pct(otros, base.length))}) incluyen una institución fuera del sector académico.`,
+    ];
+  },
+
+  'T-06': (todas) => {
+    const base = todas.filter(X.BASE_PROPIA.palabras_clave);
+    if (!base.length) return null;
+    const k = desc(X.porCampo(todas, 'palabras_clave'));
+    const con = base.filter(p => p.palabras_clave.length).length;
+    if (!k.length) return [`Ninguna publicación del recorte usa una palabra clave del vocabulario publicado.`];
+    return [
+      `${nf(con)} publicaciones (${pc(pct(con, base.length))} de las ${nf(base.length)} registradas en Scopus)`
+        + ` usan alguna de las ${nf(k.length)} palabras clave del vocabulario publicado presentes en el recorte.`,
+      `Las más frecuentes son ${lista(k, REGLAS.nombrados, true)}.`,
+    ];
+  },
+
+  palabras_pares: (todas) => {
+    if (!todas.some(X.BASE_PROPIA.palabras_pares)) return null;
+    const pares = desc(X.porCampo(todas, 'palabras_pares'));
+    if (!pares.length) return [`Ningún par de palabras clave del vocabulario coincide en una publicación del recorte.`];
+    const unicos = pares.filter(d => d.n === 1).length;
+    return [
+      `${nf(pares.length)} pares distintos de palabras clave aparecen juntos en alguna publicación;`
+        + ` ${nf(unicos)} de ellos (${pc(pct(unicos, pares.length))}) en una sola.`,
+      `Los más frecuentes son ${lista(pares, REGLAS.nombrados, true)}.`,
     ];
   },
 

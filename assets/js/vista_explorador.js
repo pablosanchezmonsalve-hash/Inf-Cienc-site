@@ -642,6 +642,13 @@ export const SECCIONES = {
       // cuenta—, pero no se elige por separado porque no es otro indicador.
       { campo: 'escuela', titulo: 'Escuelas dentro de cada facultad',        forma: 'barrasH',
         seleccionCon: 'P-07' },
+      /* Fase 4 (D-827). `requiere` es el indicador que el build tiene que
+         declarar en `meta.campos_ampliados`: un universo auditado antes no
+         trae el campo, y la figura no se dibuja en vez de salir vacía. */
+      { cod: 'X-03', campo: 'financiamiento', titulo: 'Financiamiento declarado', forma: 'proporcional',
+        requiere: 'X-03',
+        aviso: 'Cuenta lo que la publicación declara en Scopus, no el financiamiento recibido: '
+          + 'quien no lo menciona en los agradecimientos queda como «no lo declara» aunque lo haya tenido.' },
     ],
   },
   impacto: {
@@ -665,6 +672,11 @@ export const SECCIONES = {
       { cod: 'I-05', campo: 'percentil', titulo: 'Umbrales de percentil',     forma: 'acumulada' },
       { cod: 'R-01', campo: 'cuartil', titulo: 'Cuartil de la revista',       forma: 'proporcional' },
       { cod: 'A-01', campo: 'open_access', titulo: 'Vías de acceso abierto',  forma: 'barrasH' },
+      { cod: 'I-10', campo: 'uso_externo', titulo: 'Citas en documentos de política y en patentes',
+        forma: 'barrasH', requiere: 'I-10',
+        aviso: 'Recoge si la publicación fue citada al menos una vez en un documento de política pública '
+          + 'o en una patente, según SciVal. Indica uso fuera de la literatura científica, no su efecto: '
+          + 'una cita en un documento de política no dice que la política la haya adoptado.' },
     ],
   },
   colaboracion: {
@@ -685,6 +697,13 @@ export const SECCIONES = {
           + 'tres firmas de la institución suma una a cada una. Describe cómo se reparte lo publicado; '
           + 'no mide el desempeño de nadie.' },
       { cod: 'C-05', campo: 'coautoria',      titulo: 'Red de coautoría',         forma: 'red' },
+      { cod: 'C-07', campo: 'liderazgo', titulo: 'Liderazgo de la institución en la autoría',
+        forma: 'barrasH', requiere: 'C-07',
+        aviso: 'Un rol cuenta cuando la persona que lo ocupa firma esa publicación con afiliación a la '
+          + 'institución. Primer y último autor son convenciones que cambian entre disciplinas: '
+          + 'en algunas el orden es alfabético y no dice quién lideró el trabajo.' },
+      { cod: 'C-08', campo: 'sectores', titulo: 'Sector de las instituciones colaboradoras',
+        forma: 'barrasH', requiere: 'C-08' },
     ],
   },
   tematica: {
@@ -692,6 +711,12 @@ export const SECCIONES = {
       { cod: 'T-05', campo: 'qs_area', titulo: 'Áreas QS',                    forma: 'barrasH' },
       { cod: 'T-01', campo: 'asjc',    titulo: 'Áreas temáticas ASJC',        forma: 'barrasH', tope: 20 },
       { cod: 'T-04', campo: 'ods',     titulo: 'Objetivos de Desarrollo Sostenible', forma: 'barrasH', tope: 17 },
+      { cod: 'T-06', campo: 'palabras_clave', titulo: 'Palabras clave más frecuentes', forma: 'barrasH',
+        tope: 20, requiere: 'T-06',
+        aviso: 'Palabras clave que eligen los autores, sin tesauro: «ejercicio» y «exercise», o un singular '
+          + 'y su plural, se cuentan por separado. Solo entran las que usan tres publicaciones o más del universo.' },
+      { campo: 'palabras_pares', titulo: 'Palabras clave que aparecen juntas', forma: 'barrasH',
+        tope: 15, requiere: 'T-06', seleccionCon: 'T-06' },
     ],
   },
 };
@@ -699,7 +724,13 @@ export const SECCIONES = {
 /* Los campos multivaluados: una publicación aparece en varias barras y la suma
    de las barras supera el número de publicaciones. Se marca con trama, que es
    el código visual que el sitio ya enseña. */
-const MULTIVALUADO = new Set(['paises', 'instituciones', 'asjc', 'ods', 'qs_area', 'unidad', 'escuela', 'open_access']);
+const MULTIVALUADO = new Set(['paises', 'instituciones', 'asjc', 'ods', 'qs_area', 'unidad', 'escuela', 'open_access',
+  'palabras_clave', 'palabras_pares', 'sectores', 'liderazgo', 'uso_externo']);
+
+/** ¿Trae este build la figura? Las de la fase 4 dependen de campos que la
+    auditoría materializa desde entonces (`requiere`, D-827). */
+export const corteDisponible = (corte, meta) =>
+  !corte.requiere || ((meta && meta.campos_ampliados) || []).includes(corte.requiere);
 
 /* Un corte con tope dibuja los N primeros valores. Sin decir de cuántos, «las
    15 fuentes con más publicaciones» se lee como si fueran todas: el recorte se
@@ -712,6 +743,8 @@ const DISTINTOS = {
   instituciones: ['instituciones', 'distintas', 'las', 'primeras'],
   asjc: ['áreas ASJC', 'distintas', 'las', 'primeras'],
   ods: ['ODS', 'distintos', 'los', 'primeros'],
+  palabras_clave: ['palabras clave', 'distintas', 'las', 'primeras'],
+  palabras_pares: ['pares de palabras clave', 'distintos', 'los', 'primeros'],
 };
 function notaRecorte(r, campo) {
   // P-07 solo dibuja facultades (D-758): las unidades agrupadas aparte se nombran.
@@ -1047,7 +1080,7 @@ const FIGURAS_BENTO = {
   produccion: [{ clave: 'treemap', fuentes: ['P-07'] }, { clave: 'heatmap', fuentes: ['T-01'] }],
 };
 
-export function guiaDeFiguras() {
+export function guiaDeFiguras(meta) {
   const panorama = [
     ...CORTES.map(([campo, titulo]) => {
       const cod = COD_PORTADA[campo];
@@ -1064,7 +1097,7 @@ export function guiaDeFiguras() {
         // La escuela no tiene código propio: es P-07 vista un nivel más abajo,
         // y su fuente es la de P-07 (`seleccionCon`). El sello de I-08, I-09 y
         // AU-07 es el de otro indicador (`sello`), y su fuente también.
-        ...s.cortes.map((k) => ({
+        ...s.cortes.filter((k) => corteDisponible(k, meta)).map((k) => ({
           clave: k.cod || k.campo, cod: k.cod || '', titulo: k.titulo,
           fuentes: [(k.sello && k.sello[1]) || k.cod || k.seleccionCon].filter(Boolean),
         })),
@@ -1079,12 +1112,12 @@ export function cifrasDelTablero() {
   return FICHAS.map(([clave, etiqueta, base]) => ({ clave, etiqueta: conSigla(etiqueta), base }));
 }
 
-export function seccionDeGrafico() {
+export function seccionDeGrafico(meta) {
   const m = {};
   for (const [clave, s] of Object.entries(SECCIONES)) {
     // Las variantes no entran: se eligen con su indicador, no aparte.
     for (const corte of s.cortes) {
-      if (!corte.seleccionCon) m[corte.cod || corte.campo] = clave;
+      if (!corte.seleccionCon && corteDisponible(corte, meta)) m[corte.cod || corte.campo] = clave;
     }
   }
   return m;
@@ -1204,15 +1237,16 @@ function cortePersonal(corte, persona) {
     `unidadPorPersona` solo lo usa C-05 (red de coautoría); `jerarquia` solo
     'unidad' y 'escuela' (P-07). `persona` (opcional) es la firma a la que está
     recortado el informe, y cambia qué se dibuja: ver `cortePersonal`. */
-export function cortesSeccion(sub, clave, proc, unidadPorPersona, jerarquia, sel, textos) {
+export function cortesSeccion(sub, clave, proc, unidadPorPersona, jerarquia, sel, textos, meta) {
   const s = SECCIONES[clave];
   if (!s) return '';
+  meta = meta || (textos && textos.meta);
   const persona = X.personaDelRecorte(sel || {});
   /* La selección de gráficos se aplica ANTES que nada: una sección sin ninguno
      elegido no dibuja nada y lo dice, en vez de dejar una página en blanco que
      se lee como que la sección no tiene datos. */
-  const elegidos = s.cortes.filter(corte =>
-    X.graficoElegido(sel || {}, corte.seleccionCon || corte.cod || corte.campo));
+  const elegidos = s.cortes.filter(corte => corteDisponible(corte, meta)
+    && X.graficoElegido(sel || {}, corte.seleccionCon || corte.cod || corte.campo));
   if (!elegidos.length) return sinGraficos();
   return elegidos.map(corte =>
     corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos, persona })).join('');
@@ -1273,12 +1307,12 @@ export function corteUno(sub, corte, { proc, jerarquia, unidadPorPersona, textos
     recorte, y con eso se habría perdido la navegación rápida entre gráficos.
     Vuelve debajo de los filtros: sigue siendo la forma de saltar a un
     indicador concreto sin buscarlo con la rueda. */
-export function indice(clave) {
+export function indice(clave, meta) {
   const s = SECCIONES[clave];
   if (!s) return '';
   return `<nav class="rail" aria-label="Indicadores de la sección">
     <p class="rail-titulo">En esta sección</p>
-    ${s.cortes.map(x => `<a href="#${c.escapar(x.cod || x.campo)}">
+    ${s.cortes.filter(x => corteDisponible(x, meta)).map(x => `<a href="#${c.escapar(x.cod || x.campo)}">
       <span class="rail-nom">${c.escapar(x.titulo)}</span></a>`).join('')}
   </nav>`;
 }
@@ -1318,10 +1352,10 @@ export function seccion(pubs, sel, clave, proc, unidadPorPersona, jerarquia, met
   const sub = X.recorte(pubs, sel);
   return {
     estado: estado(sub.length, pubs.length, sel, { enlaceLista: true }),
-    controles: controles(pubs, sel) + indice(clave),
+    controles: controles(pubs, sel) + indice(clave, meta),
     cifras: salvaguardasPersona(pubs, sel, meta, umbral)
       + salvaguardasUnidad(pubs, sel, meta) + cifras(X.resumen(sub), textos),
-    cortes: cortesSeccion(sub, clave, proc, unidadPorPersona, jerarquia, sel, textos),
+    cortes: cortesSeccion(sub, clave, proc, unidadPorPersona, jerarquia, sel, textos, meta),
   };
 }
 
