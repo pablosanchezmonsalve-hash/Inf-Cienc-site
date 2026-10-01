@@ -8,6 +8,7 @@ import * as VX from './vista_explorador.js';
 import * as anim from './animar.js';
 import { montarHeatmap, agregarMatriz } from './visualizations/heatmap.js';
 import * as CM from './comentarios.js';
+import * as W from './vista_wos.js';
 import { montarTreemap, construirArbol } from './visualizations/treemap.js';
 
 /* ============================================================== portada */
@@ -1196,6 +1197,28 @@ async function produccionAmpliada() {
   if (!yaPintado(cont)) cont.innerHTML = v.produccionDeclarada(await c.cargar('produccion_declarada.json'));
 }
 
+/* El lente Web of Science (D-814). Sin `lente_wos.json` —una compilación sin
+   WoS— la página lo dice en vez de quedar vacía. */
+async function lenteWos() {
+  const cont = document.getElementById('lente-wos');
+  if (!cont) return;
+  // Sin el lente en este build (`meta.lente_wos`) no se pide el archivo: no
+  // existe, y la petición fallida ensuciaría la consola de quien la abra.
+  const meta = await c.cargar('meta.json').catch(() => null);
+  const datos = meta && meta.lente_wos ? await c.cargar('lente_wos.json').catch(() => null) : null;
+  if (!yaPintado(cont)) {
+    const lect = await c.cargar('lecturas.json').catch(() => ({}));
+    cont.innerHTML = W.lenteWos(datos, lect.lecturas);
+  }
+  // Al ancho de su tarjeta, también sobre el marcado pre-renderizado; en papel,
+  // al de la hoja. Lo mismo que hace el explorador con sus cortes.
+  const ajustar = () => W.ajustarGraficos(cont, datos);
+  ajustar();
+  addEventListener('resize', c.debounce(ajustar, 250));
+  addEventListener('beforeprint', () => W.ajustarGraficos(cont, datos, { ancho: W.ANCHO_PAPEL }));
+  addEventListener('afterprint', ajustar);
+}
+
 /* ══════════════════════════════════════════ teclado dentro de un gráfico */
 
 /* Cada barra era un punto de tabulación. Medido en Áreas temáticas: 41 de los
@@ -1507,7 +1530,7 @@ async function analisis() {
   cont.innerHTML = VX.analisisResultados(publicaciones, sel, meta, anexo.corpus?.pais, declarada);
 }
 
-const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada, datos, analisis, introduccion };
+const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada, datos, analisis, introduccion, lenteWos };
 
 /** C-05: fija (o suelta, si ya estaba fijado) el nodo `g` y resalta sus
     coautores directos — mismo patrón visual que el filtro atenúa las barras

@@ -219,6 +219,7 @@ export function datosInventario(filas, noListados) {
 /** Las partes del informe (`core.js`): las usan el índice, la portada, el
     folio y los enlaces de los objetivos. */
 export const PARTES_INFORME = c.PARTES_INFORME;
+export const partesInforme = c.partesInforme;
 
 /** Los objetivos del informe (`docs/OBJETIVOS.md`, vía `ejes.json`).
 
