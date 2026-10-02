@@ -975,6 +975,14 @@ async function fichaAutor() {
           a.variantes_consolidadas.map(v => c.escapar(v)).join(' · ')}</div>`
       : '');
 
+  /* Fase 5 (D-826): en qué base está cada obra, si el build lo sabe, y las
+     obras solo de Web of Science que una persona atribuyó a esta firma. */
+  const conBase = a.publicaciones.some(p => 'en_wos' in p);
+  const soloWos = a.obras_solo_wos || [];
+  const tituloObra = p => (p.doi
+    ? `<a href="https://doi.org/${c.escapar(p.doi)}" target="_blank" rel="noopener">${c.escapar(p.titulo)}</a>`
+    : c.escapar(p.titulo));
+
   const kpi = (v, etq, dec = 0, ayuda = null) => `<article class="kpi">
     <div class="valor">${v === null ? '<span class="sin-dato-txt" style="font-size:1rem">No disponible</span>' : c.num(v, dec)}</div>
     <div class="etiqueta">${etq}${ayuda ? c.botonAyuda(ayuda) : ''}</div></article>`;
@@ -1038,15 +1046,29 @@ async function fichaAutor() {
     <section class="modulo">
       <header><h2>Publicaciones (${a.publicaciones.length})</h2></header>
       <div class="tabla-envoltura"><table>
-        <thead><tr><th scope="col">Año</th><th scope="col">Título</th><th scope="col">Fuente</th><th scope="col">Tipo</th><th scope="col" class="num">Citas</th></tr></thead>
+        <thead><tr><th scope="col">Año</th><th scope="col">Título</th><th scope="col">Fuente</th><th scope="col">Tipo</th>${conBase ? '<th scope="col">Base</th>' : ''}<th scope="col" class="num">Citas</th></tr></thead>
         <tbody>${a.publicaciones.map(p => `<tr>
           <td>${c.anio(p.anio)}</td>
-          <td>${p.doi ? `<a href="https://doi.org/${c.escapar(p.doi)}" target="_blank" rel="noopener">${c.escapar(p.titulo)}</a>` : c.escapar(p.titulo)}</td>
-          <td>${c.celda((p.fuentes || []).join(' · '))}</td>
+          <td>${tituloObra(p)}</td>
+          <td>${c.celda(p.fuente)}</td>
           <td>${c.celda(p.tipo)}</td>
+          ${conBase ? `<td>${p.en_wos ? 'Scopus y Web of Science' : 'Scopus'}</td>` : ''}
           <td class="num">${p.tiene_metricas ? c.celda(p.citas) : '<span class="sin-dato-txt">Sin métricas</span>'}</td>
         </tr>`).join('')}</tbody></table></div>
+      ${conBase ? `<p class="nota">«Base» dice qué base indexa la obra. Las citas son siempre las de
+      SciVal: las de Web of Science se leen en su propia página y nunca se suman a estas.</p>` : ''}
     </section>
+
+    ${soloWos.length ? `<section class="modulo">
+      <header><h2>Obras solo en Web of Science (${soloWos.length})</h2></header>
+      <p class="nota">Obras que Scopus no indexa y que una revisión humana atribuyó a esta firma a
+      partir de Web of Science. Se listan para que la ficha esté completa, pero no entran en sus
+      cifras: estas se calculan con Scopus y SciVal.</p>
+      <div class="tabla-envoltura"><table>
+        <thead><tr><th scope="col">Año</th><th scope="col">Título</th><th scope="col">Fuente</th><th scope="col">Tipo</th></tr></thead>
+        <tbody>${soloWos.map(p => `<tr><td>${c.anio(p.anio)}</td><td>${tituloObra(p)}</td>
+          <td>${c.celda(p.fuente)}</td><td>${c.celda(p.tipo)}</td></tr>`).join('')}</tbody></table></div>
+    </section>` : ''}
 
     <section class="modulo">
       <header><h2>Coautoría interna (${coautores.length})</h2><span class="codigo">C-05</span></header>
