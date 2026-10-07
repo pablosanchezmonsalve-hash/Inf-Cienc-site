@@ -37,6 +37,11 @@ export const FIGURAS_WOS = [
   { cod: 'W-T02', bloque: 'tematica', titulo: 'Áreas de investigación', forma: 'barrasH', multi: true },
   { cod: 'W-T06', bloque: 'tematica', titulo: 'Palabras clave de autor más frecuentes', forma: 'barrasH' },
   { cod: 'W-A01', bloque: 'acceso', titulo: 'Vías de acceso abierto', forma: 'barrasH', multi: true },
+  /* El ranking de financiadores (T-30, D-830) sale del dato de W-X03 y solo
+     existe con grupos revisados de la tabla de financiadores: sin `datos`, la
+     figura no se dibuja. */
+  { cod: 'W-X03-financiadores', dato: 'W-X03', soloConDatos: true, bloque: 'acceso',
+    titulo: 'Financiadores más frecuentes', forma: 'barrasH', multi: true },
 ];
 
 /* Las cifras de cabecera, con la clave de su lectura. Se declaran igual que
@@ -132,7 +137,7 @@ export function ajustarGraficos(zona, datos, { ancho: forzado } = {}) {
     const vb = caja.querySelector('svg.chart')?.viewBox.baseVal.width;
     if (!ancho || !vb || Math.abs(vb - ancho) <= 8) continue;
     const f = FIGURAS_WOS.find(x => x.cod === caja.dataset.lienzo);
-    const x = f && datos.indicadores[f.cod];
+    const x = f && datos.indicadores[f.dato || f.cod];
     if (!x) continue;
     caja.innerHTML = dibujar(f, x, ancho);
     hechos++;
@@ -141,8 +146,8 @@ export function ajustarGraficos(zona, datos, { ancho: forzado } = {}) {
 }
 
 function figura(f, ind, d, lecturas) {
-  const x = ind[f.cod];
-  if (!x) return '';
+  const x = ind[f.dato || f.cod];
+  if (!x || (f.soloConDatos && !(x.datos || []).length)) return '';
   let cuerpo;
   let claveSiglas = '';
   if (f.forma === 'tabla') {
@@ -168,7 +173,7 @@ function figura(f, ind, d, lecturas) {
     ${tope}
     <p class="nota-figura">${e(base(x, d))}</p>
     ${lectura(f.cod, lecturas)}
-    ${notaAnexo(f.cod, x)}
+    ${notaAnexo(f.dato || f.cod, x)}
   </section>`;
 }
 
@@ -221,10 +226,18 @@ export function lenteWos(datos, lecturas = {}) {
 
   const bloques = BLOQUES.map(([clave, titulo]) => {
     const figs = FIGURAS_WOS.filter(x => x.bloque === clave).map(x => figura(x, i, d, lecturas)).join('');
-    const extra = clave === 'acceso'
-      ? `<p class="nota">El ranking de financiadores no se publica: Web of Science trae
-        sus nombres sin unificar, y contarlos así repartiría un mismo financiador en
-        varias filas. ${notaAnexo('W-X03', i['W-X03'])}</p>` : '';
+    const x03 = i['W-X03'];
+    const extra = clave !== 'acceso' ? ''
+      : (x03.datos || []).length
+        ? `<p class="nota">El ranking cuenta solo los financiadores de la tabla de unificación
+          que revisó una persona. ${c.nf.format(x03.sin_unificar || 0)} de las
+          ${c.nf.format(x03.con_financiador || x03.valor)} publicaciones que declaran financiamiento
+          ${(x03.sin_unificar || 0) === 1 ? 'nombra' : 'nombran'} solo financiadores aún sin unificar
+          y no ${(x03.sin_unificar || 0) === 1 ? 'entra' : 'entran'} en él.
+          ${notaAnexo('W-X03', x03)}</p>`
+        : `<p class="nota">El ranking de financiadores no se publica: Web of Science trae
+          sus nombres sin unificar, y contarlos así repartiría un mismo financiador en
+          varias filas. ${notaAnexo('W-X03', x03)}</p>`;
     return `<section class="modulo bloque-lente" aria-labelledby="wos-${clave}">
       <header><div class="modulo-id"><h2 id="wos-${clave}">${e(titulo)}</h2></div></header>
       <div class="cortes-lente">${figs}</div>${extra}

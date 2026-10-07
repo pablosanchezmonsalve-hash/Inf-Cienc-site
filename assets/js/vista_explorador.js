@@ -649,6 +649,10 @@ export const SECCIONES = {
         requiere: 'X-03',
         aviso: 'Cuenta lo que la publicación declara en Scopus, no el financiamiento recibido: '
           + 'quien no lo menciona en los agradecimientos queda como «no lo declara» aunque lo haya tenido.' },
+      // El ranking (T-30, D-830): solo con grupos revisados de la tabla de
+      // financiadores, que el build declara en `meta.ranking_financiadores`.
+      { campo: 'financiadores', titulo: 'Financiadores más frecuentes', forma: 'barrasH', tope: 15,
+        requiere: 'X-03', requiereMeta: 'ranking_financiadores', seleccionCon: 'X-03' },
     ],
   },
   impacto: {
@@ -725,12 +729,13 @@ export const SECCIONES = {
    de las barras supera el número de publicaciones. Se marca con trama, que es
    el código visual que el sitio ya enseña. */
 const MULTIVALUADO = new Set(['paises', 'instituciones', 'asjc', 'ods', 'qs_area', 'unidad', 'escuela', 'open_access',
-  'palabras_clave', 'palabras_pares', 'sectores', 'liderazgo', 'uso_externo']);
+  'palabras_clave', 'palabras_pares', 'sectores', 'liderazgo', 'uso_externo', 'financiadores']);
 
 /** ¿Trae este build la figura? Las de la fase 4 dependen de campos que la
     auditoría materializa desde entonces (`requiere`, D-827). */
 export const corteDisponible = (corte, meta) =>
-  !corte.requiere || ((meta && meta.campos_ampliados) || []).includes(corte.requiere);
+  (!corte.requiere || ((meta && meta.campos_ampliados) || []).includes(corte.requiere))
+  && (!corte.requiereMeta || !!(meta && meta[corte.requiereMeta]));
 
 /* Un corte con tope dibuja los N primeros valores. Sin decir de cuántos, «las
    15 fuentes con más publicaciones» se lee como si fueran todas: el recorte se
@@ -745,6 +750,7 @@ const DISTINTOS = {
   ods: ['ODS', 'distintos', 'los', 'primeros'],
   palabras_clave: ['palabras clave', 'distintas', 'las', 'primeras'],
   palabras_pares: ['pares de palabras clave', 'distintos', 'los', 'primeros'],
+  financiadores: ['financiadores', 'distintos', 'los', 'primeros'],
 };
 function notaRecorte(r, campo) {
   // P-07 solo dibuja facultades (D-758): las unidades agrupadas aparte se nombran.

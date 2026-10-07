@@ -380,6 +380,20 @@ const ANALISTAS = {
     return out;
   },
 
+  financiadores: (todas) => {
+    const base = todas.filter(X.BASE_PROPIA.financiadores);
+    const con = base.filter(p => p.financiamiento);
+    if (!con.length) return null;
+    const f = desc(X.porCampo(todas, 'financiadores'));
+    const unif = con.filter(p => (p.financiadores || []).length).length;
+    if (!f.length) return [`Ninguna publicación del recorte nombra un financiador de la tabla revisada.`];
+    return [
+      `${nf(unif)} de las ${nf(con.length)} publicaciones que declaran financiamiento`
+        + ` (${pc(pct(unif, con.length))}) nombran un financiador de la tabla revisada.`,
+      `Los más frecuentes son ${lista(f, REGLAS.nombrados)}.`,
+    ];
+  },
+
   // Llega filtrado a la base de impacto, como los demás I- (ver `analisis`).
   'I-10': (sub) => {
     const base = sub.filter(X.BASE_PROPIA.uso_externo);

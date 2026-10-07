@@ -507,6 +507,8 @@ export const CAMPOS = {
   },
   sectores: p => p.sectores || [],
   liderazgo: p => p.liderazgo || [],
+  // Los grupos revisados de la tabla de financiadores (T-30, D-830).
+  financiadores: p => p.financiadores || [],
   financiamiento: p => (p.financiamiento == null ? []
     : [p.financiamiento ? 'Declara financiamiento' : 'No lo declara']),
   uso_externo: p => [
@@ -544,6 +546,7 @@ export const BASE_PROPIA = {
   sectores: p => p.sectores != null,
   liderazgo: p => p.liderazgo != null,
   financiamiento: p => p.financiamiento != null,
+  financiadores: p => p.financiamiento != null,
   uso_externo: p => enBaseImpacto(p) && typeof p.citas_politicas === 'number',
 };
 export const baseDe = (pubs, clave) => (BASE_PROPIA[clave] ? pubs.filter(BASE_PROPIA[clave])
