@@ -51,7 +51,6 @@ const q = (v) => `«${v}»`;
 const lista = (xs, k = REGLAS.nombrados, cat = false) =>
   unirY(xs.slice(0, k).map(d => `${cat ? q(d.valor) : d.valor} (${nf(d.n)})`));
 // El sector académico de SciVal, traducido (config/etiquetas_es.yml) o no.
-const ACADEMICO = new Set(['Académico', 'Academic']);
 const SIN_UNIDAD = new Set(['No determinada', 'Sin dato declarado', X.SIN_FACULTAD]);
 
 /** «por encima de», «por debajo de» o «en torno a» una referencia. */
@@ -434,14 +433,12 @@ const ANALISTAS = {
     if (!base.length) return null;
     const s = desc(X.porCampo(todas, 'sectores'));
     const con = base.filter(p => p.sectores.length).length;
-    if (!s.length) return [`Ninguna publicación del recorte nombra una institución colaboradora con sector asignado.`];
-    const otros = base.filter(p => p.sectores.some(x => !ACADEMICO.has(x))).length;
+    if (!s.length) return [`Ninguna publicación del recorte incluye una institución colaboradora de un sector distinto del académico.`];
     return [
-      `${nf(con)} publicaciones (${pc(pct(con, base.length))} de las ${nf(base.length)} con métricas) nombran al menos`
-        + ' una institución colaboradora con sector asignado.',
+      `${nf(con)} publicaciones (${pc(pct(con, base.length))} de las ${nf(base.length)} con métricas) incluyen al menos`
+        + ' una institución colaboradora de un sector distinto del académico.',
       `El sector más frecuente es ${q(s[0].valor)} (${nf(s[0].n)})`
         + (s.length > 1 ? `; le siguen ${lista(s.slice(1), 2, true)}.` : '.'),
-      `${nf(otros)} publicaciones (${pc(pct(otros, base.length))}) incluyen una institución fuera del sector académico.`,
     ];
   },
 

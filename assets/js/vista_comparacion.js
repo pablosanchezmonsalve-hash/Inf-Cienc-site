@@ -119,6 +119,11 @@ function resumen(cod, i) {
       ${nf(c1.solo_scopus)} solo en Scopus y ${nf(c1.solo_wos)} solo en Web of Science. El
       ${dec(c1.pct_scopus_en_wos)} % del lente Scopus/SciVal está también en Web of Science, y el
       ${dec(c1.pct_wos_en_scopus)} % del lente Web of Science está también en Scopus.`
+      // U2 (D-834): las exclusivas de tipos que Scopus no indexa quedan fuera de la unión.
+      + (c1.solo_lente_wos === 1 ? ' Otra obra que solo indexa Web of Science, de un tipo que Scopus no indexa'
+        + ' (resumen de congreso, reseña), cuenta solo en el lente Web of Science y no en la unión.'
+        : c1.solo_lente_wos ? ` Otras ${nf(c1.solo_lente_wos)} obras que solo indexa Web of Science, de tipos que
+      Scopus no indexa (resúmenes de congreso, reseñas), cuentan solo en el lente Web of Science y no en la unión.` : '')
       + (c1.wos_en_revision === 1 ? ' Otro registro de Web of Science espera revisión para saber si es la'
         + ' misma obra que una de Scopus: no entra en ningún grupo.'
         : c1.wos_en_revision ? ` Otros ${nf(c1.wos_en_revision)} registros de Web of Science esperan revisión
