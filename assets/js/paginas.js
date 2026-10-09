@@ -591,10 +591,12 @@ const POR_PAGINA = 50;
 
 async function publicaciones() {
   const { meta, publicaciones: pubs } = await c.cargar('publications.json');
-  // La salvedad de licencia del UT va una vez, junto a la tabla (D-793).
+  // Desde T-33 (D-835) la lista es la del lente Scopus/SciVal: las obras que
+  // solo indexa Web of Science, con la salvedad de su UT (D-793), están en la
+  // página «Total de publicaciones».
   if (meta.web_of_science) document.getElementById('paginacion').insertAdjacentHTML('afterend',
-    `<p class="nota">«Solo en Web of Science»: publicación que Scopus no indexa, identificada por su UT,
-    el identificador de Clarivate, cuyos términos de publicación están pendientes de confirmar.</p>`);
+    `<p class="nota">Publicaciones de Scopus y SciVal. Las que solo indexa Web of Science se listan en
+    <a href="total-publicaciones.html">Total de publicaciones</a>.</p>`);
   const zonas = {
     estado: document.getElementById('estado-recorte'),
     controles: document.getElementById('controles'),
@@ -651,8 +653,7 @@ async function publicaciones() {
           // aquí sí hay algo que decir: la publicación es institucional —la
           // afiliación la trajo— pero ninguna firma con nombre la sostiene.
           : `<br><span class="sin-dato-txt">Sin autoría ${c.escapar(c.sigla())} nombrada</span>`}</td>
-      <td>${c.celda(p.fuente)}${p.solo_wos
-        ? `<br><span class="nota">Solo en Web of Science · <span class="mono">${c.escapar(p.ut)}</span></span>` : ''}</td>
+      <td>${c.celda(p.fuente)}</td>
       <td>${c.celda(p.tipo)}</td>
       <td class="num">${p.tiene_metricas ? c.celda(p.citas) : '<span class="sin-dato-txt">Sin métricas</span>'}</td>
       <td class="num">${p.tiene_metricas ? c.celda(p.fwci, 2) : '<span class="sin-dato-txt">Sin métricas</span>'}</td>
@@ -1262,6 +1263,25 @@ async function comparacion() {
   addEventListener('afterprint', ajustar);
 }
 
+/* El total de publicaciones en las dos bases (T-33, D-835), bajo demanda como
+   la comparación: sin el lente WoS en el build no hay archivo que pedir. */
+async function totalPublicaciones() {
+  const cont = document.getElementById('total');
+  if (!cont) return;
+  const T = await import('./vista_total.js');
+  const meta = await c.cargar('meta.json').catch(() => null);
+  const datos = meta && meta.lente_wos ? await c.cargar('total_publicaciones.json').catch(() => null) : null;
+  if (!yaPintado(cont)) {
+    const lect = await c.cargar('lecturas.json').catch(() => ({}));
+    cont.innerHTML = T.total(datos, lect.lecturas);
+  }
+  const ajustar = () => T.ajustarGraficos(cont, datos);
+  ajustar();
+  addEventListener('resize', c.debounce(ajustar, 250));
+  addEventListener('beforeprint', () => T.ajustarGraficos(cont, datos, { ancho: T.ANCHO_PAPEL }));
+  addEventListener('afterprint', ajustar);
+}
+
 /* ══════════════════════════════════════════ teclado dentro de un gráfico */
 
 /* Cada barra era un punto de tabulación. Medido en Áreas temáticas: 41 de los
@@ -1573,7 +1593,7 @@ async function analisis() {
   cont.innerHTML = VX.analisisResultados(publicaciones, sel, meta, anexo.corpus?.pais, declarada);
 }
 
-const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada, datos, analisis, introduccion, lenteWos, comparacion };
+const PAGINAS = { portada, seccion, publicaciones, autores, fichaAutor, metodologia, catalogo, fuentesexternas, produccionAmpliada, datos, analisis, introduccion, lenteWos, comparacion, totalPublicaciones };
 
 /** C-05: fija (o suelta, si ya estaba fijado) el nodo `g` y resalta sus
     coautores directos — mismo patrón visual que el filtro atenúa las barras

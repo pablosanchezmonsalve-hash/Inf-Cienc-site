@@ -147,7 +147,7 @@ export function datosCsv(meta) {
   const n = meta.denominadores.universo_total;
   return `<p>Todas las publicaciones del universo, <b>${c.nf.format(n)}</b>, en CSV: una fila
     por publicación con las columnas ${COLUMNAS_CSV.map(k => `<code>${k}</code>`).join(', ')}.${
-    meta.web_of_science ? ' En las exclusivas de Web of Science, <code>eid</code> lleva su UT.' : ''}
+    meta.web_of_science ? ' Son las de Scopus y SciVal; las que solo indexa Web of Science se listan en «Total de publicaciones».' : ''}
     El archivo lleva en su cabecera las fuentes, la ventana y la fecha de corte.</p>
     <p id="csv-accion"></p>
     <p class="nota">Para descargar solo un recorte, fíltrelo en
@@ -483,8 +483,9 @@ export function introduccion({ intro, objetivos: obj, meta, inst, corpus, lectur
       <div><dt>Periodo</dt><dd>Publicaciones con año de publicación entre ${e(String(v.inicio ?? ''))}
         y ${e(String(v.fin ?? ''))}. Lo publicado después de ${e(String(v.fin ?? ''))} no está incluido.</dd></div>
       <div><dt>Universo</dt><dd>${e(c.nf.format(den.universo_total ?? 0))} publicaciones: ${union},
-        cruzadas por su identificador de Scopus (EID).${meta.web_of_science ? ` Incluye
-        ${e(c.nf.format(meta.web_of_science.solo_wos))} indexadas solo en Web of Science, cruzadas por DOI.` : ''}</dd></div>
+        cruzadas por su identificador de Scopus (EID).${meta.web_of_science && meta.web_of_science.union_total ? ` Con las
+        ${e(c.nf.format(meta.web_of_science.solo_wos))} que solo indexa Web of Science, cruzadas por DOI, el total en las
+        dos bases es de ${e(c.nf.format(meta.web_of_science.union_total))} obras: se cuentan en «Total de publicaciones».` : ''}</dd></div>
       <div><dt>Citas</dt><dd>Contabilizadas hasta el ${e(fechaLarga(meta.fecha_corte_citas))}${
         quienCorta ? `, fecha de corte que declara ${e(quienCorta.nombre)}` : ''}.</dd></div>
     </dl>
@@ -1136,6 +1137,10 @@ const ETIQUETA_DENOMINADOR = {
   base_impacto: 'Base de impacto',
   con_autoria_detallada: 'Con autoría detallada',
   con_area_tematica: 'Con área temática',
+  // T-33 (D-835): obras de Scopus/SciVal y de Web of Science juntas.
+  union_total: 'Total en las dos bases',
+  wos_lente_total: 'Lente Web of Science',
+  wos_base_impacto: 'Base de impacto del lente Web of Science',
 };
 
 /* Con un decimal; lo que no llega a una décima pero no es cero se dice así, y
