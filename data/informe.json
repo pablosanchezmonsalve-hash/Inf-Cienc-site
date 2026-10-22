@@ -1,72 +1,93 @@
 {
  "generado": "2026-10-22",
- "build": "2026-09-21",
- "huella_publicaciones_sha256": "108279382ed0e8ad4c8421b53aab131dbf45e23712bf64c60d0623792535c71e",
- "codigo": "a9cfc76",
+ "build": "2026-10-22",
+ "huella_publicaciones_sha256": "8ee6ef9fb69065a831a302f0724c91718774b8cbce22939fd96f3cd7455e6988",
+ "codigo": "77a3940",
  "recorte": "",
  "completo": {
   "archivo": "informe/informe-cienciometrico.pdf",
-  "hojas": 61,
-  "kb": 3188,
-  "secciones": 8
+  "hojas": 110,
+  "kb": 4995,
+  "secciones": 11
  },
- "hojas": 76,
+ "hojas": 142,
  "archivos": [
   {
    "seccion": "introduccion",
    "nombre": "Introducción",
    "archivo": "informe/informe-cienciometrico-introduccion.pdf",
-   "hojas": 8,
-   "kb": 146
+   "hojas": 11,
+   "kb": 183
   },
   {
    "seccion": "panorama",
    "nombre": "Panorama general",
    "archivo": "informe/informe-cienciometrico-panorama.pdf",
-   "hojas": 7,
-   "kb": 276
+   "hojas": 8,
+   "kb": 280
   },
   {
    "seccion": "produccion",
    "nombre": "Producción",
    "archivo": "informe/informe-cienciometrico-produccion.pdf",
-   "hojas": 9,
-   "kb": 464
+   "hojas": 10,
+   "kb": 487
   },
   {
    "seccion": "impacto",
    "nombre": "Impacto",
    "archivo": "informe/informe-cienciometrico-impacto.pdf",
-   "hojas": 8,
-   "kb": 342
+   "hojas": 9,
+   "kb": 359
   },
   {
    "seccion": "colaboracion",
    "nombre": "Colaboración",
    "archivo": "informe/informe-cienciometrico-colaboracion.pdf",
-   "hojas": 8,
-   "kb": 1480
+   "hojas": 9,
+   "kb": 1264
   },
   {
    "seccion": "tematica",
    "nombre": "Áreas temáticas",
    "archivo": "informe/informe-cienciometrico-tematica.pdf",
-   "hojas": 7,
-   "kb": 402
+   "hojas": 10,
+   "kb": 568
+  },
+  {
+   "seccion": "wos",
+   "nombre": "Lente Web of Science",
+   "archivo": "informe/informe-cienciometrico-wos.pdf",
+   "hojas": 16,
+   "kb": 780
+  },
+  {
+   "seccion": "total",
+   "nombre": "Total de publicaciones",
+   "archivo": "informe/informe-cienciometrico-total.pdf",
+   "hojas": 23,
+   "kb": 544
+  },
+  {
+   "seccion": "comparacion",
+   "nombre": "Comparación entre bases",
+   "archivo": "informe/informe-cienciometrico-comparacion.pdf",
+   "hojas": 8,
+   "kb": 167
   },
   {
    "seccion": "analisis",
    "nombre": "Análisis de resultados",
    "archivo": "informe/informe-cienciometrico-analisis.pdf",
-   "hojas": 6,
-   "kb": 93
+   "hojas": 7,
+   "kb": 99
   },
   {
    "seccion": "metodologia",
    "nombre": "Metodología y limitaciones",
    "archivo": "informe/informe-cienciometrico-metodologia.pdf",
-   "hojas": 23,
-   "kb": 526
+   "hojas": 31,
+   "kb": 698
   }
  ]
 }

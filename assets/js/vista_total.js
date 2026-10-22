@@ -59,9 +59,11 @@ export function ajustarGraficos(zona, datos, { ancho: forzado } = {}) {
     const vb = caja.querySelector('svg.chart')?.viewBox.baseVal.width;
     if (!ancho || !vb || Math.abs(vb - ancho) <= 8) continue;
     const f = FIGURAS_PT.find(x => x.cod === caja.dataset.lienzo);
-    // barrasV acota su propio ancho al número de años: redibujarla al de la
-    // tarjeta la volvería a acotar, así que no se toca.
-    if (!f || f.forma === 'barrasV') continue;
+    // También barrasV, como en vista_wos.js: acota su ancho al número de años
+    // solo por ARRIBA, así que en una tarjeta más angosta que su lienzo se
+    // redibuja al ancho de la tarjeta. Excluirla dejaba «Obras por año» a
+    // escala 0,5 en el teléfono (responsive.mjs, datos del 2026-10-22).
+    if (!f) continue;
     caja.innerHTML = dibujar(f, datos.indicadores, ancho);
     hechos++;
   }

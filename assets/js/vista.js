@@ -314,6 +314,8 @@ export function portadaInforme({ meta, inst, intro, seccion = null, alcance = ''
   const v = meta.ventana || {};
   const r = inst && inst.responsable;
   const d = inst && inst.derechos;
+  // La autoría (D-839) ocupa el lugar de «Elaborado por» cuando está declarada.
+  const au = inst && inst.autoria;
   /* El logo de la Dirección, cuando exista su archivo (D-752): el manual pide
      el de la división y lo trae solo como imagen, que no se redibuja. El logo
      ya lleva el nombre de la institución y de la unidad, así que en su lugar
@@ -337,7 +339,9 @@ export function portadaInforme({ meta, inst, intro, seccion = null, alcance = ''
     </div>
     <footer class="pi-pie">
       <dl class="pi-datos">
-        ${r ? dato('Elaborado por', `${e(r.persona)}<br>${e(r.unidad)}, ${e(r.institucion)}`) : ''}
+        ${au ? dato('Autoría, concepción y dirección', `${e(au.autor)}${au.orcid ? ` · ORCID ${e(au.orcid)}` : ''}<br>${
+          e(au.unidad || (r && r.unidad) || '')}, ${e(au.institucion)}`)
+          : (r ? dato('Elaborado por', `${e(r.persona)}<br>${e(r.unidad)}, ${e(r.institucion)}`) : '')}
         ${r ? dato('Contacto', e(r.contacto)) : ''}
         ${dato('Fuentes de los datos', e((meta.fuentes || []).join(' · ')))}
         ${dato(SELLO_PORTADA, e(fechaLarga(emision)), ' data-portada-emision')}
@@ -362,6 +366,7 @@ export function fichaInforme({ meta, inst, intro, seccion = null, alcance = '', 
   const r = inst && inst.responsable;
   const d = inst && inst.derechos;
   const ci = inst && inst.cita;
+  const au = inst && inst.autoria;
   const den = meta.denominadores || {};
   const fila = (rotulo, valor, attr = '') =>
     `<div class="fi-fila"><dt>${e(rotulo)}</dt><dd${attr}>${valor}</dd></div>`;
@@ -405,6 +410,12 @@ export function fichaInforme({ meta, inst, intro, seccion = null, alcance = '', 
       ${huella ? fila('Huella de los datos', `SHA-256 ${e(huella.slice(0, 16))}`) : ''}
     </dl>
     ${huella && intro ? `<p class="fi-nota">${e(intro.huella)}</p>` : ''}`)}
+    ${au ? grupo('Autoría', `<dl class="fi-tabla">
+      ${fila('Autoría, concepción y dirección', `${e(au.autor)}${au.orcid ? ` · ORCID ${e(au.orcid)}` : ''}`)}
+      ${au.roles.length ? fila('Contribución (CRediT)', e(au.roles.join(', '))) : ''}
+      ${au.asistencia_ia ? fila('Asistencia de IA', e(au.asistencia_ia)) : ''}
+    </dl>
+    ${au.reconocimiento ? `<p class="fi-nota"><b>Reconocimiento de autoría.</b> ${e(au.reconocimiento)}</p>` : ''}`) : ''}
     ${ci ? grupo('Cómo citar', `<p class="fi-cita">${e(ci.autor)} (${e(ci.anio)}).
       <i>${e(ci.titulo)}</i>${seccion ? ` [Sección: ${e(seccion)}]` : ''}${
         filtra ? ` [${e(alcance.replace(/\.$/, ''))}]` : ''}.
@@ -540,7 +551,23 @@ export function introduccion({ intro, objetivos: obj, meta, inst, corpus, lectur
   const uso = bloque('intro-uso', 'Uso responsable de los indicadores',
     `<p>${e(intro.uso_responsable)}</p>`);
 
-  return presentacion + objetivosHtml + alcance + estructura + guiaHtml + claves + uso;
+  /* Quién concibió, diseñó y dirigió la plataforma y qué aporta (D-839). Sale
+     de `config/institution.yml` → `autoria`; sin ese bloque no se publica. El
+     pie de cada página enlaza aquí (#autoria). */
+  const a = inst && inst.autoria;
+  const autoria = a ? bloque('autoria', 'Autoría y aportes originales', `
+    <p>${e(a.declaracion)}</p>
+    ${a.reconocimiento ? `<p class="nota-destacada"><b>Reconocimiento de autoría.</b> ${e(a.reconocimiento)}</p>` : ''}
+    ${a.aportes.length ? `<ul class="intro-claves">${a.aportes.map((x) =>
+      `<li><b>${e(x.titulo)}.</b> ${e(x.texto)}</li>`).join('')}</ul>` : ''}
+    <dl class="intro-alcance">
+      <div><dt>Autor</dt><dd>${e(a.autor)}${a.orcid
+        ? ` · ORCID <a href="https://orcid.org/${e(a.orcid)}">${e(a.orcid)}</a>` : ''}</dd></div>
+      ${a.roles.length ? `<div><dt>Contribución (CRediT)</dt><dd>${e(a.roles.join(', '))}</dd></div>` : ''}
+      ${a.asistencia_ia ? `<div><dt>Asistencia de IA</dt><dd>${e(a.asistencia_ia)}</dd></div>` : ''}
+    </dl>`) : '';
+
+  return presentacion + objetivosHtml + alcance + estructura + guiaHtml + claves + uso + autoria;
 }
 
 /** Banda de cierre de la portada: la salida a las secciones.

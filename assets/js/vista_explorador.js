@@ -237,6 +237,11 @@ export function salvaguardasUnidad(pubs, sel, meta) {
      cambia y dice lo que de verdad pasaría, que es lo contrario de tranquilizar. */
   const pp = X.vaivenTop10(base);
   const salto = base.base ? 100 / base.base : null;
+  /* «Ninguna está en el top» solo cuando de verdad ninguna lo está. Con UNA
+     sola publicación con percentil el vaivén tampoco se calcula (no queda
+     nada al quitarla), y si esa una está en el decil la frase anterior decía
+     lo contrario de lo cierto: pasó con los datos del 2026-10-22, una unidad
+     de una publicación en el percentil 7. */
   return `<section class="salvaguardas" aria-label="Cómo leer este informe">
     <p class="nota-destacada"><b>Muestra reducida.</b>
       Los indicadores de impacto de <b>${c.escapar(unidad)}</b> se calculan sobre
@@ -244,10 +249,13 @@ export function salvaguardasUnidad(pubs, sel, meta) {
       ${pp !== null
         ? `Una publicación más o menos mueve el «top 10 %» en
            ${c.num(pp, 1)} puntos porcentuales.`
-        : (salto !== null
+        : (salto !== null && base.enTop === 0
           ? `Ninguna está en el «top 10 %», y eso no es estabilidad: una sola que
              entrara llevaría la cifra a ${c.num(salto, 1)} %.`
-          : '')}
+          : (base.base === 1
+            ? `Con una sola publicación con percentil, el «top 10 %» solo puede
+               valer 0 % o 100 %.`
+            : ''))}
       Compare con cautela entre unidades de tamaño muy distinto: la cobertura de
       Scopus tampoco es igual en todas las disciplinas.</p>
     <p class="nota">Esto califica los indicadores normalizados —FWCI, percentiles

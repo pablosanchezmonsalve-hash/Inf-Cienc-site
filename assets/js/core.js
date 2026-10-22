@@ -434,11 +434,17 @@ export function cromo(meta, paginaActual, tema = 'auto', inst = null) {
     Va en el pie de todas las páginas y, por tanto, al pie del último folio de
     cada PDF. */
 export function piePropiedad(inst) {
-  const r = inst.responsable, d = inst.derechos;
+  const r = inst.responsable, d = inst.derechos, a = inst.autoria;
+  // La autoría (D-839) va primero y en todas las páginas: quién concibió,
+  // diseñó y dirigió la plataforma, con enlace a sus aportes. Sin `autoria` en
+  // la configuración, el pie queda como antes.
+  const autoria = a ? `<p class="pie-propiedad">Autoría, concepción y dirección:
+      <b>${escapar(a.autor)}</b>${a.orcid ? ` · ORCID <a href="https://orcid.org/${escapar(a.orcid)}">${
+        escapar(a.orcid)}</a>` : ''} · <a href="introduccion.html#autoria">Autoría y aportes originales</a></p>` : '';
   // En papel va el aviso corto: el pie se repite al cierre de cada archivo y el
   // aviso completo, de tres renglones, empujaba el pie a una hoja propia. La
   // carátula del PDF lleva el completo.
-  return `<p class="pie-propiedad">Responsable: ${escapar(r.persona)}, ${escapar(r.unidad)},
+  return `${autoria}<p class="pie-propiedad">Responsable: ${escapar(r.persona)}, ${escapar(r.unidad)},
       ${escapar(r.institucion)} · Contacto:
       <a href="mailto:${escapar(r.contacto)}">${escapar(r.contacto)}</a></p>
       <p class="pie-derechos">© ${escapar(d.anio)} ${escapar(d.titular)}.
