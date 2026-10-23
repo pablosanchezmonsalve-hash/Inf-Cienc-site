@@ -55,11 +55,9 @@ export function cabecera(meta) {
    necesaria todavía, porque una cifra recalculada sobre un recorte se
    malinterpreta con más facilidad que una del total.
 
-   El tercer campo rotula el NÚMERO que lo precede, que es la base: sobre
-   cuántas publicaciones se calcula la cifra. Dos rótulos decían otra cosa y el
-   papel los imprimía pegados a ese número: «1.342 formas de firma, no
-   personas» —1.342 son publicaciones, no firmas— y «1.342 1,00 = promedio
-   mundial» (D-709). Lo que la cifra ES lo dice la lectura, debajo. */
+   El tercer campo rotula el NÚMERO que lo precede, la base: sobre cuántas
+   publicaciones se calcula la cifra (D-709). Lo que la cifra ES lo dice la
+   lectura, debajo. */
 /* El rótulo lleva la sigla de los datos, no una escrita aquí (C9). */
 const conSigla = (t) => t.replace('{sigla}', c.sigla()).replace(/\s+$/, '');
 
@@ -185,10 +183,9 @@ export function advertenciaMuestraReducida(umbral) {
     PDF descargado — que es donde hace falta, porque un PDF nominal circula sin
     el sitio al lado.
 
-    Se muestra para las 829 entidades, no solo para las 68 que superan el
-    umbral: 761 quedan por debajo, y excluirlas de su propio informe sería
-    decidir sobre esas personas en silencio en vez de declararles la
-    limitación. Es la decisión del usuario del 2026-09-07. */
+    Se muestra en todas las fichas, no solo en las que superan el umbral:
+    excluir a las demás de su propio informe sería decidir sobre esas personas
+    en silencio. Decisión del usuario del 2026-09-07. */
 /** La banda de una unidad con pocas publicaciones.
 
     POR QUÉ EXISTE
@@ -329,7 +326,7 @@ export function controles(pubs, sel, { buscador = false } = {}) {
     con `datalist`, que es autocompletado del navegador: sin librería, con
     teclado, y legible por un lector de pantalla.
 
-    Las opciones son las del recorte vigente, no las 829 siempre: con un año o
+    Las opciones son las del recorte vigente, no todas las fichas: con un año o
     una unidad ya elegidos, sugerir a quien no publicó nada ahí ofrecería un
     filtro que deja la página vacía. */
 function opcionesAutor(opciones, elegidos) {
@@ -1443,10 +1440,24 @@ function limiteCobertura(declarada, meta) {
   const v = meta.ventana || {};
   const fac = (declarada.fuentes || []).length === 1 && /Medicina y Salud/.test(declarada.fuentes[0].nombre)
     ? 'la Facultad de Medicina y Salud, la única con un listado propio contrastable,' : 'las Facultades con listado propio';
+  const wos = total.en_solo_wos
+    ? `; ${nf(total.en_solo_wos)} de ellas están entre las que solo indexa Web of Science` : '';
   return `<li>El corpus no reúne toda la producción. Las fuentes institucionales declaran
-    ${nf(total.en_ventana)} obras de ${v.inicio}–${v.fin} que no están en Scopus, cifra no verificada obra por obra.
+    ${nf(total.en_ventana)} obras de ${v.inicio}–${v.fin} que no están en Scopus, cifra no verificada obra por obra${wos}.
     En ${fac} ${nf(r.en_universo_scopus)} de las ${nf(r.en_universo_scopus + r.en_ventana)} obras declaradas en
     el periodo están en el corpus (véase <a href="produccion-ampliada.html">Producción ampliada</a>).</li>`;
+}
+
+/* Lo que WoS indexa fuera de este análisis: límite del corpus, no del recorte. */
+function limiteWos(meta) {
+  const w = meta.web_of_science;
+  if (!w || !w.solo_wos) return '';
+  const enlace = (href, nombre) => (c.paginaDisponible(href, meta)
+    ? `<a href="${href}">${nombre}</a>` : `«${nombre}»`);
+  return `<li>Este análisis lee solo Scopus y SciVal. Las ${c.nf.format(w.solo_wos)} obras del periodo que
+    solo indexa Web of Science se cuentan en ${enlace('total-publicaciones.html', 'Total de publicaciones')}, y lo
+    indexado en Web of Science se analiza, con sus propias citas, en el
+    ${enlace('web-of-science.html', 'Lente Web of Science')}.</li>`;
 }
 
 export function analisisResultados(pubs, sel, meta, pais, declarada) {
@@ -1709,6 +1720,7 @@ export function analisisResultados(pubs, sel, meta, pais, declarada) {
           primeros.</li>
         ${P.unidad.cubiertas < h.n ? `<li>La unidad académica solo se identificó en el ${c.num(P.unidad.pct, 1)} % de las publicaciones.</li>` : ''}
         <li>Las cifras por autor contabilizan formas de firma, no personas: parte de ellas aún no está consolidada.</li>
+        ${limiteWos(meta)}
         ${limiteCobertura(declarada, meta)}
       </ul>
       <p>El detalle de cada límite está en <a href="metodologia.html">Metodología y limitaciones</a>.</p>

@@ -846,8 +846,8 @@ async function autores() {
   const casilla = document.getElementById('solo-interpretables');
   const campo = document.getElementById('buscar-autor');
   /* Llegar buscando a alguien y no encontrarlo sería peor que no ofrecer la
-     búsqueda: la vista por defecto oculta las firmas por debajo del umbral, y
-     761 de las 829 lo están. Si la búsqueda viene en la URL se abre la lista
+     búsqueda: la vista por defecto oculta las firmas por debajo del umbral, que
+     son la mayoría. Si la búsqueda viene en la URL se abre la lista
      entera y los dos controles enseñan el estado real, en vez de filtrar por
      detrás. */
   if (q) {
@@ -1009,9 +1009,6 @@ async function fichaAutor() {
       Compartir identificador no fusiona fichas: el caso espera revisión humana y,
       mientras no se decida, las cifras de cada ficha se calculan por separado.</div>` : ''}
 
-    <!-- La entrada al informe recortado a esta persona. Va aquí y no en un panel
-         de filtros: una lista de 829 firmas no es un filtro, y quien quiere el
-         informe de alguien suele estar mirando a ese alguien. -->
     <p class="ficha-acciones"><a class="enlace-lista"
       href="index.html?autor=${encodeURIComponent(a.nombre_en_fuente)}"
       >Ver el informe recortado a esta firma →</a></p>
@@ -1139,11 +1136,15 @@ async function metodologia() {
   const orcidEl = document.getElementById('orcid-cobertura');
   const { autores } = await c.cargar('authors.json');
   if (orcidEl) orcidEl.textContent = v.coberturaOrcid(autores);
+  const wosEl = document.getElementById('advertencia-wos');
+  if (wosEl && !yaPintado(wosEl)) wosEl.innerHTML = v.advertenciaWos(meta);
 
   const [corpusEl, tiposEl, calidadEl, indicadoresEl, referenciasEl, nivelesEl] = anexoEls;
   if (!corpusEl) return;
   const [anexo, { publicaciones }, catalogo] = await Promise.all([c.cargar('metodologia.json'),
     c.cargar('publications.json'), c.cargar('catalogo.json')]);
+  const unidadEl = document.getElementById('unidad-cobertura');
+  if (unidadEl) unidadEl.textContent = v.coberturaUnidad(publicaciones);
   corpusEl.innerHTML = v.corpusAnexo(anexo.corpus, val, meta);
   if (tiposEl) tiposEl.innerHTML = v.tiposAnexo(X.tiposDocumentales(publicaciones), anexo.corpus);
   if (calidadEl) calidadEl.innerHTML = v.calidadAnexo(
@@ -1366,9 +1367,12 @@ async function fuentesexternas() {
     controles: document.getElementById('controles'),
   };
 
+  // PT-04, para declarar el cruce con WoS (D-840); sin lente, no existe.
+  const pt04 = (await c.cargar('total_publicaciones.json').catch(() => null))
+    ?.indicadores?.['PT-04']?.filas || [];
   document.getElementById('aviso-fuentes').innerHTML =
     `<b>Sobre este listado</b> ${c.escapar(meta.advertencia)}`
-    + v.alcanceFuentesExternas(meta, resumen, pubs);
+    + v.alcanceFuentesExternas(meta, resumen, pubs, pt04);
 
   document.getElementById('kpis-fuentes').innerHTML = v.kpisFuentesExternas(meta, resumen);
 

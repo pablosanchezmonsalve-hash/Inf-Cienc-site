@@ -1,16 +1,16 @@
 {
- "generado": "2026-10-22",
+ "generado": "2026-10-23",
  "build": "2026-10-22",
  "huella_publicaciones_sha256": "8ee6ef9fb69065a831a302f0724c91718774b8cbce22939fd96f3cd7455e6988",
- "codigo": "77a3940",
+ "codigo": "e19e73b",
  "recorte": "",
  "completo": {
   "archivo": "informe/informe-cienciometrico.pdf",
-  "hojas": 110,
-  "kb": 4995,
+  "hojas": 111,
+  "kb": 5005,
   "secciones": 11
  },
- "hojas": 142,
+ "hojas": 143,
  "archivos": [
   {
    "seccion": "introduccion",
@@ -80,14 +80,14 @@
    "nombre": "Análisis de resultados",
    "archivo": "informe/informe-cienciometrico-analisis.pdf",
    "hojas": 7,
-   "kb": 99
+   "kb": 101
   },
   {
    "seccion": "metodologia",
    "nombre": "Metodología y limitaciones",
    "archivo": "informe/informe-cienciometrico-metodologia.pdf",
-   "hojas": 31,
-   "kb": 698
+   "hojas": 32,
+   "kb": 706
   }
  ]
 }

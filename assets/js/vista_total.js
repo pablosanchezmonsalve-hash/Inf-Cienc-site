@@ -166,11 +166,13 @@ export function total(datos, lecturas = {}) {
     <div><dt>Fuentes</dt><dd>Exportación de Scopus y SciVal del ${e(fecha(f['Scopus · SciVal']))}; de Web of
       Science, del ${e(fecha(f['Web of Science']))}. Las obras de las dos bases se cruzan por DOI o por revisión humana.</dd></div>
     <div><dt>Regla</dt><dd>Esta página cuenta obras y nada más: las citas y las métricas de cada base se
-      leen en su lente y nunca se suman. Las demás páginas del informe describen solo lo de Scopus y SciVal.</dd></div>
+      leen en su lente y nunca se suman. Las demás páginas describen cada base por separado: Scopus y SciVal
+      en las secciones principales, Web of Science en su propio lente.</dd></div>
     ${fuera ? `<div><dt>Fuera del total</dt><dd>${nf(p1.solo_lente_wos)} obras de tipos que Scopus no indexa
       (resúmenes de congreso, reseñas) se cuentan solo en el lente Web of Science.</dd></div>` : ''}
     <div><dt>Identificador</dt><dd>Las obras que solo indexa Web of Science se identifican por su UT, el
-      identificador de Clarivate, cuyos términos de publicación están pendientes de confirmar.</dd></div>
+      identificador de Clarivate. Se publica aunque no se ha confirmado qué permite publicar la licencia
+      de Clarivate; por eso el informe es de uso reservado.</dd></div>
   </dl>`;
   const porCod = Object.fromEntries(FIGURAS_PT.map(x => [x.cod, x]));
   const bloques = BLOQUES.map(([id, titulo, cods]) => `<section class="modulo bloque-lente" aria-labelledby="pt-${id}">

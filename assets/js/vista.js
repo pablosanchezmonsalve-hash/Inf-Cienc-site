@@ -20,13 +20,10 @@
 import * as c from './core.js';
 import * as X from './explorador.js';
 
-/** La cobertura de ORCID de «Advertencias principales», en metodologia.html.
-
-    Una sola redacción para el pre-renderizado y el navegador: eran dos copias
-    de la misma cuenta. Y dice fichas, no formas de firma —las 829 son fichas ya
-    consolidadas— y cuántos identificadores son de verdad distintos: 268 fichas
-    con ORCID son 250 ORCID, porque 17 figuran en más de una ficha a la espera
-    de revisión humana (D-44, D-711). */
+/** La cobertura de ORCID de «Advertencias principales», una sola redacción
+    para el pre-renderizado y el navegador. Dice fichas, no formas de firma, y
+    cuántos ORCID son distintos: uno puede figurar en más de una ficha a la
+    espera de revisión humana (D-44, D-711). */
 export function coberturaOrcid(autores) {
   const con = autores.filter(a => a.orcid);
   const distintos = new Set(con.map(a => a.orcid)).size;
@@ -36,6 +33,29 @@ export function coberturaOrcid(autores) {
       ? ` —${c.nf.format(distintos)} identificadores distintos: ${c.nf.format(compartidos)}`
         + ` figuran en más de una ficha y esperan revisión humana—`
       : '');
+}
+
+/** Cobertura de la unidad (P-07) en pares autor × publicación, la del catálogo.
+    A mano, metodologia.html seguía en el 64,2 % de julio (auditoría 2026-10-22). */
+export function coberturaUnidad(pubs) {
+  let total = 0, sin = 0;
+  for (const p of pubs || []) {
+    for (const [u, n] of Object.entries(p.unidades_conteo || {})) {
+      total += n;
+      if (c.esSinDato(u)) sin += n;
+    }
+  }
+  return `${total ? c.num(100 * (total - sin) / total, 1) : 0} % de los pares autor × publicación`
+    + ` (${c.nf.format(total - sin)} de ${c.nf.format(total)})`;
+}
+
+/** La advertencia de Metodología sobre WoS, solo si la carga lo trae. */
+export function advertenciaWos(meta) {
+  if (!meta || !meta.web_of_science) return '';
+  return ` En su propio lente, el informe describe además la producción indexada en
+    <strong>Web of Science</strong>, con sus propias citas y sin las métricas normalizadas de
+    SciVal: ninguna cifra suma citas ni métricas de las dos bases, y solo «Total de
+    publicaciones» reúne las obras distintas de ambas.`;
 }
 
 /* La mediana del FWCI frente a su promedio es el dato que más fácilmente se
@@ -100,13 +120,24 @@ export function kpisFuentesExternas(meta, resumen) {
       <div class="etiqueta">DOIs en universo Scopus</div></article>`;
 }
 
+/* Obras fuera de Scopus que también están entre las que solo indexa WoS (filas
+   de PT-04), cruzadas por DOI: ya cuentan en «Total de publicaciones» (D-840). */
+const doiNormal = (d) => String(d || '').trim().toLowerCase().replace(/^https?:\/\/(dx\.)?doi\.org\//, '');
+export function enSoloWos(pubs = [], soloWos = []) {
+  const wos = new Set((soloWos || []).map((f) => doiNormal(f.doi)).filter(Boolean));
+  return wos.size ? (pubs || []).filter((p) => wos.has(doiNormal(p.doi))).length : 0;
+}
+const fraseSoloWos = (n) => (n ? `${n === 1 ? 'Una de estas obras está' : `${c.nf.format(n)} de estas obras están`}
+  también entre las que solo indexa Web of Science y ya ${n === 1 ? 'cuenta' : 'cuentan'} en
+  <a href="total-publicaciones.html">Total de publicaciones</a>: no se suman a ese total.` : '');
+
 /** Qué cubre el listado de fuentes externas, dicho con sus propias cifras
     (auditoría integral, 2026-09-30). Sin esto la página no decía que casi
     todas sus obras no declaran año —no pueden situarse en la ventana del
     informe— ni que una de las fuentes que nombra no aporta ninguna obra, y su
     total se leía como comparable con el de Producción ampliada, que sí filtra
     por ventana. */
-export function alcanceFuentesExternas(meta, resumen, pubs = []) {
+export function alcanceFuentesExternas(meta, resumen, pubs = [], soloWos = []) {
   const e = c.escapar;
   const total = pubs.length || resumen.total_publicaciones || 0;
   const sinAnio = pubs.filter(p => !String(p.anio || '').trim()).length;
@@ -123,6 +154,8 @@ export function alcanceFuentesExternas(meta, resumen, pubs = []) {
     frases.push(`${vacias.map(f => `«${e(f)}»`).join(' y ')} no ${vacias.length === 1 ? 'aporta' : 'aportan'}
       obras a esta compilación del listado.`);
   }
+  const wos = fraseSoloWos(enSoloWos(pubs, soloWos));
+  if (wos) frases.push(wos);
   const noObras = resumen.excluidas_no_obra || 0;
   if (noObras) {
     frases.push(noObras === 1
@@ -168,10 +201,11 @@ export function canalCorrecciones(inst) {
 }
 
 /** Condiciones y procedencia. Solo lo que se puede comprobar: ni una licencia
-    que falta confirmar con Elsevier (docs/DATA_LICENSE.md §5) ni un sello de
-    conformidad. `notaUniverso` es la nota de P-01, que declara los duplicados
-    pendientes de revisión (D-593). */
+    que falta confirmar con Elsevier (docs/DATA_LICENSE.md §5) o Clarivate (D-840)
+    ni un sello de conformidad. `notaUniverso` es la nota de P-01, que
+    declara los duplicados pendientes de revisión (D-593). */
 export function datosCondiciones(meta, notaUniverso, inst = null) {
+  const wos = (meta.exports || {})['Web of Science'];
   // Condición de uso de lo que se descarga (D-745): antes de ella, la CC BY 4.0
   // aprobada en julio no se declaraba aquí porque dependía de Elsevier.
   const uso = inst ? `<li><b>Uso exclusivo.</b> © ${c.escapar(inst.derechos.anio)} ${c.escapar(inst.derechos.titular)}.
@@ -179,18 +213,21 @@ export function datosCondiciones(meta, notaUniverso, inst = null) {
       <a href="mailto:${c.escapar(inst.responsable.contacto)}">${c.escapar(inst.responsable.contacto)}</a>.</li>` : '';
   return `<ul class="datos-condiciones">
     ${uso}
-    <li>Las exportaciones originales de Scopus y SciVal <b>no se publican</b>: el sitio sirve
-      datos derivados de ellos.</li>
-    <li>Qué métricas derivadas de Elsevier permite publicar la licencia institucional
-      <b>está pendiente de confirmar</b> con la unidad que administra la suscripción.</li>
+    <li>Las exportaciones originales de Scopus${wos ? ', SciVal y Web of Science' : ' y SciVal'}
+      <b>no se publican</b>: el sitio sirve datos derivados de ellas.</li>
+    <li>No se ha confirmado qué métricas derivadas permiten publicar ${wos
+      ? 'las licencias de Elsevier (Scopus, SciVal) y de Clarivate (Web of Science)'
+      : 'la licencia de Elsevier (Scopus, SciVal)'}; por eso el informe es de <b>uso reservado</b>.</li>
     <li>Citas y métricas de SciVal al <b>${c.escapar(meta.fecha_corte_citas)}</b>. La exportación
       de Scopus no declara fecha de corte: sus indicadores se leen a la fecha de la
-      exportación, el <b>${c.escapar(meta.exports.Scopus.fecha_export)}</b>.</li>
+      exportación, el <b>${c.escapar(meta.exports.Scopus.fecha_export)}</b>.${wos ? ` Tampoco la
+      de Web of Science: sus citas son las del día en que se exportó, el
+      <b>${c.escapar(wos.fecha_export)}</b>, y no se suman a las de Scopus.` : ''}</li>
     <li>Universo de ${c.nf.format(meta.denominadores.universo_total)} publicaciones, ventana
       ${meta.ventana.inicio}–${meta.ventana.fin}, compilación del ${c.escapar(meta.fecha_build)}.
       ${notaUniverso ? c.escapar(notaUniverso) : ''}</li>
     <li>La producción fuera de Scopus viene de fuentes institucionales y abiertas, no de
-      Elsevier: su procedencia va en su propia fila del inventario.</li>
+      Elsevier${wos ? ' ni de Clarivate' : ''}: su procedencia va en su propia fila del inventario.</li>
   </ul>`;
 }
 
@@ -778,7 +815,7 @@ export function produccionDeclarada(datos) {
         : ''))}</div>
     <p class="nota">Suma de las cuatro fuentes de abajo, sin contar dos veces la
     misma obra: se unen por DOI y lo que aparece en más de una se resta las
-    veces que se repite.</p>` : '';
+    veces que se repite. ${fraseSoloWos(total.en_solo_wos)}</p>` : '';
 
   const pd01HTML = hayPD01 ? (() => {
     const kpisHTML = [
@@ -1219,7 +1256,7 @@ export function corpusAnexo(corpus, val, meta) {
         ? `<span class="nota">La propia exportación advierte: ${f.advertencias_del_export.map(a => `«${e(a)}»`).join(' y ')}.</span>` : ''}</li>`;
   const pasos = [
     ['Exportar', `<ul class="lista-compacta">${corpus.fuentes.map(fuente).join('')}</ul>`, ['E-08', 'E-04']],
-    ['Unir', `Las dos fuentes se cruzan por el EID, el identificador que Scopus asigna a cada publicación.
+    ['Unir', `Scopus y SciVal se cruzan por el EID, el identificador que Scopus asigna a cada publicación.
       ${e(ESTRATEGIA[corpus.estrategia_universo] || `Estrategia declarada: ${corpus.estrategia_universo}.`)}`,
       ['E-02', 'X-01']],
     ...(corpus.fuentes.some(f => /web of science/i.test(f.nombre)) ? [['Sumar Web of Science',

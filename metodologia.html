@@ -575,7 +575,7 @@
         <td><ul class="lista-reglas"><li><span class="mono">E-08</span> n de registros leído coincide con el declarado: <strong>pasa</strong> <span class="nota">(declarado=1342 leído=1342)</span></li><li><span class="mono">E-04</span> Año dentro de la ventana declarada: <strong>pasa</strong> <span class="nota">(rango observado=2020-2025)</span></li></ul></td>
       </tr><tr>
         <th scope="row">2. Unir</th>
-        <td>Las dos fuentes se cruzan por el EID, el identificador que Scopus asigna a cada publicación.
+        <td>Scopus y SciVal se cruzan por el EID, el identificador que Scopus asigna a cada publicación.
       El universo es la unión de las dos: una publicación que trae una sola fuente se conserva, marcada, en vez de excluirse.</td>
         <td><ul class="lista-reglas"><li><span class="mono">E-02</span> EID único en cada fuente primaria: <strong>pasa</strong> <span class="nota">(scopus=0 scival=0)</span></li><li><span class="mono">X-01</span> Discrepancias entre fuentes listadas nominalmente: <strong>pasa</strong> <span class="nota">(solo_scopus=0 solo_scival=0)</span></li></ul></td>
       </tr><tr>
@@ -731,10 +731,17 @@
       <li>Los indicadores describen <strong>producción indexada en Scopus</strong>,
       no productividad académica total. La cobertura de la base no es uniforme
       entre disciplinas. Las métricas normalizadas —FWCI, percentiles de citación,
-      cuartiles de revista— proceden de <strong>SciVal</strong>: cada indicador
-      declara en el anexo de indicadores cuál de las dos fuentes lo sostiene.</li>
+      cuartiles de revista— proceden de <strong>SciVal</strong>, y cada indicador
+      declara en el anexo de indicadores qué fuente lo sostiene.<span id="advertencia-wos" data-prerender="1">
+ En su propio lente, el informe describe además la producción indexada en
+    <strong>Web of Science</strong>, con sus propias citas y sin las métricas normalizadas de
+    SciVal: ninguna cifra suma citas ni métricas de las dos bases, y solo «Total de
+    publicaciones» reúne las obras distintas de ambas.
+</span></li>
       <li>La unidad académica se infiere de la afiliación declarada y está
-      disponible en el 64,2 % de los casos (pares autor × publicación). El
+      determinada en el <span id="unidad-cobertura" data-prerender="1">
+88,6 % de los pares autor × publicación (1.722 de 1.943)
+</span>. El
       vocabulario de unidades fue validado institucionalmente por el
       responsable del proyecto; la cobertura desigual de Scopus entre
       disciplinas sigue distorsionando la comparación entre unidades.</li>
@@ -756,9 +763,9 @@
   <section class="banda banda-papel"><div class="contenedor">
   <section class="modulo" id="correcciones">
     <h2>Si su ficha de autor tiene un error</h2>
-    <p>Esta plataforma no es la fuente de los datos: los obtiene de Scopus y
-    SciVal y los reconstruye en cada carga. El origen del error determina la vía
-    de corrección, y ambas vías son distintas.</p>
+    <p>Esta plataforma no es la fuente de los datos: las fichas de autor se
+    construyen con los de Scopus y SciVal, y se reconstruyen en cada carga. El
+    origen del error determina la vía de corrección, y ambas vías son distintas.</p>
 
     <h3>Lo que se corrige en la fuente</h3>
     <p>El nombre con que firma, su afiliación declarada, el identificador de
@@ -824,11 +831,11 @@
 <dl class="glosario">
     <div class="glosario-entrada" id="fwci-field-weighted-citation-impact">
       <dt>FWCI — Field-Weighted Citation Impact</dt>
-      <dd><p>Citas recibidas frente a las esperadas para publicaciones del mismo campo, año y tipo documental. 1,00 = promedio mundial.</p><p class="nota">Compara las citas observadas con las esperadas de un conjunto de referencia mundial equivalente. Un valor de 1,00 corresponde exactamente al promedio mundial; 0,50, a la mitad. El FWCI institucional de este informe es el promedio de los FWCI de cada publicación —así define SciVal el FWCI de un conjunto—, y por eso se publica junto a la mediana. Es inestable con pocas publicaciones o ventanas cortas: no debe usarse para comparar personas. En este informe: media 1,14, mediana 0,48 sobre 1.342 publicaciones. La diferencia entre ambas indica una distribución muy asimétrica — unas pocas publicaciones muy citadas elevan la media.</p></dd>
+      <dd><p>Citas recibidas frente a las esperadas para publicaciones del mismo campo, año y tipo documental. 1,00 = promedio mundial.</p><p class="nota">Compara las citas observadas con las esperadas de un conjunto de referencia mundial equivalente. Un valor de 1,00 corresponde exactamente al promedio mundial; 0,50, a la mitad. El FWCI institucional de este informe es el promedio de los FWCI de cada publicación —así define SciVal el FWCI de un conjunto—, y por eso se publica junto a la mediana. Es inestable con pocas publicaciones o ventanas cortas: no debe usarse para comparar personas. En este informe: media 1,12, mediana 0,49 sobre las 1.274 publicaciones de la base de impacto (obras de investigación con métricas de SciVal). La diferencia entre ambas indica una distribución muy asimétrica — unas pocas publicaciones muy citadas elevan la media.</p></dd>
     </div>
     <div class="glosario-entrada" id="percentil-de-citacion-top-10">
       <dt>Percentil de citación / Top 10 %</dt>
-      <dd><p>Posición de la publicación entre las más citadas de su campo. Un percentil menor indica más citas: el top 10 % reúne a las más citadas.</p><p class="nota">Cada publicación recibe un percentil según sus citas dentro de su campo y año. El «top 10 %» agrupa las que están en el decil más citado. En un conjunto con el comportamiento mundial, cerca del 10 % de las publicaciones se ubica en el top 10 %. En este informe son 115 de 1.342 (8,6 %).</p></dd>
+      <dd><p>Posición de la publicación entre las más citadas de su campo. Un percentil menor indica más citas: el top 10 % reúne a las más citadas.</p><p class="nota">Cada publicación recibe un percentil según sus citas dentro de su campo y año. El «top 10 %» agrupa las que están en el decil más citado. En un conjunto con el comportamiento mundial, cerca del 10 % de las publicaciones se ubica en el top 10 %. En este informe son 114 de 1.274 (8,9 %).</p></dd>
     </div>
     <div class="glosario-entrada" id="sjr-citescore-snip-metricas-de-revista">
       <dt>SJR, CiteScore, SNIP — métricas de revista</dt>
@@ -836,11 +843,11 @@
     </div>
     <div class="glosario-entrada" id="cuartil-q1">
       <dt>Cuartil Q1</dt>
-      <dd><p>La revista está entre el 25 % de mayor percentil de su categoría. Describe la revista, no el artículo.</p><p class="nota">Se calcula con el percentil SJR del año de publicación: Q1 = percentil ≤ 25. Cobertura 1.223 de 1.342 publicaciones; las restantes no tienen percentil SJR y se muestran como «sin dato», no como Q4.</p></dd>
+      <dd><p>La revista está entre el 25 % de mayor percentil de su categoría. Describe la revista, no el artículo.</p><p class="nota">Se calcula con el percentil SJR del año de publicación: Q1 = percentil ≤ 25. Cobertura 1.156 de 1.274 publicaciones de la base de impacto; las restantes no tienen percentil SJR y se muestran como «sin dato», no como Q4.</p></dd>
     </div>
     <div class="glosario-entrada" id="colaboracion-internacional">
       <dt>Colaboración internacional</dt>
-      <dd><p>Publicaciones con autores de más de un país. Aquí: 49,8 %.</p><p class="nota">Cuenta países distintos entre las afiliaciones. No mide la intensidad ni la calidad de la colaboración: una publicación con un coautor extranjero y otra con quince cuentan igual.</p></dd>
+      <dd><p>Publicaciones con autores de más de un país. Aquí: 49,6 %.</p><p class="nota">Cuenta países distintos entre las afiliaciones. No mide la intensidad ni la calidad de la colaboración: una publicación con un coautor extranjero y otra con quince cuentan igual.</p></dd>
     </div>
     <div class="glosario-entrada" id="componente-y-comunidad-red-de-coautoria">
       <dt>Componente y comunidad (red de coautoría)</dt>
@@ -848,7 +855,7 @@
     </div>
     <div class="glosario-entrada" id="asjc-all-science-journal-classification">
       <dt>ASJC — All Science Journal Classification</dt>
-      <dd><p>Clasificación temática de la revista, no del artículo. Una publicación puede estar en varias áreas.</p><p class="nota">Elsevier clasifica cada fuente en una o más categorías; en este corpus aparecen 271. Como es multivaluada, las asignaciones (2.973) superan a las publicaciones (1.342) y los porcentajes no suman 100 %. Que un artículo esté en «Medicina (general)» significa que su revista está clasificada así, no que ese sea su tema exacto. Las categorías se muestran en español; Elsevier no publica una versión oficial, así que la traducción es del proyecto y la etiqueta original (en el ejemplo, «General Medicine») queda en config/etiquetas_es.yml.</p></dd>
+      <dd><p>Clasificación temática de la revista, no del artículo. Una publicación puede estar en varias áreas.</p><p class="nota">Elsevier clasifica cada fuente en una o más categorías; en este corpus aparecen 271. Como es multivaluada, las asignaciones (2.953) superan a las publicaciones (1.333) y los porcentajes no suman 100 %. Que un artículo esté en «Medicina (general)» significa que su revista está clasificada así, no que ese sea su tema exacto. Las categorías se muestran en español; Elsevier no publica una versión oficial, así que la traducción es del proyecto y la etiqueta original (en el ejemplo, «General Medicine») queda en config/etiquetas_es.yml.</p></dd>
     </div>
     <div class="glosario-entrada" id="topic-y-prominencia-tematica">
       <dt>Topic y prominencia temática</dt>
@@ -856,31 +863,43 @@
     </div>
     <div class="glosario-entrada" id="h-index-en-ventana-2020-2025">
       <dt>h-index en ventana 2020–2025</dt>
-      <dd><p>h publicaciones con al menos h citas, contando solo 2020–2025. No es el h-index de carrera.</p><p class="nota">Restringido a la ventana del informe, es sistemáticamente mucho menor que el h-index de trayectoria completa. Con 6 años, 675 de las 829 entidades publicadas tienen h ≤ 1: sobre el conjunto entero el indicador casi no discrimina. Se muestra solo en fichas con 5 o más publicaciones, y siempre etiquetado «en ventana». Entre esas 68, la mediana es 4 y el máximo 20: donde se publica sí separa, y por eso se publica ahí y no en todas.</p></dd>
+      <dd><p>h publicaciones con al menos h citas, contando solo 2020–2025. No es el h-index de carrera.</p><p class="nota">Restringido a la ventana del informe, es sistemáticamente mucho menor que el h-index de trayectoria completa. Con 6 años, 664 de las 814 fichas de autor tendrían h ≤ 1: sobre el conjunto entero el indicador casi no discrimina. Se muestra solo en fichas con 5 o más publicaciones, y siempre etiquetado «en ventana». Entre esas 68, la mediana es 4 y el máximo 20: donde se publica sí separa, y por eso se publica ahí y no en todas.</p></dd>
     </div>
     <div class="glosario-entrada" id="acceso-abierto">
       <dt>Acceso abierto</dt>
-      <dd><p>Estado OA declarado por Scopus. La ausencia de valor no significa «no es OA».</p><p class="nota">Disponible en 943 de 1.342 publicaciones (70,3 %). Vías: dorada (Gold), verde (Green), dorada híbrida (Hybrid gold) y bronce (Bronze); una publicación puede tener varias. Las 399 sin valor se muestran como «sin dato declarado», no como acceso cerrado.</p></dd>
+      <dd><p>Estado OA declarado por Scopus. La ausencia de valor no significa «no es OA».</p><p class="nota">Disponible en 935 de 1.333 publicaciones con métricas de SciVal (70,1 %). Vías: dorada (Gold), verde (Green), dorada híbrida (Hybrid gold) y bronce (Bronze); una publicación puede tener varias. Las 398 sin valor se muestran como «sin dato declarado», no como acceso cerrado.</p></dd>
     </div>
     <div class="glosario-entrada" id="ods-objetivos-de-desarrollo-sostenible">
       <dt>ODS — Objetivos de Desarrollo Sostenible</dt>
-      <dd><p>Mapeo de la publicación a los ODS de Naciones Unidas. Solo 38,8 % del corpus tiene ODS asignado.</p><p class="nota">Con cobertura del 38,8 %, se reporta como recuento de publicaciones con ODS asignado, nunca como distribución porcentual del total: eso implicaría que el 61,2 % restante no se relaciona con ningún ODS, lo cual no está establecido.</p></dd>
+      <dd><p>Mapeo de la publicación a los ODS de Naciones Unidas. Solo el 38,9 % del corpus tiene ODS asignado.</p><p class="nota">Con cobertura del 38,9 %, se reporta como recuento de publicaciones con ODS asignado, nunca como distribución porcentual del total: eso implicaría que el 61,1 % restante no se relaciona con ningún ODS, lo cual no está establecido.</p></dd>
     </div>
     <div class="glosario-entrada" id="conteo-completo">
       <dt>Conteo completo</dt>
-      <dd><p>Cada autor UFT recibe la publicación entera. Por eso la suma por autor supera el total institucional.</p><p class="nota">Una publicación con 3 autores UFT aporta 1 a cada uno. La suma de publicaciones por autor (1.960) excede el total de publicaciones (1.342). Es correcto y esperado: esa suma no es un total institucional.</p></dd>
+      <dd><p>Cada autor de la UFT recibe la publicación entera. Por eso la suma por autor supera el total institucional.</p><p class="nota">Una publicación con 3 autores de la UFT aporta 1 a cada uno. La suma de publicaciones por autor (1.943) excede el total de publicaciones (1.333). Es correcto y esperado: esa suma no es un total institucional.</p></dd>
     </div>
     <div class="glosario-entrada" id="formas-de-firma-vs-personas">
       <dt>Formas de firma vs. personas</dt>
-      <dd><p>888 formas de firma detectadas. El número de personas distintas es menor: hay variantes de nombre sin consolidar.</p><p class="nota">Sin un identificador persistente como ORCID —ausente en las fuentes— no es posible afirmar que dos variantes son la misma persona. 207 firmas comparten apellido base con otra variante y 29 nombres tienen más de un Scopus Author ID. Estas ambigüedades se declaran sin resolver: consolidarlas por similitud de nombre produciría fusiones erróneas entre homónimos.</p></dd>
+      <dd><p>814 fichas de autor, una por forma de firma. El número de personas distintas es menor: hay variantes de nombre sin consolidar.</p><p class="nota">Sin un identificador persistente como ORCID —ausente en las exportaciones de Scopus y SciVal— no es posible afirmar que dos variantes son la misma persona. 57 fichas reúnen más de un Scopus Author ID, y en 41 de ellas una revisión humana aún no confirma que correspondan a una misma persona. Estas ambigüedades se declaran sin resolver: consolidarlas por similitud de nombre produciría fusiones erróneas entre homónimos.</p></dd>
     </div>
     <div class="glosario-entrada" id="fecha-de-corte">
       <dt>Fecha de corte</dt>
-      <dd><p>Las citas están actualizadas al 30 de agosto de 2026. Un corte posterior daría cifras mayores.</p><p class="nota">Las citas se acumulan continuamente. Toda cifra de impacto es válida solo respecto de su corte. Las publicaciones de 2025 tienen entre 8 y 20 meses de ventana de citación: el 42 % aún no tiene citas, lo que hace sus indicadores provisionales.</p></dd>
+      <dd><p>Las citas de SciVal están actualizadas al 30 de agosto de 2026. Un corte posterior daría cifras mayores.</p><p class="nota">Las citas se acumulan continuamente. Toda cifra de impacto es válida solo respecto de su corte. Las publicaciones de 2025 tienen entre 8 y 20 meses de ventana de citación: el 39 % aún no tiene citas, lo que hace sus indicadores provisionales.</p></dd>
     </div>
     <div class="glosario-entrada" id="unidad-academica">
       <dt>Unidad académica</dt>
-      <dd><p>Inferida desde la afiliación declarada. Disponible en el 64,2 % de los casos; el resto figura como «No determinada».</p><p class="nota">No existe como campo en las fuentes: se extrae de la cadena de afiliación. El vocabulario de unidades fue validado institucionalmente por el responsable del proyecto el 26 de agosto de 2026. La comparación entre unidades está además afectada por la cobertura desigual de Scopus entre disciplinas: medicina aparece sobrerrepresentada frente a humanidades, artes y derecho por razones de indexación, no de productividad.</p></dd>
+      <dd><p>Inferida desde la afiliación declarada. Disponible en el 88,6 % de los pares autor × publicación; el resto figura como «No determinada».</p><p class="nota">No existe como campo en las fuentes: se extrae de la cadena de afiliación. El vocabulario de unidades fue validado institucionalmente por el responsable del proyecto el 26 de agosto de 2026. La comparación entre unidades está además afectada por la cobertura desigual de Scopus entre disciplinas: medicina aparece sobrerrepresentada frente a humanidades, artes y derecho por razones de indexación, no de productividad.</p></dd>
+    </div>
+    <div class="glosario-entrada" id="web-of-science-core-collection">
+      <dt>Web of Science Core Collection</dt>
+      <dd><p>Base bibliográfica de Clarivate. En este informe se analiza en su propio lente: sus cifras no se suman ni se promedian con las de Scopus.</p><p class="nota">Web of Science Core Collection selecciona las revistas y demás fuentes que indexa con criterios propios de Clarivate, distintos de los de Scopus. Cada base cubre una parte distinta de la producción y cuenta las citas desde lo que indexa: una misma obra puede tener citas distintas en cada una. La producción registrada en Web of Science se analiza en el lente Web of Science. Sus citas son las del día de la exportación, porque la base no declara fecha de corte, y la exportación no trae métricas normalizadas: el impacto normalizado por campo y año (CNCI) lo calcula InCites, que este informe no utiliza. Con Scopus solo se combina el recuento de obras distintas, en «Total de publicaciones».</p></dd>
+    </div>
+    <div class="glosario-entrada" id="lente-de-una-base">
+      <dt>Lente de una base</dt>
+      <dd><p>Análisis hecho con los datos de una sola base bibliográfica. Scopus y Web of Science tienen cada una el suyo, y sus cifras no se combinan.</p><p class="nota">Scopus y Web of Science difieren en las fuentes que indexan, en cómo clasifican los tipos documentales y en cómo cuentan las citas. Sumar o promediar sus cifras mezclaría coberturas distintas y produciría un valor que ninguna de las dos bases sostiene. Por eso cada base se analiza por separado: las secciones principales leen Scopus, con las métricas de SciVal, y el lente Web of Science lee solo Web of Science. Entre ambas solo se combina el recuento de obras distintas, en «Total de publicaciones»: para afirmar que dos registros son la misma obra se exige el mismo DOI o una revisión humana. La «Comparación entre bases» las contrasta lado a lado, sin fundirlas.</p></dd>
+    </div>
+    <div class="glosario-entrada" id="publicacion-altamente-citada-esi">
+      <dt>Publicación altamente citada (ESI)</dt>
+      <dd><p>Marca que Clarivate asigna, en Essential Science Indicators, a las publicaciones del 1 % más citado de su campo y año.</p><p class="nota">La marca «Highly Cited» la asigna Clarivate y se lee tal como viene en la exportación de Web of Science: este informe no la calcula. Compara cada publicación con las de su mismo campo de Essential Science Indicators y su mismo año de publicación, y Clarivate la actualiza periódicamente, de modo que una publicación puede ganarla o perderla entre una exportación y otra. Describe la atención que recibió una publicación, no su calidad. Se publica como recuento de los registros marcados.</p></dd>
     </div></dl>
 </div>
       <aside class="modulo ficha-tecnica" id="ficha-tecnica" aria-labelledby="ficha-tecnica-titulo">
@@ -1049,7 +1068,7 @@
           <td><code>emparejamiento por apellido+inicial</code></td>
           <td>—</td>
           <td>Crossref · registro de ORCID<span class="nota">Confiabilidad
-            <a href="#confiabilidad">media</a>. Excepción a la regla: su cobertura (268 de 829 fichas, 32,3 %) lo pondría en baja, pero su confiabilidad depende de cuán fundada está cada asignación, y cada ficha declara su evidencia.</span></td>
+            <a href="#confiabilidad">media</a>. Excepción a la regla: su cobertura (253 de 814 fichas, 31,1 %) lo pondría en baja, pero su confiabilidad depende de cuán fundada está cada asignación, y cada ficha declara su evidencia.</span></td>
         </tr><tr id="ind-X-03">
           <td class="mono">X-03</td>
           <td><strong>Financiamiento declarado</strong><br>Publicaciones que declaran financiamiento en Scopus<span class="nota"><b>Advertencia.</b> Cuenta las publicaciones que declaran financiamiento en Scopus, no el financiamiento recibido: quien no lo menciona queda como «no lo declara» aunque lo haya tenido. Los nombres de los financiadores no se unifican todavía.</span><span class="nota"><b>Nota de la figura.</b> Cuenta lo que la publicación declara en Scopus, no el financiamiento recibido: quien no lo menciona en los agradecimientos queda como «no lo declara» aunque lo haya tenido.</span></td>
@@ -1144,7 +1163,7 @@
             <a href="#confiabilidad">media</a></span></td>
         </tr><tr id="ind-AU-03">
           <td class="mono">AU-03</td>
-          <td><strong>h-index en ventana 2020-2025</strong><br>h sobre 2020–2025<span class="nota"><b>Advertencia.</b> No es el h-index de carrera. Ventana 2020-2025; solo se muestra cuando la muestra lo hace mínimamente legible (n≥5, 68 de las 829 entidades publicadas).</span></td>
+          <td><strong>h-index en ventana 2020-2025</strong><br>h sobre 2020–2025<span class="nota"><b>Advertencia.</b> No es el h-index de carrera: cuenta solo la ventana del informe. Se muestra solo en las fichas con 5 o más publicaciones, donde la muestra lo hace mínimamente legible.</span></td>
           <td><code>h clásico sobre el subconjunto</code></td>
           <td>—</td>
           <td>Scopus · SciVal<span class="nota">Confiabilidad
@@ -1432,28 +1451,28 @@
           <td><strong>Total de publicaciones en las dos bases</strong><br>Obras distintas en Scopus/SciVal o en Web of Science, y de qué base viene cada una<span class="nota"><b>Advertencia.</b> Cuenta obras distintas: las de Scopus y SciVal y las que solo indexa Web of Science. «En ambas» exige el mismo DOI o una revisión humana; un registro de WoS cuya correspondencia espera revisión no se cuenta. No suma citas ni métricas: cada base tiene las suyas en su lente.</span></td>
           <td><code>count del universo con la unión; partes: solo Scopus, en ambas, solo WoS</code></td>
           <td>Total en las dos bases · 1.529</td>
-          <td>Scopus · SciVal<span class="nota">Confiabilidad
+          <td>Scopus · SciVal · Web of Science<span class="nota">Confiabilidad
             <a href="#confiabilidad">alta</a></span></td>
         </tr><tr id="ind-PT-02">
           <td class="mono">PT-02</td>
           <td><strong>Producción anual en las dos bases</strong><br>Las tres partes de PT-01 por año de publicación<span class="nota"><b>Advertencia.</b> El año es el de Scopus para las obras que están en las dos bases y el de Web of Science para las que solo están allí.</span></td>
           <td><code>group by anio</code></td>
           <td>Total en las dos bases · 1.529</td>
-          <td>Scopus · SciVal<span class="nota">Confiabilidad
+          <td>Scopus · SciVal · Web of Science<span class="nota">Confiabilidad
             <a href="#confiabilidad">alta</a></span></td>
         </tr><tr id="ind-PT-03">
           <td class="mono">PT-03</td>
           <td><strong>Tipo documental en las dos bases</strong><br>Tipo y grupo documental de todas las obras<span class="nota"><b>Advertencia.</b> El tipo es el de Scopus para las obras que están en las dos bases. Web of Science indexa tipos que Scopus no indexa como documento —resúmenes de congreso, reseñas—, que solo aparecen aquí.</span></td>
           <td><code>group by tipo_documental, con cuántas de cada tipo solo están en WoS</code></td>
           <td>Total en las dos bases · 1.529</td>
-          <td>Scopus · SciVal<span class="nota">Confiabilidad
+          <td>Scopus · SciVal · Web of Science<span class="nota">Confiabilidad
             <a href="#confiabilidad">alta</a></span></td>
         </tr><tr id="ind-PT-04">
           <td class="mono">PT-04</td>
-          <td><strong>Obras que solo indexa Web of Science</strong><br>Lista de las obras de la unión que no están en Scopus<span class="nota"><b>Advertencia.</b> Se identifican por su UT, el identificador de Clarivate, cuyos términos de publicación están pendientes de confirmar (D-793). Sus citas se leen en el lente Web of Science.</span></td>
+          <td><strong>Obras que solo indexa Web of Science</strong><br>Lista de las obras de la unión que no están en Scopus<span class="nota"><b>Advertencia.</b> Se identifican por su UT, el identificador de Clarivate, que se publica aunque no se ha confirmado qué permite publicar su licencia (D-793). Sus citas se leen en el lente Web of Science.</span></td>
           <td><code>filas solo_wos: UT, título, año, tipo, fuente, DOI</code></td>
           <td>Total en las dos bases · 1.529</td>
-          <td>Scopus · SciVal<span class="nota">Confiabilidad
+          <td>Web of Science<span class="nota">Confiabilidad
             <a href="#confiabilidad">alta</a></span></td>
         </tr></tbody>
       </table></div>
